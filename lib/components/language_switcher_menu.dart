@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/i18n/locale_utils.dart';
@@ -30,19 +31,11 @@ class LanguageSwitcherMenu extends StatelessWidget {
               },
               child: Container(
                 padding: padding,
-                child: Text(
-                  LocaleUtils.getLocaleEmoji(current),
-                  style: const TextStyle(
-                    fontSize: 28,
-                    color: Colors.black87,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(0.5, 0.5),
-                        blurRadius: 1,
-                        color: Colors.black26,
-                      ),
-                    ],
-                  ),
+                child: CountryFlag.fromCountryCode(
+                  LocaleUtils.getCountryCode(current),
+                  shape: const RoundedRectangle(4),
+                  width: 32,
+                  height: 24,
                 ),
               ),
             ),
@@ -73,7 +66,6 @@ class LanguageSwitcherMenuDropdown extends StatelessWidget {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, _) {
         final current = localeProvider.locale;
-        final availableLocales = LocaleUtils.getAvailableLocales();
 
         return Theme(
           data: Theme.of(context).copyWith(
@@ -92,9 +84,11 @@ class LanguageSwitcherMenuDropdown extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       if (showEmoji) ...[
-                        Text(
-                          LocaleUtils.getLocaleEmoji(locale),
-                          style: const TextStyle(fontSize: 16),
+                        CountryFlag.fromCountryCode(
+                          LocaleUtils.getCountryCode(locale),
+                          shape: const RoundedRectangle(2),
+                          width: 20,
+                          height: 14,
                         ),
                         const SizedBox(width: 8),
                       ],
@@ -127,9 +121,11 @@ class LanguageSwitcherMenuDropdown extends StatelessWidget {
                   width: 1,
                 ),
               ),
-              child: Text(
-                LocaleUtils.getLocaleEmoji(current),
-                style: const TextStyle(fontSize: 20),
+              child: CountryFlag.fromCountryCode(
+                LocaleUtils.getCountryCode(current),
+                shape: const RoundedRectangle(3),
+                width: 24,
+                height: 18,
               ),
             ),
           ),
@@ -170,10 +166,11 @@ class LanguageSwitcherPill extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(width: 4),
-                  Icon(
-                    Icons.translate,
-                    size: 14,
-                    color: const Color(0xFF6E7274),
+                  CountryFlag.fromCountryCode(
+                    LocaleUtils.getCountryCode(localeProvider.locale),
+                    shape: const RoundedRectangle(3),
+                    width: 20,
+                    height: 14,
                   ),
                   const SizedBox(width: 6),
                   Text(

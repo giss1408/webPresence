@@ -47,6 +47,7 @@ dependencies:
   # Error Handling
   firebase_core: ^2.28.0
   firebase_analytics: ^10.10.0
+  country_flags: ^3.2.0
 
 dev_dependencies:
   flutter_test:

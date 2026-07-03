@@ -137,61 +137,82 @@ class WebsiteMenuBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeProvider = context.watch<LocaleProvider>();
     const Color navLinkColor = Color(0xFF6E7274);
-    return Container(
-      height: 66,
-      decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(color: Color(0x1A000000), offset: Offset(0, 2), blurRadius: 4)
-      ]),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isCompact = constraints.maxWidth < 720;
+        final isVeryCompact = constraints.maxWidth < 560;
+        final showBrandText = constraints.maxWidth >= 680;
+
+        return Container(
+          height: 66,
+          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Color(0x1A000000),
+              offset: Offset(0, 2),
+              blurRadius: 4,
+            )
+          ]),
+          padding: EdgeInsets.symmetric(
+            horizontal: isVeryCompact ? 8 : 16,
+            vertical: 8,
+          ),
+          child: Row(
+            children: [
           // Hamburger — opens the navigation bottom-sheet menu
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: onMenuPressed,
-              child: const Padding(
-                  padding: EdgeInsets.only(right: 16),
+              child: Padding(
+                  padding: EdgeInsets.only(right: isVeryCompact ? 8 : 16),
                   child: Icon(Icons.menu, color: textPrimary, size: 28)),
             ),
           ),
-          Flexible(
-            fit: FlexFit.loose,
+          Expanded(
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () =>
                     Navigator.of(context).popUntil((route) => route.isFirst),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 16, 5),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/images/logo.svg",
-                          height: 36, width: 36, fit: BoxFit.contain),
-                      const SizedBox(width: 10),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Regisse",
-                              style: headlineSecondaryTextStyle.copyWith(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFF1F2937)),
-                            ),
-                            TextSpan(
-                              text: "__",
-                              style: headlineSecondaryTextStyle.copyWith(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w700,
-                                  color: primary),
+                  padding: EdgeInsets.fromLTRB(0, 5, isVeryCompact ? 6 : 16, 5),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/images/logo.svg",
+                              height: 36, width: 36, fit: BoxFit.contain),
+                          if (showBrandText) ...[
+                            const SizedBox(width: 10),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Regisse",
+                                    style: headlineSecondaryTextStyle.copyWith(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFF1F2937)),
+                                  ),
+                                  TextSpan(
+                                    text: "__",
+                                    style: headlineSecondaryTextStyle.copyWith(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w700,
+                                        color: primary),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -379,13 +400,15 @@ class WebsiteMenuBar extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () => openUrl('https://www.youtube.com/@regisse'),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: ImageIcon(
-                    AssetImage("assets/images/icon_youtube_64x.png"),
-                    color: navLinkColor,
-                    size: 24),
-              ),
+              child: isCompact
+                  ? const SizedBox.shrink()
+                  : const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: ImageIcon(
+                          AssetImage("assets/images/icon_youtube_64x.png"),
+                          color: navLinkColor,
+                          size: 24),
+                    ),
             ),
           ),
           /*MouseRegion(
@@ -467,7 +490,8 @@ class WebsiteMenuBar extends StatelessWidget {
                 return GestureDetector(
                   onTap: () => themeProvider.toggleTheme(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: isVeryCompact ? 6 : 12),
                     child: Icon(
                       themeProvider.isDarkMode
                           ? Icons.light_mode
@@ -481,12 +505,19 @@ class WebsiteMenuBar extends StatelessWidget {
             ),
           ),
           // Language Switcher
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: LanguageSwitcherMenu(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: isVeryCompact ? 4 : 8),
+            child: LanguageSwitcherMenu(
+              padding: EdgeInsets.symmetric(
+                horizontal: isVeryCompact ? 4 : 8,
+                vertical: isVeryCompact ? 4 : 6,
+              ),
+            ),
           ),
-        ],
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -497,6 +528,7 @@ class GetStarted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeProvider = context.watch<LocaleProvider>();
+    final isNarrow = MediaQuery.of(context).size.width < 520;
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -518,14 +550,26 @@ class GetStarted extends StatelessWidget {
                   color: primaryLight,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 6,
+                  runSpacing: 2,
                   children: [
-                    Text("🇩🇪  Made in Germany  •  Propulsé par ",
-                        style: bodyTextStyle.copyWith(
-                            fontSize: 12, color: primary)),
-                    Image.asset("assets/images/google_logo.png",
-                        width: 52, height: 18, fit: BoxFit.contain),
+                    Text(
+                      "🇩🇪  Made in Germany  •  Propulsé par",
+                      style: bodyTextStyle.copyWith(
+                        fontSize: 12,
+                        color: primary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Image.asset(
+                      "assets/images/google_logo.png",
+                      width: 52,
+                      height: 18,
+                      fit: BoxFit.contain,
+                    ),
                   ],
                 ),
               ),
@@ -634,90 +678,83 @@ class GetStarted extends StatelessWidget {
               ),
 
               // ── CTA buttons ───────────────────────────────────────────────
-              ResponsiveRowColumn(
-                layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
-                    ? ResponsiveRowColumnType.COLUMN
-                    : ResponsiveRowColumnType.ROW,
-                rowMainAxisAlignment: MainAxisAlignment.center,
-                rowCrossAxisAlignment: CrossAxisAlignment.center,
-                rowSpacing: 16,
-                columnSpacing: 12,
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 16,
+                runSpacing: 12,
                 children: [
-                  ResponsiveRowColumnItem(
-                    child: TextButton(
-                      onPressed: () => WhatsAppService.openWhatsApp(
-                        message: localeProvider.tr('wa.project'),
-                      ),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all<Color>(primary),
-                          overlayColor:
-                              WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                              if (states.contains(WidgetState.hovered)) {
-                                return buttonPrimaryDark;
-                              }
-                              if (states.contains(WidgetState.focused) ||
-                                  states.contains(WidgetState.pressed)) {
-                                return buttonPrimaryDarkPressed;
-                              }
-                              return primary;
-                            },
-                          ),
-                          shape:
-                              WidgetStateProperty.all(
-                                  const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(4)))),
-                          padding: WidgetStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 48)),
-                          side: WidgetStateProperty.resolveWith<BorderSide>(
-                              (Set<WidgetState> states) {
+                  TextButton(
+                    onPressed: () => WhatsAppService.openWhatsApp(
+                      message: localeProvider.tr('wa.project'),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(primary),
+                        overlayColor:
+                            WidgetStateProperty.resolveWith<Color>(
+                          (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.hovered)) {
+                              return buttonPrimaryDark;
+                            }
                             if (states.contains(WidgetState.focused) ||
                                 states.contains(WidgetState.pressed)) {
-                              return const BorderSide(
-                                  width: 3,
-                                  color: buttonPrimaryPressedOutline);
+                              return buttonPrimaryDarkPressed;
                             }
+                            return primary;
+                          },
+                        ),
+                        shape:
+                            WidgetStateProperty.all(
+                                const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(4)))),
+                        padding: WidgetStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 48)),
+                        side: WidgetStateProperty.resolveWith<BorderSide>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.focused) ||
+                              states.contains(WidgetState.pressed)) {
                             return const BorderSide(
-                                width: 3, color: Colors.transparent);
-                          })),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Démarrer mon projet",
-                              style: buttonTextStyle.copyWith(fontSize: 17)),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.arrow_forward,
-                              color: Colors.white, size: 18),
-                        ],
-                      ),
+                                width: 3,
+                                color: buttonPrimaryPressedOutline);
+                          }
+                          return const BorderSide(
+                              width: 3, color: Colors.transparent);
+                        })),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("Démarrer mon projet",
+                            style: buttonTextStyle.copyWith(fontSize: 17)),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward,
+                            color: Colors.white, size: 18),
+                      ],
                     ),
                   ),
-                  ResponsiveRowColumnItem(
-                    child: TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/travel'),
-                      style: TextButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4))),
-                        side: const BorderSide(color: primary, width: 1.5),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 32),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.play_circle_outline,
-                              size: 22, color: primary),
-                          const SizedBox(width: 8),
-                          Text("Voir nos réalisations",
-                              style: buttonTextStyle.copyWith(
-                                  fontSize: 16, color: primary)),
-                        ],
-                      ),
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/travel'),
+                    style: TextButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(4))),
+                      side: const BorderSide(color: primary, width: 1.5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 32),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.play_circle_outline,
+                            size: 22, color: primary),
+                        const SizedBox(width: 8),
+                        Text("Voir nos réalisations",
+                            style: buttonTextStyle.copyWith(
+                                fontSize: 16, color: primary)),
+                      ],
                     ),
                   ),
                 ],
@@ -727,7 +764,9 @@ class GetStarted extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 32),
                 child: Text(
-                  "✓ Sans engagement initial   ✓ Accompagnement dédié   ✓ Support continu",
+                  isNarrow
+                      ? "✓ Sans engagement initial\n✓ Accompagnement dédié\n✓ Support continu"
+                      : "✓ Sans engagement initial   ✓ Accompagnement dédié   ✓ Support continu",
                   style: bodyTextStyle.copyWith(
                       fontSize: 13,
                       color: const Color(0xFF888888),
@@ -1917,85 +1956,78 @@ class InstallFlutter extends StatelessWidget {
               const SizedBox(height: 40),
 
               // ── CTA row ──────────────────────────────────────────────────
-              ResponsiveRowColumn(
-                layout: ResponsiveBreakpoints.of(context)
-                        .smallerThan(DESKTOP)
-                    ? ResponsiveRowColumnType.COLUMN
-                    : ResponsiveRowColumnType.ROW,
-                rowMainAxisAlignment: MainAxisAlignment.center,
-                rowSpacing: 16,
-                columnSpacing: 12,
+              Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 16,
+                runSpacing: 12,
                 children: [
-                  ResponsiveRowColumnItem(
-                    child: TextButton(
-                      onPressed: () => WhatsAppService.openWhatsApp(
-                        message: localeProvider.tr('wa.appointment'),
-                      ),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all<Color>(primary),
-                          overlayColor:
-                              WidgetStateProperty.resolveWith<Color>(
-                            (Set<WidgetState> states) {
-                              if (states.contains(WidgetState.hovered)) {
-                                return buttonPrimaryDark;
-                              }
-                              if (states.contains(WidgetState.focused) ||
-                                  states.contains(WidgetState.pressed)) {
-                                return buttonPrimaryDarkPressed;
-                              }
-                              return primary;
-                            },
-                          ),
-                          shape: WidgetStateProperty.all(
-                              const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(4)))),
-                          padding: WidgetStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 48)),
-                          side: WidgetStateProperty.resolveWith<BorderSide>(
-                              (Set<WidgetState> states) {
+                  TextButton(
+                    onPressed: () => WhatsAppService.openWhatsApp(
+                      message: localeProvider.tr('wa.appointment'),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all<Color>(primary),
+                        overlayColor:
+                            WidgetStateProperty.resolveWith<Color>(
+                          (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.hovered)) {
+                              return buttonPrimaryDark;
+                            }
                             if (states.contains(WidgetState.focused) ||
                                 states.contains(WidgetState.pressed)) {
-                              return const BorderSide(
-                                  width: 3,
-                                  color: buttonPrimaryPressedOutline);
+                              return buttonPrimaryDarkPressed;
                             }
+                            return primary;
+                          },
+                        ),
+                        shape: WidgetStateProperty.all(
+                            const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(4)))),
+                        padding: WidgetStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 48)),
+                        side: WidgetStateProperty.resolveWith<BorderSide>(
+                            (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.focused) ||
+                              states.contains(WidgetState.pressed)) {
                             return const BorderSide(
-                                width: 3, color: Colors.transparent);
-                          })),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Prendre rendez-vous",
-                              style:
-                                  buttonTextStyle.copyWith(fontSize: 17)),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.calendar_today_outlined,
-                              color: Colors.white, size: 16),
-                        ],
-                      ),
+                                width: 3,
+                                color: buttonPrimaryPressedOutline);
+                          }
+                          return const BorderSide(
+                              width: 3, color: Colors.transparent);
+                        })),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("Prendre rendez-vous",
+                            style:
+                                buttonTextStyle.copyWith(fontSize: 17)),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.calendar_today_outlined,
+                            color: Colors.white, size: 16),
+                      ],
                     ),
                   ),
-                  ResponsiveRowColumnItem(
-                    child: TextButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/travel'),
-                      style: TextButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4))),
-                        side: const BorderSide(
-                            color: Color(0xFF4A6F8A), width: 1.5),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 32),
-                      ),
-                      child: Text("Voir nos réalisations",
-                          style: buttonTextStyle.copyWith(
-                              fontSize: 16,
-                              color: const Color(0xFFB0BEC5))),
+                  TextButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/travel'),
+                    style: TextButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(4))),
+                      side: const BorderSide(
+                          color: Color(0xFF4A6F8A), width: 1.5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 32),
                     ),
+                    child: Text("Voir nos réalisations",
+                        style: buttonTextStyle.copyWith(
+                            fontSize: 16,
+                            color: const Color(0xFFB0BEC5))),
                   ),
                 ],
               ),
@@ -2004,7 +2036,9 @@ class InstallFlutter extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 32),
                 child: Text(
-                  "✓ Réponse sous 24 h   ✓ Devis gratuit   ✓ Équipe dédiée",
+                  MediaQuery.of(context).size.width < 520
+                      ? "✓ Réponse sous 24 h\n✓ Devis gratuit\n✓ Équipe dédiée"
+                      : "✓ Réponse sous 24 h   ✓ Devis gratuit   ✓ Équipe dédiée",
                   style: bodyTextStyle.copyWith(
                       fontSize: 13,
                       color: const Color(0xFF607D8B),

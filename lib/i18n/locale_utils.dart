@@ -43,6 +43,20 @@ class LocaleUtils {
     }
   }
 
+  /// Map an app locale to an ISO country code for flag rendering
+  static String getCountryCode(String locale) {
+    switch (locale) {
+      case 'fr':
+        return 'FR';
+      case 'en':
+        return 'GB';
+      case 'de':
+        return 'DE';
+      default:
+        return 'UN';
+    }
+  }
+
   /// Convert string locale code to Flutter Locale object
   static Locale toLocale(String code) {
     if (!supportedLocales.contains(code)) {

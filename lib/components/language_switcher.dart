@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
+import 'package:flutter_website/i18n/locale_utils.dart';
 
 /// Compact language switcher that cycles FR → EN → DE
 class LanguageSwitcher extends StatelessWidget {
@@ -25,7 +27,12 @@ class LanguageSwitcher extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.translate, size: 16, color: const Color(0xFF6E7274)),
+                  CountryFlag.fromCountryCode(
+                    LocaleUtils.getCountryCode(current),
+                    shape: const RoundedRectangle(3),
+                    width: 22,
+                    height: 16,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     current.toUpperCase(),
