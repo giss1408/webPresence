@@ -2680,6 +2680,8 @@ class DigitalSolutionsAfrica extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeProvider = context.watch<LocaleProvider>();
     final isMobile = MediaQuery.of(context).size.width < 850;
+    final titleColor = Theme.of(context).colorScheme.onSurface;
+    final subtitleColor = Theme.of(context).colorScheme.onSurfaceVariant;
 
     return Column(
       children: [
@@ -2708,6 +2710,7 @@ class DigitalSolutionsAfrica extends StatelessWidget {
           style: headlineSecondaryTextStyle.copyWith(
             fontSize: isMobile ? 28 : 40,
             fontWeight: FontWeight.w700,
+            color: titleColor,
           ),
           textAlign: TextAlign.center,
         ),
@@ -2719,7 +2722,7 @@ class DigitalSolutionsAfrica extends StatelessWidget {
             localeProvider.tr('dsa.subtitle'),
             style: bodyTextStyle.copyWith(
               fontSize: 16,
-              color: Colors.black54,
+              color: subtitleColor,
               height: 1.6,
             ),
             textAlign: TextAlign.center,
