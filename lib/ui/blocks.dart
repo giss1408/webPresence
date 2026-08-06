@@ -94,6 +94,7 @@ class WebsiteMenuBar extends StatelessWidget {
                       final route = routeMap[label] ?? '/';
                       Navigator.pushNamed(context, route);
                     },
+
                   );
                 }),
                 const SizedBox(height: 16),
@@ -1203,7 +1204,7 @@ class BeautifulUI extends StatelessWidget {
                             letterSpacing: 0.9)),
                   ),
                   const SizedBox(height: 14),
-                  const Text("Interfaces Conçues pour Convertir",
+                  const Text("Interfaces qui transforment vos utilisateurs en clients",
                       style: headlineTextStyle),
                   const SizedBox(height: 10),
                   Container(
@@ -2150,7 +2151,7 @@ class ServicesShowcase extends StatelessWidget {
         ),
         _ServicePanel(
           tag: "DESIGN & UX",
-          title: "Interfaces qui\nFont Convertir",
+          title: "Interfaces qui\ntransforment vos utilisateurs\nen clients",
           description:
               "Design centré utilisateur, prototypage rapide et tests A/B. "
               "Chaque écran est conçu pour réduire la friction, augmenter "
@@ -3102,13 +3103,18 @@ class CompactFooterBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeProvider = context.watch<LocaleProvider>();
-    return GestureDetector(
-      onTap: () => _showFullFooter(context),
-      child: Container(
-        color: backgroundDark,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          children: [
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: GestureDetector(
+        onTap: () => _showFullFooter(context),
+        child: Container(
+          width: double.infinity,
+          constraints: const BoxConstraints(minHeight: 56),
+          color: backgroundDark,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            children: [
             // Brand
             SvgPicture.asset("assets/images/logo.svg",
                 height: 24, width: 24, fit: BoxFit.contain),
@@ -3163,6 +3169,7 @@ class CompactFooterBanner extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 
@@ -3181,159 +3188,164 @@ class CompactFooterBanner extends StatelessWidget {
           builder: (_, controller) {
             final isMobile =
                 MediaQuery.of(context).size.width < 850;
-            return Container(
-              decoration: const BoxDecoration(
-                color: backgroundDark,
-                borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-              padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 24 : 60, vertical: 24),
-              child: SingleChildScrollView(
-                controller: controller,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Drag handle
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 4,
-                        margin: const EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.25),
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    // Brand
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset("assets/images/logo.svg",
-                            height: 36, width: 36, fit: BoxFit.contain),
-                        const SizedBox(width: 10),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Regisse",
-                                style: headlineSecondaryTextStyle.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white),
-                              ),
-                              TextSpan(
-                                text: "__",
-                                style: headlineSecondaryTextStyle.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: primary),
-                              ),
-                            ],
+            return SafeArea(
+              top: false,
+              bottom: true,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: backgroundDark,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16)),
+                ),
+                padding: EdgeInsets.symmetric(
+                    horizontal: isMobile ? 24 : 60, vertical: 24),
+                child: SingleChildScrollView(
+                  controller: controller,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Drag handle
+                      Center(
+                        child: Container(
+                          width: 40,
+                          height: 4,
+                          margin: const EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.25),
+                            borderRadius: BorderRadius.circular(2),
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Transformez vos idées en solutions digitales.",
-                      style: bodyTextStyle.copyWith(
-                        fontSize: 13,
-                        color: Colors.white.withOpacity(0.55),
-                        height: 1.5,
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Social
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () =>
-                              openUrl("https://www.youtube.com/@regisse"),
-                          borderRadius: BorderRadius.circular(6),
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Image.asset(
-                              "assets/images/icon_youtube_64x.png",
-                              height: 24,
-                              width: 24,
-                              color: Colors.white.withOpacity(0.6),
+                      // Brand
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset("assets/images/logo.svg",
+                              height: 36, width: 36, fit: BoxFit.contain),
+                          const SizedBox(width: 10),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Regisse",
+                                  style: headlineSecondaryTextStyle.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white),
+                                ),
+                                TextSpan(
+                                  text: "__",
+                                  style: headlineSecondaryTextStyle.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: primary),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 28),
-                    // Quick links
-                    Text(
-                      "LIENS UTILES",
-                      style: bodyTextStyle.copyWith(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: primary,
-                        letterSpacing: 1.4,
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    _SheetLink(label: "Services", onTap: () => Navigator.pop(ctx)),
-                    const SizedBox(height: 8),
-                    _SheetLink(
-                        label: "Conditions Générales d'Utilisation",
-                        onTap: () => Navigator.pop(ctx)),
-                    _SheetLink(label: "Sécurité", onTap: () => Navigator.pop(ctx)),
-                    const SizedBox(height: 8),
-                    _SheetLink(
-                        label: "Confidentialité",
-                        onTap: () => Navigator.pop(ctx)),
-                    const SizedBox(height: 28),
-                    // Contact
-                    Text(
-                      "CONTACT",
-                      style: bodyTextStyle.copyWith(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: primary,
-                        letterSpacing: 1.4,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      "Berlin · Paris · Télétravail",
-                      style: bodyTextStyle.copyWith(
-                        fontSize: 13,
-                        color: Colors.white.withOpacity(0.65),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    InkWell(
-                      onTap: () => openUrl("mailto:contact@regisse.de"),
-                      child: Text(
-                        "contact@regisse.de",
+                      const SizedBox(height: 8),
+                      Text(
+                        "Transformez vos idées en solutions digitales.",
                         style: bodyTextStyle.copyWith(
                           fontSize: 13,
-                          color: primary,
-                          decoration: TextDecoration.underline,
-                          decorationColor: primary,
+                          color: Colors.white.withOpacity(0.55),
+                          height: 1.5,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 28),
-                    Divider(
-                        color: Colors.white.withOpacity(0.10), thickness: 1),
-                    const SizedBox(height: 12),
-                    Text(
-                      "© ${DateTime.now().year} ${localeProvider.tr('footer.copyright')}",
-                      style: bodyTextStyle.copyWith(
-                        fontSize: 12,
-                        color: Colors.white.withOpacity(0.40),
+                      const SizedBox(height: 16),
+                      // Social
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () =>
+                                openUrl("https://www.youtube.com/@regisse"),
+                            borderRadius: BorderRadius.circular(6),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: Image.asset(
+                                "assets/images/icon_youtube_64x.png",
+                                height: 24,
+                                width: 24,
+                                color: Colors.white.withOpacity(0.6),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 28),
+                      // Quick links
+                      Text(
+                        "LIENS UTILES",
+                        style: bodyTextStyle.copyWith(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: primary,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _SheetLink(label: "Services", onTap: () => Navigator.pop(ctx)),
+                      const SizedBox(height: 8),
+                      _SheetLink(
+                          label: "Conditions Générales d'Utilisation",
+                          onTap: () => Navigator.pop(ctx)),
+                      _SheetLink(label: "Sécurité", onTap: () => Navigator.pop(ctx)),
+                      const SizedBox(height: 8),
+                      _SheetLink(
+                          label: "Confidentialité",
+                          onTap: () => Navigator.pop(ctx)),
+                      const SizedBox(height: 28),
+                      // Contact
+                      Text(
+                        "CONTACT",
+                        style: bodyTextStyle.copyWith(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: primary,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        "Berlin · Paris · Télétravail",
+                        style: bodyTextStyle.copyWith(
+                          fontSize: 13,
+                          color: Colors.white.withOpacity(0.65),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      InkWell(
+                        onTap: () => openUrl("mailto:contact@regisse.de"),
+                        child: Text(
+                          "contact@regisse.de",
+                          style: bodyTextStyle.copyWith(
+                            fontSize: 13,
+                            color: primary,
+                            decoration: TextDecoration.underline,
+                            decorationColor: primary,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                      Divider(
+                          color: Colors.white.withOpacity(0.10), thickness: 1),
+                      const SizedBox(height: 12),
+                      Text(
+                        "© ${DateTime.now().year} ${localeProvider.tr('footer.copyright')}",
+                        style: bodyTextStyle.copyWith(
+                          fontSize: 12,
+                          color: Colors.white.withOpacity(0.40),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
           },
+
         );
       },
     );

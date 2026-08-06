@@ -180,7 +180,9 @@ class _HomePageState extends State<_HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: _menuOpen ? null : const CompactFooterBanner(),
+      bottomNavigationBar: _menuOpen
+          ? null
+          : SafeArea(top: false, bottom: true, child: const CompactFooterBanner()),
       // Floating action button for scroll to top
       floatingActionButton: _buildFloatingActionButton(),
     );

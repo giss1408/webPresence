@@ -127,7 +127,7 @@ class Translations {
                         'de': 'Wir entwickeln robuste SaaS-Plattformen, die an Ihre Geschäftsprozesse angepasst sind. Von der Multi-Tenant-Authentifizierung bis zu Analyse-Dashboards — jede Funktion ist auf Ihre Branche und Benutzer zugeschnitten.'},
     'ss.panel1_link': {'fr': 'Voir nos solutions SaaS →', 'en': 'View our SaaS solutions →', 'de': 'Unsere SaaS-Lösungen ansehen →'},
     'ss.panel2_tag': {'fr': 'DESIGN & UX', 'en': 'DESIGN & UX', 'de': 'DESIGN & UX'},
-    'ss.panel2_title': {'fr': 'Interfaces qui\nFont Convertir', 'en': 'Interfaces that\nConvert', 'de': 'Oberflächen die\nKonvertieren'},
+    'ss.panel2_title': {'fr': 'Interfaces qui\ntransforment vos utilisateurs\nen clients', 'en': 'Interfaces that\nConvert', 'de': 'Oberflächen die\nKonvertieren'},
     'ss.panel2_desc': {'fr': 'Design centré utilisateur, prototypage rapide et tests A/B. Chaque écran est conçu pour réduire la friction, augmenter l\'engagement et refléter votre identité de marque.',
                         'en': 'User-centered design, rapid prototyping and A/B testing. Every screen is designed to reduce friction, increase engagement and reflect your brand identity.',
                         'de': 'Benutzerzentriertes Design, schnelles Prototyping und A/B-Tests. Jeder Bildschirm ist darauf ausgelegt, Reibung zu reduzieren, Engagement zu steigern und Ihre Markenidentität widerzuspiegeln.'},
@@ -202,7 +202,7 @@ class Translations {
 
     // ── BeautifulUI section ──────────────────────────────────────────
     'bui.badge': {'fr': 'DESIGN & UX', 'en': 'DESIGN & UX', 'de': 'DESIGN & UX'},
-    'bui.title': {'fr': 'Interfaces Conçues pour Convertir', 'en': 'Interfaces Designed to Convert', 'de': 'Oberflächen, die Konvertieren'},
+    'bui.title': {'fr': 'Interfaces conçues pour convertir vos visiteurs en clients', 'en': 'Interfaces Designed to Convert', 'de': 'Oberflächen, die Konvertieren'},
     'bui.desc': {'fr': 'Vos utilisateurs méritent mieux qu\'un template générique. Chaque écran est pensé pour guider l\'action, renforcer votre identité et offrir une expérience fluide.',
                   'en': 'Your users deserve better than a generic template. Every screen is designed to guide action, strengthen your brand identity and provide a smooth experience.',
                   'de': 'Ihre Benutzer verdienen mehr als eine generische Vorlage. Jeder Bildschirm ist darauf ausgelegt, Aktionen zu führen, Ihre Markenidentität zu stärken und ein reibungsloses Erlebnis zu bieten.'},
