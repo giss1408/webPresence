@@ -47,9 +47,9 @@ class WebsiteMenuBar extends StatelessWidget {
         final routeMap = {
           localeProvider.tr('menu.home'): '/',
           localeProvider.tr('menu.services'): '/',
-          localeProvider.tr('menu.portfolio'): '/travel',
+          localeProvider.tr('menu.portfolio'): '/portfolio',
           localeProvider.tr('menu.blog'): '/',
-          localeProvider.tr('menu.contact'): '/travel',
+          localeProvider.tr('menu.contact'): '/portfolio',
         };
         return Padding(
           padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom),
@@ -737,7 +737,7 @@ class GetStarted extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, '/travel'),
+                        Navigator.pushNamed(context, '/portfolio'),
                     style: TextButton.styleFrom(
                       shape: const RoundedRectangleBorder(
                           borderRadius:
@@ -2015,7 +2015,7 @@ class InstallFlutter extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, '/travel'),
+                        Navigator.pushNamed(context, '/portfolio'),
                     style: TextButton.styleFrom(
                       shape: const RoundedRectangleBorder(
                           borderRadius:

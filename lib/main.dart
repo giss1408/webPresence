@@ -15,6 +15,7 @@ import 'package:flutter_website/pages/immobilier_page.dart';
 import 'package:flutter_website/pages/loisir_page.dart';
 import 'package:flutter_website/pages/tourism_page.dart';
 import 'package:flutter_website/pages/analytics_dashboard_page.dart';
+import 'package:flutter_website/pages/portfolio_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (context) => const _HomePage(),
+            '/portfolio': (context) => const PortfolioPage(),
             '/travel': (context) => const TravelPage(),
             '/immobilier': (context) => const ImmobilierPage(),
             '/loisir': (context) => const LoisirPage(),
