@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-/// A convenience widget to wrap main blocks with:
-///  - ResponsiveContraints for max width.
-///  - A Center to allow constraints to work in a List.
+/// Centers a home page block and caps its width per breakpoint.
 class BlockWrapper extends StatelessWidget {
   final Widget widget;
 
@@ -12,9 +9,13 @@ class BlockWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = context.screenWidth;
+    final maxWidth = width < 850 ? 600.0 : (width <= 1080 ? 700.0 : 1280.0);
     return Center(
-      child: ResponsiveConstraints(
-          conditionalConstraints: blockWidthConstraints, child: widget),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: widget,
+      ),
     );
   }
 }

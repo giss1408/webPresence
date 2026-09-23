@@ -1,30 +1,26 @@
+# Alternative to the Render static site (render.yaml): a container serving the
+# same build with nginx. Works as a Render "Docker" web service or anywhere else.
+
 # ─── Stage 1: Build ───────────────────────────────────────────────────────────
-# Pin to the exact Flutter version in use (matches pubspec.yaml: >=3.24.0).
-# Bump this tag intentionally when upgrading Flutter.
+# Keep in sync with FLUTTER_VERSION in render.yaml.
 FROM ghcr.io/cirruslabs/flutter:3.24.2 AS builder
 
 WORKDIR /app
 
-# Copy manifests first so dependency resolution is cached independently of
-# source-code changes.  The layer is only invalidated when pubspec.* change.
+# Resolve dependencies first so this layer is cached until pubspec.* change.
 COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
-# Copy the rest of the source tree and build a release-mode web bundle.
 COPY . .
-RUN flutter build web --release
+RUN flutter build web --release --pwa-strategy=none
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────
-# Discard the Flutter SDK entirely; serve only the ~5 MB of compiled assets.
 FROM nginx:1.26-alpine AS runner
 
-# Custom config: serves the Flutter SPA and redirects unknown paths to
-# index.html so client-side routing works on hard reload / direct URL access.
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Replace default web root with the compiled Flutter output.
+# The nginx image renders /etc/nginx/templates/*.template with envsubst at
+# start-up, so the server listens on $PORT (set by Render; 8080 by default).
+ENV PORT=8080
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=builder /app/build/web /usr/share/nginx/html
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080

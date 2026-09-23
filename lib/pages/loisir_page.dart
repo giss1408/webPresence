@@ -3,7 +3,6 @@ import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class LoisirPage extends StatelessWidget {
   const LoisirPage({super.key});
 
@@ -14,8 +13,8 @@ class LoisirPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(tr('loisir.title')),
         elevation: 0,
-        backgroundColor: ModernColors.backgroundCard,
-        foregroundColor: ModernColors.textPrimary,
+        backgroundColor: context.palette.header,
+        foregroundColor: context.palette.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -28,7 +27,7 @@ class LoisirPage extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [ModernColors.accentPurple, ModernColors.primary],
                   begin: Alignment.topLeft,
@@ -65,29 +64,35 @@ class LoisirPage extends StatelessWidget {
                   children: [
                     Text(
                       tr('loisir.popular'),
-                      style: ModernTypography.headlineLarge,
+                      style: ModernTypography.headlineLarge
+                          .copyWith(color: context.palette.textPrimary),
                     ),
                     const SizedBox(height: 32),
-                    GridView.count(
-                      crossAxisCount: 3,
+                    GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.screenWidth < 600
+                            ? 1
+                            : (context.screenWidth < 1024 ? 2 : 3),
+                        mainAxisExtent: 260,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 24,
+                      ),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      children: [
+                      children: const [
                         _ActivityCard(
-                          title: 'Sports & Fitness',
-                          description: 'Gyms, sports clubs, outdoor activities',
+                          title: 'loisir.a1_title',
+                          description: 'loisir.a1_desc',
                           icon: Icons.sports_soccer,
                         ),
                         _ActivityCard(
-                          title: 'Arts & Culture',
-                          description: 'Museums, galleries, theaters, concerts',
+                          title: 'loisir.a2_title',
+                          description: 'loisir.a2_desc',
                           icon: Icons.palette,
                         ),
                         _ActivityCard(
-                          title: 'Dining & Cuisine',
-                          description: 'Restaurants, cafes, wine bars',
+                          title: 'loisir.a3_title',
+                          description: 'loisir.a3_desc',
                           icon: Icons.restaurant,
                         ),
                       ],
@@ -118,9 +123,9 @@ class _ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ModernColors.backgroundCard,
+        color: context.palette.surface,
         borderRadius: BorderRadius.circular(ModernRadius.lg),
-        border: Border.all(color: ModernColors.border, width: 1),
+        border: Border.all(color: context.palette.border),
         boxShadow: ModernShadows.elevation2,
       ),
       padding: const EdgeInsets.all(24),
@@ -130,15 +135,16 @@ class _ActivityCard extends StatelessWidget {
           Icon(icon, size: 48, color: ModernColors.accentPurple),
           const SizedBox(height: 16),
           Text(
-            title,
-            style: ModernTypography.titleLarge,
+            context.watch<LocaleProvider>().tr(title),
+            style: ModernTypography.titleLarge
+                .copyWith(color: context.palette.textPrimary),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            description,
+            context.watch<LocaleProvider>().tr(description),
             style: ModernTypography.bodyMedium.copyWith(
-              color: ModernColors.textSecondary,
+              color: context.palette.textSecondary,
             ),
             textAlign: TextAlign.center,
           ),

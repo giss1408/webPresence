@@ -59,7 +59,10 @@ class _FloatingWhatsAppButtonState extends State<FloatingWhatsAppButton>
     if (widget.customMessage != null) {
       WhatsAppService.openWhatsAppWithCustomMessage(widget.customMessage!);
     } else if (widget.templateKey != null) {
-      WhatsAppService.openWhatsAppWithTemplate(widget.templateKey!);
+      WhatsAppService.openWhatsAppWithTemplate(
+        widget.templateKey!,
+        locale: context.read<LocaleProvider>().locale,
+      );
     } else {
       WhatsAppService.openWhatsApp();
     }

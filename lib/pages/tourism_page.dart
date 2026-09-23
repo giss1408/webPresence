@@ -26,13 +26,13 @@ class _TourismPageState extends State<TourismPage> {
     ];
 
     return Scaffold(
-      backgroundColor: ModernColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
             // ============ APP BAR ============
             Container(
-              color: Colors.white,
+              color: context.palette.header,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -40,7 +40,7 @@ class _TourismPageState extends State<TourismPage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.arrow_back_rounded),
-                        color: ModernColors.textPrimary,
+                        color: context.palette.textPrimary,
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       const Spacer(),
@@ -51,7 +51,7 @@ class _TourismPageState extends State<TourismPage> {
                               text: 'Regisse',
                               style: ModernTypography.titleLarge.copyWith(
                                 fontWeight: FontWeight.w700,
-                                color: ModernColors.textPrimary,
+                                color: context.palette.textPrimary,
                               ),
                             ),
                             TextSpan(
@@ -65,7 +65,7 @@ class _TourismPageState extends State<TourismPage> {
                               text: ' Tours',
                               style: ModernTypography.titleLarge.copyWith(
                                 fontWeight: FontWeight.w400,
-                                color: ModernColors.textTertiary,
+                                color: context.palette.textMuted,
                               ),
                             ),
                           ],
@@ -80,17 +80,19 @@ class _TourismPageState extends State<TourismPage> {
             ),
 
             // ============ HERO SECTION ============
+            // Minimum (not fixed) height so the hero grows with longer
+            // translations instead of overflowing on small phones.
             SizedBox(
-              height: isMobile ? 340 : 460,
               width: double.infinity,
               child: Stack(
-                fit: StackFit.expand,
                 children: [
-                  Image.asset(
-                    'assets/images/ivory_coast_hero.jpg',
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      color: ModernColors.primary,
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/images/ivory_coast_hero.jpg',
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: ModernColors.primary,
+                      ),
                     ),
                   ),
                   DecoratedBox(
@@ -104,11 +106,14 @@ class _TourismPageState extends State<TourismPage> {
                         end: Alignment.topCenter,
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          24, isMobile ? 60 : 100, 24, 40),
+                    child: Container(
+                      constraints:
+                          BoxConstraints(minHeight: isMobile ? 340 : 460),
+                      alignment: Alignment.bottomLeft,
+                      padding:
+                          EdgeInsets.fromLTRB(24, isMobile ? 60 : 100, 24, 40),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
@@ -117,8 +122,8 @@ class _TourismPageState extends State<TourismPage> {
                             decoration: BoxDecoration(
                               color: Colors.white.withAlpha(30),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Colors.white.withAlpha(60)),
+                              border:
+                                  Border.all(color: Colors.white.withAlpha(60)),
                             ),
                             child: Text(
                               localeProvider.tr('tourism.hero_badge'),
@@ -191,6 +196,7 @@ class _TourismPageState extends State<TourismPage> {
                     localeProvider.tr('tourism.section_title'),
                     style: ModernTypography.headlineLarge.copyWith(
                       fontSize: isMobile ? 26 : 32,
+                      color: context.palette.textPrimary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -198,7 +204,7 @@ class _TourismPageState extends State<TourismPage> {
                   Text(
                     localeProvider.tr('tourism.section_subtitle'),
                     style: ModernTypography.bodyLarge.copyWith(
-                      color: ModernColors.textSecondary,
+                      color: context.palette.textSecondary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -210,7 +216,7 @@ class _TourismPageState extends State<TourismPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: ResponsiveRowColumn(
-                layout: ResponsiveBreakpoints.of(context).smallerThan(DESKTOP)
+                layout: !context.isDesktop
                     ? ResponsiveRowColumnType.COLUMN
                     : ResponsiveRowColumnType.ROW,
                 rowSpacing: 24,
@@ -227,7 +233,6 @@ class _TourismPageState extends State<TourismPage> {
                       onViewDetails: () {
                         _showTierDetailsModal(context, package);
                       },
-
                       onWhatsApp: (message) {
                         WhatsAppService.openWhatsApp(message: message);
                       },
@@ -242,7 +247,7 @@ class _TourismPageState extends State<TourismPage> {
             // ============ HIGHLIGHTS ============
             Container(
               width: double.infinity,
-              color: Colors.white,
+              color: context.palette.surface,
               padding: EdgeInsets.symmetric(
                 horizontal: isMobile ? 24 : 80,
                 vertical: isMobile ? 40 : 64,
@@ -253,6 +258,7 @@ class _TourismPageState extends State<TourismPage> {
                     localeProvider.tr('tourism.highlights_title'),
                     style: ModernTypography.headlineLarge.copyWith(
                       fontSize: isMobile ? 26 : 32,
+                      color: context.palette.textPrimary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -260,7 +266,7 @@ class _TourismPageState extends State<TourismPage> {
                   Text(
                     localeProvider.tr('tourism.highlights_subtitle'),
                     style: ModernTypography.bodyLarge.copyWith(
-                      color: ModernColors.textSecondary,
+                      color: context.palette.textSecondary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -274,11 +280,11 @@ class _TourismPageState extends State<TourismPage> {
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(isMobile ? 32 : 64),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     ModernColors.primary,
-                    const Color(0xFF0056B3),
+                    Color(0xFF0056B3),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -372,7 +378,7 @@ class _TourismPageState extends State<TourismPage> {
                     height: 4,
                     margin: const EdgeInsets.only(bottom: 12),
                     decoration: BoxDecoration(
-                      color: ModernColors.border,
+                      color: context.palette.border,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -386,9 +392,10 @@ class _TourismPageState extends State<TourismPage> {
                             color: package.tierColor, size: 28),
                         const SizedBox(width: 12),
                         Text(
-                          package.title,
+                          localeProvider.tr(package.title),
                           style: ModernTypography.headlineSmall.copyWith(
                             fontWeight: FontWeight.w700,
+                            color: context.palette.textPrimary,
                           ),
                         ),
                       ],
@@ -401,9 +408,9 @@ class _TourismPageState extends State<TourismPage> {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  package.description,
+                  localeProvider.tr(package.description),
                   style: ModernTypography.bodyMedium.copyWith(
-                    color: ModernColors.textSecondary,
+                    color: context.palette.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -429,7 +436,7 @@ class _TourismPageState extends State<TourismPage> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            inc,
+                            localeProvider.tr(inc),
                             style: ModernTypography.bodyMedium,
                           ),
                         ),
@@ -445,7 +452,10 @@ class _TourismPageState extends State<TourismPage> {
                     onPressed: () {
                       Navigator.pop(context);
                       WhatsAppService.openWhatsApp(
-                        message: localeProvider.tr('tourism.whatsapp_msg').replaceAll('{package}', package.title),
+                        message: localeProvider
+                            .tr('tourism.whatsapp_msg')
+                            .replaceAll(
+                                '{package}', localeProvider.tr(package.title)),
                       );
                     },
                     icon: const Text('💬'),
@@ -479,7 +489,8 @@ class _TrustBadge extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.check_circle, color: Colors.white.withOpacity(0.7), size: 14),
+        Icon(Icons.check_circle,
+            color: Colors.white.withOpacity(0.7), size: 14),
         const SizedBox(width: 6),
         Text(
           text,

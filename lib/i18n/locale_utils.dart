@@ -32,8 +32,9 @@ class LocaleUtils {
   /// Get the language code icon/emoji for a locale
   static String getLocaleEmoji(String locale) {
     switch (locale) {
+      // French is shown with the Côte d'Ivoire flag (the site's main market).
       case 'fr':
-        return '🇫🇷';
+        return '🇨🇮';
       case 'en':
         return '🇬🇧';
       case 'de':
@@ -47,7 +48,7 @@ class LocaleUtils {
   static String getCountryCode(String locale) {
     switch (locale) {
       case 'fr':
-        return 'FR';
+        return 'CI';
       case 'en':
         return 'GB';
       case 'de':
@@ -60,7 +61,7 @@ class LocaleUtils {
   /// Convert string locale code to Flutter Locale object
   static Locale toLocale(String code) {
     if (!supportedLocales.contains(code)) {
-      return Locale(defaultLocale);
+      return const Locale(defaultLocale);
     }
     return Locale(code);
   }
@@ -78,8 +79,7 @@ class LocaleUtils {
   /// Get all available locales with their display names
   static Map<String, String> getAvailableLocales() {
     return {
-      for (final locale in supportedLocales)
-        locale: getDisplayName(locale)
+      for (final locale in supportedLocales) locale: getDisplayName(locale)
     };
   }
 
@@ -95,5 +95,26 @@ class LocaleUtils {
       GlobalWidgetsLocalizations.delegate,
       GlobalCupertinoLocalizations.delegate,
     ];
+  }
+
+  /// Groups the digits of [amount] the way [locale] writes numbers:
+  /// "450 000" (fr), "450,000" (en), "450.000" (de).
+  static String groupDigits(num amount, String locale) {
+    final digits = amount.round().abs().toString();
+    final separator = switch (locale) {
+      'en' => ',',
+      'de' => '.',
+      _ => '\u202F', // narrow no-break space, French convention
+    };
+    final grouped = digits.replaceAllMapped(
+        RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => separator);
+    return amount < 0 ? '-$grouped' : grouped;
+  }
+
+  /// Formats a price in [currency] ("FCFA", "USD") for [locale].
+  static String formatPrice(num amount, String currency, String locale) {
+    final value = groupDigits(amount, locale);
+    if (currency == 'USD') return locale == 'en' ? '\$$value' : '$value \$';
+    return locale == 'en' ? '$currency $value' : '$value $currency';
   }
 }

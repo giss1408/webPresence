@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'components.dart';
 
-Widget buildMaterialIconCircle(String imagePath, double size) {
+Widget buildMaterialIconCircle(
+    BuildContext context, String imagePath, double size) {
   return Container(
     width: size,
     height: size,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       shape: BoxShape.circle,
-      color: primaryLight,
+      color: context.palette.accentSoft,
     ),
     child: Align(
       alignment: Alignment.center,

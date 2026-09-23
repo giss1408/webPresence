@@ -47,7 +47,8 @@ class AnalyticsService {
       'error': exception.toString(),
       'type': exception.runtimeType.toString(),
     });
-    _logger.e('❌ Exception tracked: $exception', error: exception, stackTrace: stackTrace);
+    _logger.e('❌ Exception tracked: $exception',
+        error: exception, stackTrace: stackTrace);
   }
 
   /// Track performance metric
@@ -82,13 +83,11 @@ class AnalyticsService {
       eventCounts[event.name] = (eventCounts[event.name] ?? 0) + 1;
     }
 
-    final topPages = pageViewCounts.entries
-        .toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
+    final topPages = pageViewCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
-    final topEvents = eventCounts.entries
-        .toList()
-        ..sort((a, b) => b.value.compareTo(a.value));
+    final topEvents = eventCounts.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
     return AnalyticsSummary(
       totalPageViews: _pageViews.length,

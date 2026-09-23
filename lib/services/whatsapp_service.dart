@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_website/config/environment.dart';
 import 'package:flutter_website/i18n/translations.dart';
@@ -6,10 +7,12 @@ import 'package:flutter_website/i18n/translations.dart';
 class WhatsAppService {
   // WhatsApp business number — Côte d'Ivoire number
   // ⚠️ REMPLACEZ CE NUMÉRO par votre numéro WhatsApp Business
-  static const String businessPhone = '+2250102030405'; // Replace with actual number
+  static const String businessPhone =
+      '+2250102030405'; // Replace with actual number
 
   // Default message templates — now using Translations.translate
-  static String get defaultMessage => Translations.translate('wa.general', 'fr');
+  static String get defaultMessage =>
+      Translations.translate('wa.general', 'fr');
 
   /// Returns a translated template message for the given [templateKey] and [locale].
   static String getTemplateMessage(String templateKey, String locale) {
@@ -23,7 +26,8 @@ class WhatsAppService {
   }
 
   /// Launch WhatsApp with predefined template
-  static Future<void> openWhatsAppWithTemplate(String templateKey, {String locale = 'fr'}) async {
+  static Future<void> openWhatsAppWithTemplate(String templateKey,
+      {String locale = 'fr'}) async {
     final message = getTemplateMessage(templateKey, locale);
     await _launchWhatsApp(businessPhone, message);
   }
@@ -50,12 +54,12 @@ class WhatsAppService {
         );
       } else {
         if (AppConfig.isDevelopment) {
-          print('Could not launch WhatsApp: $whatsappUrl');
+          debugPrint('Could not launch WhatsApp: $whatsappUrl');
         }
       }
     } catch (e) {
       if (AppConfig.isDevelopment) {
-        print('Error launching WhatsApp: $e');
+        debugPrint('Error launching WhatsApp: $e');
       }
     }
   }

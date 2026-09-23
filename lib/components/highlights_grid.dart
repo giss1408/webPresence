@@ -61,10 +61,10 @@ class _HighlightCardState extends State<HighlightCard>
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: ModernColors.backgroundCard,
+            color: context.palette.surface,
             borderRadius: BorderRadius.circular(ModernRadius.lg),
             border: Border.all(
-              color: _isHovered ? widget.color : ModernColors.border,
+              color: _isHovered ? widget.color : context.palette.border,
               width: _isHovered ? 2 : 1,
             ),
             boxShadow: _isHovered
@@ -113,7 +113,7 @@ class _HighlightCardState extends State<HighlightCard>
                   widget.description,
                   textAlign: TextAlign.center,
                   style: ModernTypography.bodyMedium.copyWith(
-                    color: ModernColors.textSecondary,
+                    color: context.palette.textSecondary,
                   ),
                 ),
               ],
@@ -148,71 +148,78 @@ class HighlightsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeProvider = context.watch<LocaleProvider>();
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final crossAxisCount = isMobile ? 1 : 3;
+    final width = MediaQuery.sizeOf(context).width;
+    final crossAxisCount = width < 600 ? 1 : (width < 1024 ? 2 : 3);
 
     final highlights = [
       {
         'title': localeProvider.tr('highlight.cultural'),
         'description': localeProvider.tr('highlight.cultural_desc'),
         'icon': Icons.palette,
-        'color': Color(0xFF7C3AED), // Purple
-        'image': 'images/highlights/highlight_cultural.jpg',
+        'color': const Color(0xFF7C3AED), // Purple
+        'image': 'assets/images/highlights/highlight_cultural.jpg',
       },
       {
         'title': localeProvider.tr('highlight.wildlife'),
         'description': localeProvider.tr('highlight.wildlife_desc'),
         'icon': Icons.forest,
-        'color': Color(0xFF00B369), // Green
-        'image': 'images/highlights/highlight_wildlife.jpg',
+        'color': const Color(0xFF00B369), // Green
+        'image': 'assets/images/highlights/highlight_wildlife.jpg',
       },
       {
         'title': localeProvider.tr('highlight.beach'),
         'description': localeProvider.tr('highlight.beach_desc'),
         'icon': Icons.beach_access,
-        'color': Color(0xFF00D9FF), // Teal
-        'image': 'images/highlights/highlight_beach.jpg',
+        'color': const Color(0xFF00D9FF), // Teal
+        'image': 'assets/images/highlights/highlight_beach.jpg',
       },
       {
         'title': localeProvider.tr('highlight.cuisine'),
         'description': localeProvider.tr('highlight.cuisine_desc'),
         'icon': Icons.restaurant,
-        'color': Color(0xFFFF6B35), // Orange
-        'image': 'images/highlights/highlight_cuisine.jpg',
+        'color': const Color(0xFFFF6B35), // Orange
+        'image': 'assets/images/highlights/highlight_cuisine.jpg',
       },
       {
         'title': localeProvider.tr('highlight.adventure'),
         'description': localeProvider.tr('highlight.adventure_desc'),
         'icon': Icons.landscape,
-        'color': Color(0xFFFFB700), // Gold
-        'image': 'images/highlights/highlight_adventure.jpg',
+        'color': const Color(0xFFFFB700), // Gold
+        'image': 'assets/images/highlights/highlight_adventure.jpg',
       },
       {
         'title': localeProvider.tr('highlight.photography'),
         'description': localeProvider.tr('highlight.photography_desc'),
         'icon': Icons.photo_camera,
-        'color': Color(0xFF1389FD), // Blue
-        'image': 'images/highlights/highlight_photography.jpg',
+        'color': const Color(0xFF1389FD), // Blue
+        'image': 'assets/images/highlights/highlight_photography.jpg',
       },
     ];
 
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: 24,
-        mainAxisSpacing: 24,
-      ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: highlights.length,
-      itemBuilder: (context, index) {
-        final highlight = highlights[index];
-        return HighlightCard(
-          title: highlight['title'].toString(),
-          description: highlight['description'].toString(),
-          icon: highlight['icon'] as IconData,
-          color: highlight['color'] as Color,
-          imageUrl: highlight['image'] as String?,
+    // Wrap instead of a fixed-height grid: each card sizes to its own text,
+    // so long translations never overflow.
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const spacing = 24.0;
+        final itemWidth =
+            (constraints.maxWidth - spacing * (crossAxisCount - 1)) /
+                crossAxisCount;
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            for (final highlight in highlights)
+              SizedBox(
+                width: itemWidth,
+                child: HighlightCard(
+                  title: highlight['title'].toString(),
+                  description: highlight['description'].toString(),
+                  icon: highlight['icon'] as IconData,
+                  color: highlight['color'] as Color,
+                  imageUrl: highlight['image'] as String?,
+                ),
+              ),
+          ],
         );
       },
     );

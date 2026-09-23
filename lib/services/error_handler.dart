@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 /// Global error handler for production-ready error management
@@ -11,7 +11,7 @@ class ErrorHandler {
 
   ErrorHandler._internal();
 
-  final Logger _logger = Logger();
+  final Logger _logger = Logger(printer: SimplePrinter(printTime: true));
 
   /// Handle and log errors
   void handleError(
@@ -20,57 +20,36 @@ class ErrorHandler {
     StackTrace? stackTrace,
     VoidCallback? onRetry,
   }) {
-    _logger.e('❌ Error in $context: $error', stackTrace: stackTrace);
-
-    // In production, send error to remote service
-    // await sendToErrorTracking(error, stackTrace, context);
+    _logger.e('Error in $context: $error', stackTrace: stackTrace);
   }
 
   /// Handle network errors
   void handleNetworkError(dynamic error, {String? context}) {
-    _logger.e('📡 Network error${context != null ? ' in $context' : ''}: $error');
+    _logger.e('Network error${context != null ? ' in $context' : ''}: $error');
   }
 
-  /// Handle async errors that aren't caught
+  /// Installs handlers for framework and uncaught async errors.
+  ///
+  /// Debug builds keep Flutter's own detailed report (with the widget that
+  /// caused it); release builds log a single line to the browser console
+  /// instead of failing silently. Hook a crash reporter in [_report].
   static void setupGlobalErrorHandler() {
     FlutterError.onError = (FlutterErrorDetails details) {
-      _instance._logger.e(
-        '🔴 Flutter Error: ${details.exception}',
-        stackTrace: details.stack,
-      );
+      if (kDebugMode) {
+        FlutterError.presentError(details);
+      } else {
+        _report(details.exception, details.stack);
+      }
     };
 
-    // Catch async errors not caught by Flutter
-    // Note: This only works in production with proper error tracking setup
+    PlatformDispatcher.instance.onError = (error, stack) {
+      _report(error, stack);
+      return true;
+    };
   }
 
-  /// Show error dialog to user
-  static void showErrorDialog(
-    BuildContext context, {
-    required String title,
-    required String message,
-    VoidCallback? onRetry,
-  }) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          if (onRetry != null)
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                onRetry();
-              },
-              child: const Text('Retry'),
-            ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Dismiss'),
-          ),
-        ],
-      ),
-    );
+  static void _report(Object error, StackTrace? stack) {
+    debugPrint('Uncaught error: $error');
+    if (kDebugMode && stack != null) debugPrintStack(stackTrace: stack);
   }
 }

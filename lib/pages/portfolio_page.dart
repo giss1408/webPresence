@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_website/providers/locale_provider.dart';
+import 'package:provider/provider.dart';
 
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
 
   static const List<_ProjectCardData> _projects = [
     _ProjectCardData(
-      title: 'Plateforme SaaS B2B',
-      subtitle: 'Automatisation & analytics',
-      description:
-          'Tableau de bord multi-tenant avec workflows d’automatisation et reporting temps réel.',
+      title: 'portfolio.p1_title',
+      subtitle: 'portfolio.p1_subtitle',
+      description: 'portfolio.p1_desc',
       tags: ['Flutter', 'Firebase', 'SaaS'],
       accent: Color(0xFF1E88E5),
     ),
     _ProjectCardData(
-      title: 'Marketplace urbain',
-      subtitle: 'Expérience mobile premium',
-      description:
-          'Application de réservation et gestion de services locale pensée pour une adoption rapide.',
+      title: 'portfolio.p2_title',
+      subtitle: 'portfolio.p2_subtitle',
+      description: 'portfolio.p2_desc',
       tags: ['UI/UX', 'Mobile', 'Growth'],
       accent: Color(0xFF43A047),
     ),
     _ProjectCardData(
-      title: 'Portail institutionnel',
-      subtitle: 'Communication & services',
-      description:
-          'Refonte complète d’un portail public avec parcours guidés et contenus personnalisés.',
+      title: 'portfolio.p3_title',
+      subtitle: 'portfolio.p3_subtitle',
+      description: 'portfolio.p3_desc',
       tags: ['Web', 'Design System', 'CMS'],
       accent: Color(0xFFFB8C00),
     ),
@@ -33,10 +32,11 @@ class PortfolioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tr = context.watch<LocaleProvider>().tr;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Réalisations'),
+        title: Text(tr('menu.portfolio')),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
       ),
@@ -56,14 +56,14 @@ class PortfolioPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nos réalisations',
+                    tr('portfolio.heading'),
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Quelques exemples de projets conçus pour des équipes ambitieuses.',
+                    tr('portfolio.subtitle'),
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -108,14 +108,14 @@ class PortfolioPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                project.title,
+                                tr(project.title),
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                project.subtitle,
+                                tr(project.subtitle),
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: project.accent,
                                   fontWeight: FontWeight.w600,
@@ -123,7 +123,7 @@ class PortfolioPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 12),
                               Text(
-                                project.description,
+                                tr(project.description),
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   height: 1.5,
                                   color: theme.colorScheme.onSurfaceVariant,
@@ -141,8 +141,10 @@ class PortfolioPage extends StatelessWidget {
                                           vertical: 6,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: theme.colorScheme.surfaceContainerHighest,
-                                          borderRadius: BorderRadius.circular(999),
+                                          color: theme.colorScheme
+                                              .surfaceContainerHighest,
+                                          borderRadius:
+                                              BorderRadius.circular(999),
                                         ),
                                         child: Text(
                                           tag,

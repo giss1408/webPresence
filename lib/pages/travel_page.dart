@@ -3,7 +3,6 @@ import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class TravelPage extends StatelessWidget {
   const TravelPage({super.key});
 
@@ -14,8 +13,8 @@ class TravelPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(tr('travel.title')),
         elevation: 0,
-        backgroundColor: ModernColors.backgroundCard,
-        foregroundColor: ModernColors.textPrimary,
+        backgroundColor: context.palette.header,
+        foregroundColor: context.palette.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -60,30 +59,36 @@ class TravelPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Featured Destinations',
-                      style: ModernTypography.headlineLarge,
+                      tr('travel.featured'),
+                      style: ModernTypography.headlineLarge
+                          .copyWith(color: context.palette.textPrimary),
                     ),
                     const SizedBox(height: 32),
-                    GridView.count(
-                      crossAxisCount: 3,
+                    GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.screenWidth < 600
+                            ? 1
+                            : (context.screenWidth < 1024 ? 2 : 3),
+                        mainAxisExtent: 260,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 24,
+                      ),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      children: [
+                      children: const [
                         _TravelCard(
-                          title: 'Paris, France',
-                          description: 'Explore the city of love and culture',
+                          title: 'travel.d1_title',
+                          description: 'travel.d1_desc',
                           icon: Icons.tour,
                         ),
                         _TravelCard(
-                          title: 'Tokyo, Japan',
-                          description: 'Experience modern and traditional Japan',
+                          title: 'travel.d2_title',
+                          description: 'travel.d2_desc',
                           icon: Icons.tour,
                         ),
                         _TravelCard(
-                          title: 'New York, USA',
-                          description: 'The city that never sleeps awaits',
+                          title: 'travel.d3_title',
+                          description: 'travel.d3_desc',
                           icon: Icons.tour,
                         ),
                       ],
@@ -114,27 +119,28 @@ class _TravelCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ModernColors.backgroundCard,
+        color: context.palette.surface,
         borderRadius: BorderRadius.circular(ModernRadius.lg),
-        border: Border.all(color: ModernColors.border, width: 1),
+        border: Border.all(color: context.palette.border),
         boxShadow: ModernShadows.elevation2,
       ),
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 48, color: ModernColors.primary),
+          Icon(icon, size: 48, color: context.palette.accent),
           const SizedBox(height: 16),
           Text(
-            title,
-            style: ModernTypography.titleLarge,
+            context.watch<LocaleProvider>().tr(title),
+            style: ModernTypography.titleLarge
+                .copyWith(color: context.palette.textPrimary),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            description,
+            context.watch<LocaleProvider>().tr(description),
             style: ModernTypography.bodyMedium.copyWith(
-              color: ModernColors.textSecondary,
+              color: context.palette.textSecondary,
             ),
             textAlign: TextAlign.center,
           ),

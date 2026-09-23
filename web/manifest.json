@@ -1,36 +1,40 @@
 {
-    "name": "Regisse__ #Business Solutions",
-    "short_name": "Regisse__",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#F8FAFC",
-    "theme_color": "#1389FD",
-    "description": "Société tech franco-allemande spécialisée dans le développement de plateformes SaaS sur mesure, design UI/UX et solutions digitales performantes.",
-    "orientation": "portrait-primary",
-    "prefer_related_applications": false,
-    "categories": ["business", "technology", "development"],
-    "icons": [
-        {
-            "src": "icons/Icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/Icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        },
-        {
-            "src": "icons/Icon-maskable-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable"
-        },
-        {
-            "src": "icons/Icon-maskable-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
-        }
-    ]
+  "name": "Regisse__ #Business Solutions",
+  "short_name": "Regisse__",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F9FAFB",
+  "theme_color": "#1389FD",
+  "description": "Ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX et applications mobile-first.",
+  "prefer_related_applications": false,
+  "categories": [
+    "business",
+    "technology",
+    "development"
+  ],
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "scope": "/"
 }

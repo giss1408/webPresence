@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_website/i18n/locale_utils.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/models/tour_package.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
-
 
 /// Compact, professional tour tier card for side-by-side comparison
 
@@ -63,7 +63,6 @@ class _TourTierCardState extends State<TourTierCard>
     final localeProvider = context.watch<LocaleProvider>();
     final isMobile = MediaQuery.of(context).size.width < 768;
 
-
     return MouseRegion(
       onEnter: (_) => _onHover(true),
       onExit: (_) => _onHover(false),
@@ -78,14 +77,14 @@ class _TourTierCardState extends State<TourTierCard>
             decoration: BoxDecoration(
               color: widget.isHighlighted
                   ? _tierColor.withAlpha(8)
-                  : ModernColors.backgroundCard,
+                  : context.palette.surface,
               borderRadius: BorderRadius.circular(ModernRadius.lg),
               border: Border.all(
                 color: _isHovered
                     ? _tierColor
                     : widget.isHighlighted
                         ? _tierBorder
-                        : ModernColors.border,
+                        : context.palette.border,
                 width: widget.isHighlighted ? 2 : 1,
               ),
               boxShadow: _isHovered
@@ -125,7 +124,7 @@ class _TourTierCardState extends State<TourTierCard>
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          widget.package.title,
+                          localeProvider.tr(widget.package.title),
                           style: ModernTypography.headlineSmall.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 20,
@@ -137,8 +136,11 @@ class _TourTierCardState extends State<TourTierCard>
                 ),
 
                 // ── BODY: Compact info ──────────────────────────────
-                Expanded(
-                  child: Padding(
+                // Fills the fixed-height card on wide screens; sizes to its
+                // content on phones, where the card has no fixed height.
+                _expandIf(
+                  !isMobile,
+                  Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +157,10 @@ class _TourTierCardState extends State<TourTierCard>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'FCFA ${widget.package.priceMinFCFA.toStringAsFixed(0)}',
+                                LocaleUtils.formatPrice(
+                                    widget.package.priceMinFCFA,
+                                    'FCFA',
+                                    localeProvider.locale),
                                 style: ModernTypography.titleLarge.copyWith(
                                   color: _tierColor,
                                   fontWeight: FontWeight.w700,
@@ -163,9 +168,9 @@ class _TourTierCardState extends State<TourTierCard>
                                 ),
                               ),
                               Text(
-                                '\$${widget.package.priceMinUSD.toStringAsFixed(0)}',
+                                '≈ ${LocaleUtils.formatPrice(widget.package.priceMinUSD, 'USD', localeProvider.locale)}',
                                 style: ModernTypography.bodySmall.copyWith(
-                                  color: ModernColors.textTertiary,
+                                  color: context.palette.textMuted,
                                 ),
                               ),
                             ],
@@ -191,7 +196,6 @@ class _TourTierCardState extends State<TourTierCard>
                               child: Text(
                                 '$d ${localeProvider.tr('itin.days')}',
                                 style: ModernTypography.bodySmall.copyWith(
-
                                   color: isSelected ? Colors.white : _tierColor,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 12,
@@ -204,9 +208,9 @@ class _TourTierCardState extends State<TourTierCard>
 
                         // Short description
                         Text(
-                          widget.package.description,
+                          localeProvider.tr(widget.package.description),
                           style: ModernTypography.bodyMedium.copyWith(
-                            color: ModernColors.textSecondary,
+                            color: context.palette.textSecondary,
                             fontSize: 13,
                           ),
                           maxLines: 2,
@@ -217,10 +221,9 @@ class _TourTierCardState extends State<TourTierCard>
                         // Key highlights (compact tags)
                         Text(
                           localeProvider.tr('tourism.tier_highlights'),
-
                           style: ModernTypography.bodySmall.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: ModernColors.textPrimary,
+                            color: context.palette.textPrimary,
                             fontSize: 12,
                           ),
                         ),
@@ -234,7 +237,7 @@ class _TourTierCardState extends State<TourTierCard>
                                     color: _tierColor, size: 14),
                                 const SizedBox(width: 8),
                                 Expanded(
-                                  child: Text(h,
+                                  child: Text(localeProvider.tr(h),
                                       style: ModernTypography.bodySmall
                                           .copyWith(fontSize: 12)),
                                 ),
@@ -243,7 +246,10 @@ class _TourTierCardState extends State<TourTierCard>
                           );
                         }),
 
-                        const Spacer(),
+                        if (isMobile)
+                          const SizedBox(height: 16)
+                        else
+                          const Spacer(),
 
                         // ── CTA Buttons ──────────────────────────────
                         SizedBox(
@@ -254,8 +260,7 @@ class _TourTierCardState extends State<TourTierCard>
                               backgroundColor: _tierColor,
                               foregroundColor: Colors.white,
                               elevation: 0,
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(ModernRadius.sm),
@@ -276,16 +281,18 @@ class _TourTierCardState extends State<TourTierCard>
                           child: OutlinedButton(
                             onPressed: () {
                               widget.onWhatsApp?.call(
-                                localeProvider.tr('tourism.whatsapp_msg').replaceAll('{package}', widget.package.title),
-
+                                localeProvider
+                                    .tr('tourism.whatsapp_msg')
+                                    .replaceAll(
+                                        '{package}',
+                                        localeProvider
+                                            .tr(widget.package.title)),
                               );
                             },
                             style: OutlinedButton.styleFrom(
                               foregroundColor: _tierColor,
-                              side:
-                                  BorderSide(color: _tierBorder, width: 1.5),
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12),
+                              side: BorderSide(color: _tierBorder, width: 1.5),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(ModernRadius.sm),
@@ -293,7 +300,6 @@ class _TourTierCardState extends State<TourTierCard>
                             ),
                             child: Text(
                               localeProvider.tr('tourism.tier_whatsapp'),
-
                               style: ModernTypography.labelLarge.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
@@ -312,3 +318,6 @@ class _TourTierCardState extends State<TourTierCard>
     );
   }
 }
+
+Widget _expandIf(bool expand, Widget child) =>
+    expand ? Expanded(child: child) : child;

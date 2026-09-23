@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_website/components/app_palette.dart';
 import '../components/modern_colors.dart';
 import '../components/modern_typography.dart';
 import '../components/modern_shadows.dart';
@@ -19,11 +20,11 @@ class ModernThemeBuilder {
 
   static ThemeData _createLightTheme() {
     return ThemeData(
-      useMaterial3: true,
+      extensions: const [AppPalette.light],
       brightness: Brightness.light,
-      
+
       // Color scheme
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         primary: ModernColors.primary,
         onPrimary: ModernColors.textWhite,
         primaryContainer: ModernColors.primaryLight,
@@ -32,8 +33,6 @@ class ModernThemeBuilder {
         onSecondary: ModernColors.textWhite,
         error: ModernColors.error,
         onError: ModernColors.textWhite,
-        background: ModernColors.background,
-        onBackground: ModernColors.textPrimary,
         surface: ModernColors.backgroundCard,
         onSurface: ModernColors.textPrimary,
       ),
@@ -115,16 +114,16 @@ class ModernThemeBuilder {
           ),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          elevation: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) return 4;
-            if (states.contains(MaterialState.pressed)) return 1;
+          elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) return 4;
+            if (states.contains(WidgetState.pressed)) return 1;
             return 2;
           }),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
               return ModernColors.textTertiary;
             }
-            if (states.contains(MaterialState.hovered)) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primaryLight;
             }
             return ModernColors.primary;
@@ -146,8 +145,8 @@ class ModernThemeBuilder {
           ),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          side: MaterialStateProperty.resolveWith<BorderSide>((states) {
-            if (states.contains(MaterialState.hovered)) {
+          side: WidgetStateProperty.resolveWith<BorderSide>((states) {
+            if (states.contains(WidgetState.hovered)) {
               return const BorderSide(
                 color: ModernColors.primary,
                 width: 2,
@@ -158,8 +157,8 @@ class ModernThemeBuilder {
               width: 1.5,
             );
           }),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primary.withOpacity(0.05);
             }
             return Colors.transparent;
@@ -174,8 +173,8 @@ class ModernThemeBuilder {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primary.withOpacity(0.08);
             }
             return Colors.transparent;
@@ -200,7 +199,8 @@ class ModernThemeBuilder {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: ModernColors.background,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(ModernRadius.md),
           borderSide: const BorderSide(color: ModernColors.border),
@@ -281,11 +281,11 @@ class ModernThemeBuilder {
 
   static ThemeData _createDarkTheme() {
     return ThemeData(
-      useMaterial3: true,
+      extensions: const [AppPalette.dark],
       brightness: Brightness.dark,
-      
+
       // Color scheme
-      colorScheme: ColorScheme.dark(
+      colorScheme: const ColorScheme.dark(
         primary: ModernColors.primaryLight,
         onPrimary: ModernColors.textPrimary,
         primaryContainer: ModernColors.primary,
@@ -294,8 +294,6 @@ class ModernThemeBuilder {
         onSecondary: ModernColors.textPrimary,
         error: ModernColors.error,
         onError: ModernColors.textWhite,
-        background: ModernColors.backgroundDark,
-        onBackground: ModernColors.textLight,
         surface: ModernColors.backgroundCardDark,
         onSurface: ModernColors.textLight,
       ),
@@ -377,16 +375,16 @@ class ModernThemeBuilder {
           ),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          elevation: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) return 4;
-            if (states.contains(MaterialState.pressed)) return 1;
+          elevation: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) return 4;
+            if (states.contains(WidgetState.pressed)) return 1;
             return 2;
           }),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
               return ModernColors.textTertiary;
             }
-            if (states.contains(MaterialState.hovered)) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primary;
             }
             return ModernColors.primaryLight;
@@ -408,8 +406,8 @@ class ModernThemeBuilder {
           ),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          side: MaterialStateProperty.resolveWith<BorderSide>((states) {
-            if (states.contains(MaterialState.hovered)) {
+          side: WidgetStateProperty.resolveWith<BorderSide>((states) {
+            if (states.contains(WidgetState.hovered)) {
               return const BorderSide(
                 color: ModernColors.primaryLight,
                 width: 2,
@@ -420,8 +418,8 @@ class ModernThemeBuilder {
               width: 1.5,
             );
           }),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primaryLight.withOpacity(0.1);
             }
             return Colors.transparent;
@@ -436,8 +434,8 @@ class ModernThemeBuilder {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: ModernTypography.buttonLarge,
         ).copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.hovered)) {
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
               return ModernColors.primaryLight.withOpacity(0.1);
             }
             return Colors.transparent;
@@ -462,7 +460,8 @@ class ModernThemeBuilder {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: ModernColors.backgroundDark,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(ModernRadius.md),
           borderSide: const BorderSide(color: ModernColors.borderDark),

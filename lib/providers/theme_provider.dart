@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
 
-/// Theme provider for managing light/dark theme preference
+/// Light / dark theme preference. Starts in light mode; visitors can switch
+/// with the header toggle.
 class ThemeProvider extends ChangeNotifier {
-  bool _isDarkMode = false;
+  ThemeMode _themeMode = ThemeMode.light;
 
-  bool get isDarkMode => _isDarkMode;
+  ThemeMode get themeMode => _themeMode;
 
-  ThemeMode get themeMode {
-    return _isDarkMode ? ThemeMode.dark : ThemeMode.light;
-  }
-
-  /// Initialize theme based on system preference
-  void initializeTheme() {
-    // Check system theme preference
-    final brightness = WidgetsBinding.instance.window.platformDispatcher.views.first.platformDispatcher.platformBrightness;
-    _isDarkMode = brightness == Brightness.dark;
-    notifyListeners();
-  }
-
-  /// Toggle between light and dark theme
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
+  /// Switches to the opposite of the [current] effective brightness.
+  void toggleTheme(Brightness current) {
+    setDarkMode(current == Brightness.light);
   }
 
   /// Set theme explicitly
   void setDarkMode(bool isDark) {
-    if (_isDarkMode != isDark) {
-      _isDarkMode = isDark;
+    final mode = isDark ? ThemeMode.dark : ThemeMode.light;
+    if (_themeMode != mode) {
+      _themeMode = mode;
       notifyListeners();
     }
   }

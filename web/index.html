@@ -1,192 +1,104 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Charset and Viewport -->
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  
-  <!-- Base href for routing -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Base href for routing (replaced by `flutter build web --base-href`) -->
   <base href="$FLUTTER_BASE_HREF">
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Regisse__ #Business Solutions — Société tech franco-allemande spécialisée dans le développement de plateformes SaaS sur mesure, design UI/UX et solutions digitales performantes.">
-  <meta name="keywords" content="Regisse, business solutions, SaaS, développement web, application sur mesure, France, Allemagne, Côte d'Ivoire, plateforme digitale">
+  <title>Regisse__ #Business Solutions — Solutions digitales pour l'Afrique</title>
+  <meta name="description" content="Regisse__ #Business Solutions — ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX, applications mobile-first.">
   <meta name="author" content="Regisse__ GmbH">
-  <meta name="theme-color" content="#1389FD">
   <meta name="robots" content="index, follow">
-  <meta name="language" content="fr">
-  <meta name="revisit-after" content="7 days">
-  
-  <!-- Open Graph / Social Sharing -->
+  <link rel="canonical" href="https://regisse.de/">
+  <meta name="theme-color" content="#1389FD">
+  <meta name="color-scheme" content="light">
+
+  <!-- Open Graph / social sharing (absolute URLs are required by crawlers) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://regisse.de/">
-  <meta property="og:title" content="Regisse__ #Business Solutions — SaaS, Design & Développement Sur Mesure">
-  <meta property="og:description" content="De la conception au déploiement en quelques semaines — des plateformes SaaS sécurisées, scalables et taillées pour accélérer votre croissance.">
-  <meta property="og:image" content="icons/Icon-512.png">
-  <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Regisse__">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://regisse.de/">
-  <meta name="twitter:title" content="Regisse__ #Business Solutions — SaaS, Design & Développement Sur Mesure">
-  <meta name="twitter:description" content="De la conception au déploiement en quelques semaines — des plateformes SaaS sécurisées, scalables et taillées pour accélérer votre croissance.">
-  <meta name="twitter:image" content="icons/Icon-512.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Regisse__ #Business Solutions — Solutions digitales pour l'Afrique">
+  <meta property="og:description" content="Ingénierie allemande au service de vos projets en Afrique — des plateformes SaaS sécurisées, mobile-first et livrées en quelques semaines.">
+  <meta property="og:image" content="https://regisse.de/icons/Icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Regisse__ #Business Solutions — Solutions digitales pour l'Afrique">
+  <meta name="twitter:description" content="Ingénierie allemande au service de vos projets en Afrique — des plateformes SaaS sécurisées, mobile-first et livrées en quelques semaines.">
+  <meta name="twitter:image" content="https://regisse.de/icons/Icon-512.png">
 
-  <!-- iOS meta tags & icons -->
+  <!-- Icons & PWA -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Regisse__">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <link rel="apple-touch-startup-image" href="icons/Icon-192.png">
-
-  <!-- Favicon & Icons -->
-  <link rel="icon" type="image/png" href="favicon.png" sizes="192x192"/>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="mask-icon" href="favicon.svg" color="#1389FD">
-  
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-  
-  <!-- Security Headers -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https: wss:; object-src 'none';">
-  
-  <!-- Preconnect to improve loading performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <!-- CanvasKit is fetched from gstatic; warm the connection up. -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://www.gstatic.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  
-  <!-- Prefetch DNS for external resources -->
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  
-  <!-- Preload Critical Resources -->
   <link rel="preload" as="script" href="flutter_bootstrap.js">
-  
-  <!-- Page Title -->
-  <title>Regisse__ #Business Solutions — SaaS, Design & Développement Sur Mesure</title>
 
-  <!-- Dark Mode Support -->
-  <script>
-    // Detect system dark mode preference and apply early to prevent flash
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-    
-    // Listen for theme changes
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-      });
-    }
-  </script>
-
-  <!-- Performance Optimizations -->
+  <!-- Branded loading screen, shown until Flutter paints its first frame.
+       Light, like the app's default theme. -->
   <style>
-    /* Critical CSS - Prevent layout shift */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root { --bg: #F9FAFB; --fg: #64748B; --track: #E5E7EB; }
+    html, body { margin: 0; height: 100%; background: var(--bg); }
+    #splash {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      background: var(--bg); color: var(--fg);
+      font: 500 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: opacity .3s ease;
     }
-    
-    html {
-      scroll-behavior: smooth;
-      background-color: #F9FAFB;
-      color: #1E293B;
+    #splash.hidden { opacity: 0; pointer-events: none; }
+    #splash svg { width: 64px; height: 64px; }
+    #splash .spinner {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 3px solid var(--track); border-top-color: #1389FD;
+      animation: spin .9s linear infinite;
     }
-    
-    html[data-theme="dark"] {
-      background-color: #0F172A;
-      color: #F1F5F9;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    
-    /* Loading placeholder */
-    #app {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .flutter-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      width: 100%;
-      background: linear-gradient(135deg, #F9FAFB 0%, #EFF8FF 100%);
-    }
-    
-    .flutter-loading {
-      text-align: center;
-      font-size: 18px;
-      color: #64748B;
-      font-weight: 500;
-    }
-    
-    /* Smooth transitions */
-    @media (prefers-reduced-motion: no-preference) {
-      html {
-        scroll-behavior: smooth;
-      }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { #splash .spinner { animation-duration: 3s; } }
   </style>
-  <!-- Structured Data / JSON-LD -->
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Regisse__",
     "url": "https://regisse.de",
-    "logo": "https://regisse.de/favicon.png",
-    "description": "Société tech franco-allemande spécialisée dans le développement de plateformes SaaS sur mesure.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Berlin",
-      "addressCountry": "DE"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "contact@regisse.de",
-      "contactType": "sales"
-    },
-    "sameAs": [
-      "https://www.youtube.com/@regisse"
-    ]
+    "logo": "https://regisse.de/icons/Icon-512.png",
+    "description": "Ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX et applications mobile-first.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Berlin", "addressCountry": "DE" },
+    "contactPoint": { "@type": "ContactPoint", "email": "contact@regisse.de", "contactType": "sales" },
+    "sameAs": ["https://www.youtube.com/@regisse"]
   }
   </script>
 </head>
 <body>
-  <!-- Flutter Container -->
-  <div id="app">
-    <div class="flutter-container">
-      <div class="flutter-loading">Chargement...</div>
-    </div>
+  <div id="splash" role="status" aria-live="polite">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <rect width="40" height="40" rx="7" fill="#1389FD"/>
+      <polyline points="9,14 19,20 9,26" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="20,14 30,20 20,26" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+    </svg>
+    <div class="spinner"></div>
+    <span>Regisse__ #Business Solutions</span>
   </div>
+  <noscript>Ce site nécessite JavaScript. — This website requires JavaScript.</noscript>
 
-  <!-- Bootstrap Flutter app -->
-  <script src="flutter_bootstrap.js" async></script>
-
-  <!-- Performance Monitoring -->
   <script>
-    // Track Core Web Vitals
-    if ('web-vital' in window) {
-      window.addEventListener('load', () => {
-        console.log('📊 Regisse__ app loaded');
-      });
-    }
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash');
+      splash.classList.add('hidden');
+      setTimeout(function () { splash.remove(); }, 400);
+    });
   </script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

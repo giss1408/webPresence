@@ -51,13 +51,13 @@ class ModernColors {
     colors: [primaryGradientStart, primaryGradientEnd],
   );
 
-  static LinearGradient accentGradient = LinearGradient(
+  static LinearGradient accentGradient = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [accent, accentWarm],
   );
 
-  static LinearGradient heroGradient = LinearGradient(
+  static LinearGradient heroGradient = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [

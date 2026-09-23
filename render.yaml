@@ -1,0 +1,70 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# A static site served from Render's global CDN (no server to keep warm).
+# If this Flutter project is not the repository root, add
+# `rootDir: <path to this folder>` to the service below.
+services:
+  - type: web
+    name: regisse-website
+    runtime: static
+    buildCommand: ./render-build.sh
+    staticPublishPath: build/web
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: FLUTTER_VERSION
+        value: 3.24.2
+      - key: APP_ENV
+        value: production
+    headers:
+      # Security
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.gstatic.com https://fonts.gstatic.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      # Caching — Flutter's file names are not content-hashed, so the app
+      # entry points must be revalidated on every visit to pick up deploys.
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+      - path: /flutter_bootstrap.js
+        name: Cache-Control
+        value: no-cache
+      - path: /flutter.js
+        name: Cache-Control
+        value: no-cache
+      - path: /main.dart.js
+        name: Cache-Control
+        value: no-cache
+      - path: /flutter_service_worker.js
+        name: Cache-Control
+        value: no-cache
+      - path: /version.json
+        name: Cache-Control
+        value: no-cache
+      - path: /manifest.json
+        name: Cache-Control
+        value: no-cache
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=3600, stale-while-revalidate=86400
+      - path: /canvaskit/*
+        name: Cache-Control
+        value: public, max-age=3600, stale-while-revalidate=86400
+      - path: /icons/*
+        name: Cache-Control
+        value: public, max-age=604800
+    routes:
+      # Unknown paths fall back to the app (Flutter handles routing).
+      - type: rewrite
+        source: /*
+        destination: /index.html

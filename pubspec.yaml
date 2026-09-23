@@ -1,6 +1,6 @@
 name: flutter_website
 publish_to: none
-description: The flutter.dev website rebuilt in Flutter - Production Ready with Modern Features.
+description: Regisse__ #Business Solutions company website (Flutter web).
 version: 2.1.0
 
 environment:
@@ -12,61 +12,23 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  
-  # UI & Design
-  cupertino_icons: ^1.0.8
-  animations: ^2.0.11
-  flutter_svg: ^2.0.10+1
-  google_fonts: ^6.2.1
-  responsive_framework: ^1.5.1
-  
-  # Navigation & Routing
-  go_router: ^14.0.0
-  
-  # Performance & State Management
-  get_it: ^7.6.0
-  provider: ^6.1.0
-  
-  # Web & API
-  url_launcher: ^6.3.0
-  http: ^1.2.0
-  
-  # Media
-  video_player: ^2.9.1
-  webview_flutter: ^4.9.0
-  webview_flutter_web: ^0.2.3+2
-  
-  # Platform Support
-  universal_html: ^2.2.4
-  universal_io: ^2.2.2
-  
-  # Utilities
-  intl: ^0.19.0
-  logger: ^2.2.0
-  
-  # Error Handling
-  firebase_core: ^2.28.0
-  firebase_analytics: ^10.10.0
   country_flags: ^3.2.0
+  flutter_svg: ^2.0.10+1
+  logger: ^2.2.0
+  provider: ^6.1.0
+  responsive_framework: ^1.5.1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^4.0.0
-  integration_test:
+  flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/videos/
-    - assets/images/logo.svg
-    - assets/images/device_frame.svg
-    - assets/images/slide_1-layer_1_Test.svg
-    - assets/images/slide_1-layer_2_Test.svg
-    - assets/images/slide_3-layer_2_Test.svg
-    - assets/images/slide_4-layer_2_Test.svg
+    - assets/images/highlights/
   fonts:
     - family: Google Sans
       fonts:

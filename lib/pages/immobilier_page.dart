@@ -3,7 +3,6 @@ import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class ImmobilierPage extends StatelessWidget {
   const ImmobilierPage({super.key});
 
@@ -14,8 +13,8 @@ class ImmobilierPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(tr('immo.title')),
         elevation: 0,
-        backgroundColor: ModernColors.backgroundCard,
-        foregroundColor: ModernColors.textPrimary,
+        backgroundColor: context.palette.header,
+        foregroundColor: context.palette.textPrimary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -61,32 +60,38 @@ class ImmobilierPage extends StatelessWidget {
                   children: [
                     Text(
                       tr('immo.featured'),
-                      style: ModernTypography.headlineLarge,
+                      style: ModernTypography.headlineLarge
+                          .copyWith(color: context.palette.textPrimary),
                     ),
                     const SizedBox(height: 32),
-                    GridView.count(
-                      crossAxisCount: 3,
+                    GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.screenWidth < 600
+                            ? 1
+                            : (context.screenWidth < 1024 ? 2 : 3),
+                        mainAxisExtent: 260,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 24,
+                      ),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 24,
-                      crossAxisSpacing: 24,
-                      children: [
+                      children: const [
                         _PropertyCard(
-                          title: 'Luxury Apartment',
-                          location: 'Paris, France',
-                          price: '€850,000',
+                          title: 'immo.p1_title',
+                          location: 'immo.p1_location',
+                          price: 'immo.p1_price',
                           icon: Icons.apartment,
                         ),
                         _PropertyCard(
-                          title: 'Modern Villa',
-                          location: 'Côte d\'Azur',
-                          price: '€2,500,000',
+                          title: 'immo.p2_title',
+                          location: 'immo.p2_location',
+                          price: 'immo.p2_price',
                           icon: Icons.home,
                         ),
                         _PropertyCard(
-                          title: 'Commercial Space',
-                          location: 'Lyon, France',
-                          price: '€500,000',
+                          title: 'immo.p3_title',
+                          location: 'immo.p3_location',
+                          price: 'immo.p3_price',
                           icon: Icons.business,
                         ),
                       ],
@@ -119,33 +124,34 @@ class _PropertyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ModernColors.backgroundCard,
+        color: context.palette.surface,
         borderRadius: BorderRadius.circular(ModernRadius.lg),
-        border: Border.all(color: ModernColors.border, width: 1),
+        border: Border.all(color: context.palette.border),
         boxShadow: ModernShadows.elevation2,
       ),
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 48, color: ModernColors.primary),
+          Icon(icon, size: 48, color: context.palette.accent),
           const SizedBox(height: 16),
           Text(
-            title,
-            style: ModernTypography.titleLarge,
+            context.watch<LocaleProvider>().tr(title),
+            style: ModernTypography.titleLarge
+                .copyWith(color: context.palette.textPrimary),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            location,
+            context.watch<LocaleProvider>().tr(location),
             style: ModernTypography.bodyMedium.copyWith(
-              color: ModernColors.textSecondary,
+              color: context.palette.textSecondary,
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
           Text(
-            price,
+            context.watch<LocaleProvider>().tr(price),
             style: ModernTypography.titleMedium.copyWith(
               color: ModernColors.accentGreen,
               fontWeight: FontWeight.bold,

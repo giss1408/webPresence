@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_website/components/app_palette.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_website/config/environment.dart';
 import 'package:flutter_website/config/modern_theme_builder.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_website/components/floating_whatsapp_button.dart';
 import 'package:flutter_website/ui/block_wrapper.dart';
 import 'package:flutter_website/ui/carousel/carousel.dart';
 import 'package:flutter_website/ui/blocks.dart';
+import 'package:flutter_website/ui/section_nav.dart';
 import 'package:flutter_website/pages/travel_page.dart';
 import 'package:flutter_website/pages/immobilier_page.dart';
 import 'package:flutter_website/pages/loisir_page.dart';
@@ -17,43 +20,25 @@ import 'package:flutter_website/pages/tourism_page.dart';
 import 'package:flutter_website/pages/analytics_dashboard_page.dart';
 import 'package:flutter_website/pages/portfolio_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-
-void main() async {
-  // Minimal startup - defer non-critical initialization
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize critical services only
-  final themeProvider = ThemeProvider()..initializeTheme();
-  final localeProvider = LocaleProvider();
+  ErrorHandler.setupGlobalErrorHandler();
 
+  final localeProvider = LocaleProvider();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => themeProvider),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider.value(value: localeProvider),
       ],
       child: MyApp(localeProvider: localeProvider),
     ),
   );
 
-  // Defer non-critical initialization to first frame
-  WidgetsBinding.instance.addPostFrameCallback((_) async {
-    try {
-      // Setup error handler asynchronously
-      ErrorHandler.setupGlobalErrorHandler();
-
-      // Track app initialization
-      AnalyticsService().trackEvent('app_initialized', parameters: {
-        'version': AppConfig.appVersion,
-        'environment': AppConfig.isDevelopment ? 'development' : 'production',
-      });
-    } catch (e) {
-      if (AppConfig.isDevelopment) {
-        print('Deferred initialization error: $e');
-      }
-    }
+  AnalyticsService().trackEvent('app_initialized', parameters: {
+    'version': AppConfig.appVersion,
+    'environment': AppConfig.environmentName,
   });
 }
 
@@ -63,10 +48,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, _) {
+    return Consumer2<ThemeProvider, LocaleProvider>(
+      builder: (context, themeProvider, localeProvider, _) {
         return MaterialApp(
-          title: 'Regisse__ #Business Solutions — SaaS, Design & Développement Sur Mesure',
+          onGenerateTitle: (_) => localeProvider.tr('app.title'),
           locale: localeProvider.flutterLocale,
           supportedLocales: const [Locale('fr'), Locale('en'), Locale('de')],
           localizationsDelegates: const [
@@ -77,25 +62,7 @@ class MyApp extends StatelessWidget {
           theme: ModernThemeBuilder.buildLightTheme(),
           darkTheme: ModernThemeBuilder.buildDarkTheme(),
           themeMode: themeProvider.themeMode,
-          debugShowCheckedModeBanner: AppConfig.isDevelopment,
-          builder: (context, widget) => ResponsiveBreakpoints.builder(
-            child: Builder(builder: (context) {
-              return ResponsiveScaledBox(
-                width: ResponsiveValue<double?>(context,
-                    defaultValue: null,
-                    conditionalValues: [
-                      const Condition.equals(name: 'MOBILE_SMALL', value: 480),
-                    ]).value,
-                child: ClampingScrollWrapper.builder(context, widget!),
-              );
-            }),
-            breakpoints: [
-              const Breakpoint(start: 0, end: 480, name: 'MOBILE_SMALL'),
-              const Breakpoint(start: 481, end: 850, name: MOBILE),
-              const Breakpoint(start: 850, end: 1080, name: TABLET),
-              const Breakpoint(start: 1081, end: double.infinity, name: DESKTOP),
-            ],
-          ),
+          debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
             '/': (context) => const _HomePage(),
@@ -104,7 +71,9 @@ class MyApp extends StatelessWidget {
             '/immobilier': (context) => const ImmobilierPage(),
             '/loisir': (context) => const LoisirPage(),
             '/tourism': (context) => const TourismPage(),
-            '/analytics': (context) => const AnalyticsDashboardPage(),
+            // Internal in-memory analytics view: debug builds only.
+            if (kDebugMode)
+              '/analytics': (context) => const AnalyticsDashboardPage(),
           },
         );
       },
@@ -119,14 +88,16 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  bool _menuOpen = false;
-  late final ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<bool> _showBackToTop = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
-    
+    _scrollController.addListener(() {
+      _showBackToTop.value = _scrollController.offset > 600;
+    });
+
     // Track page view
     AnalyticsService().trackPageView('home');
   }
@@ -134,20 +105,8 @@ class _HomePageState extends State<_HomePage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _showBackToTop.dispose();
     super.dispose();
-  }
-
-  void _openMenu(BuildContext ctx) {
-    final future = WebsiteMenuBar.showMenu(ctx);
-    if (mounted) setState(() => _menuOpen = true);
-    future.then(
-      (_) {
-        if (mounted) setState(() => _menuOpen = false);
-      },
-      onError: (_) {
-        if (mounted) setState(() => _menuOpen = false);
-      },
-    );
   }
 
   void _scrollToTop() {
@@ -166,100 +125,62 @@ class _HomePageState extends State<_HomePage> {
         preferredSize: const Size(double.infinity, 66),
         child: Builder(
           builder: (scaffoldCtx) => WebsiteMenuBar(
-            onMenuPressed: () => _openMenu(scaffoldCtx),
+            onMenuPressed: () => WebsiteMenuBar.showMenu(scaffoldCtx),
           ),
         ),
       ),
       body: Stack(
         children: [
-          ListView.builder(
-            controller: _scrollController,
-            itemCount: blocks.length,
-            itemBuilder: (context, index) => blocks[index],
+          // A Column (not a lazy ListView) so every section is laid out and
+          // the menu / in-page links can scroll to it.
+          DefaultTextStyle.merge(
+            // Sections leave body text uncolored so it follows the theme.
+            style: TextStyle(color: context.palette.textPrimary),
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(children: blocks),
+            ),
           ),
           const FloatingWhatsAppButton(
             templateKey: 'general',
           ),
         ],
       ),
-      bottomNavigationBar: _menuOpen
-          ? null
-          : SafeArea(top: false, bottom: true, child: const CompactFooterBanner()),
-      // Floating action button for scroll to top
-      floatingActionButton: _buildFloatingActionButton(),
-    );
-  }
-
-  Widget? _buildFloatingActionButton() {
-    return StreamBuilder(
-      stream: _scrollController.positions.isNotEmpty
-          ? Stream.periodic(const Duration(milliseconds: 500))
-          : null,
-      builder: (context, snapshot) {
-        final showFab = _scrollController.hasClients &&
-            _scrollController.offset > 300;
-
-        if (!showFab) {
-          return const SizedBox.shrink();
-        }
-
-        return FloatingActionButton(
-          onPressed: _scrollToTop,
-          tooltip: 'Back to top',
-          child: const Icon(Icons.arrow_upward),
-        );
-      },
+      floatingActionButton: ValueListenableBuilder<bool>(
+        valueListenable: _showBackToTop,
+        builder: (context, show, _) => AnimatedScale(
+          scale: show ? 1 : 0,
+          duration: const Duration(milliseconds: 200),
+          child: FloatingActionButton.small(
+            onPressed: _scrollToTop,
+            tooltip: context.read<LocaleProvider>().tr('back_to_top'),
+            child: const Icon(Icons.arrow_upward),
+          ),
+        ),
+      ),
     );
   }
 }
 
 List<Widget> blocks = [
   // ── Hero ────────────────────────────────────────────────────────────────────
-  LayoutBuilder(
-    builder: (context, constraints) {
-      final isMobile = constraints.maxWidth < 768;
-      final double carouselHeight;
-
-      if (isMobile) {
-        // Use the taller layout so FittedBox produces a bigger carousel on mobile
-        // Container height × (screenWidth / 1200) = displayed height
-        // 960 × (375 / 1200) ≈ 300px displayed → occupies ~40% of viewport
-        carouselHeight = 960;
-      } else {
-        carouselHeight = 640;
-      }
-
-      return FittedBox(
-        fit: BoxFit.fitWidth,
-        clipBehavior: Clip.hardEdge,
-        child: Container(
-          width: 1200,
-          height: carouselHeight,
-          alignment: Alignment.center,
-          child: RepaintBoundary(child: Carousel()),
-        ),
-      );
-    },
-  ),
-
-
+  RepaintBoundary(key: HomeSections.top, child: const Carousel()),
   // ── Value proposition ────────────────────────────────────────────────────────
   const BlockWrapper(GetStarted()),
+  // ── Digital solutions Africa (full-bleed photo band) ────────────────────────
+  DigitalSolutionsAfrica(key: HomeSections.africa),
   // ── Social proof numbers ─────────────────────────────────────────────────────
   const BlockWrapper(StatsRow()),
   // ── Core expertises ──────────────────────────────────────────────────────────
-  const BlockWrapper(Features()),
+  BlockWrapper(const Features(), key: HomeSections.expertise),
   // ── Service detail panels (image + text) ─────────────────────────────────────
-  const ServicesShowcase(),
+  ServicesShowcase(key: HomeSections.services),
   // ── How we work ──────────────────────────────────────────────────────────────
-  const BlockWrapper(ProcessSteps()),
+  BlockWrapper(const ProcessSteps(), key: HomeSections.process),
   // ── Client testimonials ───────────────────────────────────────────────────────
   const BlockWrapper(Testimonials()),
-  // ── Digital solutions Africa ─────────────────────────────────────────────────
-  const BlockWrapper(DigitalSolutionsAfrica()),
-
   // ── Contact CTA ───────────────────────────────────────────────────────────────
-  const BlockWrapper(InstallFlutter()),
+  BlockWrapper(const InstallFlutter(), key: HomeSections.contact),
   // ── Footer ────────────────────────────────────────────────────────────────────
   const Footer(),
 ];

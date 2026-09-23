@@ -7,13 +7,23 @@ enum Environment {
 }
 
 class AppConfig {
-  static const Environment _currentEnvironment = Environment.production;
+  /// Selected at build time: `flutter build web --dart-define=APP_ENV=staging`.
+  static const String environmentName =
+      String.fromEnvironment('APP_ENV', defaultValue: 'production');
+
+  static const Environment _currentEnvironment =
+      environmentName == 'development'
+          ? Environment.development
+          : environmentName == 'staging'
+              ? Environment.staging
+              : Environment.production;
 
   /// Check if running in production
   static bool get isProduction => _currentEnvironment == Environment.production;
 
   /// Check if running in development
-  static bool get isDevelopment => _currentEnvironment == Environment.development;
+  static bool get isDevelopment =>
+      _currentEnvironment == Environment.development;
 
   /// Check if running in staging
   static bool get isStaging => _currentEnvironment == Environment.staging;

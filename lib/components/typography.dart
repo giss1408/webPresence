@@ -7,7 +7,6 @@ const String fontFamily = "Google Sans";
 // Simple
 const TextStyle headlineTextStyle = TextStyle(
     fontSize: 44,
-    color: textPrimary,
     height: 1.2,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w700,
@@ -15,14 +14,15 @@ const TextStyle headlineTextStyle = TextStyle(
 
 const TextStyle headlineSecondaryTextStyle = TextStyle(
     fontSize: 28,
-    color: textPrimary,
     height: 1.2,
     fontFamily: fontFamily,
     fontWeight: FontWeight.w600,
     letterSpacing: -0.3);
 
-const TextStyle bodyTextStyle = TextStyle(
-    fontSize: 16, color: textPrimary, height: 1.6, fontFamily: "Roboto");
+// No color: text inherits the page's DefaultTextStyle, which follows the
+// light / dark palette.
+const TextStyle bodyTextStyle =
+    TextStyle(fontSize: 16, height: 1.6, fontFamily: "Roboto");
 
 TextStyle bodyLinkTextStyle = bodyTextStyle.copyWith(color: primary);
 
@@ -36,9 +36,9 @@ const TextStyle carouselBlueTextStyle = TextStyle(
     fontFamily: fontFamily,
     shadows: [
       Shadow(
-        color: Color(0x40000000),
-        offset: Offset(1, 1),
-        blurRadius: 2,
+        color: Color(0x80000000),
+        offset: Offset(0, 2),
+        blurRadius: 12,
       )
     ]);
 
@@ -48,9 +48,9 @@ const TextStyle carouselGreenTextStyle = TextStyle(
     fontFamily: fontFamily,
     shadows: [
       Shadow(
-        color: Color(0x40000000),
-        offset: Offset(1, 1),
-        blurRadius: 2,
+        color: Color(0x80000000),
+        offset: Offset(0, 2),
+        blurRadius: 12,
       )
     ]);
 
@@ -60,21 +60,22 @@ const TextStyle carouselOrangeTextStyle = TextStyle(
     fontFamily: fontFamily,
     shadows: [
       Shadow(
-        color: Color(0x40000000),
-        offset: Offset(1, 1),
-        blurRadius: 2,
+        color: Color(0x80000000),
+        offset: Offset(0, 2),
+        blurRadius: 12,
       )
     ]);
 
 const TextStyle carouselBrownTextStyle = TextStyle(
     fontSize: 100,
-    color: Color(0xFF6E260E),
+    // Warm terracotta — the former dark brown had no contrast on the dark hero.
+    color: Color(0xFFE0874F),
     fontFamily: fontFamily,
     shadows: [
       Shadow(
-        color: Color(0x40000000),
-        offset: Offset(1, 1),
-        blurRadius: 2,
+        color: Color(0x80000000),
+        offset: Offset(0, 2),
+        blurRadius: 12,
       )
     ]);
 
@@ -84,8 +85,8 @@ const TextStyle carouselWhiteTextStyle = TextStyle(
     fontFamily: fontFamily,
     shadows: [
       Shadow(
-        color: Color(0x40000000),
-        offset: Offset(1, 1),
-        blurRadius: 2,
+        color: Color(0x80000000),
+        offset: Offset(0, 2),
+        blurRadius: 12,
       )
     ]);

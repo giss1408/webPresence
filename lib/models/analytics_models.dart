@@ -58,7 +58,8 @@ class AnalyticsSummary {
   String get mostViewedPage => topPages.isNotEmpty ? topPages.first : 'N/A';
 
   /// Get the most triggered event
-  String get mostTriggeredEvent => topEvents.isNotEmpty ? topEvents.first : 'N/A';
+  String get mostTriggeredEvent =>
+      topEvents.isNotEmpty ? topEvents.first : 'N/A';
 
   /// Get average page views
   double get averagePageViewsPerPage =>

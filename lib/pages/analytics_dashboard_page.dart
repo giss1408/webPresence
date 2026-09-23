@@ -106,7 +106,7 @@ class _AnalyticsDashboardPageState extends State<AnalyticsDashboardPage> {
                     const SizedBox(height: 40),
 
                     // Top Pages
-                    Text(
+                    const Text(
                       'Top Pages',
                       style: ModernTypography.headlineLarge,
                     ),
@@ -116,7 +116,7 @@ class _AnalyticsDashboardPageState extends State<AnalyticsDashboardPage> {
                     const SizedBox(height: 40),
 
                     // Top Events
-                    Text(
+                    const Text(
                       'Top Events',
                       style: ModernTypography.headlineLarge,
                     ),
@@ -126,7 +126,7 @@ class _AnalyticsDashboardPageState extends State<AnalyticsDashboardPage> {
                     const SizedBox(height: 40),
 
                     // Recent Events
-                    Text(
+                    const Text(
                       'Recent Events',
                       style: ModernTypography.headlineLarge,
                     ),
@@ -527,7 +527,7 @@ class JsonEncoder {
         if (i < entries.length - 1) buffer.write(',');
         buffer.write('\n');
       }
-      buffer.write(indent * depth + '}');
+      buffer.write('${indent * depth}}');
     } else if (object is List) {
       buffer.write('[\n');
       for (int i = 0; i < object.length; i++) {
@@ -536,7 +536,7 @@ class JsonEncoder {
         if (i < object.length - 1) buffer.write(',');
         buffer.write('\n');
       }
-      buffer.write(indent * depth + ']');
+      buffer.write('${indent * depth}]');
     } else {
       buffer.write(object);
     }

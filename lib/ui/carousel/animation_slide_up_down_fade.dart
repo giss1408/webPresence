@@ -6,20 +6,22 @@ class WidgetSlideUpDownFadeAnimation extends StatelessWidget {
   final bool direction;
   final Widget child;
 
-  const WidgetSlideUpDownFadeAnimation({
-    super.key, 
-    required this.duration, 
-    required this.offset, 
-    required this.direction, 
-    required this.child
-  });
+  const WidgetSlideUpDownFadeAnimation(
+      {super.key,
+      required this.duration,
+      required this.offset,
+      required this.direction,
+      required this.child});
 
   @override
   Widget build(BuildContext context) {
     // Use more efficient TweenAnimationBuilder for better performance
     return TweenAnimationBuilder<double>(
       duration: duration,
-      tween: Tween<double>(begin: direction ? 0.0 : 1.0, end: direction ? 1.0 : 0.0),
+      // `begin` only applies to the first build: start hidden so layers that
+      // are not yet due don't flash in and fade out when a slide appears.
+      // Later changes animate from the current value to the new `end`.
+      tween: Tween<double>(begin: 0.0, end: direction ? 1.0 : 0.0),
       curve: direction ? Curves.easeInOut : Curves.easeOut,
       builder: (context, value, child) {
         return Opacity(
