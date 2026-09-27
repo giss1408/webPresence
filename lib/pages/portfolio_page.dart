@@ -7,24 +7,27 @@ class PortfolioPage extends StatelessWidget {
 
   static const List<_ProjectCardData> _projects = [
     _ProjectCardData(
-      title: 'portfolio.p1_title',
-      subtitle: 'portfolio.p1_subtitle',
-      description: 'portfolio.p1_desc',
-      tags: ['Flutter', 'Firebase', 'SaaS'],
+      title: 'portfolio.tourism_title',
+      subtitle: 'portfolio.tourism_subtitle',
+      description: 'portfolio.tourism_desc',
+      tags: ['Flutter', 'Django', 'GraphQL', 'Stripe'],
+      icon: Icons.travel_explore,
       accent: Color(0xFF1E88E5),
     ),
     _ProjectCardData(
-      title: 'portfolio.p2_title',
-      subtitle: 'portfolio.p2_subtitle',
-      description: 'portfolio.p2_desc',
-      tags: ['UI/UX', 'Mobile', 'Growth'],
+      title: 'portfolio.djassa_title',
+      subtitle: 'portfolio.djassa_subtitle',
+      description: 'portfolio.djassa_desc',
+      tags: ['Flutter', 'FastAPI', 'Offline-first'],
+      icon: Icons.storefront,
       accent: Color(0xFF43A047),
     ),
     _ProjectCardData(
-      title: 'portfolio.p3_title',
-      subtitle: 'portfolio.p3_subtitle',
-      description: 'portfolio.p3_desc',
-      tags: ['Web', 'Design System', 'CMS'],
+      title: 'portfolio.immoizi_title',
+      subtitle: 'portfolio.immoizi_subtitle',
+      description: 'portfolio.immoizi_desc',
+      tags: ['Flutter', 'Django', 'GraphQL'],
+      icon: Icons.apartment,
       accent: Color(0xFFFB8C00),
     ),
   ];
@@ -69,101 +72,127 @@ class PortfolioPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _projects.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 0.95,
-                    ),
-                    itemBuilder: (context, index) {
-                      final project = _projects[index];
-                      return Card(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          side: BorderSide(
-                            color: theme.colorScheme.outlineVariant,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 44,
-                                height: 44,
-                                decoration: BoxDecoration(
-                                  color: project.accent.withOpacity(0.14),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Icon(
-                                  Icons.auto_awesome,
-                                  color: project.accent,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                tr(project.title),
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                tr(project.subtitle),
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: project.accent,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                tr(project.description),
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  height: 1.5,
-                                  color: theme.colorScheme.onSurfaceVariant,
-                                ),
-                              ),
-                              const Spacer(),
-                              Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: project.tags
-                                    .map(
-                                      (tag) => Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: theme.colorScheme
-                                              .surfaceContainerHighest,
-                                          borderRadius:
-                                              BorderRadius.circular(999),
-                                        ),
-                                        child: Text(
-                                          tag,
-                                          style: theme.textTheme.labelSmall,
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
+                  for (var i = 0; i < _projects.length; i += crossAxisCount)
+                    Padding(
+                      padding: EdgeInsets.only(top: i == 0 ? 0 : 16),
+                      // Cards in a row share the tallest card's height.
+                      child: IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            for (var j = i; j < i + crossAxisCount; j++) ...[
+                              if (j > i) const SizedBox(width: 16),
+                              Expanded(
+                                child: j < _projects.length
+                                    ? _ProjectCard(project: _projects[j])
+                                    : const SizedBox.shrink(),
                               ),
                             ],
-                          ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
                 ],
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _ProjectCard extends StatelessWidget {
+  const _ProjectCard({required this.project});
+
+  final _ProjectCardData project;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final tr = context.watch<LocaleProvider>().tr;
+
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: theme.colorScheme.outlineVariant,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: project.accent.withOpacity(0.14),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                project.icon,
+                color: project.accent,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              tr(project.title),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              tr(project.subtitle),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: project.accent,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              tr(project.description),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                height: 1.5,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Pushes the tags to the bottom when a row neighbour is taller.
+            const Spacer(),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: project.tags
+                  .map(
+                    (tag) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: project.accent.withOpacity(0.10),
+                        border: Border.all(
+                          color: project.accent.withOpacity(0.35),
+                        ),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        tag,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: project.accent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
         ),
       ),
     );
@@ -176,6 +205,7 @@ class _ProjectCardData {
     required this.subtitle,
     required this.description,
     required this.tags,
+    required this.icon,
     required this.accent,
   });
 
@@ -183,5 +213,6 @@ class _ProjectCardData {
   final String subtitle;
   final String description;
   final List<String> tags;
+  final IconData icon;
   final Color accent;
 }

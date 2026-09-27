@@ -1012,64 +1012,63 @@ class Translations {
       'de': 'Unsere Referenzen',
     },
     'portfolio.subtitle': {
-      'fr': 'Quelques exemples de projets conçus pour des équipes ambitieuses.',
-      'en': 'A few examples of projects built for ambitious teams.',
-      'de':
-          'Einige Beispiele für Projekte, die wir für ambitionierte Teams umgesetzt haben.',
+      'fr': 'Nos propres produits, conçus pour les marchés africains.',
+      'en': 'Our own products, built for African markets.',
+      'de': 'Unsere eigenen Produkte, entwickelt für afrikanische Märkte.',
     },
-    'portfolio.p1_title': {
-      'fr': 'Plateforme SaaS B2B',
-      'en': 'B2B SaaS platform',
-      'de': 'B2B-SaaS-Plattform',
+    'portfolio.tourism_title': {
+      'fr': 'Akwaba Ivoire',
+      'en': 'Akwaba Ivoire',
+      'de': 'Akwaba Ivoire',
     },
-    'portfolio.p1_subtitle': {
-      'fr': 'Automatisation & analytics',
-      'en': 'Automation & analytics',
-      'de': 'Automatisierung & Analytics',
+    'portfolio.tourism_subtitle': {
+      'fr': 'Tourisme en Côte d’Ivoire',
+      'en': 'Tourism in Côte d’Ivoire',
+      'de': 'Tourismus in der Côte d’Ivoire',
     },
-    'portfolio.p1_desc': {
+    'portfolio.tourism_desc': {
       'fr':
-          'Tableau de bord multi-tenant avec workflows d’automatisation et reporting temps réel.',
+          'Application de voyage : destinations, réservations avec paiement Stripe, guides locaux sur WhatsApp et avis vérifiés, avec une app de gestion du catalogue.',
       'en':
-          'Multi-tenant dashboard with automation workflows and real-time reporting.',
+          'Travel app: destinations, bookings with Stripe payment, local guides on WhatsApp and verified reviews, plus a staff app to manage the catalogue.',
       'de':
-          'Mandantenfähiges Dashboard mit Automatisierungs-Workflows und Echtzeit-Reporting.',
+          'Reise-App: Reiseziele, Buchungen mit Stripe-Zahlung, lokale Guides über WhatsApp und verifizierte Bewertungen, dazu eine App zur Katalogverwaltung.',
     },
-    'portfolio.p2_title': {
-      'fr': 'Marketplace urbain',
-      'en': 'Urban marketplace',
-      'de': 'Urbaner Marktplatz',
+    'portfolio.djassa_title': {
+      'fr': 'Djassa',
+      'en': 'Djassa',
+      'de': 'Djassa',
     },
-    'portfolio.p2_subtitle': {
-      'fr': 'Expérience mobile premium',
-      'en': 'Premium mobile experience',
-      'de': 'Premium-Mobile-Erlebnis',
+    'portfolio.djassa_subtitle': {
+      'fr': 'Inclusion financière des commerçants',
+      'en': 'Financial inclusion for merchants',
+      'de': 'Finanzielle Inklusion für Händler',
     },
-    'portfolio.p2_desc': {
+    'portfolio.djassa_desc': {
       'fr':
-          'Application de réservation et gestion de services locale pensée pour une adoption rapide.',
+          'App de caisse pour petits commerçants : chaque vente enregistrée, même sans réseau, devient un historique d’activité. Pensée pour les vieux téléphones Android et le faible débit.',
       'en':
-          'Booking and local service management app designed for fast adoption.',
+          'Sales app for small merchants: every sale is recorded, even offline, and becomes a business history. Built for old Android phones and low bandwidth.',
       'de':
-          'App für Buchung und Verwaltung lokaler Dienstleistungen, auf schnelle Akzeptanz ausgelegt.',
+          'Kassen-App für kleine Händler: Jeder Verkauf wird erfasst, auch offline, und ergibt eine Geschäftshistorie. Für alte Android-Handys und geringe Bandbreite.',
     },
-    'portfolio.p3_title': {
-      'fr': 'Portail institutionnel',
-      'en': 'Institutional portal',
-      'de': 'Behördenportal',
+    'portfolio.immoizi_title': {
+      'fr': 'Immoizi',
+      'en': 'Immoizi',
+      'de': 'Immoizi',
     },
-    'portfolio.p3_subtitle': {
-      'fr': 'Communication & services',
-      'en': 'Communication & services',
-      'de': 'Kommunikation & Services',
+    'portfolio.immoizi_subtitle': {
+      'fr': 'Gestion immobilière',
+      'en': 'Property management',
+      'de': 'Immobilienverwaltung',
     },
-    'portfolio.p3_desc': {
+    'portfolio.immoizi_desc': {
       'fr':
-          'Refonte complète d’un portail public avec parcours guidés et contenus personnalisés.',
+          'Deux apps mobiles, propriétaires et locataires : annonces, baux, loyers, documents et demandes de maintenance.',
       'en':
-          'Complete redesign of a public portal with guided journeys and personalised content.',
+          'Two mobile apps, for landlords and tenants: listings, leases, rent payments, documents and maintenance requests.',
       'de':
-          'Komplette Neugestaltung eines öffentlichen Portals mit geführten Nutzerpfaden und personalisierten Inhalten.',
+          'Zwei mobile Apps für Vermieter und Mieter: Inserate, Mietverträge, Mietzahlungen, Dokumente und Wartungsanfragen.',
     },
 
     // ── Travel page ─────────────────────────────────────────────────
