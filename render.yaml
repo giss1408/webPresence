@@ -4,7 +4,7 @@
 # `rootDir: <path to this folder>` to the service below.
 services:
   - type: web
-    name: regisse-website
+    name: regisse
     runtime: static
     buildCommand: ./render-build.sh
     staticPublishPath: build/web
