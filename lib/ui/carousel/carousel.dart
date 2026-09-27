@@ -52,6 +52,17 @@ const double _canvasHeight = 640;
 const _deviceFrame = 'assets/images/device_frame.png';
 const _deviceFrameRect = Rect.fromLTWH(441, 37, 317, 565);
 const _itemOffset = Offset(0, 60);
+
+/// On phones only this part of the canvas is shown, so the slide is zoomed
+/// in instead of shrinking the whole 1200 px canvas to the screen width.
+const _mobileViewport = Rect.fromLTRB(240, 40, 960, 600);
+
+/// On phones, layers move this much of the way toward the canvas centre so
+/// pictures near the edges stay inside [_mobileViewport].
+const _mobilePull = 0.5;
+
+/// Slide text scale on phones, where it wraps within [_mobileViewport].
+const _mobileTextScale = 0.7;
 const _entryDuration = Duration(milliseconds: 800);
 const _exitDuration = Duration(milliseconds: 500);
 
@@ -246,7 +257,13 @@ class _CarouselState extends State<Carousel>
     );
   }
 
-  Widget _buildSlide(String Function(String) tr) {
+  /// [rect] moved toward the canvas centre, keeping its size.
+  static Rect _pulledIn(Rect rect) {
+    const centreX = _canvasWidth / 2;
+    return rect.translate((centreX - rect.center.dx) * _mobilePull, 0);
+  }
+
+  Widget _buildSlide(String Function(String) tr, {required bool isMobile}) {
     final slide = _slide;
     return SizedBox(
       width: _canvasWidth,
@@ -255,7 +272,9 @@ class _CarouselState extends State<Carousel>
         children: [
           for (var i = 0; i < slide.layers.length; i++)
             Positioned.fromRect(
-              rect: slide.layers[i].rect,
+              rect: isMobile
+                  ? _pulledIn(slide.layers[i].rect)
+                  : slide.layers[i].rect,
               child: _animated(
                   i, Image.asset(slide.layers[i].asset, fit: BoxFit.fill)),
             ),
@@ -263,14 +282,18 @@ class _CarouselState extends State<Carousel>
             rect: _deviceFrameRect,
             child: Image.asset(_deviceFrame, fit: BoxFit.fill),
           ),
-          Positioned.fill(
-            left: 24,
-            right: 24,
+          Positioned.fromRect(
+            rect: isMobile
+                ? _mobileViewport.deflate(24)
+                : const Rect.fromLTRB(24, 0, _canvasWidth - 24, _canvasHeight),
             child: Center(
               child: _animated(
                 slide.layers.length,
                 RichText(
                   textAlign: TextAlign.center,
+                  textScaler: isMobile
+                      ? const TextScaler.linear(_mobileTextScale)
+                      : TextScaler.noScaling,
                   text: TextSpan(
                     style: const TextStyle(height: 1.1),
                     children: [
@@ -309,10 +332,20 @@ class _CarouselState extends State<Carousel>
           builder: (context, constraints) {
             final width = constraints.maxWidth;
             final isMobile = width < 768;
-            // On desktop, keep canvas + controls + CTA above the fold.
-            final canvasHeight = math.min(
-              width * _canvasHeight / _canvasWidth,
-              isMobile ? double.infinity : (screenHeight - 66) * 0.72,
+            // Phones show the zoomed-in viewport; desktop keeps canvas +
+            // controls + CTA above the fold.
+            final canvasHeight = isMobile
+                ? width * _mobileViewport.height / _mobileViewport.width
+                : math.min(
+                    width * _canvasHeight / _canvasWidth,
+                    (screenHeight - 66) * 0.72,
+                  );
+            final slide = AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              child: KeyedSubtree(
+                key: ValueKey(_index),
+                child: _buildSlide(tr, isMobile: isMobile),
+              ),
             );
 
             return Column(
@@ -325,17 +358,27 @@ class _CarouselState extends State<Carousel>
                     child: FittedBox(
                       fit: BoxFit.contain,
                       clipBehavior: Clip.hardEdge,
-                      child: SizedBox(
-                        width: _canvasWidth,
-                        height: _canvasHeight,
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          child: KeyedSubtree(
-                            key: ValueKey(_index),
-                            child: _buildSlide(tr),
-                          ),
-                        ),
-                      ),
+                      child: isMobile
+                          ? SizedBox.fromSize(
+                              size: _mobileViewport.size,
+                              child: Stack(
+                                clipBehavior: Clip.hardEdge,
+                                children: [
+                                  Positioned(
+                                    left: -_mobileViewport.left,
+                                    top: -_mobileViewport.top,
+                                    width: _canvasWidth,
+                                    height: _canvasHeight,
+                                    child: slide,
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SizedBox(
+                              width: _canvasWidth,
+                              height: _canvasHeight,
+                              child: slide,
+                            ),
                     ),
                   ),
                 ),
