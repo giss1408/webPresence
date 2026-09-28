@@ -17,6 +17,7 @@ class Translations {
       'en': 'Portfolio',
       'de': 'Referenzen'
     },
+    'menu.demo': {'fr': 'Démo live', 'en': 'Live demo', 'de': 'Live-Demo'},
     'menu.blog': {'fr': 'Blog', 'en': 'Blog', 'de': 'Blog'},
     'menu.contact': {'fr': 'Contact', 'en': 'Contact', 'de': 'Kontakt'},
     'menu.title': {'fr': 'Menu', 'en': 'Menu', 'de': 'Menü'},
@@ -1069,6 +1070,511 @@ class Translations {
           'Two mobile apps, for landlords and tenants: listings, leases, rent payments, documents and maintenance requests.',
       'de':
           'Zwei mobile Apps für Vermieter und Mieter: Inserate, Mietverträge, Mietzahlungen, Dokumente und Wartungsanfragen.',
+    },
+
+    // ── Live demo, offline-first section ────────────────────────────
+    'portfolio.try_demo': {
+      'fr': 'Essayer la démo',
+      'en': 'Try the demo',
+      'de': 'Demo ausprobieren',
+    },
+    'portfolio.watch': {
+      'fr': 'Voir la vidéo',
+      'en': 'Watch the video',
+      'de': 'Video ansehen',
+    },
+    'showcase.badge': {
+      'fr': 'DÉMO LIVE',
+      'en': 'LIVE DEMO',
+      'de': 'LIVE-DEMO',
+    },
+    'showcase.title': {
+      'fr': 'Votre future app, en direct',
+      'en': 'Your future app, live',
+      'de': 'Ihre künftige App, live',
+    },
+    'showcase.body': {
+      'fr':
+          'Ce téléphone ne lit pas une vidéo : il exécute du vrai code Flutter, la technologie avec laquelle nous livrons vos apps iOS, Android et web. Touchez-le, faites-le glisser, changez de plateforme.',
+      'en':
+          'This phone is not playing a video: it runs real Flutter code, the technology we use to ship your iOS, Android and web apps. Tap it, swipe it, switch platforms.',
+      'de':
+          'Dieses Handy spielt kein Video ab: Es führt echten Flutter-Code aus – die Technologie, mit der wir Ihre iOS-, Android- und Web-Apps liefern. Tippen, wischen, Plattform wechseln.',
+    },
+    'showcase.point1': {
+      'fr': 'Une seule base de code pour iOS, Android et le web',
+      'en': 'One codebase for iOS, Android and the web',
+      'de': 'Eine Codebasis für iOS, Android und Web',
+    },
+    'showcase.point2': {
+      'fr':
+          'Look natif sur chaque plateforme, animations fluides à 60 images/s',
+      'en': 'Native look on each platform, smooth 60 fps animations',
+      'de': 'Nativer Look auf jeder Plattform, flüssige Animationen mit 60 fps',
+    },
+    'showcase.point3': {
+      'fr': 'Mode sombre et multilingue dès le premier jour',
+      'en': 'Dark mode and multiple languages from day one',
+      'de': 'Dunkelmodus und Mehrsprachigkeit ab dem ersten Tag',
+    },
+    'showcase.hint': {
+      'fr': 'Touchez ou faites glisser le téléphone',
+      'en': 'Tap or swipe the phone',
+      'de': 'Handy antippen oder wischen',
+    },
+    'showcase.portfolio': {
+      'fr': 'Voir nos réalisations',
+      'en': 'See our work',
+      'de': 'Unsere Referenzen ansehen',
+    },
+    'demo.now': {
+      'fr': 'maintenant',
+      'en': 'now',
+      'de': 'jetzt',
+    },
+    'demo.ak.step1': {
+      'fr': 'Explorer les destinations',
+      'en': 'Browse destinations',
+      'de': 'Reiseziele entdecken',
+    },
+    'demo.ak.step2': {
+      'fr': 'Découvrir un lieu',
+      'en': 'View a destination',
+      'de': 'Ein Reiseziel ansehen',
+    },
+    'demo.ak.step3': {
+      'fr': 'Réserver et payer avec Stripe',
+      'en': 'Book and pay with Stripe',
+      'de': 'Buchen und mit Stripe bezahlen',
+    },
+    'demo.ak.step4': {
+      'fr': 'Confirmation et guide sur WhatsApp',
+      'en': 'Confirmation and a guide on WhatsApp',
+      'de': 'Bestätigung und Guide über WhatsApp',
+    },
+    'demo.ak.hello': {
+      'fr': 'Bonjour Aya',
+      'en': 'Hello Aya',
+      'de': 'Hallo Aya',
+    },
+    'demo.ak.where': {
+      'fr': 'Où partir ce week-end ?',
+      'en': 'Where to this weekend?',
+      'de': 'Wohin am Wochenende?',
+    },
+    'demo.ak.search': {
+      'fr': 'Plages, parcs, culture…',
+      'en': 'Beaches, parks, culture…',
+      'de': 'Strände, Parks, Kultur…',
+    },
+    'demo.ak.popular': {
+      'fr': 'Populaires',
+      'en': 'Popular',
+      'de': 'Beliebt',
+    },
+    'demo.ak.cat_beach': {
+      'fr': 'Plage',
+      'en': 'Beach',
+      'de': 'Strand',
+    },
+    'demo.ak.cat_nature': {
+      'fr': 'Nature',
+      'en': 'Nature',
+      'de': 'Natur',
+    },
+    'demo.ak.cat_culture': {
+      'fr': 'Culture',
+      'en': 'Culture',
+      'de': 'Kultur',
+    },
+    'demo.ak.explore': {
+      'fr': 'Explorer',
+      'en': 'Explore',
+      'de': 'Entdecken',
+    },
+    'demo.ak.map': {
+      'fr': 'Carte',
+      'en': 'Map',
+      'de': 'Karte',
+    },
+    'demo.ak.trips': {
+      'fr': 'Voyages',
+      'en': 'Trips',
+      'de': 'Reisen',
+    },
+    'demo.ak.profile': {
+      'fr': 'Profil',
+      'en': 'Profile',
+      'de': 'Profil',
+    },
+    'demo.ak.assinie_desc': {
+      'fr': 'Lagune, océan et cocotiers à 1 h 30 d\'Abidjan.',
+      'en': 'Lagoon, ocean and palm trees 1.5 hours from Abidjan.',
+      'de': 'Lagune, Ozean und Palmen, 1,5 Stunden von Abidjan.',
+    },
+    'demo.ak.from': {
+      'fr': 'À partir de',
+      'en': 'From',
+      'de': 'Ab',
+    },
+    'demo.ak.night': {
+      'fr': '/ nuit',
+      'en': '/ night',
+      'de': '/ Nacht',
+    },
+    'demo.ak.book': {
+      'fr': 'Réserver',
+      'en': 'Book',
+      'de': 'Buchen',
+    },
+    'demo.ak.booking': {
+      'fr': 'Réservation',
+      'en': 'Booking',
+      'de': 'Buchung',
+    },
+    'demo.ak.dates': {
+      'fr': 'Dates',
+      'en': 'Dates',
+      'de': 'Reisedaten',
+    },
+    'demo.ak.thu': {
+      'fr': 'Jeu',
+      'en': 'Thu',
+      'de': 'Do',
+    },
+    'demo.ak.fri': {
+      'fr': 'Ven',
+      'en': 'Fri',
+      'de': 'Fr',
+    },
+    'demo.ak.sat': {
+      'fr': 'Sam',
+      'en': 'Sat',
+      'de': 'Sa',
+    },
+    'demo.ak.sun': {
+      'fr': 'Dim',
+      'en': 'Sun',
+      'de': 'So',
+    },
+    'demo.ak.month': {
+      'fr': 'oct.',
+      'en': 'Oct',
+      'de': 'Okt.',
+    },
+    'demo.ak.travellers': {
+      'fr': '2 voyageurs',
+      'en': '2 travellers',
+      'de': '2 Reisende',
+    },
+    'demo.ak.guide': {
+      'fr': 'Guide local sur WhatsApp',
+      'en': 'Local guide on WhatsApp',
+      'de': 'Lokaler Guide über WhatsApp',
+    },
+    'demo.ak.nights': {
+      'fr': '2 nuits',
+      'en': '2 nights',
+      'de': '2 Nächte',
+    },
+    'demo.ak.pay': {
+      'fr': 'Payer',
+      'en': 'Pay',
+      'de': 'Zahlen:',
+    },
+    'demo.ak.secure': {
+      'fr': 'Paiement sécurisé par Stripe',
+      'en': 'Secure payment by Stripe',
+      'de': 'Sichere Zahlung über Stripe',
+    },
+    'demo.ak.confirmed': {
+      'fr': 'Réservation confirmée',
+      'en': 'Booking confirmed',
+      'de': 'Buchung bestätigt',
+    },
+    'demo.ak.ref': {
+      'fr': 'Réf.',
+      'en': 'Ref.',
+      'de': 'Ref.',
+    },
+    'demo.ak.done': {
+      'fr': 'Retour à l\'accueil',
+      'en': 'Back to home',
+      'de': 'Zur Startseite',
+    },
+    'demo.ak.notice': {
+      'fr': 'Koffi, votre guide, vous écrit sur WhatsApp.',
+      'en': 'Koffi, your guide, is messaging you on WhatsApp.',
+      'de': 'Koffi, Ihr Guide, schreibt Ihnen auf WhatsApp.',
+    },
+    'demo.dj.step1': {
+      'fr': 'Les ventes du jour, même hors ligne',
+      'en': 'Today\'s sales, even offline',
+      'de': 'Tagesumsatz, auch offline',
+    },
+    'demo.dj.step2': {
+      'fr': 'Enregistrer une vente en quelques touches',
+      'en': 'Record a sale in a few taps',
+      'de': 'Einen Verkauf mit wenigen Tipps erfassen',
+    },
+    'demo.dj.step3': {
+      'fr': 'Sauvegardée sur le téléphone',
+      'en': 'Saved on the phone',
+      'de': 'Auf dem Handy gespeichert',
+    },
+    'demo.dj.step4': {
+      'fr': 'Synchronisée au retour du réseau',
+      'en': 'Synced when the network is back',
+      'de': 'Synchronisiert, sobald das Netz zurück ist',
+    },
+    'demo.dj.shop': {
+      'fr': 'Boutique Awa',
+      'en': 'Awa\'s shop',
+      'de': 'Awas Laden',
+    },
+    'demo.dj.today': {
+      'fr': 'Ventes du jour',
+      'en': 'Today\'s sales',
+      'de': 'Heutiger Umsatz',
+    },
+    'demo.dj.vs': {
+      'fr': '+12 % par rapport à hier',
+      'en': '+12% vs yesterday',
+      'de': '+12 % gegenüber gestern',
+    },
+    'demo.dj.latest': {
+      'fr': 'Dernières ventes',
+      'en': 'Latest sales',
+      'de': 'Letzte Verkäufe',
+    },
+    'demo.dj.offline': {
+      'fr': 'Hors ligne',
+      'en': 'Offline',
+      'de': 'Offline',
+    },
+    'demo.dj.online': {
+      'fr': 'En ligne',
+      'en': 'Online',
+      'de': 'Online',
+    },
+    'demo.dj.new': {
+      'fr': 'Nouvelle vente',
+      'en': 'New sale',
+      'de': 'Neuer Verkauf',
+    },
+    'demo.dj.product': {
+      'fr': 'Produit',
+      'en': 'Product',
+      'de': 'Produkt',
+    },
+    'demo.dj.method': {
+      'fr': 'Paiement',
+      'en': 'Payment',
+      'de': 'Zahlung',
+    },
+    'demo.dj.cash': {
+      'fr': 'Espèces',
+      'en': 'Cash',
+      'de': 'Bar',
+    },
+    'demo.dj.save': {
+      'fr': 'Enregistrer',
+      'en': 'Save',
+      'de': 'Speichern',
+    },
+    'demo.dj.saved': {
+      'fr': 'Enregistrée sur le téléphone — synchro au retour du réseau',
+      'en': 'Saved on the phone — syncs when the network is back',
+      'de': 'Auf dem Handy gespeichert — Sync, sobald das Netz zurück ist',
+    },
+    'demo.dj.notice': {
+      'fr': '4 ventes synchronisées avec votre compte.',
+      'en': '4 sales synced to your account.',
+      'de': '4 Verkäufe mit Ihrem Konto synchronisiert.',
+    },
+    'demo.im.step1': {
+      'fr': 'Le tableau de bord du propriétaire',
+      'en': 'The landlord\'s dashboard',
+      'de': 'Das Dashboard des Vermieters',
+    },
+    'demo.im.step2': {
+      'fr': 'Suivre le loyer de chaque lot',
+      'en': 'Track rent for every unit',
+      'de': 'Die Miete jeder Einheit verfolgen',
+    },
+    'demo.im.step3': {
+      'fr': 'Relancer en un geste',
+      'en': 'Send a reminder in one tap',
+      'de': 'Mit einem Tipp erinnern',
+    },
+    'demo.im.step4': {
+      'fr': 'Paiement reçu par Mobile Money',
+      'en': 'Payment received via Mobile Money',
+      'de': 'Zahlung per Mobile Money erhalten',
+    },
+    'demo.im.properties': {
+      'fr': 'Mes biens',
+      'en': 'My properties',
+      'de': 'Meine Objekte',
+    },
+    'demo.im.collected': {
+      'fr': 'Loyers encaissés en octobre',
+      'en': 'Rent collected in October',
+      'de': 'Im Oktober eingenommene Mieten',
+    },
+    'demo.im.units6': {
+      'fr': '6 lots · 5 loués',
+      'en': '6 units · 5 let',
+      'de': '6 Einheiten · 5 vermietet',
+    },
+    'demo.im.units1': {
+      'fr': '1 lot · loué',
+      'en': '1 unit · let',
+      'de': '1 Einheit · vermietet',
+    },
+    'demo.im.one_late': {
+      'fr': '1 loyer en retard',
+      'en': '1 late payment',
+      'de': '1 Miete überfällig',
+    },
+    'demo.im.units_title': {
+      'fr': 'Lots',
+      'en': 'Units',
+      'de': 'Einheiten',
+    },
+    'demo.im.paid': {
+      'fr': 'Payé',
+      'en': 'Paid',
+      'de': 'Bezahlt',
+    },
+    'demo.im.vacant': {
+      'fr': 'Libre',
+      'en': 'Vacant',
+      'de': 'Frei',
+    },
+    'demo.im.late': {
+      'fr': '5 jours de retard',
+      'en': '5 days late',
+      'de': '5 Tage überfällig',
+    },
+    'demo.im.remind': {
+      'fr': 'Relancer',
+      'en': 'Remind',
+      'de': 'Erinnern',
+    },
+    'demo.im.reminded_badge': {
+      'fr': 'Relancé',
+      'en': 'Reminded',
+      'de': 'Erinnert',
+    },
+    'demo.im.reminded': {
+      'fr': 'Rappel envoyé à M. Diallo sur WhatsApp',
+      'en': 'Reminder sent to Mr Diallo on WhatsApp',
+      'de': 'Erinnerung per WhatsApp an Herrn Diallo gesendet',
+    },
+    'demo.im.notice': {
+      'fr': 'M. Diallo a payé le loyer d\'octobre par Orange Money.',
+      'en': 'Mr Diallo paid October rent via Orange Money.',
+      'de': 'Herr Diallo hat die Oktobermiete per Orange Money bezahlt.',
+    },
+    'demo.im.home': {
+      'fr': 'Accueil',
+      'en': 'Home',
+      'de': 'Start',
+    },
+    'demo.im.tenants': {
+      'fr': 'Locataires',
+      'en': 'Tenants',
+      'de': 'Mieter',
+    },
+    'demo.im.requests': {
+      'fr': 'Demandes',
+      'en': 'Requests',
+      'de': 'Anfragen',
+    },
+    'sync.badge': {
+      'fr': 'OFFLINE-FIRST',
+      'en': 'OFFLINE-FIRST',
+      'de': 'OFFLINE-FIRST',
+    },
+    'sync.title': {
+      'fr': 'Le réseau coupe. Votre app, non.',
+      'en': 'The network drops. Your app doesn\'t.',
+      'de': 'Das Netz fällt aus. Ihre App nicht.',
+    },
+    'sync.body': {
+      'fr':
+          'En Afrique, la connexion est souvent intermittente. Nos apps continuent de fonctionner sans réseau, puis se synchronisent toutes seules — comme Djassa, notre app de caisse pour commerçants.',
+      'en':
+          'Across Africa, connectivity is often patchy. Our apps keep working without a network, then sync on their own — like Djassa, our sales app for merchants.',
+      'de':
+          'In Afrika ist die Verbindung oft unterbrochen. Unsere Apps arbeiten ohne Netz weiter und synchronisieren sich dann selbst — wie Djassa, unsere Kassen-App für Händler.',
+    },
+    'sync.phase1': {
+      'fr': 'Chaque vente est d\'abord enregistrée sur le téléphone',
+      'en': 'Every sale is saved on the phone first',
+      'de': 'Jeder Verkauf wird zuerst auf dem Handy gespeichert',
+    },
+    'sync.phase2': {
+      'fr': 'Sans réseau, les ventes attendent dans une file locale',
+      'en': 'Without a network, sales wait in a local queue',
+      'de': 'Ohne Netz warten Verkäufe in einer lokalen Warteschlange',
+    },
+    'sync.phase3': {
+      'fr': 'Au retour du réseau, tout se synchronise, sans doublon',
+      'en': 'When the network returns, everything syncs, with no duplicates',
+      'de':
+          'Sobald das Netz zurück ist, wird alles synchronisiert, ohne Duplikate',
+    },
+    'sync.syncing': {
+      'fr': 'Synchronisation…',
+      'en': 'Syncing…',
+      'de': 'Synchronisiere…',
+    },
+    'sync.synced': {
+      'fr': 'Tout est synchronisé',
+      'en': 'All synced',
+      'de': 'Alles synchronisiert',
+    },
+    'sync.pending': {
+      'fr': '{n} en attente',
+      'en': '{n} pending',
+      'de': '{n} ausstehend',
+    },
+    'sync.phone': {
+      'fr': 'Téléphone',
+      'en': 'Phone',
+      'de': 'Handy',
+    },
+    'sync.server': {
+      'fr': 'Serveur',
+      'en': 'Server',
+      'de': 'Server',
+    },
+    'sync.recorded': {
+      'fr': 'ventes enregistrées',
+      'en': 'sales recorded',
+      'de': 'erfasste Verkäufe',
+    },
+    'sync.p1': {
+      'fr': 'Riz 5 kg',
+      'en': 'Rice 5 kg',
+      'de': 'Reis 5 kg',
+    },
+    'sync.p2': {
+      'fr': 'Huile 1 L',
+      'en': 'Oil 1 L',
+      'de': 'Öl 1 L',
+    },
+    'sync.p3': {
+      'fr': 'Savon ×3',
+      'en': 'Soap ×3',
+      'de': 'Seife ×3',
+    },
+    'sync.p4': {
+      'fr': 'Sucre 1 kg',
+      'en': 'Sugar 1 kg',
+      'de': 'Zucker 1 kg',
     },
 
     // ── Travel page ─────────────────────────────────────────────────

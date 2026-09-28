@@ -13,6 +13,9 @@ import 'package:flutter_website/ui/block_wrapper.dart';
 import 'package:flutter_website/ui/carousel/carousel.dart';
 import 'package:flutter_website/ui/blocks.dart';
 import 'package:flutter_website/ui/section_nav.dart';
+import 'package:flutter_website/ui/showcase/app_showcase.dart';
+import 'package:flutter_website/ui/showcase/offline_sync_demo.dart';
+import 'package:flutter_website/components/motion.dart';
 import 'package:flutter_website/pages/travel_page.dart';
 import 'package:flutter_website/pages/immobilier_page.dart';
 import 'package:flutter_website/pages/loisir_page.dart';
@@ -166,21 +169,26 @@ List<Widget> blocks = [
   // ── Hero ────────────────────────────────────────────────────────────────────
   RepaintBoundary(key: HomeSections.top, child: const Carousel()),
   // ── Value proposition ────────────────────────────────────────────────────────
-  const BlockWrapper(GetStarted()),
+  const Reveal(child: BlockWrapper(GetStarted())),
+  // ── Live app demo in a phone (iOS / Android) ─────────────────────────────────
+  Reveal(child: BlockWrapper(const AppShowcase(), key: HomeSections.demo)),
   // ── Digital solutions Africa (full-bleed photo band) ────────────────────────
   DigitalSolutionsAfrica(key: HomeSections.africa),
-  // ── Social proof numbers ─────────────────────────────────────────────────────
-  const BlockWrapper(StatsRow()),
-  // ── Core expertises ──────────────────────────────────────────────────────────
+  // ── Social proof numbers (count up on scroll) ────────────────────────────────
+  const Reveal(child: BlockWrapper(StatsRow())),
+  // ── Core expertises (cards reveal one by one) ────────────────────────────────
   BlockWrapper(const Features(), key: HomeSections.expertise),
   // ── Service detail panels (image + text) ─────────────────────────────────────
   ServicesShowcase(key: HomeSections.services),
+  // ── Offline-first sync animation ─────────────────────────────────────────────
+  const Reveal(child: BlockWrapper(OfflineSyncDemo())),
   // ── How we work ──────────────────────────────────────────────────────────────
   BlockWrapper(const ProcessSteps(), key: HomeSections.process),
   // ── Client testimonials ───────────────────────────────────────────────────────
   const BlockWrapper(Testimonials()),
   // ── Contact CTA ───────────────────────────────────────────────────────────────
-  BlockWrapper(const InstallFlutter(), key: HomeSections.contact),
+  Reveal(
+      child: BlockWrapper(const InstallFlutter(), key: HomeSections.contact)),
   // ── Footer ────────────────────────────────────────────────────────────────────
   const Footer(),
 ];

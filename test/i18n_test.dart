@@ -18,7 +18,7 @@ void main() {
         RegExp(r"""(?:tr|translate)\(\s*'([a-z_0-9]+\.[a-z_0-9.]+)'""");
     // Keys stored in data and translated at display time.
     final dataKeyPattern = RegExp(
-        r"""'((?:portfolio|travel|loisir|immo|tour|carousel)\.[a-z_0-9.]+)'""");
+        r"""'((?:portfolio|travel|loisir|immo|tour|carousel|demo|sync|showcase)\.[a-z_0-9.]+)'""");
     final missing = <String>{};
     for (final file in Directory('lib').listSync(recursive: true)) {
       if (file is! File || !file.path.endsWith('.dart')) continue;

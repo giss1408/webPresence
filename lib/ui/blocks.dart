@@ -41,6 +41,11 @@ class WebsiteMenuBar extends StatelessWidget {
         () => scrollToSection(context, HomeSections.africa)
       ),
       (
+        localeProvider.tr('menu.demo'),
+        Icons.phone_iphone,
+        () => scrollToSection(context, HomeSections.demo)
+      ),
+      (
         localeProvider.tr('menu.portfolio'),
         Icons.workspace_premium,
         () => Navigator.pushNamed(context, '/portfolio')
@@ -626,40 +631,47 @@ class Features extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _FeatureCard(
-                  imagePath: "assets/images/icon_development.png",
-                  tag: localeProvider.tr('features.card1_tag'),
-                  title: localeProvider.tr('features.card1_title'),
-                  description: localeProvider.tr('features.card1_desc'),
-                  linkLabel: localeProvider.tr('features.card1_link'),
-                  onLinkTap: () =>
-                      scrollToSection(context, HomeSections.process),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 0),
+                    child: _FeatureCard(
+                      imagePath: "assets/images/icon_development.png",
+                      tag: localeProvider.tr('features.card1_tag'),
+                      title: localeProvider.tr('features.card1_title'),
+                      description: localeProvider.tr('features.card1_desc'),
+                      linkLabel: localeProvider.tr('features.card1_link'),
+                      onLinkTap: () =>
+                          scrollToSection(context, HomeSections.process),
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _FeatureCard(
-                  imagePath: "assets/images/icon_ui.png",
-                  tag: localeProvider.tr('features.card2_tag'),
-                  title: localeProvider.tr('features.card2_title'),
-                  description: localeProvider.tr('features.card2_desc'),
-                  linkLabel: localeProvider.tr('features.card2_link'),
-                  onLinkTap: () => Navigator.pushNamed(context, '/portfolio'),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 120),
+                    child: _FeatureCard(
+                      imagePath: "assets/images/icon_ui.png",
+                      tag: localeProvider.tr('features.card2_tag'),
+                      title: localeProvider.tr('features.card2_title'),
+                      description: localeProvider.tr('features.card2_desc'),
+                      linkLabel: localeProvider.tr('features.card2_link'),
+                      onLinkTap: () =>
+                          Navigator.pushNamed(context, '/portfolio'),
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _FeatureCard(
-                  imagePath: "assets/images/icon_performance.png",
-                  tag: localeProvider.tr('features.card3_tag'),
-                  title: localeProvider.tr('features.card3_title'),
-                  description: localeProvider.tr('features.card3_desc'),
-                  linkLabel: localeProvider.tr('features.card3_link'),
-                  onLinkTap: () =>
-                      scrollToSection(context, HomeSections.africa),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 240),
+                    child: _FeatureCard(
+                      imagePath: "assets/images/icon_performance.png",
+                      tag: localeProvider.tr('features.card3_tag'),
+                      title: localeProvider.tr('features.card3_title'),
+                      description: localeProvider.tr('features.card3_desc'),
+                      linkLabel: localeProvider.tr('features.card3_link'),
+                      onLinkTap: () =>
+                          scrollToSection(context, HomeSections.africa),
+                    )),
               ),
             ],
           ),
@@ -994,7 +1006,7 @@ class _StatItem extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(value,
+        CountUp(value,
             style: headlineTextStyle.copyWith(
                 fontSize: 42, color: Colors.white, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center),
@@ -1020,32 +1032,38 @@ class ServicesShowcase extends StatelessWidget {
       maxWidth: 1200,
       child: Column(
         children: [
-          _ServicePanel(
-            tag: localeProvider.tr('ss.panel1_tag'),
-            title: localeProvider.tr('ss.panel1_title'),
-            description: localeProvider.tr('ss.panel1_desc'),
-            linkLabel: localeProvider.tr('ss.panel1_link'),
-            imagePath: "assets/images/stock-market-2616931_1280.jpg",
-            imageOnLeft: false,
-            onLinkTap: openPortfolio,
+          Reveal(
+            child: _ServicePanel(
+              tag: localeProvider.tr('ss.panel1_tag'),
+              title: localeProvider.tr('ss.panel1_title'),
+              description: localeProvider.tr('ss.panel1_desc'),
+              linkLabel: localeProvider.tr('ss.panel1_link'),
+              imagePath: "assets/images/stock-market-2616931_1280.jpg",
+              imageOnLeft: false,
+              onLinkTap: openPortfolio,
+            ),
           ),
-          _ServicePanel(
-            tag: localeProvider.tr('ss.panel2_tag'),
-            title: localeProvider.tr('ss.panel2_title'),
-            description: localeProvider.tr('ss.panel2_desc'),
-            linkLabel: localeProvider.tr('ss.panel2_link'),
-            imagePath: "assets/images/blackWoman_layer_4_1280.jpg",
-            imageOnLeft: true,
-            onLinkTap: openPortfolio,
+          Reveal(
+            child: _ServicePanel(
+              tag: localeProvider.tr('ss.panel2_tag'),
+              title: localeProvider.tr('ss.panel2_title'),
+              description: localeProvider.tr('ss.panel2_desc'),
+              linkLabel: localeProvider.tr('ss.panel2_link'),
+              imagePath: "assets/images/blackWoman_layer_4_1280.jpg",
+              imageOnLeft: true,
+              onLinkTap: openPortfolio,
+            ),
           ),
-          _ServicePanel(
-            tag: localeProvider.tr('ss.panel3_tag'),
-            title: localeProvider.tr('ss.panel3_title'),
-            description: localeProvider.tr('ss.panel3_desc'),
-            linkLabel: localeProvider.tr('ss.panel3_link'),
-            imagePath: "assets/images/abidjan-web.jpg",
-            imageOnLeft: false,
-            onLinkTap: () => scrollToSection(context, HomeSections.africa),
+          Reveal(
+            child: _ServicePanel(
+              tag: localeProvider.tr('ss.panel3_tag'),
+              title: localeProvider.tr('ss.panel3_title'),
+              description: localeProvider.tr('ss.panel3_desc'),
+              linkLabel: localeProvider.tr('ss.panel3_link'),
+              imagePath: "assets/images/abidjan-web.jpg",
+              imageOnLeft: false,
+              onLinkTap: () => scrollToSection(context, HomeSections.africa),
+            ),
           ),
         ],
       ),
@@ -1253,42 +1271,50 @@ class ProcessSteps extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _StepCard(
-                  number: "01",
-                  icon: Icons.lightbulb_outline,
-                  title: localeProvider.tr('ps.step1_title'),
-                  description: localeProvider.tr('ps.step1_desc'),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 0),
+                    child: _StepCard(
+                      number: "01",
+                      icon: Icons.lightbulb_outline,
+                      title: localeProvider.tr('ps.step1_title'),
+                      description: localeProvider.tr('ps.step1_desc'),
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _StepCard(
-                  number: "02",
-                  icon: Icons.design_services_outlined,
-                  title: localeProvider.tr('ps.step2_title'),
-                  description: localeProvider.tr('ps.step2_desc'),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 120),
+                    child: _StepCard(
+                      number: "02",
+                      icon: Icons.design_services_outlined,
+                      title: localeProvider.tr('ps.step2_title'),
+                      description: localeProvider.tr('ps.step2_desc'),
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _StepCard(
-                  number: "03",
-                  icon: Icons.code_outlined,
-                  title: localeProvider.tr('ps.step3_title'),
-                  description: localeProvider.tr('ps.step3_desc'),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 240),
+                    child: _StepCard(
+                      number: "03",
+                      icon: Icons.code_outlined,
+                      title: localeProvider.tr('ps.step3_title'),
+                      description: localeProvider.tr('ps.step3_desc'),
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _StepCard(
-                  number: "04",
-                  icon: Icons.rocket_launch_outlined,
-                  title: localeProvider.tr('ps.step4_title'),
-                  description: localeProvider.tr('ps.step4_desc'),
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 360),
+                    child: _StepCard(
+                      number: "04",
+                      icon: Icons.rocket_launch_outlined,
+                      title: localeProvider.tr('ps.step4_title'),
+                      description: localeProvider.tr('ps.step4_desc'),
+                    )),
               ),
             ],
           ),
@@ -1409,41 +1435,50 @@ class Testimonials extends StatelessWidget {
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _TestimonialCard(
-                  quote: localeProvider.tr('testi.quote1'),
-                  name: "Amara D.",
-                  role:
-                      localeProvider.tr('testi.role1_company').split(' • ')[0],
-                  company: "FinnoTech GmbH",
-                  avatarColor: const Color(0xFF1565C0),
-                  initials: "AD",
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 0),
+                    child: _TestimonialCard(
+                      quote: localeProvider.tr('testi.quote1'),
+                      name: "Amara D.",
+                      role: localeProvider
+                          .tr('testi.role1_company')
+                          .split(' • ')[0],
+                      company: "FinnoTech GmbH",
+                      avatarColor: const Color(0xFF1565C0),
+                      initials: "AD",
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _TestimonialCard(
-                  quote: localeProvider.tr('testi.quote2'),
-                  name: "Isabelle M.",
-                  role:
-                      localeProvider.tr('testi.role2_company').split(' • ')[0],
-                  company: "Tourisma SA",
-                  avatarColor: const Color(0xFF00897B),
-                  initials: "IM",
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 120),
+                    child: _TestimonialCard(
+                      quote: localeProvider.tr('testi.quote2'),
+                      name: "Isabelle M.",
+                      role: localeProvider
+                          .tr('testi.role2_company')
+                          .split(' • ')[0],
+                      company: "Tourisma SA",
+                      avatarColor: const Color(0xFF00897B),
+                      initials: "IM",
+                    )),
               ),
               ResponsiveRowColumnItem(
                 rowFlex: 1,
                 rowFit: FlexFit.tight,
-                child: _TestimonialCard(
-                  quote: localeProvider.tr('testi.quote3'),
-                  name: "Kofi A.",
-                  role:
-                      localeProvider.tr('testi.role3_company').split(' • ')[0],
-                  company: "LogiSoft Africa",
-                  avatarColor: const Color(0xFFE65100),
-                  initials: "KA",
-                ),
+                child: Reveal(
+                    delay: const Duration(milliseconds: 240),
+                    child: _TestimonialCard(
+                      quote: localeProvider.tr('testi.quote3'),
+                      name: "Kofi A.",
+                      role: localeProvider
+                          .tr('testi.role3_company')
+                          .split(' • ')[0],
+                      company: "LogiSoft Africa",
+                      avatarColor: const Color(0xFFE65100),
+                      initials: "KA",
+                    )),
               ),
             ],
           ),

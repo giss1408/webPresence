@@ -6,6 +6,7 @@ class HomeSections {
   static final africa = GlobalKey(debugLabel: 'africa');
   static final expertise = GlobalKey(debugLabel: 'expertise');
   static final services = GlobalKey(debugLabel: 'services');
+  static final demo = GlobalKey(debugLabel: 'demo');
   static final process = GlobalKey(debugLabel: 'process');
   static final contact = GlobalKey(debugLabel: 'contact');
 }

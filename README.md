@@ -58,6 +58,8 @@ the image tag in `Dockerfile` together.
 | `lib/ui/blocks.dart` | Home page sections, header, footer |
 | `lib/ui/carousel/` | Hero carousel |
 | `lib/ui/section_nav.dart` | Menu / in-page scrolling anchors |
+| `lib/ui/showcase/` | Live phone demo (scripted Akwaba / Djassa / Immoizi flows, iOS ⇄ Android), offline-sync animation, screen-recording player |
+| `lib/components/motion.dart` | Scroll animations: `Reveal` (fade/slide in), `CountUp` (stats), `OnScreen` (pauses loops off screen) |
 | `lib/components/app_palette.dart` | Light / dark colors and breakpoints (`context.palette`, `context.isMobile`) |
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |
 | `lib/pages/` | Portfolio, tourism, travel, real-estate and leisure pages |
@@ -72,3 +74,26 @@ the image tag in `Dockerfile` together.
 - Breakpoints: use `context.isMobile` / `context.isDesktop` (read from
   `MediaQuery`, correct from the first frame).
 - Texts: add a key to `translations.dart` in all three languages.
+- Motion: wrap new sections in `Reveal`; looping animations must pause
+  off screen (`OnScreen(once: false)`) and respect
+  `MediaQuery.disableAnimationsOf` (the OS "reduce motion" setting).
+
+## Live demo and screen recordings
+
+The phone on the home and portfolio pages is Flutter code, not a video:
+each app's screens and script (which screen, what the finger taps, which
+notification appears) are in `lib/ui/showcase/demo_screens.dart`. Screens
+use the adaptive widgets in `demo_kit.dart`, so they follow the iOS /
+Android toggle.
+
+To add a real screen recording to a portfolio card:
+
+1. Record the app (e.g. `xcrun simctl io booted recordVideo akwaba.mp4` or
+   `adb shell screenrecord`), keep it 8–15 s, muted, H.264 MP4, ideally
+   under 2 MB (`ffmpeg -i in.mp4 -an -vf scale=540:-2 -crf 30 out.mp4`).
+2. Save it as `assets/videos/<app>.mp4` and add `- assets/videos/` under
+   `assets:` in `pubspec.yaml`.
+3. Set `recording: 'assets/videos/<app>.mp4'` on the project in
+   `lib/pages/portfolio_page.dart`. A "Watch the video" button appears; the
+   file is only downloaded when a visitor opens it. It is served from the
+   site itself, which the CSP (`default-src 'self'`) already allows.

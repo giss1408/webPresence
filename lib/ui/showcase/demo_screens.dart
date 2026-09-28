@@ -1,0 +1,1448 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_website/providers/locale_provider.dart';
+import 'package:flutter_website/ui/showcase/demo_kit.dart';
+import 'package:provider/provider.dart';
+
+/// The products shown in the live phone demo.
+enum DemoApp { akwaba, djassa, immoizi }
+
+/// One step of a demo script: the screen shown, what the caption under the
+/// phone says, and (optionally) the target the scripted finger taps at the
+/// end of the step and a push notification shown during it.
+class DemoStep {
+  const DemoStep({
+    required this.screen,
+    required this.caption,
+    this.tap,
+    this.notice,
+  });
+
+  /// Steps with the same screen id update the page in place; a new id
+  /// navigates (with the platform's page transition).
+  final String screen;
+  final String caption;
+  final String? tap;
+
+  /// Translation key of a push notification's body.
+  final String? notice;
+}
+
+class DemoAppSpec {
+  const DemoAppSpec({
+    required this.name,
+    required this.seed,
+    required this.icon,
+    required this.steps,
+    required this.build,
+  });
+
+  final String name;
+  final Color seed;
+  final IconData icon;
+  final List<DemoStep> steps;
+
+  /// Builds the screen for step [step].
+  final Widget Function(int step) build;
+}
+
+final Map<DemoApp, DemoAppSpec> demoApps = {
+  DemoApp.akwaba: DemoAppSpec(
+    name: 'Akwaba Ivoire',
+    seed: const Color(0xFFF77F00),
+    icon: Icons.travel_explore,
+    steps: const [
+      DemoStep(screen: 'home', caption: 'demo.ak.step1', tap: 'ak.card'),
+      DemoStep(screen: 'detail', caption: 'demo.ak.step2', tap: 'ak.book'),
+      DemoStep(screen: 'booking', caption: 'demo.ak.step3', tap: 'ak.pay'),
+      DemoStep(
+          screen: 'done',
+          caption: 'demo.ak.step4',
+          tap: 'ak.done',
+          notice: 'demo.ak.notice'),
+    ],
+    build: (step) => switch (step) {
+      0 => const _AkwabaHome(),
+      1 => const _AkwabaDetail(),
+      2 => const _AkwabaBooking(),
+      _ => const _AkwabaConfirmed(),
+    },
+  ),
+  DemoApp.djassa: DemoAppSpec(
+    name: 'Djassa',
+    seed: const Color(0xFFD1571E),
+    icon: Icons.storefront,
+    steps: const [
+      DemoStep(screen: 'home', caption: 'demo.dj.step1', tap: 'dj.new'),
+      DemoStep(screen: 'sale', caption: 'demo.dj.step2', tap: 'dj.save'),
+      DemoStep(screen: 'home', caption: 'demo.dj.step3'),
+      DemoStep(
+          screen: 'home', caption: 'demo.dj.step4', notice: 'demo.dj.notice'),
+    ],
+    build: (step) => switch (step) {
+      0 => const _DjassaHome(stage: _SaleStage.offline),
+      1 => const _DjassaNewSale(),
+      2 => const _DjassaHome(stage: _SaleStage.saved),
+      _ => const _DjassaHome(stage: _SaleStage.synced),
+    },
+  ),
+  DemoApp.immoizi: DemoAppSpec(
+    name: 'Immoizi',
+    seed: const Color(0xFF6272A4),
+    icon: Icons.apartment,
+    steps: const [
+      DemoStep(screen: 'home', caption: 'demo.im.step1', tap: 'im.property'),
+      DemoStep(screen: 'units', caption: 'demo.im.step2', tap: 'im.remind'),
+      DemoStep(screen: 'units', caption: 'demo.im.step3'),
+      DemoStep(
+          screen: 'units',
+          caption: 'demo.im.step4',
+          tap: 'im.back',
+          notice: 'demo.im.notice'),
+    ],
+    build: (step) => switch (step) {
+      0 => const _ImmoHome(),
+      1 => const _ImmoUnits(stage: _RentStage.late),
+      2 => const _ImmoUnits(stage: _RentStage.reminded),
+      _ => const _ImmoUnits(stage: _RentStage.paid),
+    },
+  ),
+};
+
+// ─── Shared bits ──────────────────────────────────────────────────────────────
+
+const _ivoryGreen = Color(0xFF009E60);
+
+extension on BuildContext {
+  String tr(String key) => watch<LocaleProvider>().tr(key);
+  String money(int amount) => fcfa(amount, watch<LocaleProvider>().locale);
+  ColorScheme get scheme => Theme.of(this).colorScheme;
+}
+
+class _Badge extends StatelessWidget {
+  const _Badge(this.label, this.color, {super.key, this.icon});
+
+  final String label;
+  final Color color;
+  final IconData? icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.14),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 12, color: color),
+            const SizedBox(width: 4),
+          ],
+          Text(label,
+              style: TextStyle(
+                  fontSize: 11, fontWeight: FontWeight.w600, color: color)),
+        ],
+      ),
+    );
+  }
+}
+
+class _Photo extends StatelessWidget {
+  const _Photo(this.asset,
+      {required this.width, required this.height, this.radius = 12});
+
+  final String asset;
+  final double width;
+  final double height;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius),
+      child:
+          Image.asset(asset, width: width, height: height, fit: BoxFit.cover),
+    );
+  }
+}
+
+class _Label extends StatelessWidget {
+  const _Label(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(text,
+          style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: context.scheme.onSurfaceVariant)),
+    );
+  }
+}
+
+// ─── Akwaba Ivoire (tourism) ──────────────────────────────────────────────────
+
+const _beach = 'assets/images/highlights/highlight_beach.jpg';
+
+class _AkwabaHome extends StatelessWidget {
+  const _AkwabaHome();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+    Widget card(String asset, String title, String place, String rating,
+        {String? target}) {
+      final content = SizedBox(
+        width: 168,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _Photo(asset, width: 168, height: 150, radius: ios ? 14 : 20),
+            const SizedBox(height: 8),
+            Text(title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: scheme.onSurface)),
+            const SizedBox(height: 2),
+            Row(
+              children: [
+                const Icon(Icons.star_rounded, size: 15, color: Colors.amber),
+                Text(' $rating · ',
+                    style: TextStyle(fontSize: 12, color: scheme.onSurface)),
+                Flexible(
+                  child: Text(place,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 12, color: scheme.onSurfaceVariant)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+      return target == null ? content : DemoTarget(id: target, child: content);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 8, 18, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(context.tr('demo.ak.hello'),
+                        style: TextStyle(
+                            fontSize: 13, color: scheme.onSurfaceVariant)),
+                    const SizedBox(height: 2),
+                    Text(context.tr('demo.ak.where'),
+                        maxLines: 2,
+                        style: TextStyle(
+                            fontSize: 22,
+                            height: 1.2,
+                            fontWeight: FontWeight.w700,
+                            color: scheme.onSurface)),
+                  ],
+                ),
+              ),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: scheme.primaryContainer,
+                child: Text('A',
+                    style: TextStyle(
+                        color: scheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w700)),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 16, 18, 14),
+          child: Container(
+            height: 42,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: ios
+                  ? scheme.surfaceContainerHigh
+                  : scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(ios ? 11 : 21),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.search, size: 20, color: scheme.onSurfaceVariant),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(context.tr('demo.ak.search'),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 14, color: scheme.onSurfaceVariant)),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Row(
+            children: [
+              for (final (i, (icon, key)) in const [
+                (Icons.beach_access, 'demo.ak.cat_beach'),
+                (Icons.forest, 'demo.ak.cat_nature'),
+                (Icons.museum, 'demo.ak.cat_culture'),
+              ].indexed) ...[
+                if (i > 0) const SizedBox(width: 8),
+                Flexible(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                    decoration: BoxDecoration(
+                      color: i == 0 ? scheme.primary : null,
+                      border: i == 0
+                          ? null
+                          : Border.all(color: scheme.outlineVariant),
+                      borderRadius: BorderRadius.circular(ios ? 18 : 8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(icon,
+                            size: 14,
+                            color: i == 0
+                                ? scheme.onPrimary
+                                : scheme.onSurfaceVariant),
+                        const SizedBox(width: 5),
+                        Flexible(
+                          child: Text(context.tr(key),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: i == 0
+                                      ? scheme.onPrimary
+                                      : scheme.onSurface)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
+          child: Text(context.tr('demo.ak.popular'),
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onSurface)),
+        ),
+        // A peek at the next card, like a horizontal list (no Scrollable, so
+        // page scrolling and tests are unaffected).
+        SizedBox(
+          height: 206,
+          child: ClipRect(
+            child: OverflowBox(
+              maxWidth: double.infinity,
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 18),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    card(_beach, 'Assinie-Mafia', 'Sud-Comoé', '4.8',
+                        target: 'ak.card'),
+                    const SizedBox(width: 12),
+                    card('assets/images/highlights/highlight_wildlife.jpg',
+                        'Parc de la Comoé', 'Bouna', '4.7'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        const Spacer(),
+        DemoNavBar(items: [
+          (Icons.explore, context.tr('demo.ak.explore')),
+          (Icons.map_outlined, context.tr('demo.ak.map')),
+          (Icons.luggage_outlined, context.tr('demo.ak.trips')),
+          (Icons.person_outline, context.tr('demo.ak.profile')),
+        ]),
+      ],
+    );
+  }
+}
+
+class _AkwabaDetail extends StatelessWidget {
+  const _AkwabaDetail();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            Image.asset(_beach,
+                height: 230, width: double.infinity, fit: BoxFit.cover),
+            Positioned(
+              top: 10,
+              left: 12,
+              right: 12,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  for (final icon in [
+                    ios ? Icons.arrow_back_ios_new : Icons.arrow_back,
+                    Icons.favorite_border,
+                  ])
+                    CircleAvatar(
+                      radius: 17,
+                      backgroundColor: Colors.white.withOpacity(0.9),
+                      child: Icon(icon, size: 18, color: Colors.black87),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 16, 18, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Assinie-Mafia',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: scheme.onSurface)),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Icon(Icons.place_outlined,
+                      size: 15, color: scheme.onSurfaceVariant),
+                  Text(' Sud-Comoé  ',
+                      style: TextStyle(
+                          fontSize: 13, color: scheme.onSurfaceVariant)),
+                  const Icon(Icons.star_rounded, size: 15, color: Colors.amber),
+                  Text(' 4.8',
+                      style: TextStyle(fontSize: 13, color: scheme.onSurface)),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(context.tr('demo.ak.assinie_desc'),
+                  style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.45,
+                      color: scheme.onSurfaceVariant)),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  for (final (icon, label) in [
+                    (Icons.beach_access, context.tr('demo.ak.cat_beach')),
+                    (Icons.kayaking, context.tr('demo.ak.cat_nature')),
+                    (Icons.chat_outlined, 'WhatsApp'),
+                  ])
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: scheme.primaryContainer,
+                              borderRadius:
+                                  BorderRadius.circular(ios ? 12 : 22),
+                            ),
+                            child: Icon(icon,
+                                size: 20, color: scheme.onPrimaryContainer),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(label,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  color: scheme.onSurfaceVariant)),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Container(
+          padding: const EdgeInsets.fromLTRB(18, 12, 18, 12),
+          decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: scheme.outlineVariant)),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(context.tr('demo.ak.from'),
+                        style: TextStyle(
+                            fontSize: 11, color: scheme.onSurfaceVariant)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          '${context.money(45000)} ${context.tr('demo.ak.night')}',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurface)),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              SizedBox(
+                width: 120,
+                child: DemoButton(
+                    label: context.tr('demo.ak.book'), target: 'ak.book'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AkwabaBooking extends StatelessWidget {
+  const _AkwabaBooking();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+    final days = [
+      ('demo.ak.thu', 11),
+      ('demo.ak.fri', 12),
+      ('demo.ak.sat', 13),
+      ('demo.ak.sun', 14),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(title: context.tr('demo.ak.booking'), back: true),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DemoCard(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    const _Photo(_beach, width: 52, height: 52, radius: 10),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Assinie-Mafia',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: scheme.onSurface)),
+                          Text(context.tr('demo.ak.nights'),
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: scheme.onSurfaceVariant)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              _Label(context.tr('demo.ak.dates')),
+              Row(
+                children: [
+                  for (final (i, (day, date)) in days.indexed) ...[
+                    if (i > 0) const SizedBox(width: 8),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: i == 1 || i == 3
+                              ? scheme.primary
+                              : i == 2
+                                  ? scheme.primaryContainer
+                                  : null,
+                          border: i == 0
+                              ? Border.all(color: scheme.outlineVariant)
+                              : null,
+                          borderRadius: BorderRadius.circular(ios ? 12 : 20),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(context.tr(day),
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: i == 1 || i == 3
+                                        ? scheme.onPrimary
+                                        : scheme.onSurfaceVariant)),
+                            Text('$date',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700,
+                                    color: i == 1 || i == 3
+                                        ? scheme.onPrimary
+                                        : scheme.onSurface)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 18),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(context.tr('demo.ak.travellers'),
+                        style:
+                            TextStyle(fontSize: 14, color: scheme.onSurface)),
+                  ),
+                  for (final (i, icon)
+                      in [Icons.remove, Icons.add].indexed) ...[
+                    if (i == 1)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text('2',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: scheme.onSurface)),
+                      ),
+                    Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: scheme.outlineVariant),
+                      ),
+                      child: Icon(icon, size: 16, color: scheme.primary),
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(context.tr('demo.ak.guide'),
+                        style:
+                            TextStyle(fontSize: 14, color: scheme.onSurface)),
+                  ),
+                  // Cupertino switch on iOS, Material 3 switch on Android.
+                  Switch.adaptive(value: true, onChanged: (_) {}),
+                ],
+              ),
+              Divider(height: 24, color: scheme.outlineVariant),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                        '${context.tr('demo.ak.nights')} × ${context.money(45000)}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 13, color: scheme.onSurfaceVariant)),
+                  ),
+                  Text(context.money(90000),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface)),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: DemoButton(
+            label: '${context.tr('demo.ak.pay')} ${context.money(90000)}',
+            target: 'ak.pay',
+            icon: Icons.lock_outline,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text(context.tr('demo.ak.secure'),
+                style: TextStyle(fontSize: 11, color: scheme.onSurfaceVariant)),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AkwabaConfirmed extends StatelessWidget {
+  const _AkwabaConfirmed();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
+      child: Column(
+        children: [
+          const Spacer(flex: 3),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.elasticOut,
+            builder: (context, t, child) =>
+                Transform.scale(scale: t, child: child),
+            child: Container(
+              width: 88,
+              height: 88,
+              decoration: const BoxDecoration(
+                  color: _ivoryGreen, shape: BoxShape.circle),
+              child: const Icon(Icons.check_rounded,
+                  size: 52, color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(context.tr('demo.ak.confirmed'),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onSurface)),
+          const SizedBox(height: 6),
+          Text('${context.tr('demo.ak.ref')} AKW-2841',
+              style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant)),
+          const SizedBox(height: 22),
+          DemoCard(
+            child: Row(
+              children: [
+                const _Photo(_beach, width: 48, height: 48, radius: 10),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Assinie-Mafia',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurface)),
+                      Text(
+                          '12 – 14 ${context.tr('demo.ak.month')} · '
+                          '${context.tr('demo.ak.travellers')}',
+                          maxLines: 2,
+                          style: TextStyle(
+                              fontSize: 12, color: scheme.onSurfaceVariant)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Spacer(flex: 4),
+          DemoButton(label: context.tr('demo.ak.done'), target: 'ak.done'),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Djassa (merchant sales, offline-first) ───────────────────────────────────
+
+enum _SaleStage { offline, saved, synced }
+
+class _DjassaHome extends StatelessWidget {
+  const _DjassaHome({required this.stage});
+
+  final _SaleStage stage;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+    final online = stage == _SaleStage.synced;
+    final sales = [
+      if (stage != _SaleStage.offline) ('sync.p4', '10:51', 2500),
+      ('sync.p1', '10:42', 4500),
+      ('sync.p2', '10:15', 1800),
+      ('sync.p3', '09:58', 900),
+    ];
+    final total = stage == _SaleStage.offline ? 48500 : 51000;
+    const bars = [0.35, 0.55, 0.4, 0.7, 0.5, 0.85, 1.0];
+
+    final newSale = ios
+        ? Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: DemoButton(
+                label: context.tr('demo.dj.new'),
+                target: 'dj.new',
+                icon: Icons.add),
+          )
+        : Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+              child: DemoTarget(
+                id: 'dj.new',
+                child: Container(
+                  height: 54,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color(0x33000000),
+                          blurRadius: 8,
+                          offset: Offset(0, 3)),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add, color: scheme.onPrimaryContainer),
+                      const SizedBox(width: 8),
+                      Text(context.tr('demo.dj.new'),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: scheme.onPrimaryContainer)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(
+          title: context.tr('demo.dj.shop'),
+          large: true,
+          trailing: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            child: _Badge(
+              key: ValueKey(online),
+              context.tr(online ? 'demo.dj.online' : 'demo.dj.offline'),
+              online ? _ivoryGreen : scheme.onSurfaceVariant,
+              icon: online ? Icons.cloud_done_outlined : Icons.cloud_off,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  scheme.primary,
+                  Color.lerp(scheme.primary, Colors.black, 0.25)!
+                ],
+              ),
+              borderRadius: BorderRadius.circular(ios ? 14 : 20),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.tr('demo.dj.today'),
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: scheme.onPrimary.withOpacity(0.85))),
+                      const SizedBox(height: 4),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: TweenAnimationBuilder<double>(
+                          tween: Tween(end: total.toDouble()),
+                          duration: const Duration(milliseconds: 600),
+                          builder: (context, value, _) => Text(
+                              context.money(value.round()),
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: scheme.onPrimary)),
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(context.tr('demo.dj.vs'),
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: scheme.onPrimary.withOpacity(0.85))),
+                    ],
+                  ),
+                ),
+                for (final bar in bars)
+                  Container(
+                    width: 7,
+                    height: 44 * bar,
+                    margin: const EdgeInsets.only(left: 4),
+                    decoration: BoxDecoration(
+                      color: scheme.onPrimary.withOpacity(bar == 1 ? 1 : 0.5),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 4),
+          child: _Label(context.tr('demo.dj.latest')),
+        ),
+        for (final (i, (product, time, amount)) in sales.indexed)
+          _SaleRow(
+            // New rows slide in; keyed so existing rows keep their state.
+            key: ValueKey(product),
+            product: context.tr(product),
+            time: time,
+            amount: context.money(amount),
+            synced: online,
+            highlight: i == 0 && stage == _SaleStage.saved,
+          ),
+        const Spacer(),
+        if (stage == _SaleStage.saved)
+          DemoToast(
+              icon: Icons.phone_android, text: context.tr('demo.dj.saved'))
+        else
+          newSale,
+      ],
+    );
+  }
+}
+
+class _SaleRow extends StatelessWidget {
+  const _SaleRow({
+    super.key,
+    required this.product,
+    required this.time,
+    required this.amount,
+    required this.synced,
+    required this.highlight,
+  });
+
+  final String product;
+  final String time;
+  final String amount;
+  final bool synced;
+  final bool highlight;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOut,
+      builder: (context, t, child) => Opacity(
+        opacity: t,
+        child:
+            Transform.translate(offset: Offset(-20 * (1 - t), 0), child: child),
+      ),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+        decoration: BoxDecoration(
+          color: highlight ? scheme.primaryContainer.withOpacity(0.6) : null,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: scheme.surfaceContainerHighest,
+              child: Icon(Icons.shopping_basket_outlined,
+                  size: 16, color: scheme.primary),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(product,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.onSurface)),
+                  Text(time,
+                      style: TextStyle(
+                          fontSize: 11, color: scheme.onSurfaceVariant)),
+                ],
+              ),
+            ),
+            Text(amount,
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onSurface)),
+            const SizedBox(width: 8),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              transitionBuilder: (child, animation) =>
+                  ScaleTransition(scale: animation, child: child),
+              child: Icon(
+                synced ? Icons.cloud_done : Icons.schedule,
+                key: ValueKey(synced),
+                size: 16,
+                color: synced ? _ivoryGreen : Colors.orange.shade700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DjassaNewSale extends StatelessWidget {
+  const _DjassaNewSale();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+    const typed = '2500';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(title: context.tr('demo.dj.new'), back: true),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _Label(context.tr('demo.dj.product')),
+              DemoCard(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                child: Row(
+                  children: [
+                    Icon(Icons.shopping_basket_outlined,
+                        size: 18, color: scheme.primary),
+                    const SizedBox(width: 10),
+                    Text(context.tr('sync.p4'),
+                        style:
+                            TextStyle(fontSize: 14, color: scheme.onSurface)),
+                  ],
+                ),
+              ),
+              // The amount is "typed" digit by digit.
+              SizedBox(
+                height: 76,
+                child: Center(
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: typed.length.toDouble()),
+                    duration: const Duration(milliseconds: 1100),
+                    builder: (context, t, _) {
+                      final digits = typed.substring(0, t.floor());
+                      return Text(
+                        context.money(int.tryParse(digits) ?? 0),
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: scheme.onSurface),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              _Label(context.tr('demo.dj.method')),
+              Row(
+                children: [
+                  for (final (i, label) in [
+                    context.tr('demo.dj.cash'),
+                    'Orange Money',
+                    'Wave',
+                  ].indexed) ...[
+                    if (i > 0) const SizedBox(width: 6),
+                    Flexible(
+                      // "Orange Money" gets the room it needs.
+                      flex: i == 1 ? 3 : 2,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 7),
+                        decoration: BoxDecoration(
+                          color: i == 0 ? scheme.secondaryContainer : null,
+                          border: Border.all(
+                              color: i == 0
+                                  ? scheme.secondaryContainer
+                                  : scheme.outlineVariant),
+                          borderRadius: BorderRadius.circular(ios ? 16 : 8),
+                        ),
+                        child: Text(label,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: i == 0
+                                    ? scheme.onSecondaryContainer
+                                    : scheme.onSurface)),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        // Numeric keypad
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              for (final row in const [
+                ['1', '2', '3'],
+                ['4', '5', '6'],
+                ['7', '8', '9'],
+                ['000', '0', '⌫'],
+              ])
+                Row(
+                  children: [
+                    for (final key in row)
+                      Expanded(
+                        child: Container(
+                          height: 42,
+                          margin: const EdgeInsets.all(3),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: scheme.surfaceContainerHigh,
+                            borderRadius: BorderRadius.circular(ios ? 10 : 21),
+                          ),
+                          child: key == '⌫'
+                              ? Icon(Icons.backspace_outlined,
+                                  size: 18, color: scheme.onSurface)
+                              : Text(key,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: scheme.onSurface)),
+                        ),
+                      ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+          child: DemoButton(
+              label: context.tr('demo.dj.save'),
+              target: 'dj.save',
+              icon: Icons.check),
+        ),
+      ],
+    );
+  }
+}
+
+// ─── Immoizi (property management) ────────────────────────────────────────────
+
+enum _RentStage { late, reminded, paid }
+
+class _ImmoHome extends StatelessWidget {
+  const _ImmoHome();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    Widget property(
+        String asset, String name, String units, String badge, Color badgeColor,
+        {String? target, Alignment alignment = Alignment.center}) {
+      final card = DemoCard(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(asset,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  alignment: alignment),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface)),
+                  const SizedBox(height: 2),
+                  Text(units,
+                      style: TextStyle(
+                          fontSize: 12, color: scheme.onSurfaceVariant)),
+                  const SizedBox(height: 6),
+                  _Badge(badge, badgeColor),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: scheme.onSurfaceVariant),
+          ],
+        ),
+      );
+      return target == null ? card : DemoTarget(id: target, child: card);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(
+          title: context.tr('demo.im.properties'),
+          large: true,
+          trailing: Icon(Icons.notifications_none, color: scheme.onSurface),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: scheme.primary,
+                  borderRadius: BorderRadius.circular(isIos(context) ? 14 : 20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(context.tr('demo.im.collected'),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: scheme.onPrimary.withOpacity(0.85))),
+                    const SizedBox(height: 4),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(context.money(1250000),
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onPrimary)),
+                    ),
+                    const SizedBox(height: 12),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0, end: 0.89),
+                        duration: const Duration(milliseconds: 1000),
+                        curve: Curves.easeOutCubic,
+                        builder: (context, value, _) => LinearProgressIndicator(
+                          value: value,
+                          minHeight: 7,
+                          color: scheme.onPrimary,
+                          backgroundColor: scheme.onPrimary.withOpacity(0.25),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text('89 % · ${context.money(1400000)}',
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: scheme.onPrimary.withOpacity(0.85))),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              property(
+                  'assets/images/abidjan-web.jpg',
+                  'Résidence Cocody',
+                  context.tr('demo.im.units6'),
+                  context.tr('demo.im.one_late'),
+                  Colors.red.shade600,
+                  target: 'im.property'),
+              const SizedBox(height: 10),
+              property(
+                  'assets/images/abidjan-web.jpg',
+                  'Villa Riviera',
+                  context.tr('demo.im.units1'),
+                  context.tr('demo.im.paid'),
+                  _ivoryGreen,
+                  alignment: Alignment.centerRight),
+            ],
+          ),
+        ),
+        const Spacer(),
+        DemoNavBar(items: [
+          (Icons.home_work_outlined, context.tr('demo.im.home')),
+          (Icons.people_outline, context.tr('demo.im.tenants')),
+          (Icons.build_outlined, context.tr('demo.im.requests')),
+        ]),
+      ],
+    );
+  }
+}
+
+class _ImmoUnits extends StatelessWidget {
+  const _ImmoUnits({required this.stage});
+
+  final _RentStage stage;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final paid = (context.tr('demo.im.paid'), _ivoryGreen);
+    final units = [
+      ('A1', 'M. Kouassi', paid),
+      ('A2', 'M. Diallo', null),
+      ('A3', 'Mme Traoré', paid),
+      ('B1', 'M. Koné', paid),
+      ('B2', 'Mme Yao', paid),
+      ('B3', '—', (context.tr('demo.im.vacant'), scheme.onSurfaceVariant)),
+    ];
+
+    Widget diallo() {
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 350),
+        child: switch (stage) {
+          _RentStage.late => DemoTarget(
+              key: const ValueKey('late'),
+              id: 'im.remind',
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: scheme.primary,
+                  borderRadius: BorderRadius.circular(isIos(context) ? 8 : 16),
+                ),
+                child: Text(context.tr('demo.im.remind'),
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: scheme.onPrimary)),
+              ),
+            ),
+          _RentStage.reminded => _Badge(
+              key: const ValueKey('reminded'),
+              context.tr('demo.im.reminded_badge'),
+              Colors.orange.shade700,
+              icon: Icons.schedule_send),
+          _RentStage.paid => _Badge(
+              key: const ValueKey('paid'), paid.$1, paid.$2, icon: Icons.check),
+        },
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const DemoAppBar(
+            title: 'Résidence Cocody', back: true, backTarget: 'im.back'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _Label(context.tr('demo.im.units_title')),
+              DemoCard(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  children: [
+                    for (final (i, (unit, tenant, status))
+                        in units.indexed) ...[
+                      if (i > 0)
+                        Divider(height: 1, color: scheme.outlineVariant),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 9),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 16,
+                              backgroundColor: scheme.secondaryContainer,
+                              child: Text(unit,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700,
+                                      color: scheme.onSecondaryContainer)),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tenant,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          color: scheme.onSurface)),
+                                  if (status == null &&
+                                      stage != _RentStage.paid)
+                                    Text(context.tr('demo.im.late'),
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.red.shade600))
+                                  else if (unit != 'B3')
+                                    Text(context.money(150000),
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: scheme.onSurfaceVariant)),
+                                ],
+                              ),
+                            ),
+                            if (status == null)
+                              diallo()
+                            else
+                              _Badge(status.$1, status.$2),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        if (stage == _RentStage.reminded)
+          DemoToast(
+              icon: Icons.chat_outlined, text: context.tr('demo.im.reminded')),
+      ],
+    );
+  }
+}

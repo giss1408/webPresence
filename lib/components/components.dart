@@ -13,6 +13,7 @@ export 'modern_shadows.dart';
 
 // New feature components
 export 'floating_whatsapp_button.dart';
+export 'motion.dart';
 export 'language_switcher_menu.dart';
 
 // Tourism components
