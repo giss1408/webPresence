@@ -1949,10 +1949,10 @@ class Footer extends StatelessWidget {
                       const SizedBox(height: 8),
                       InkWell(
                         onTap: () {
-                          openUrl("mailto:contact@regisse.de");
+                          openUrl("mailto:ptck2e@duck.com");
                         },
                         child: Text(
-                          "contact@regisse.de",
+                          "ptck2e@duck.com",
                           style: bodyTextStyle.copyWith(
                             fontSize: 13,
                             color: palette.accent,

@@ -5,10 +5,11 @@ import 'package:flutter_website/i18n/translations.dart';
 
 /// WhatsApp integration service for messaging
 class WhatsAppService {
-  // WhatsApp business number — Côte d'Ivoire number
-  // ⚠️ REMPLACEZ CE NUMÉRO par votre numéro WhatsApp Business
-  static const String businessPhone =
-      '+2250102030405'; // Replace with actual number
+  /// WhatsApp business number, digits only (the format wa.me links take).
+  static const String businessPhone = '4917634620220';
+
+  /// The same number as shown to visitors.
+  static const String displayPhone = '+49 176 346 20 220';
 
   // Default message templates — now using Translations.translate
   static String get defaultMessage =>
@@ -66,7 +67,7 @@ class WhatsAppService {
 
   /// Get formatted phone number for display
   static String getFormattedPhone() {
-    return businessPhone;
+    return displayPhone;
   }
 
   /// Get WhatsApp link for direct sharing
