@@ -19,8 +19,11 @@ flutter config --no-analytics --enable-web > /dev/null
 flutter --version
 flutter pub get
 
-# --pwa-strategy=none: no offline service worker, so visitors always get the
-# latest deploy instead of a cached copy of the previous one.
+# --pwa-strategy=offline-first: a service worker keeps the site on the
+# visitor's device, so repeat visits open almost instantly, even on a poor
+# connection. After a deploy, returning visitors get the new version on
+# their next visit (flutter_service_worker.js is served with no-cache).
 flutter build web --release \
-  --pwa-strategy=none \
+  --pwa-strategy=offline-first \
   --dart-define=APP_ENV="${APP_ENV:-production}"
+./patch-service-worker.sh

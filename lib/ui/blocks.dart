@@ -390,9 +390,11 @@ class GetStarted extends StatelessWidget {
                       TextSpan(text: localeProvider.tr('gs.body_mid2')),
                       TextSpan(
                           text: localeProvider.tr('gs.body_highlight3'),
+                          // Not italic: an italic face would be one more
+                          // font to download before the first frame.
                           style: bodyTextStyle.copyWith(
                               fontSize: 16,
-                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w600,
                               color: palette.accent)),
                       TextSpan(text: localeProvider.tr('gs.body_end')),
                     ],

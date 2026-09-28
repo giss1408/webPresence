@@ -12,7 +12,8 @@ COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
 COPY . .
-RUN flutter build web --release --pwa-strategy=none
+RUN flutter build web --release --pwa-strategy=offline-first \
+    && ./patch-service-worker.sh
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────
 FROM nginx:1.26-alpine AS runner

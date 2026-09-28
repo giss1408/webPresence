@@ -17,7 +17,6 @@ Future<void> _loadFonts() async {
     'Roboto': [
       'assets/fonts/roboto_regular.ttf',
       'assets/fonts/roboto_bold.ttf',
-      'assets/fonts/roboto_italic.ttf',
     ],
   };
   for (final entry in families.entries) {

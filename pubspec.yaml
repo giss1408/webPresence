@@ -41,5 +41,3 @@ flutter:
         - asset: assets/fonts/roboto_regular.ttf
         - asset: assets/fonts/roboto_bold.ttf
           weight: 700
-        - asset: assets/fonts/roboto_italic.ttf
-          style: italic

@@ -33,6 +33,10 @@ services:
         value: camera=(), microphone=(), geolocation=()
       # Caching — Flutter's file names are not content-hashed, so the app
       # entry points must be revalidated on every visit to pick up deploys.
+      # "/" serves index.html too; without this rule the CDN keeps it 5 min.
+      - path: /
+        name: Cache-Control
+        value: no-cache
       - path: /index.html
         name: Cache-Control
         value: no-cache

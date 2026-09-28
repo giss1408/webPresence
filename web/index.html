@@ -45,6 +45,23 @@
   <!-- The app itself: start downloading now instead of after the bootstrap
        script runs (one round trip less on high-latency mobile networks). -->
   <link rel="preload" as="script" href="main.dart.js">
+  <!-- Flutter only asks for these once main.dart.js has downloaded and
+       started, one request after another. Fetch them now, in parallel; the
+       engine's fetch() reuses these responses. Keep in sync with the
+       fonts in pubspec.yaml and the first carousel slide. -->
+  <link rel="preload" as="fetch" crossorigin href="assets/FontManifest.json">
+  <link rel="preload" as="fetch" crossorigin href="assets/AssetManifest.bin.json">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_regular.ttf">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_bold.ttf">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_regular.ttf">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_bold.ttf">
+  <!-- First screen's images, at low priority so they don't slow the above. -->
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/logo.svg">
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/packages/country_flags/res/si/ci.si">
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/device_frame.webp">
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/abidjan-web.webp">
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/slide_1-layer_1_Test.webp">
+  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/slide_1-layer_2_Test.webp">
 
   <!-- Branded loading screen, shown until Flutter paints its first frame.
        Light, like the app's default theme. -->
@@ -60,6 +77,11 @@
     }
     #splash.hidden { opacity: 0; pointer-events: none; }
     #splash svg { width: 64px; height: 64px; }
+    #splash h1 {
+      margin: 0; max-width: 560px; padding: 0 16px; text-align: center;
+      color: #1E293B; font-size: clamp(20px, 5vw, 28px); line-height: 1.25;
+    }
+    #splash .tagline { margin: 0; max-width: 480px; padding: 0 16px; text-align: center; }
     #splash .spinner {
       width: 28px; height: 28px; border-radius: 50%;
       border: 3px solid var(--track); border-top-color: #1389FD;
@@ -93,6 +115,10 @@
       <polyline points="9,14 19,20 9,26" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
       <polyline points="20,14 30,20 20,26" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
     </svg>
+    <!-- Real text while the app loads: visitors read the pitch right away,
+         and crawlers (which can't see Flutter's canvas) index it. -->
+    <h1>L'excellence technique allemande au service de vos projets en Afrique</h1>
+    <p class="tagline">Applications mobiles, plateformes SaaS et design sur mesure — livrés en quelques semaines.</p>
     <div class="spinner"></div>
     <span>Regisse__ #Business Solutions</span>
     <!-- Shown if loading takes long (slow mobile networks): visitors can
