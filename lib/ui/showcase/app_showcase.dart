@@ -49,7 +49,7 @@ class _AppShowcaseState extends State<AppShowcase> {
       builder: (context, app, _) {
         final spec = demoApps[app]!;
 
-        final pitch = Column(
+        final intro = Column(
           crossAxisAlignment:
               isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
           children: [
@@ -87,7 +87,14 @@ class _AppShowcaseState extends State<AppShowcase> {
                   fontSize: 16, color: palette.textSecondary, height: 1.7),
               textAlign: isDesktop ? TextAlign.start : TextAlign.center,
             ),
-            const SizedBox(height: 26),
+          ],
+        );
+
+        // App and platform pickers, key points, link.
+        final controls = Column(
+          crossAxisAlignment:
+              isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+          children: [
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -96,6 +103,10 @@ class _AppShowcaseState extends State<AppShowcase> {
                 for (final option in DemoApp.values)
                   _AppChip(
                     spec: demoApps[option]!,
+                    label: [
+                      demoApps[option]!.name,
+                      if (demoApps[option]!.tag case final tag?) tr(tag),
+                    ].join(' · '),
                     selected: option == app,
                     onTap: () => _app.value = option,
                   ),
@@ -214,16 +225,25 @@ class _AppShowcaseState extends State<AppShowcase> {
           child: isDesktop
               ? Row(
                   children: [
-                    Expanded(child: pitch),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [intro, const SizedBox(height: 26), controls],
+                      ),
+                    ),
                     const SizedBox(width: 56),
                     SizedBox(width: 420, child: phone),
                   ],
                 )
               : Column(
                   children: [
-                    pitch,
-                    const SizedBox(height: 36),
+                    // On phones the demo comes right after the intro, above
+                    // the pickers that drive it.
+                    intro,
+                    const SizedBox(height: 28),
                     phone,
+                    const SizedBox(height: 24),
+                    controls,
                   ],
                 ),
         );
@@ -235,11 +255,13 @@ class _AppShowcaseState extends State<AppShowcase> {
 class _AppChip extends StatelessWidget {
   const _AppChip({
     required this.spec,
+    required this.label,
     required this.selected,
     required this.onTap,
   });
 
   final DemoAppSpec spec;
+  final String label;
   final bool selected;
   final VoidCallback onTap;
 
@@ -264,7 +286,7 @@ class _AppChip extends StatelessWidget {
               Icon(spec.icon,
                   size: 17, color: selected ? Colors.white : spec.seed),
               const SizedBox(width: 7),
-              Text(spec.name,
+              Text(label,
                   style: bodyTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,

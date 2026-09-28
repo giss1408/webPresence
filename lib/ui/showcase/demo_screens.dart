@@ -4,7 +4,7 @@ import 'package:flutter_website/ui/showcase/demo_kit.dart';
 import 'package:provider/provider.dart';
 
 /// The products shown in the live phone demo.
-enum DemoApp { akwaba, djassa, immoizi }
+enum DemoApp { akwaba, djassa, djassaUser, immoizi }
 
 /// One step of a demo script: the screen shown, what the caption under the
 /// phone says, and (optionally) the target the scripted finger taps at the
@@ -15,6 +15,7 @@ class DemoStep {
     required this.caption,
     this.tap,
     this.notice,
+    this.back = false,
   });
 
   /// Steps with the same screen id update the page in place; a new id
@@ -25,11 +26,15 @@ class DemoStep {
 
   /// Translation key of a push notification's body.
   final String? notice;
+
+  /// Arrive with the "back" transition (returning to an earlier screen).
+  final bool back;
 }
 
 class DemoAppSpec {
   const DemoAppSpec({
     required this.name,
+    this.tag,
     required this.seed,
     required this.icon,
     required this.steps,
@@ -37,6 +42,10 @@ class DemoAppSpec {
   });
 
   final String name;
+
+  /// Translation key of a suffix telling apart two apps of one product
+  /// ("Djassa · Customers").
+  final String? tag;
   final Color seed;
   final IconData icon;
   final List<DemoStep> steps;
@@ -69,6 +78,7 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
   ),
   DemoApp.djassa: DemoAppSpec(
     name: 'Djassa',
+    tag: 'demo.dj.tag',
     seed: const Color(0xFFD1571E),
     icon: Icons.storefront,
     steps: const [
@@ -83,6 +93,34 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
       1 => const _DjassaNewSale(),
       2 => const _DjassaHome(stage: _SaleStage.saved),
       _ => const _DjassaHome(stage: _SaleStage.synced),
+    },
+  ),
+  DemoApp.djassaUser: DemoAppSpec(
+    name: 'Djassa',
+    tag: 'demo.dju.tag',
+    seed: const Color(0xFFC94A22),
+    icon: Icons.local_pharmacy,
+    steps: const [
+      DemoStep(screen: 'home', caption: 'demo.dju.step1', tap: 'dju.duty'),
+      DemoStep(screen: 'duty', caption: 'demo.dju.step2', tap: 'dju.back'),
+      DemoStep(
+          screen: 'home',
+          caption: 'demo.dju.step3',
+          tap: 'dju.maquis',
+          back: true),
+      DemoStep(screen: 'venue', caption: 'demo.dju.step4', tap: 'dju.pay'),
+      DemoStep(
+          screen: 'paid',
+          caption: 'demo.dju.step5',
+          tap: 'dju.done',
+          notice: 'demo.dju.notice'),
+    ],
+    build: (step) => switch (step) {
+      0 => const _DjassaUserHome(target: 'dju.duty'),
+      1 => const _OnDutyPharmacies(),
+      2 => const _DjassaUserHome(target: 'dju.maquis'),
+      3 => const _MaquisVenue(),
+      _ => const _DjassaUserPaid(),
     },
   ),
   DemoApp.immoizi: DemoAppSpec(
@@ -1443,6 +1481,851 @@ class _ImmoUnits extends StatelessWidget {
           DemoToast(
               icon: Icons.chat_outlined, text: context.tr('demo.im.reminded')),
       ],
+    );
+  }
+}
+
+// ─── Djassa for customers (maquis, on-duty pharmacies, pay) ──────────────────
+
+/// Pharmacy cross colour of the Djassa apps; distinct from the brand.
+const _pharmacy = Color(0xFF12855A);
+
+/// Djassa's gradient header: orange on most screens, green for pharmacies.
+class _GradientHeader extends StatelessWidget {
+  const _GradientHeader({required this.colors, required this.child});
+
+  final List<Color> colors;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(18, 8, 18, 18),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: colors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+      ),
+      child: child,
+    );
+  }
+}
+
+/// Djassa's tab bar: four tabs around a raised "Pay" scan button.
+class _DjassaTabBar extends StatelessWidget {
+  const _DjassaTabBar();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    Widget tab(IconData icon, String label, {bool selected = false}) {
+      final color = selected ? scheme.primary : scheme.onSurfaceVariant;
+      return Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 22, color: color),
+            const SizedBox(height: 2),
+            Text(label,
+                maxLines: 1,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                    color: color)),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        border: Border(top: BorderSide(color: scheme.outlineVariant)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          tab(Icons.home_rounded, context.tr('demo.im.home'), selected: true),
+          tab(Icons.explore_outlined, context.tr('demo.ak.explore')),
+          SizedBox(
+            width: 64,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.topCenter,
+              children: [
+                Positioned(
+                  top: -18,
+                  child: Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFE65E32), Color(0xFF9E3517)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: scheme.surface, width: 3),
+                    ),
+                    child: const Icon(Icons.qr_code_scanner_rounded,
+                        color: Colors.white, size: 24),
+                  ),
+                ),
+                Positioned(
+                  bottom: 8,
+                  child: Text(context.tr('demo.dju.pay'),
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: scheme.primary)),
+                ),
+              ],
+            ),
+          ),
+          tab(Icons.local_offer_outlined, context.tr('demo.dju.deals')),
+          tab(Icons.stars_outlined, context.tr('demo.dju.loyalty')),
+        ],
+      ),
+    );
+  }
+}
+
+class _DjassaUserHome extends StatelessWidget {
+  const _DjassaUserHome({required this.target});
+
+  /// Which shortcut the script taps next: the on-duty tile or a maquis.
+  final String target;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+
+    Widget shortcut(IconData icon, String label, Color color,
+        {bool live = false, String? id}) {
+      final tile = Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.13),
+          borderRadius: BorderRadius.circular(ios ? 14 : 18),
+        ),
+        child: Column(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(icon, size: 24, color: color),
+                if (live)
+                  const Positioned(right: -6, top: -3, child: _PulseDot()),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: scheme.onSurface)),
+          ],
+        ),
+      );
+      return Expanded(
+          child: id == target ? DemoTarget(id: id!, child: tile) : tile);
+    }
+
+    Widget maquis(IconData icon, Color color, String name, String place,
+        {String? id}) {
+      final card = DemoCard(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            _FoodTile(icon: icon, color: color, size: 58),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface)),
+                  Text(place,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 12, color: scheme.onSurfaceVariant)),
+                  const SizedBox(height: 4),
+                  _Badge(context.tr('demo.dju.djassa_pay'), scheme.primary,
+                      icon: Icons.qr_code_2),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: scheme.onSurfaceVariant),
+          ],
+        ),
+      );
+      return id == target ? DemoTarget(id: id!, child: card) : card;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _GradientHeader(
+          colors: const [Color(0xFFC94A22), Color(0xFF9E3517)],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(context.tr('demo.dju.hello'),
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white)),
+                        const Text('Abidjan',
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.white70)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.18),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.stars_rounded,
+                            size: 14, color: Colors.white),
+                        SizedBox(width: 4),
+                        Text('180 pts',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              Container(
+                height: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                  color: scheme.surface,
+                  borderRadius: BorderRadius.circular(ios ? 11 : 20),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.search,
+                        size: 19, color: scheme.onSurfaceVariant),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(context.tr('demo.dju.search'),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 13.5, color: scheme.onSurfaceVariant)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: Row(
+            children: [
+              shortcut(Icons.local_pharmacy_rounded,
+                  context.tr('demo.dju.on_duty'), _pharmacy,
+                  live: true, id: 'dju.duty'),
+              const SizedBox(width: 10),
+              shortcut(Icons.restaurant_rounded, 'Maquis', scheme.primary),
+              const SizedBox(width: 10),
+              shortcut(Icons.local_offer_rounded, context.tr('demo.dju.deals'),
+                  const Color(0xFF75975D)),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
+          child: Text(context.tr('demo.dju.nearby'),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                  color: scheme.onSurface)),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              maquis(Icons.ramen_dining_rounded, scheme.primary,
+                  'Chez Tantie Awa', 'Yopougon · Garba, alloco',
+                  id: 'dju.maquis'),
+              const SizedBox(height: 10),
+              maquis(Icons.set_meal_rounded, const Color(0xFF75975D),
+                  'Maquis Le Baobab', 'Marcory · Poisson braisé'),
+            ],
+          ),
+        ),
+        const Spacer(),
+        const _DjassaTabBar(),
+      ],
+    );
+  }
+}
+
+/// Glowing "live" dot on the on-duty shortcut.
+class _PulseDot extends StatelessWidget {
+  const _PulseDot();
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.6, end: 1),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeInOut,
+      builder: (context, t, _) => Container(
+        width: 9,
+        height: 9,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: const Color(0xFFE53935),
+          border: Border.all(color: Colors.white, width: 1.5),
+          boxShadow: [
+            BoxShadow(
+                color: const Color(0xFFE53935).withOpacity(0.5 * t),
+                blurRadius: 6 * t,
+                spreadRadius: 2 * t),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OnDutyPharmacies extends StatelessWidget {
+  const _OnDutyPharmacies();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+
+    Widget pharmacy(String name, String place) {
+      return Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: scheme.surfaceContainerLow,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: scheme.outlineVariant),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: _pharmacy.withOpacity(0.14),
+                  child: const Icon(Icons.local_pharmacy_rounded,
+                      size: 20, color: _pharmacy),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurface)),
+                      Text(place,
+                          style: TextStyle(
+                              fontSize: 12, color: scheme.onSurfaceVariant)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 8, 6, 8),
+              decoration: BoxDecoration(
+                color: _pharmacy.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.nightlight_round,
+                      size: 16, color: _pharmacy),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(context.tr('demo.dju.duty_label'),
+                            style: const TextStyle(
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.8,
+                                color: _pharmacy)),
+                        Text(context.tr('demo.dju.until'),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.w600,
+                                color: scheme.onSurface)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: _pharmacy,
+                      borderRadius: BorderRadius.circular(ios ? 10 : 20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.call_rounded,
+                            size: 15, color: Colors.white),
+                        const SizedBox(width: 5),
+                        Text(context.tr('demo.dju.call'),
+                            style: const TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _GradientHeader(
+          colors: const [_pharmacy, Color(0xFF0B5E3F)],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DemoTarget(
+                id: 'dju.back',
+                child: CircleAvatar(
+                  radius: 16,
+                  backgroundColor: Colors.white.withOpacity(0.2),
+                  child: Icon(ios ? Icons.arrow_back_ios_new : Icons.arrow_back,
+                      size: 17, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(context.tr('demo.dju.pharmacies'),
+                            style: const TextStyle(
+                                fontSize: 21,
+                                height: 1.15,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white)),
+                        const SizedBox(height: 4),
+                        Text(context.tr('demo.dju.pharmacies_sub'),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.white70)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: const Icon(Icons.local_pharmacy_rounded,
+                        color: _pharmacy, size: 26),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+          child: Row(
+            children: [
+              for (final (i, commune) in const [
+                'Cocody',
+                'Yopougon',
+                'Plateau',
+              ].indexed) ...[
+                if (i > 0) const SizedBox(width: 6),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: i == 0 ? _pharmacy : null,
+                    border: i == 0
+                        ? null
+                        : Border.all(color: scheme.outlineVariant),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(commune,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: i == 0 ? Colors.white : scheme.onSurface)),
+                ),
+              ],
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              pharmacy('Pharmacie des Deux Plateaux', 'Cocody · 1,2 km'),
+              pharmacy('Pharmacie Saint-Jean', 'Cocody · 2,8 km'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MaquisVenue extends StatelessWidget {
+  const _MaquisVenue();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    final ios = isIos(context);
+
+    Widget info(IconData icon, String label, String value) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: scheme.primary.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, size: 17, color: scheme.primary),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label,
+                      style: TextStyle(
+                          fontSize: 11, color: scheme.onSurfaceVariant)),
+                  Text(value,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.onSurface)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            _FoodTile(
+                icon: Icons.ramen_dining_rounded,
+                color: scheme.primary,
+                size: 170,
+                wide: true),
+            Positioned(
+              top: 10,
+              left: 12,
+              child: CircleAvatar(
+                radius: 16,
+                backgroundColor: Colors.black.withOpacity(0.3),
+                child: Icon(ios ? Icons.arrow_back_ios_new : Icons.arrow_back,
+                    size: 17, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  _Badge('Maquis', scheme.primary, icon: Icons.restaurant),
+                  const SizedBox(width: 6),
+                  _Badge(context.tr('demo.dju.djassa_pay'), _pharmacy,
+                      icon: Icons.qr_code_2),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text('Chez Tantie Awa',
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.w800,
+                      color: scheme.onSurface)),
+              Row(
+                children: [
+                  Icon(Icons.place_outlined,
+                      size: 14, color: scheme.onSurfaceVariant),
+                  Text(' Yopougon',
+                      style: TextStyle(
+                          fontSize: 12.5, color: scheme.onSurfaceVariant)),
+                ],
+              ),
+              const SizedBox(height: 8),
+              DemoCard(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                child: Column(
+                  children: [
+                    info(
+                        Icons.ramen_dining_rounded,
+                        context.tr('demo.dju.specialties'),
+                        context.tr('demo.dju.specialties_value')),
+                    info(Icons.schedule_rounded, context.tr('demo.dju.hours'),
+                        '11:00 – 02:00'),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(context.tr('demo.dju.points_here'),
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: scheme.onSurface)),
+                  ),
+                  const Text('180 pts',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: _pharmacy)),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Icon(Icons.card_giftcard_rounded,
+                      size: 16, color: scheme.primary),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(context.tr('demo.dju.reward'),
+                        style:
+                            TextStyle(fontSize: 12.5, color: scheme.onSurface)),
+                  ),
+                  Text('250 pts',
+                      style: TextStyle(
+                          fontSize: 12, color: scheme.onSurfaceVariant)),
+                ],
+              ),
+              const SizedBox(height: 6),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: 180 / 250,
+                  minHeight: 6,
+                  color: _pharmacy,
+                  backgroundColor: _pharmacy.withOpacity(0.15),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+          child: DemoButton(
+            label: context.tr('demo.dju.scan'),
+            target: 'dju.pay',
+            icon: Icons.qr_code_scanner_rounded,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DjassaUserPaid extends StatelessWidget {
+  const _DjassaUserPaid();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
+      child: Column(
+        children: [
+          const Spacer(flex: 3),
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.elasticOut,
+            builder: (context, t, child) =>
+                Transform.scale(scale: t, child: child),
+            child: Container(
+              width: 84,
+              height: 84,
+              decoration:
+                  const BoxDecoration(color: _pharmacy, shape: BoxShape.circle),
+              child: const Icon(Icons.check_rounded,
+                  size: 50, color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Text(context.tr('demo.dju.paid'),
+              style: TextStyle(fontSize: 15, color: scheme.onSurfaceVariant)),
+          const SizedBox(height: 4),
+          Text(context.money(3500),
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: scheme.onSurface)),
+          const SizedBox(height: 4),
+          Text('Chez Tantie Awa · Wave',
+              style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant)),
+          const SizedBox(height: 18),
+          // Points earned, counted up.
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 35),
+            duration: const Duration(milliseconds: 1200),
+            curve: Curves.easeOutCubic,
+            builder: (context, v, _) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+              decoration: BoxDecoration(
+                color: scheme.primary.withOpacity(0.13),
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.stars_rounded, size: 18, color: scheme.primary),
+                  const SizedBox(width: 6),
+                  Text('+${v.round()} ${context.tr('demo.dju.points')}',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                          color: scheme.primary)),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(context.tr('demo.dju.funds'),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 12, height: 1.4, color: scheme.onSurfaceVariant)),
+          const Spacer(flex: 4),
+          DemoButton(label: context.tr('demo.dju.done'), target: 'dju.done'),
+        ],
+      ),
+    );
+  }
+}
+
+/// Stand-in for a venue photo: the brand gradient with scattered dish
+/// icons, like the Djassa app's venue banners.
+class _FoodTile extends StatelessWidget {
+  const _FoodTile({
+    required this.icon,
+    required this.color,
+    required this.size,
+    this.wide = false,
+  });
+
+  final IconData icon;
+  final Color color;
+  final double size;
+
+  /// Full-width banner instead of a square thumbnail.
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Color.lerp(color, Colors.black, 0.35)!;
+    return Container(
+      width: wide ? double.infinity : size,
+      height: size,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [color, dark],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(wide ? 0 : 12),
+      ),
+      child: Stack(
+        children: [
+          if (wide)
+            for (final (x, y, i, s) in const [
+              (0.08, 0.2, Icons.local_fire_department_rounded, 34.0),
+              (0.85, 0.15, Icons.rice_bowl_rounded, 40.0),
+              (0.18, 0.85, Icons.local_drink_rounded, 30.0),
+              (0.9, 0.85, Icons.set_meal_rounded, 36.0),
+            ])
+              Align(
+                alignment: Alignment(x * 2 - 1, y * 2 - 1),
+                child: Icon(i, size: s, color: Colors.white.withOpacity(0.18)),
+              ),
+          Center(
+            child: Icon(icon,
+                size: wide ? 72 : size * 0.5,
+                color: Colors.white.withOpacity(0.92)),
+          ),
+        ],
+      ),
     );
   }
 }

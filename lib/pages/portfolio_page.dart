@@ -37,6 +37,16 @@ class _PortfolioPageState extends State<PortfolioPage> {
       recording: null,
     ),
     _ProjectCardData(
+      title: 'portfolio.djassa_title',
+      subtitle: 'portfolio.djassa_user_subtitle',
+      description: 'portfolio.djassa_user_desc',
+      tags: ['Flutter', 'Riverpod', 'Mobile Money', 'QR'],
+      icon: Icons.local_pharmacy,
+      accent: Color(0xFFC94A22),
+      demo: DemoApp.djassaUser,
+      recording: null,
+    ),
+    _ProjectCardData(
       title: 'portfolio.immoizi_title',
       subtitle: 'portfolio.immoizi_subtitle',
       description: 'portfolio.immoizi_desc',

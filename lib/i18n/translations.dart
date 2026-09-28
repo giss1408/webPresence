@@ -1577,6 +1577,177 @@ class Translations {
       'de': 'Zucker 1 kg',
     },
 
+    // ── Live demo: Djassa for customers ─────────────────────────────
+    'portfolio.djassa_user_subtitle': {
+      'fr': 'Maquis, pharmacies de garde et paiement',
+      'en': 'Maquis, on-duty pharmacies and payments',
+      'de': 'Maquis, Notdienst-Apotheken und Zahlungen',
+    },
+    'portfolio.djassa_user_desc': {
+      'fr':
+          'App grand public : trouver un maquis ou la pharmacie de garde la plus proche, payer en scannant le QR code du commerçant avec son mobile money et cumuler des points fidélité.',
+      'en':
+          'Consumer app: find a maquis or the nearest on-duty pharmacy, pay by scanning the merchant\'s QR code with mobile money, and collect loyalty points.',
+      'de':
+          'App für Endkunden: ein Maquis oder die nächste Notdienst-Apotheke finden, per QR-Code des Händlers mit Mobile Money bezahlen und Treuepunkte sammeln.',
+    },
+    'demo.dj.tag': {
+      'fr': 'Commerçants',
+      'en': 'Merchants',
+      'de': 'Händler',
+    },
+    'demo.dju.tag': {
+      'fr': 'Clients',
+      'en': 'Customers',
+      'de': 'Kunden',
+    },
+    'demo.dju.step1': {
+      'fr': 'Maquis, pharmacies et paiements dans une app',
+      'en': 'Maquis, pharmacies and payments in one app',
+      'de': 'Maquis, Apotheken und Zahlungen in einer App',
+    },
+    'demo.dju.step2': {
+      'fr': 'Les pharmacies de garde, même la nuit',
+      'en': 'On-duty pharmacies, even at night',
+      'de': 'Notdienst-Apotheken, auch nachts',
+    },
+    'demo.dju.step3': {
+      'fr': 'Trouver son maquis',
+      'en': 'Find a maquis',
+      'de': 'Ein Maquis finden',
+    },
+    'demo.dju.step4': {
+      'fr': 'Payer en scannant le QR code',
+      'en': 'Pay by scanning the QR code',
+      'de': 'Per QR-Code bezahlen',
+    },
+    'demo.dju.step5': {
+      'fr': 'Des points fidélité à chaque paiement',
+      'en': 'Loyalty points with every payment',
+      'de': 'Treuepunkte bei jeder Zahlung',
+    },
+    'demo.dju.hello': {
+      'fr': 'Bonsoir Koffi',
+      'en': 'Good evening, Koffi',
+      'de': 'Guten Abend, Koffi',
+    },
+    'demo.dju.search': {
+      'fr': 'Un plat, une pharmacie…',
+      'en': 'A dish, a pharmacy…',
+      'de': 'Ein Gericht, eine Apotheke…',
+    },
+    'demo.dju.on_duty': {
+      'fr': 'De garde',
+      'en': 'On duty',
+      'de': 'Notdienst',
+    },
+    'demo.dju.deals': {
+      'fr': 'Promos',
+      'en': 'Deals',
+      'de': 'Angebote',
+    },
+    'demo.dju.loyalty': {
+      'fr': 'Fidélité',
+      'en': 'Loyalty',
+      'de': 'Treue',
+    },
+    'demo.dju.pay': {
+      'fr': 'Payer',
+      'en': 'Pay',
+      'de': 'Zahlen',
+    },
+    'demo.dju.nearby': {
+      'fr': 'Maquis près de vous',
+      'en': 'Maquis near you',
+      'de': 'Maquis in der Nähe',
+    },
+    'demo.dju.djassa_pay': {
+      'fr': 'Paiement Djassa',
+      'en': 'Djassa Pay',
+      'de': 'Djassa Pay',
+    },
+    'demo.dju.pharmacies': {
+      'fr': 'Pharmacies de garde',
+      'en': 'On-duty pharmacies',
+      'de': 'Notdienst-Apotheken',
+    },
+    'demo.dju.pharmacies_sub': {
+      'fr': 'Ouvertes jour et nuit cette semaine',
+      'en': 'Open day and night this week',
+      'de': 'Diese Woche Tag und Nacht geöffnet',
+    },
+    'demo.dju.duty_label': {
+      'fr': 'DE GARDE',
+      'en': 'ON DUTY',
+      'de': 'NOTDIENST',
+    },
+    'demo.dju.until': {
+      'fr': 'Jusqu\'à lundi 8:00',
+      'en': 'Until Monday 8:00',
+      'de': 'Bis Montag 8:00',
+    },
+    'demo.dju.call': {
+      'fr': 'Appeler',
+      'en': 'Call',
+      'de': 'Anrufen',
+    },
+    'demo.dju.specialties': {
+      'fr': 'Spécialités',
+      'en': 'Specialties',
+      'de': 'Spezialitäten',
+    },
+    'demo.dju.specialties_value': {
+      'fr': 'Garba, alloco, poulet braisé',
+      'en': 'Garba, alloco, grilled chicken',
+      'de': 'Garba, Alloco, gegrilltes Hähnchen',
+    },
+    'demo.dju.hours': {
+      'fr': 'Horaires',
+      'en': 'Hours',
+      'de': 'Öffnungszeiten',
+    },
+    'demo.dju.points_here': {
+      'fr': 'Vos points ici',
+      'en': 'Your points here',
+      'de': 'Ihre Punkte hier',
+    },
+    'demo.dju.reward': {
+      'fr': 'Alloco offert',
+      'en': 'Free alloco',
+      'de': 'Gratis-Alloco',
+    },
+    'demo.dju.scan': {
+      'fr': 'Scanner pour payer',
+      'en': 'Scan to pay',
+      'de': 'Zum Bezahlen scannen',
+    },
+    'demo.dju.paid': {
+      'fr': 'Paiement envoyé',
+      'en': 'Payment sent',
+      'de': 'Zahlung gesendet',
+    },
+    'demo.dju.points': {
+      'fr': 'points',
+      'en': 'points',
+      'de': 'Punkte',
+    },
+    'demo.dju.funds': {
+      'fr':
+          'L\'argent va directement de votre portefeuille à celui du commerçant.',
+      'en': 'The money goes straight from your wallet to the merchant\'s.',
+      'de': 'Das Geld geht direkt von Ihrer Wallet an die des Händlers.',
+    },
+    'demo.dju.done': {
+      'fr': 'Terminé',
+      'en': 'Done',
+      'de': 'Fertig',
+    },
+    'demo.dju.notice': {
+      'fr': '+35 points chez Tantie Awa. Encore 35 pour un alloco offert !',
+      'en': '+35 points at Tantie Awa. 35 more for a free alloco!',
+      'de': '+35 Punkte bei Tantie Awa. Noch 35 bis zum Gratis-Alloco!',
+    },
+
     // ── Travel page ─────────────────────────────────────────────────
     'travel.featured': {
       'fr': 'Destinations à la une',

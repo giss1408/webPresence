@@ -73,7 +73,7 @@ class _AppDemoState extends State<AppDemo> with SingleTickerProviderStateMixin {
     final count = _spec.steps.length;
     final next = step % count;
     setState(() {
-      _back = next < _step;
+      _back = next < _step || _spec.steps[next].back;
       _step = next;
     });
     _restartClock();
