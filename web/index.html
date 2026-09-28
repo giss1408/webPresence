@@ -42,6 +42,9 @@
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="script" href="flutter_bootstrap.js">
+  <!-- The app itself: start downloading now instead of after the bootstrap
+       script runs (one round trip less on high-latency mobile networks). -->
+  <link rel="preload" as="script" href="main.dart.js">
 
   <!-- Branded loading screen, shown until Flutter paints its first frame.
        Light, like the app's default theme. -->
@@ -63,6 +66,9 @@
       animation: spin .9s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    #slow { display: none; max-width: 300px; padding: 0 16px; text-align: center; font-size: 13px; }
+    #slow.shown { display: block; }
+    #slow a { color: #1389FD; }
     @media (prefers-reduced-motion: reduce) { #splash .spinner { animation-duration: 3s; } }
   </style>
 
@@ -89,11 +95,22 @@
     </svg>
     <div class="spinner"></div>
     <span>Regisse__ #Business Solutions</span>
+    <!-- Shown if loading takes long (slow mobile networks): visitors can
+         still reach us instead of leaving. -->
+    <p id="slow">
+      Connexion lente : le site continue de charger…<br>
+      Slow connection — still loading…<br><br>
+      <a href="mailto:contact@regisse.de">contact@regisse.de</a>
+    </p>
   </div>
   <noscript>Ce site nécessite JavaScript. — This website requires JavaScript.</noscript>
 
   <script>
+    var slowTimer = setTimeout(function () {
+      document.getElementById('slow').classList.add('shown');
+    }, 8000);
     window.addEventListener('flutter-first-frame', function () {
+      clearTimeout(slowTimer);
       var splash = document.getElementById('splash');
       splash.classList.add('hidden');
       setTimeout(function () { splash.remove(); }, 400);

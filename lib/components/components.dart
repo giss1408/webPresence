@@ -15,7 +15,3 @@ export 'modern_shadows.dart';
 export 'floating_whatsapp_button.dart';
 export 'motion.dart';
 export 'language_switcher_menu.dart';
-
-// Tourism components
-export 'tour_tier_card.dart';
-export 'highlights_grid.dart';

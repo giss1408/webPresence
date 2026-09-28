@@ -16,10 +16,6 @@ import 'package:flutter_website/ui/section_nav.dart';
 import 'package:flutter_website/ui/showcase/app_showcase.dart';
 import 'package:flutter_website/ui/showcase/offline_sync_demo.dart';
 import 'package:flutter_website/components/motion.dart';
-import 'package:flutter_website/pages/travel_page.dart';
-import 'package:flutter_website/pages/immobilier_page.dart';
-import 'package:flutter_website/pages/loisir_page.dart';
-import 'package:flutter_website/pages/tourism_page.dart';
 import 'package:flutter_website/pages/analytics_dashboard_page.dart';
 import 'package:flutter_website/pages/portfolio_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -70,10 +66,6 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const _HomePage(),
             '/portfolio': (context) => const PortfolioPage(),
-            '/travel': (context) => const TravelPage(),
-            '/immobilier': (context) => const ImmobilierPage(),
-            '/loisir': (context) => const LoisirPage(),
-            '/tourism': (context) => const TourismPage(),
             // Internal in-memory analytics view: debug builds only.
             if (kDebugMode)
               '/analytics': (context) => const AnalyticsDashboardPage(),

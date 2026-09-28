@@ -62,7 +62,7 @@ the image tag in `Dockerfile` together.
 | `lib/components/motion.dart` | Scroll animations: `Reveal` (fade/slide in), `CountUp` (stats), `OnScreen` (pauses loops off screen) |
 | `lib/components/app_palette.dart` | Light / dark colors and breakpoints (`context.palette`, `context.isMobile`) |
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |
-| `lib/pages/` | Portfolio, tourism, travel, real-estate and leisure pages |
+| `lib/pages/` | Portfolio page |
 | `web/` | `index.html` (SEO, loading screen), icons, manifest |
 | `docs/logo/` | Logo concepts (A is in use); `assets/images/logo.svg` is the source for all icons |
 | `docs/archive/` | Older notes and reports kept for reference |

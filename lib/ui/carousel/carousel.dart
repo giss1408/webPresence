@@ -49,7 +49,7 @@ class _Slide {
 
 const double _canvasWidth = 1200;
 const double _canvasHeight = 640;
-const _deviceFrame = 'assets/images/device_frame.png';
+const _deviceFrame = 'assets/images/device_frame.webp';
 const _deviceFrameRect = Rect.fromLTWH(441, 37, 317, 565);
 const _itemOffset = Offset(0, 60);
 
@@ -76,11 +76,11 @@ const List<_Slide> _slides = [
       _Span('carousel.s1_b', carouselGreenTextStyle),
     ],
     layers: [
-      _Layer('assets/images/abidjan-web.jpg', Rect.fromLTWH(449, 116, 400, 400),
-          0, 224),
-      _Layer('assets/images/slide_1-layer_1_Test.png',
+      _Layer('assets/images/abidjan-web.webp',
+          Rect.fromLTWH(449, 116, 400, 400), 0, 224),
+      _Layer('assets/images/slide_1-layer_1_Test.webp',
           Rect.fromLTWH(222, 60, 760, 480), 14, 231),
-      _Layer('assets/images/slide_1-layer_2_Test.png',
+      _Layer('assets/images/slide_1-layer_2_Test.webp',
           Rect.fromLTWH(374, 148, 596, 368), 26, 238),
     ],
   ),
@@ -93,11 +93,11 @@ const List<_Slide> _slides = [
       _Span('carousel.s2_b', carouselGreenTextStyle),
     ],
     layers: [
-      _Layer('assets/images/woman-4873600_1280.Layer_Test_1.jpg',
+      _Layer('assets/images/woman-4873600_1280.Layer_Test_1.webp',
           Rect.fromLTWH(46, 106, 385, 467), 0, 164),
-      _Layer('assets/images/Layer_Test_1.png',
+      _Layer('assets/images/Layer_Test_1.webp',
           Rect.fromLTWH(400, 100, 714, 298), 17, 178),
-      _Layer('assets/images/Layer_Test_2.png',
+      _Layer('assets/images/Layer_Test_2.webp',
           Rect.fromLTWH(114, 105, 901, 396), 13, 172),
     ],
   ),
@@ -110,11 +110,11 @@ const List<_Slide> _slides = [
       _Span('carousel.s3_b', carouselOrangeTextStyle),
     ],
     layers: [
-      _Layer('assets/images/stock-market-2616931_1280.jpg',
+      _Layer('assets/images/stock-market-2616931_1280.webp',
           Rect.fromLTWH(400, 117, 420, 395), 0, 162),
-      _Layer('assets/images/slide_3-layer_2_Test.png',
+      _Layer('assets/images/slide_3-layer_2_Test.webp',
           Rect.fromLTWH(260, 95, 801, 429), 12, 169),
-      _Layer('assets/images/slide_3-layer_1_Test.png',
+      _Layer('assets/images/slide_3-layer_1_Test.webp',
           Rect.fromLTWH(194, 73, 906, 440), 23, 175),
     ],
   ),
@@ -128,11 +128,11 @@ const List<_Slide> _slides = [
       _Span('carousel.s4_c', carouselBrownTextStyle),
     ],
     layers: [
-      _Layer('assets/images/blackWoman_layer_4_1280.jpg',
+      _Layer('assets/images/blackWoman_layer_4_1280.webp',
           Rect.fromLTWH(345, 52, 345, 480), 0, 166),
-      _Layer('assets/images/slide_4-layer_1_Test.png',
+      _Layer('assets/images/slide_4-layer_1_Test.webp',
           Rect.fromLTWH(202, 108, 735, 428), 14, 176),
-      _Layer('assets/images/slide_4-layer_2_Test.png',
+      _Layer('assets/images/slide_4-layer_2_Test.webp',
           Rect.fromLTWH(187, 80, 901, 474), 25, 171),
     ],
   ),

@@ -226,7 +226,7 @@ class _Label extends StatelessWidget {
 
 // ─── Akwaba Ivoire (tourism) ──────────────────────────────────────────────────
 
-const _beach = 'assets/images/highlights/highlight_beach.jpg';
+const _beach = 'assets/images/highlights/highlight_beach.webp';
 
 class _AkwabaHome extends StatelessWidget {
   const _AkwabaHome();
@@ -408,7 +408,7 @@ class _AkwabaHome extends StatelessWidget {
                     card(_beach, 'Assinie-Mafia', 'Sud-Comoé', '4.8',
                         target: 'ak.card'),
                     const SizedBox(width: 12),
-                    card('assets/images/highlights/highlight_wildlife.jpg',
+                    card('assets/images/highlights/highlight_wildlife.webp',
                         'Parc de la Comoé', 'Bouna', '4.7'),
                   ],
                 ),
@@ -1328,7 +1328,7 @@ class _ImmoHome extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               property(
-                  'assets/images/abidjan-web.jpg',
+                  'assets/images/abidjan-web.webp',
                   'Résidence Cocody',
                   context.tr('demo.im.units6'),
                   context.tr('demo.im.one_late'),
@@ -1336,7 +1336,7 @@ class _ImmoHome extends StatelessWidget {
                   target: 'im.property'),
               const SizedBox(height: 10),
               property(
-                  'assets/images/abidjan-web.jpg',
+                  'assets/images/abidjan-web.webp',
                   'Villa Riviera',
                   context.tr('demo.im.units1'),
                   context.tr('demo.im.paid'),

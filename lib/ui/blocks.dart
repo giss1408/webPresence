@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/services/whatsapp_service.dart';
-import 'package:flutter_website/pages/travel_page.dart';
-import 'package:flutter_website/pages/immobilier_page.dart';
-import 'package:flutter_website/pages/loisir_page.dart';
-import 'package:flutter_website/pages/tourism_page.dart';
 import 'package:flutter_website/providers/theme_provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/ui/section_nav.dart';
@@ -231,33 +227,12 @@ class WebsiteMenuBar extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              if (!context.isMobile)
-                for (final (key, page) in <(String, Widget)>[
-                  ('nav.travel', const TravelPage()),
-                  ('nav.tours', const TourismPage()),
-                  ('nav.immobilier', const ImmobilierPage()),
-                  ('nav.loisir', const LoisirPage()),
-                ])
-                  TextButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => page),
-                    ),
-                    style: TextButton.styleFrom(
-                      foregroundColor: navLinkColor,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: context.isDesktop ? 16 : 10),
-                    ),
-                    child: Text(localeProvider.tr(key),
-                        style: const TextStyle(
-                            fontSize: 16, fontFamily: fontFamily)),
-                  ),
               if (!isCompact)
                 IconButton(
                   onPressed: () => openUrl('https://www.youtube.com/@regisse'),
                   tooltip: 'YouTube',
                   icon: ImageIcon(
-                      const AssetImage("assets/images/icon_youtube_64x.png"),
+                      const AssetImage("assets/images/icon_youtube_64x.webp"),
                       color: navLinkColor,
                       size: 24),
                 ),
@@ -634,7 +609,7 @@ class Features extends StatelessWidget {
                 child: Reveal(
                     delay: const Duration(milliseconds: 0),
                     child: _FeatureCard(
-                      imagePath: "assets/images/icon_development.png",
+                      imagePath: "assets/images/icon_development.webp",
                       tag: localeProvider.tr('features.card1_tag'),
                       title: localeProvider.tr('features.card1_title'),
                       description: localeProvider.tr('features.card1_desc'),
@@ -649,7 +624,7 @@ class Features extends StatelessWidget {
                 child: Reveal(
                     delay: const Duration(milliseconds: 120),
                     child: _FeatureCard(
-                      imagePath: "assets/images/icon_ui.png",
+                      imagePath: "assets/images/icon_ui.webp",
                       tag: localeProvider.tr('features.card2_tag'),
                       title: localeProvider.tr('features.card2_title'),
                       description: localeProvider.tr('features.card2_desc'),
@@ -664,7 +639,7 @@ class Features extends StatelessWidget {
                 child: Reveal(
                     delay: const Duration(milliseconds: 240),
                     child: _FeatureCard(
-                      imagePath: "assets/images/icon_performance.png",
+                      imagePath: "assets/images/icon_performance.webp",
                       tag: localeProvider.tr('features.card3_tag'),
                       title: localeProvider.tr('features.card3_title'),
                       description: localeProvider.tr('features.card3_desc'),
@@ -1038,7 +1013,7 @@ class ServicesShowcase extends StatelessWidget {
               title: localeProvider.tr('ss.panel1_title'),
               description: localeProvider.tr('ss.panel1_desc'),
               linkLabel: localeProvider.tr('ss.panel1_link'),
-              imagePath: "assets/images/stock-market-2616931_1280.jpg",
+              imagePath: "assets/images/stock-market-2616931_1280.webp",
               imageOnLeft: false,
               onLinkTap: openPortfolio,
             ),
@@ -1049,7 +1024,7 @@ class ServicesShowcase extends StatelessWidget {
               title: localeProvider.tr('ss.panel2_title'),
               description: localeProvider.tr('ss.panel2_desc'),
               linkLabel: localeProvider.tr('ss.panel2_link'),
-              imagePath: "assets/images/blackWoman_layer_4_1280.jpg",
+              imagePath: "assets/images/blackWoman_layer_4_1280.webp",
               imageOnLeft: true,
               onLinkTap: openPortfolio,
             ),
@@ -1060,7 +1035,7 @@ class ServicesShowcase extends StatelessWidget {
               title: localeProvider.tr('ss.panel3_title'),
               description: localeProvider.tr('ss.panel3_desc'),
               linkLabel: localeProvider.tr('ss.panel3_link'),
-              imagePath: "assets/images/abidjan-web.jpg",
+              imagePath: "assets/images/abidjan-web.webp",
               imageOnLeft: false,
               onLinkTap: () => scrollToSection(context, HomeSections.africa),
             ),
@@ -1595,7 +1570,7 @@ class DigitalSolutionsAfrica extends StatelessWidget {
       decoration: const BoxDecoration(
         color: backgroundDark,
         image: DecorationImage(
-          image: AssetImage('assets/images/abidjan-web.jpg'),
+          image: AssetImage('assets/images/abidjan-web.webp'),
           fit: BoxFit.cover,
           alignment: Alignment(0, 0.2),
         ),
@@ -1895,7 +1870,7 @@ class Footer extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(6),
                               child: Image.asset(
-                                "assets/images/icon_youtube_64x.png",
+                                "assets/images/icon_youtube_64x.webp",
                                 height: 24,
                                 width: 24,
                                 color: Colors.white.withOpacity(0.6),

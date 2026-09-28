@@ -36,8 +36,6 @@ flutter:
         - asset: assets/fonts/product_sans_regular.ttf
         - asset: assets/fonts/product_sans_bold.ttf
           weight: 700
-        - asset: assets/fonts/product_sans_italic.ttf
-          style: italic
     - family: Roboto
       fonts:
         - asset: assets/fonts/roboto_regular.ttf

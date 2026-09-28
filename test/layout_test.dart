@@ -13,7 +13,6 @@ Future<void> _loadFonts() async {
     'Google Sans': [
       'assets/fonts/product_sans_regular.ttf',
       'assets/fonts/product_sans_bold.ttf',
-      'assets/fonts/product_sans_italic.ttf',
     ],
     'Roboto': [
       'assets/fonts/roboto_regular.ttf',
@@ -89,10 +88,6 @@ void main() {
 
   const routes = [
     '/portfolio',
-    '/travel',
-    '/immobilier',
-    '/loisir',
-    '/tourism'
   ];
   for (final dark in [false, true]) {
     for (final locale in ['fr', 'en', 'de']) {
