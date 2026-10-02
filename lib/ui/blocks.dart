@@ -2064,15 +2064,21 @@ class Footer extends StatelessWidget {
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_cgu'),
-                          onTap: () {}),
+                          onTap: () => openUrl('/conditions/', sameTab: true)),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_security'),
-                          onTap: () {}),
+                          onTap: () => openUrl('/securite/', sameTab: true)),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_privacy'),
-                          onTap: () {}),
+                          onTap: () =>
+                              openUrl('/confidentialite/', sameTab: true)),
+                      const SizedBox(height: 10),
+                      _FooterLink(
+                          label: localeProvider.tr('footer.link_imprint'),
+                          onTap: () =>
+                              openUrl('/mentions-legales/', sameTab: true)),
                     ],
                   ),
                 ),

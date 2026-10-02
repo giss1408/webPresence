@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sécurité | Mobile Business Technologies</title>
+  <meta name="description" content="Comment nous protégeons ce site et les applications de nos clients, et comment nous signaler une vulnérabilité.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://regisse.de/securite/">
+  <meta name="theme-color" content="#0B5FD0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/pages.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>
+        Mobile Business Technologies
+      </a>
+      <nav>
+        <a href="/">Accueil</a><a href="/developpement-saas-mobile/">SaaS mobile</a><a href="/blog/">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap legal">
+    <span class="badge">Informations légales</span>
+    <h1>Sécurité</h1>
+    <p class="meta">Dernière mise à jour : 2 octobre 2026</p>
+
+    <p class="lead">La sécurité fait partie de notre façon de construire, pas d'une option. Voici ce que nous appliquons sur ce site, ce que nous mettons en place dans les applications de nos clients, et comment nous signaler un problème.</p>
+
+    <h2>Ce site</h2>
+    <ul>
+      <li><strong>Site statique :</strong> pas de base de données, pas de comptes utilisateurs, pas de formulaire — donc rien à dérober côté serveur.</li>
+      <li><strong>HTTPS uniquement</strong>, avec des en-têtes de sécurité : politique de sécurité du contenu (CSP), protection contre l'intégration dans d'autres sites, <i>Referrer-Policy</i> et <i>Permissions-Policy</i> restrictives (caméra, micro et position désactivés).</li>
+      <li><strong>Aucun cookie ni traceur.</strong> Le détail des données traitées est dans la <a href="/confidentialite/">politique de confidentialité</a>.</li>
+    </ul>
+
+    <h2>Les applications que nous développons et hébergeons</h2>
+    <p>Chaque projet fait l'objet d'un cadrage sécurité adapté à ses données ; les engagements précis figurent dans le contrat. Nos pratiques de base :</p>
+    <ul>
+      <li><strong>Chiffrement</strong> des échanges (TLS) et des données stockées.</li>
+      <li><strong>Accès au strict nécessaire :</strong> rôles et permissions, double authentification pour les comptes d'administration, accès journalisés.</li>
+      <li><strong>Secrets hors du code :</strong> clés d'API et mots de passe dans un coffre-fort de secrets, jamais dans l'application mobile.</li>
+      <li><strong>Paiements vérifiés côté serveur :</strong> chaque paiement Mobile Money est confirmé et vérifié par le serveur, jamais par le téléphone seul (voir <a href="/blog/securiser-paiements-mobile-money/">notre article</a>).</li>
+      <li><strong>Sauvegardes</strong> régulières et tests de restauration.</li>
+      <li><strong>Mises à jour</strong> des dépendances et correctifs de sécurité appliqués rapidement.</li>
+      <li><strong>Minimisation :</strong> nous ne collectons que les données nécessaires, et vous choisissez où elles sont hébergées.</li>
+      <li><strong>Incidents :</strong> en cas de violation de données, nous vous prévenons sans retard injustifié, avec les informations nécessaires pour vos propres obligations (art. 33 du RGPD).</li>
+    </ul>
+
+    <h2 id="signaler">Signaler une vulnérabilité</h2>
+    <p>Vous avez trouvé une faille sur ce site ou dans l'une de nos applications ? Merci de nous l'écrire à <a href="mailto:ptck2e@duck.com">ptck2e@duck.com</a> (objet : « Sécurité »), avec :</p>
+    <ul>
+      <li>l'adresse ou l'application concernée ;</li>
+      <li>une description du problème et les étapes pour le reproduire ;</li>
+      <li>son impact possible, selon vous.</li>
+    </ul>
+    <p>Nous accusons réception sous <mark class="todo">[À COMPLÉTER : délai, p. ex. 3 jours ouvrés]</mark> et vous tenons informé de la correction. Si vous agissez de bonne foi — sans accéder aux données d'autrui au-delà du nécessaire pour démontrer le problème, sans les modifier ni les divulguer, et en nous laissant le temps de corriger avant toute publication — nous n'engagerons aucune poursuite. Ces informations sont aussi publiées au format standard dans <a href="/.well-known/security.txt">/.well-known/security.txt</a>.</p>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Regisse__ GmbH</span>
+      <a href="/">Accueil</a>
+      <a href="/developpement-saas-mobile/">Développement SaaS mobile</a>
+      <a href="/blog/">Blog</a>
+      <a href="/conditions/">Conditions</a>
+      <a href="/confidentialite/">Confidentialité</a>
+      <a href="/securite/">Sécurité</a>
+      <a href="/mentions-legales/">Mentions légales</a>
+    </div>
+  </footer>
+</body>
+</html>

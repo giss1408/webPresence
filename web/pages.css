@@ -24,13 +24,13 @@
   }
 }
 @font-face {
-  font-family: "Google Sans";
-  src: url("/assets/assets/fonts/product_sans_regular.ttf") format("truetype");
+  font-family: "Brand Sans";
+  src: url("/assets/assets/fonts/brand_sans_regular.ttf") format("truetype");
   font-display: swap;
 }
 @font-face {
-  font-family: "Google Sans";
-  src: url("/assets/assets/fonts/product_sans_bold.ttf") format("truetype");
+  font-family: "Brand Sans";
+  src: url("/assets/assets/fonts/brand_sans_bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
 }
@@ -40,7 +40,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 17px/1.7 "Google Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 17px/1.7 "Brand Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 a { color: var(--accent); }
 img { max-width: 100%; height: auto; }
@@ -109,3 +109,8 @@ summary { cursor: pointer; font-weight: 700; }
 
 footer { border-top: 1px solid var(--border); padding: 24px 0 40px; font-size: 14px; color: var(--muted); }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+/* Legal pages: readable lists, and visible gaps still to fill in. */
+.legal ul { padding-left: 22px; }
+.legal li { margin: 6px 0; }
+mark.todo { background: #FFF3C4; color: #7A4B00; padding: 0 4px; border-radius: 3px; }

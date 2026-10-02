@@ -509,27 +509,27 @@ class Translations {
       'de': 'Unsere Mobile-SaaS-Produkte ansehen',
     },
     'ss.panel2_tag': {
-      'fr': 'DESIGN & UX',
-      'en': 'DESIGN & UX',
-      'de': 'DESIGN & UX'
+      'fr': 'DESIGN UI/UX',
+      'en': 'UI/UX DESIGN',
+      'de': 'UI/UX-DESIGN',
     },
     'ss.panel2_title': {
-      'fr': 'Interfaces qui\ntransforment vos utilisateurs\nen clients',
-      'en': 'Interfaces that\nConvert',
-      'de': 'Oberflächen die\nKonvertieren'
+      'fr': 'Un design qui transforme\nvos visiteurs en clients',
+      'en': 'Design that turns\nvisitors into customers',
+      'de': 'Design, das Besucher\nzu Kunden macht',
     },
     'ss.panel2_desc': {
       'fr':
-          'Design centré utilisateur, prototypage rapide et tests A/B. Chaque écran est conçu pour réduire la friction, augmenter l\'engagement et refléter votre identité de marque.',
+          'Un visiteur qui hésite est un client perdu. Nous concevons chaque écran pour qu\'il trouve en quelques secondes ce qu\'il cherche, comprenne votre offre et passe à l\'action : s\'inscrire, commander, payer. Parcours courts, boutons clairs, chargement rapide, à vos couleurs. Et nous testons les maquettes avec de vrais utilisateurs avant d\'écrire la première ligne de code.',
       'en':
-          'User-centered design, rapid prototyping and A/B testing. Every screen is designed to reduce friction, increase engagement and reflect your brand identity.',
+          'A visitor who hesitates is a customer lost. We design every screen so people find what they need in seconds, understand your offer and take action: sign up, order, pay. Short journeys, clear buttons, fast loading, in your brand colors. And we test the designs with real users before writing a single line of code.',
       'de':
-          'Benutzerzentriertes Design, schnelles Prototyping und A/B-Tests. Jeder Bildschirm ist darauf ausgelegt, Reibung zu reduzieren, Engagement zu steigern und Ihre Markenidentität widerzuspiegeln.'
+          'Wer zögert, ist als Kunde verloren. Wir gestalten jeden Bildschirm so, dass Besucher in Sekunden finden, was sie suchen, Ihr Angebot verstehen und handeln: registrieren, bestellen, bezahlen. Kurze Wege, klare Buttons, schnelles Laden, in Ihren Markenfarben. Und wir testen die Entwürfe mit echten Nutzern, bevor die erste Zeile Code entsteht.',
     },
     'ss.panel2_link': {
-      'fr': 'Explorer notre approche design',
-      'en': 'Explore our design approach',
-      'de': 'Unser Design-Ansatz'
+      'fr': 'Voir notre approche design',
+      'en': 'See our design approach',
+      'de': 'Unseren Design-Ansatz ansehen',
     },
     'ss.panel3_tag': {
       'fr': 'EXPANSION INTERNATIONALE',
@@ -721,9 +721,9 @@ class Translations {
       'de': 'Leistungen'
     },
     'footer.link_cgu': {
-      'fr': 'Conditions Générales d\'Utilisation',
-      'en': 'Terms of Service',
-      'de': 'Allgemeine Geschäftsbedingungen'
+      'fr': 'Conditions et contrats',
+      'en': 'Terms and contracts',
+      'de': 'Bedingungen und Verträge',
     },
     'footer.link_security': {
       'fr': 'Sécurité',
@@ -734,6 +734,11 @@ class Translations {
       'fr': 'Confidentialité',
       'en': 'Privacy',
       'de': 'Datenschutz'
+    },
+    'footer.link_imprint': {
+      'fr': 'Mentions légales',
+      'en': 'Legal notice',
+      'de': 'Impressum',
     },
     'footer.contact_title': {'fr': 'CONTACT', 'en': 'CONTACT', 'de': 'KONTAKT'},
     'footer.contact_location': {

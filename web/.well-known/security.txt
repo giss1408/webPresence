@@ -1,0 +1,6 @@
+# Vulnerability disclosure (RFC 9116). Renew "Expires" before it passes.
+Contact: mailto:ptck2e@duck.com
+Expires: 2027-10-01T00:00:00.000Z
+Preferred-Languages: fr, en, de
+Policy: https://regisse.de/securite/#signaler
+Canonical: https://regisse.de/.well-known/security.txt
