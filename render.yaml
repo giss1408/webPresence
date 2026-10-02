@@ -58,6 +58,16 @@ services:
       - path: /manifest.json
         name: Cache-Control
         value: no-cache
+      # Static pages (SEO landing page, blog): revalidate so edits show at once.
+      - path: /developpement-saas-mobile/*
+        name: Cache-Control
+        value: no-cache
+      - path: /blog/*
+        name: Cache-Control
+        value: no-cache
+      - path: /pages.css
+        name: Cache-Control
+        value: no-cache
       - path: /assets/*
         name: Cache-Control
         value: public, max-age=3600, stale-while-revalidate=86400
@@ -68,7 +78,9 @@ services:
         name: Cache-Control
         value: public, max-age=604800
     routes:
-      # Unknown paths fall back to the app (Flutter handles routing).
+      # Unknown paths fall back to the app (Flutter handles routing). Render
+      # applies rewrites only when no file matches, so /blog/ and
+      # /developpement-saas-mobile/ are served from their own index.html.
       - type: rewrite
         source: /*
         destination: /index.html

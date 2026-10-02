@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application mobile hors-ligne : pourquoi et comment la concevoir | Regisse__</title>
+  <meta name="description" content="Réseau instable, zones rurales, forfaits data limités : comment concevoir une application mobile qui fonctionne hors-ligne et se synchronise toute seule. Méthode, pièges à éviter et exemple concret.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://regisse.de/blog/application-mobile-hors-ligne/">
+  <meta name="theme-color" content="#0B5FD0">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://regisse.de/blog/application-mobile-hors-ligne/">
+  <meta property="og:title" content="Application mobile hors-ligne : pourquoi et comment la concevoir">
+  <meta property="og:description" content="Comment concevoir une app qui fonctionne sans réseau et se synchronise toute seule.">
+  <meta property="og:image" content="https://regisse.de/icons/Icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/pages.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Application mobile hors-ligne : pourquoi et comment la concevoir",
+    "datePublished": "2026-10-02",
+    "dateModified": "2026-10-02",
+    "inLanguage": "fr",
+    "author": { "@type": "Organization", "name": "Regisse__", "url": "https://regisse.de" },
+    "publisher": { "@type": "Organization", "name": "Regisse__", "logo": { "@type": "ImageObject", "url": "https://regisse.de/icons/Icon-512.png" } },
+    "mainEntityOfPage": "https://regisse.de/blog/application-mobile-hors-ligne/",
+    "image": "https://regisse.de/icons/Icon-512.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><defs><clipPath id="m"><rect x="0" y="0" width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#m)"><rect x="0" y="0" width="13.43" height="40" fill="#F77F00"/><rect x="13.33" y="0" width="13.43" height="40" fill="#FFFFFF"/><rect x="26.67" y="0" width="13.33" height="40" fill="#009E60"/></g><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#0D1B2A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#0D1B2A"/></svg>
+        <span><span class="or">Mobile</span> Business <span class="gr">Technologies</span></span>
+      </a>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/developpement-saas-mobile/">SaaS mobile</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article>
+      <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="2026-10-02">2 octobre 2026</time> · 7 min de lecture</p>
+      <h1>Application mobile hors-ligne : pourquoi et comment la concevoir</h1>
+      <p class="lead">Un commerçant enregistre une vente, le réseau coupe, et l'application affiche une erreur. La vente est perdue, et la confiance avec. En Afrique de l'Ouest, le hors-ligne n'est pas un cas particulier : c'est une situation quotidienne qu'une bonne application doit gérer sans que l'utilisateur s'en rende compte.</p>
+
+      <h2>Pourquoi le hors-ligne est indispensable</h2>
+      <ul>
+        <li><strong>Couverture inégale :</strong> zones rurales, marchés, entrepôts, sous-sols… le signal va et vient au cours de la journée.</li>
+        <li><strong>Forfaits data limités :</strong> beaucoup d'utilisateurs coupent leurs données mobiles pour économiser leur forfait, et ne se connectent qu'en Wi-Fi ou à certains moments.</li>
+        <li><strong>Travail de terrain :</strong> agents de collecte, livreurs, commerciaux, techniciens agricoles travaillent là où le réseau est le plus faible.</li>
+      </ul>
+      <p>Une application qui exige une connexion permanente perd ces utilisateurs. Une application qui fonctionne hors-ligne devient au contraire leur outil de travail de référence.</p>
+
+      <h2>Le principe : le téléphone d'abord, le serveur ensuite</h2>
+      <p>Une application « offline-first » (hors-ligne d'abord) inverse la logique habituelle. Au lieu d'envoyer chaque action au serveur et d'attendre sa réponse, elle :</p>
+      <ol>
+        <li><strong>enregistre l'action immédiatement</strong> dans une base de données sur le téléphone ;</li>
+        <li><strong>met à jour l'écran tout de suite</strong>, sans attendre le réseau ;</li>
+        <li><strong>place l'action dans une file d'attente</strong> de synchronisation ;</li>
+        <li><strong>envoie la file au serveur</strong> dès que la connexion revient, en arrière-plan.</li>
+      </ol>
+      <p>Pour l'utilisateur, l'application est simplement rapide et fiable, avec ou sans réseau.</p>
+
+      <h2>Les points à concevoir dès le départ</h2>
+      <h3>Une base de données locale</h3>
+      <p>Les données utiles au travail quotidien (catalogue, clients, dernières transactions) sont stockées sur le téléphone, par exemple avec SQLite. On ne télécharge que ce dont l'utilisateur a besoin, pour ménager le stockage et le forfait data.</p>
+      <h3>Des identifiants créés sur le téléphone</h3>
+      <p>Chaque enregistrement reçoit un identifiant unique généré sur l'appareil. Ainsi, si l'envoi est répété après une coupure, le serveur reconnaît l'enregistrement et ne crée pas de doublon : une vente envoyée deux fois reste une seule vente.</p>
+      <h3>Les conflits</h3>
+      <p>Que se passe-t-il si deux vendeurs modifient le même stock hors-ligne ? Il faut décider à l'avance de la règle : additionner les mouvements de stock plutôt qu'écraser la quantité, garder la modification la plus récente pour un nom de client, ou signaler le conflit à un responsable. Ces règles sont des choix métier, à valider avec vous pendant le cadrage.</p>
+      <h3>Un état de synchronisation visible</h3>
+      <p>L'utilisateur doit savoir où en sont ses données : « enregistré sur le téléphone », « en cours d'envoi », « synchronisé ». Un simple indicateur évite les doubles saisies et rassure.</p>
+      <h3>Une synchronisation économe</h3>
+      <p>On n'envoie que les changements, compressés, et on peut réserver les gros fichiers (photos, documents) au Wi-Fi. L'utilisateur garde la maîtrise de sa consommation de données.</p>
+
+      <h2>Ce qui ne peut pas être hors-ligne</h2>
+      <p>Certaines actions demandent le serveur au moment même : confirmer un paiement Mobile Money, vérifier un solde, réserver le dernier article en stock. L'application doit alors l'expliquer clairement (« paiement en attente de réseau ») au lieu d'échouer en silence. Pour les paiements, nous détaillons la bonne approche dans <a href="/blog/securiser-paiements-mobile-money/">notre article sur la sécurité des paiements Mobile Money</a>.</p>
+
+      <h2>Un exemple : Djassa</h2>
+      <p>Djassa, notre application de caisse pour commerçants, enregistre les ventes même sans réseau. Le commerçant continue de servir ses clients ; dès que la connexion revient, les ventes partent vers le serveur et le tableau de bord se met à jour. Vous pouvez voir cette synchronisation en animation <a href="/">sur notre page d'accueil</a>.</p>
+
+      <h2>Combien cela coûte-t-il en plus ?</h2>
+      <p>Prévu dès le départ, le mode hors-ligne demande surtout de bons choix d'architecture. Ajouté après coup, il oblige souvent à réécrire une grande partie de l'application. C'est pourquoi nous en parlons dès l'atelier de cadrage, et pourquoi il fait partie des options de notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>.</p>
+
+      <div class="actions">
+        <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20une%20application%20qui%20fonctionne%20hors-ligne.">Parler de mon app sur WhatsApp</a>
+        <a class="btn ghost" href="/blog/">Tous les articles</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Regisse__ GmbH</span>
+      <a href="/">Accueil</a>
+      <a href="/developpement-saas-mobile/">Développement SaaS mobile</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </footer>
+</body>
+</html>

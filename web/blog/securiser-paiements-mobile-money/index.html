@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sécuriser les paiements Mobile Money dans votre application | Regisse__</title>
+  <meta name="description" content="Faux SMS de confirmation, paiements comptés deux fois, clés d'API exposées : les 8 règles pour sécuriser les paiements Orange Money, Wave et MTN MoMo dans une application mobile ou un SaaS.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://regisse.de/blog/securiser-paiements-mobile-money/">
+  <meta name="theme-color" content="#0B5FD0">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://regisse.de/blog/securiser-paiements-mobile-money/">
+  <meta property="og:title" content="Sécuriser les paiements Mobile Money dans votre application">
+  <meta property="og:description" content="Les 8 règles pour que chaque paiement Mobile Money soit vérifié, unique et traçable.">
+  <meta property="og:image" content="https://regisse.de/icons/Icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/pages.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Sécuriser les paiements Mobile Money dans votre application",
+    "datePublished": "2026-10-02",
+    "dateModified": "2026-10-02",
+    "inLanguage": "fr",
+    "author": { "@type": "Organization", "name": "Regisse__", "url": "https://regisse.de" },
+    "publisher": { "@type": "Organization", "name": "Regisse__", "logo": { "@type": "ImageObject", "url": "https://regisse.de/icons/Icon-512.png" } },
+    "mainEntityOfPage": "https://regisse.de/blog/securiser-paiements-mobile-money/",
+    "image": "https://regisse.de/icons/Icon-512.png"
+  }
+  </script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><defs><clipPath id="m"><rect x="0" y="0" width="40" height="40" rx="10"/></clipPath></defs><g clip-path="url(#m)"><rect x="0" y="0" width="13.43" height="40" fill="#F77F00"/><rect x="13.33" y="0" width="13.43" height="40" fill="#FFFFFF"/><rect x="26.67" y="0" width="13.33" height="40" fill="#009E60"/></g><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#0D1B2A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#0D1B2A"/></svg>
+        <span><span class="or">Mobile</span> Business <span class="gr">Technologies</span></span>
+      </a>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/developpement-saas-mobile/">SaaS mobile</a>
+        <a href="/blog/" aria-current="page">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article>
+      <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="2026-10-02">2 octobre 2026</time> · 8 min de lecture</p>
+      <h1>Sécuriser les paiements Mobile Money dans votre application</h1>
+      <p class="lead">Un client montre un SMS « Paiement reçu »… qui n'a jamais été envoyé par l'opérateur. Un paiement est compté deux fois après une coupure réseau. Une clé d'API retrouvée dans l'application permet de déclencher des transactions. Ces incidents sont évitables : voici les règles que nous appliquons sur chaque projet.</p>
+
+      <h2>1. Le serveur décide, jamais le téléphone</h2>
+      <p>Une application mobile peut être modifiée, et un message peut être falsifié. La seule source de vérité est la confirmation que <strong>votre serveur</strong> reçoit de l'opérateur ou de l'agrégateur, puis vérifie. Tant que le serveur n'a pas validé, la commande reste « en attente » : on ne livre pas, on ne débloque pas l'abonnement.</p>
+      <p>C'est aussi la parade aux <strong>faux SMS de confirmation</strong> et aux captures d'écran truquées : vos vendeurs vérifient le statut dans l'application, alimentée par le serveur, et jamais un message montré par le client.</p>
+
+      <h2>2. Vérifier chaque notification de paiement</h2>
+      <p>Quand l'opérateur prévient votre serveur qu'un paiement a abouti (le « webhook »), le serveur doit s'assurer que le message est authentique :</p>
+      <ul>
+        <li>vérifier la <strong>signature</strong> du message avec la clé secrète fournie par le prestataire ;</li>
+        <li>ou, à défaut, <strong>interroger l'API</strong> du prestataire pour confirmer le statut de la transaction ;</li>
+        <li>contrôler que le <strong>montant et la devise</strong> correspondent exactement à la commande.</li>
+      </ul>
+      <p>Sans ces contrôles, n'importe qui connaissant l'adresse de votre serveur pourrait y envoyer un faux « paiement réussi ».</p>
+
+      <h2>3. Les clés secrètes restent sur le serveur</h2>
+      <p>Les clés d'API du prestataire de paiement ne doivent <strong>jamais</strong> se trouver dans l'application mobile : une application publiée peut être décompilée et ses clés extraites. L'application parle à votre serveur ; seul le serveur parle au prestataire. Les clés sont stockées dans un coffre de secrets, pas dans le code source, et renouvelées si un doute existe.</p>
+
+      <h2>4. Un paiement ne compte qu'une fois</h2>
+      <p>Coupures réseau, notifications reçues deux fois, bouton touché deux fois : chaque transaction porte un <strong>identifiant unique</strong>, et le serveur ignore tout traitement en double. Une commande ne peut passer à « payée » qu'une seule fois, même si la confirmation arrive plusieurs fois. C'est le même principe que pour les <a href="/blog/application-mobile-hors-ligne/">applications hors-ligne</a>.</p>
+
+      <h2>5. Le montant est fixé par le serveur</h2>
+      <p>L'application n'envoie jamais le prix à payer : elle envoie le panier ou la formule choisie, et le serveur calcule le montant à partir de ses propres tarifs. Sinon, une application modifiée pourrait payer 100 FCFA un abonnement à 25 000 FCFA.</p>
+
+      <h2>6. Le code secret du client reste chez l'opérateur</h2>
+      <p>Votre application ne demande et ne stocke jamais le code PIN Mobile Money du client. La validation se fait sur l'interface de l'opérateur (menu USSD, application de l'opérateur ou page de paiement). C'est une protection pour vos clients et pour votre responsabilité.</p>
+
+      <h2>7. Tout tracer, tout rapprocher</h2>
+      <ul>
+        <li><strong>Journal des transactions :</strong> chaque changement de statut est enregistré avec la date, l'origine et l'identifiant du prestataire.</li>
+        <li><strong>Rapprochement régulier :</strong> comparez vos transactions avec le relevé du prestataire, pour repérer un paiement non reçu ou un écart.</li>
+        <li><strong>Alertes :</strong> pics de paiements échoués, montants inhabituels, nombreuses tentatives depuis un même compte.</li>
+        <li><strong>Droits limités :</strong> seuls quelques profils peuvent rembourser ou corriger une transaction, et chacune de leurs actions est journalisée.</li>
+      </ul>
+
+      <h2>8. Protéger les données des clients</h2>
+      <p>Numéros de téléphone, historiques d'achat et noms sont des données personnelles. Elles circulent uniquement en connexion chiffrée (HTTPS), sont stockées de façon sécurisée et ne sont conservées que le temps nécessaire. Les lois de protection des données personnelles s'appliquent dans la plupart des pays de la région — par exemple sous le contrôle de la CDP au Sénégal ou de l'ARTCI en Côte d'Ivoire — et nous appliquons aussi le RGPD européen.</p>
+
+      <h2>La checklist à garder</h2>
+      <ul class="checks">
+        <li>Le statut « payé » est fixé uniquement par le serveur</li>
+        <li>Chaque notification de paiement est vérifiée (signature ou API)</li>
+        <li>Aucune clé secrète dans l'application mobile</li>
+        <li>Chaque paiement a un identifiant unique, sans doublon possible</li>
+        <li>Le montant est calculé côté serveur</li>
+        <li>Le code PIN n'est jamais saisi dans votre application</li>
+        <li>Journal, rapprochement et alertes en place</li>
+        <li>Données personnelles chiffrées et protégées</li>
+      </ul>
+      <p>Ces règles sont intégrées par défaut dans les applications que nous livrons, y compris notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>. Pour la mise en place pas à pas, lisez aussi <a href="/blog/integrer-mobile-money-application/">comment intégrer Orange Money, Wave et MTN MoMo</a>.</p>
+
+      <div class="actions">
+        <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20s%C3%A9curiser%20les%20paiements%20Mobile%20Money%20de%20mon%20application.">Parler de mon projet sur WhatsApp</a>
+        <a class="btn ghost" href="/blog/">Tous les articles</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Regisse__ GmbH</span>
+      <a href="/">Accueil</a>
+      <a href="/developpement-saas-mobile/">Développement SaaS mobile</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </footer>
+</body>
+</html>
