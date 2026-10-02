@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_website/components/typography.dart' show symbolFallback;
 import 'package:flutter_website/components/app_palette.dart';
 import '../components/modern_colors.dart';
 import '../components/modern_typography.dart';
@@ -20,6 +21,7 @@ class ModernThemeBuilder {
 
   static ThemeData _createLightTheme() {
     return ThemeData(
+      fontFamilyFallback: symbolFallback,
       extensions: const [AppPalette.light],
       brightness: Brightness.light,
 
@@ -281,6 +283,7 @@ class ModernThemeBuilder {
 
   static ThemeData _createDarkTheme() {
     return ThemeData(
+      fontFamilyFallback: symbolFallback,
       extensions: const [AppPalette.dark],
       brightness: Brightness.dark,
 

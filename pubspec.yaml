@@ -31,13 +31,23 @@ flutter:
     - assets/images/
     - assets/images/highlights/
   fonts:
-    - family: Google Sans
+    # Google Sans Flex (OFL, see assets/fonts/OFL-GoogleSansFlex.txt),
+    # instanced at 400 / 700 and subset to Latin. Named neutrally: its
+    # trademark terms don't allow implying an affiliation with Google.
+    - family: Brand Sans
       fonts:
-        - asset: assets/fonts/product_sans_regular.ttf
-        - asset: assets/fonts/product_sans_bold.ttf
+        - asset: assets/fonts/brand_sans_regular.ttf
+        - asset: assets/fonts/brand_sans_bold.ttf
           weight: 700
     - family: Roboto
       fonts:
         - asset: assets/fonts/roboto_regular.ttf
         - asset: assets/fonts/roboto_bold.ttf
           weight: 700
+    # Few glyphs missing from the fonts above (→ ✓ ≈ and the narrow no-break
+    # space of French numbers), subset from Noto Sans Math (OFL, see
+    # assets/fonts/OFL-NotoSansMath.txt). Without it Flutter downloads
+    # fallback fonts from Google (fonts.gstatic.com).
+    - family: SiteSymbols
+      fonts:
+        - asset: assets/fonts/site_symbols.ttf

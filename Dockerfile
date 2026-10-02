@@ -12,7 +12,9 @@ COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
 COPY . .
+# --no-web-resources-cdn: see render-build.sh.
 RUN flutter build web --release --pwa-strategy=offline-first \
+    --no-web-resources-cdn \
     && ./patch-service-worker.sh
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────

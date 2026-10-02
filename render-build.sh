@@ -23,7 +23,10 @@ flutter pub get
 # visitor's device, so repeat visits open almost instantly, even on a poor
 # connection. After a deploy, returning visitors get the new version on
 # their next visit (flutter_service_worker.js is served with no-cache).
+# --no-web-resources-cdn: CanvasKit is served from this site, not from
+# Google's CDN (www.gstatic.com), so visitors' browsers never contact Google.
 flutter build web --release \
+  --no-web-resources-cdn \
   --pwa-strategy=offline-first \
   --dart-define=APP_ENV="${APP_ENV:-production}"
 ./patch-service-worker.sh

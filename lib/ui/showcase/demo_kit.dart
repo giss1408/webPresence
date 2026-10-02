@@ -15,7 +15,7 @@ ThemeData demoTheme(
   return ThemeData(
     useMaterial3: true,
     platform: platform,
-    fontFamily: ios ? 'Google Sans' : 'Roboto',
+    fontFamily: ios ? 'Brand Sans' : 'Roboto',
     colorScheme: ColorScheme.fromSeed(
       seedColor: seed,
       brightness: brightness,

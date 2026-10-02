@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 /// test font is much wider and would report false overflows).
 Future<void> _loadFonts() async {
   const families = {
-    'Google Sans': [
-      'assets/fonts/product_sans_regular.ttf',
-      'assets/fonts/product_sans_bold.ttf',
+    'Brand Sans': [
+      'assets/fonts/brand_sans_regular.ttf',
+      'assets/fonts/brand_sans_bold.ttf',
     ],
     'Roboto': [
       'assets/fonts/roboto_regular.ttf',

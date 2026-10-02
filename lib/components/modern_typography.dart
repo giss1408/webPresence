@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_website/components/typography.dart' show symbolFallback;
 
 /// Professional typography system with clear hierarchy for 2026 design
 class ModernTypography {
@@ -8,7 +9,8 @@ class ModernTypography {
     fontWeight: FontWeight.w700,
     height: 1.2,
     letterSpacing: -1.0,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const displayMedium = TextStyle(
@@ -16,7 +18,8 @@ class ModernTypography {
     fontWeight: FontWeight.w700,
     height: 1.25,
     letterSpacing: -0.5,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const displaySmall = TextStyle(
@@ -24,7 +27,8 @@ class ModernTypography {
     fontWeight: FontWeight.w700,
     height: 1.3,
     letterSpacing: 0,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Heading styles - major sections
@@ -33,7 +37,8 @@ class ModernTypography {
     fontWeight: FontWeight.w700,
     height: 1.3,
     letterSpacing: -0.2,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const headlineMedium = TextStyle(
@@ -41,7 +46,8 @@ class ModernTypography {
     fontWeight: FontWeight.w600,
     height: 1.35,
     letterSpacing: 0,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const headlineSmall = TextStyle(
@@ -49,7 +55,8 @@ class ModernTypography {
     fontWeight: FontWeight.w600,
     height: 1.4,
     letterSpacing: 0,
-    fontFamily: 'Google Sans',
+    fontFamily: 'Brand Sans',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Title styles - subsections
@@ -59,6 +66,7 @@ class ModernTypography {
     height: 1.4,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const titleMedium = TextStyle(
@@ -67,6 +75,7 @@ class ModernTypography {
     height: 1.45,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const titleSmall = TextStyle(
@@ -75,6 +84,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Body styles - main content
@@ -84,6 +94,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.15,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const bodyMedium = TextStyle(
@@ -92,6 +103,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const bodySmall = TextStyle(
@@ -100,6 +112,7 @@ class ModernTypography {
     height: 1.55,
     letterSpacing: 0.3,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Label styles - buttons, tabs, etc
@@ -109,6 +122,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.5,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const labelMedium = TextStyle(
@@ -117,6 +131,7 @@ class ModernTypography {
     height: 1.55,
     letterSpacing: 0.4,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const labelSmall = TextStyle(
@@ -125,6 +140,7 @@ class ModernTypography {
     height: 1.6,
     letterSpacing: 0.3,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Special styles
@@ -134,6 +150,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.4,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const overlineText = TextStyle(
@@ -142,6 +159,7 @@ class ModernTypography {
     height: 1.6,
     letterSpacing: 1.0,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   // Button text
@@ -151,6 +169,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const buttonMedium = TextStyle(
@@ -159,6 +178,7 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.2,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 
   static const buttonSmall = TextStyle(
@@ -167,5 +187,6 @@ class ModernTypography {
     height: 1.5,
     letterSpacing: 0.4,
     fontFamily: 'Roboto',
+    fontFamilyFallback: symbolFallback,
   );
 }

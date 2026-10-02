@@ -38,9 +38,6 @@
   <meta name="apple-mobile-web-app-title" content="Regisse__">
   <link rel="manifest" href="manifest.json">
 
-  <!-- CanvasKit is fetched from gstatic; warm the connection up. -->
-  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="script" href="flutter_bootstrap.js">
   <!-- The app itself: start downloading now instead of after the bootstrap
        script runs (one round trip less on high-latency mobile networks). -->
@@ -51,8 +48,8 @@
        fonts in pubspec.yaml and the first carousel slide. -->
   <link rel="preload" as="fetch" crossorigin href="assets/FontManifest.json">
   <link rel="preload" as="fetch" crossorigin href="assets/AssetManifest.bin.json">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_regular.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_bold.ttf">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/brand_sans_regular.ttf">
+  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/brand_sans_bold.ttf">
   <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_regular.ttf">
   <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_bold.ttf">
   <!-- First screen's images, at low priority so they don't slow the above. -->
@@ -81,7 +78,7 @@
        caret. The inline script sets --w to the text's width so the row keeps
        its final size (the R doesn't shift while the text grows). */
     #splash .logo { display: flex; align-items: center; gap: .5em;
-      font: 700 clamp(15px, 4.6vw, 26px)/1 "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font: 700 clamp(15px, 4.6vw, 26px)/1 "Brand Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #1E293B; }
     #splash .type { display: inline-flex; align-items: flex-end; width: calc(var(--w, 0px) + .6em); }
     #splash .text { display: inline-block; overflow: hidden; white-space: nowrap;
