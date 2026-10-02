@@ -59,6 +59,15 @@ img { max-width: 100%; height: auto; }
 .bar nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; }
 .bar nav a { color: var(--muted); text-decoration: none; }
 .bar nav a:hover, .bar nav a[aria-current] { color: var(--accent); }
+/* Phones: the brand stays on one line and the links move to a row below,
+   instead of both wrapping into a cramped two-line header. */
+@media (max-width: 600px) {
+  .bar .wrap { flex-wrap: wrap; row-gap: 6px; padding-top: 10px; padding-bottom: 8px; }
+  .brand { white-space: nowrap; font-size: 16px; }
+  .brand svg { width: 28px; height: 28px; }
+  .bar nav { margin-left: 0; width: 100%; gap: 20px; font-size: 14px; }
+  h2 { scroll-margin-top: 100px; }
+}
 
 .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 main { padding: 48px 0 64px; }
