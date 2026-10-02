@@ -15,3 +15,4 @@ export 'modern_shadows.dart';
 export 'floating_whatsapp_button.dart';
 export 'motion.dart';
 export 'language_switcher_menu.dart';
+export 'animated_logo.dart';

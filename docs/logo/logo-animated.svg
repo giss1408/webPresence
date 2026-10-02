@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 48" width="380" height="48" role="img" aria-label="Mobile Business Technologies">
+  <!-- Animated logo, loops every 6 s: the R writes itself, then the brand
+       text is typed out of it behind the amber caret, which blinks, and the
+       whole logo fades out before the next loop. Pure SVG (SMIL), so it also
+       animates inside <img>. textLength pins the text width, so the caret
+       lands exactly at its end whatever font the viewer has.
+       For dark backgrounds use logo-animated-dark.svg. -->
+  <style>
+    .t { fill: #0D1B2A; font: 700 22px "Google Sans", "Product Sans", "Segoe UI", Roboto, Arial, sans-serif; }
+  </style>
+  <defs>
+    <clipPath id="flag"><rect x="0" y="0" width="40" height="40" rx="10"/></clipPath>
+    <clipPath id="typed">
+      <rect x="54" y="0" width="0" height="48">
+        <animate attributeName="width" dur="6s" repeatCount="indefinite"
+                 values="0;0;307;307" keyTimes="0;0.18;0.48;1"
+                 calcMode="spline" keySplines="0 0 1 1;0.22 1 0.36 1;0 0 1 1"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <g>
+    <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+             values="1;1;0;0" keyTimes="0;0.88;0.96;1"/>
+
+    <!-- R mark (same as assets/images/logo.svg) -->
+    <g transform="translate(4 4)">
+      <g clip-path="url(#flag)"><rect x="0" y="0" width="13.43" height="40" fill="#F77F00"/><rect x="13.33" y="0" width="13.43" height="40" fill="#FFFFFF"/><rect x="26.67" y="0" width="13.33" height="40" fill="#009E60"/></g>
+      <path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29"
+            fill="none" stroke="#0D1B2A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"
+            pathLength="1" stroke-dasharray="1 2" stroke-dashoffset="1.02">
+        <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite"
+                 values="1.02;1.02;0;0" keyTimes="0;0.03;0.16;1"
+                 calcMode="spline" keySplines="0 0 1 1;0.65 0 0.35 1;0 0 1 1"/>
+      </path>
+      <rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#0D1B2A" opacity="0">
+        <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+                 values="0;1" keyTimes="0;0.16" calcMode="discrete"/>
+      </rect>
+    </g>
+
+    <!-- Brand text, revealed from the R -->
+    <text class="t" x="54" y="31.5" textLength="304" lengthAdjust="spacingAndGlyphs"
+          clip-path="url(#typed)"><tspan fill="#F77F00">Mobile</tspan> Business <tspan fill="#009E60">Technologies</tspan></text>
+
+    <!-- Caret riding the edge of the text, then blinking -->
+    <rect y="30" width="12" height="4.4" rx="2.2" fill="#F77F00">
+      <animate attributeName="x" dur="6s" repeatCount="indefinite"
+               values="54;54;361;361" keyTimes="0;0.18;0.48;1"
+               calcMode="spline" keySplines="0 0 1 1;0.22 1 0.36 1;0 0 1 1"/>
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+               values="0;1;0;1;0;1;0;1" keyTimes="0;0.16;0.53;0.58;0.63;0.68;0.73;0.78"
+               calcMode="discrete"/>
+    </rect>
+  </g>
+</svg>
