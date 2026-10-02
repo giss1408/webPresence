@@ -72,7 +72,8 @@ the image tag in `Dockerfile` together.
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |
 | `lib/pages/` | Portfolio page |
 | `web/` | `index.html` (SEO, loading screen), icons, manifest |
-| `docs/logo/` | Logo concepts (A is in use); `assets/images/logo.svg` is the source for all icons |
+| `docs/logo/` | Logo concepts and the animated logo; `assets/images/logo.svg` (R on the flag of Côte d'Ivoire) is the source for all icons (`rsvg-convert` it into `web/icons/`) |
+| `lib/components/animated_logo.dart` | Animated logo (header, footer): the brand text (`brandText`) typed out of the R; the loading screen in `web/index.html` and `docs/logo/logo-animated*.svg` repeat the same animation |
 | `docs/archive/` | Older notes and reports kept for reference |
 
 ## Conventions

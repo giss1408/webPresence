@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
-import 'package:flutter_website/services/whatsapp_service.dart';
 import 'package:provider/provider.dart';
 
 import 'animation_slide_up_down_fade.dart';
@@ -384,12 +383,6 @@ class _CarouselState extends State<Carousel>
                 ),
                 const SizedBox(height: 8),
                 _buildControls(isMobile, tr),
-                const SizedBox(height: 16),
-                _HeroButton(
-                  label: tr('gs.cta_primary'),
-                  onPressed: () =>
-                      WhatsAppService.openWhatsApp(message: tr('wa.project')),
-                ),
                 SizedBox(height: isMobile ? 28 : 40),
               ],
             );
@@ -516,40 +509,6 @@ class _ControlButton extends StatelessWidget {
       color: Colors.white.withOpacity(0.8),
       hoverColor: Colors.white.withOpacity(0.1),
       iconSize: 22,
-    );
-  }
-}
-
-class _HeroButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onPressed;
-
-  const _HeroButton({required this.label, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return FilledButton(
-      onPressed: onPressed,
-      style: FilledButton.styleFrom(
-        backgroundColor: primary,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 32),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        elevation: 0,
-      ).copyWith(
-        overlayColor: WidgetStateProperty.resolveWith(
-          (states) =>
-              states.contains(WidgetState.hovered) ? buttonPrimaryDark : null,
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label, style: buttonTextStyle.copyWith(fontSize: 16)),
-          const SizedBox(width: 8),
-          const Icon(Icons.arrow_forward, size: 18),
-        ],
-      ),
     );
   }
 }

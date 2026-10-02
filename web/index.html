@@ -7,8 +7,8 @@
   <!-- Base href for routing (replaced by `flutter build web --base-href`) -->
   <base href="$FLUTTER_BASE_HREF">
 
-  <title>Regisse__ #Business Solutions — Solutions digitales pour l'Afrique</title>
-  <meta name="description" content="Regisse__ #Business Solutions — ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX, applications mobile-first.">
+  <title>Regisse__ — Développement SaaS mobile : applications iOS &amp; Android pour l'Afrique</title>
+  <meta name="description" content="Regisse__ conçoit et développe votre SaaS mobile : application iOS et Android (Flutter), back-end cloud multi-tenant, abonnements, paiement Orange Money et Wave, mode hors-ligne. MVP sur les stores en quelques semaines, ingénierie allemande.">
   <meta name="author" content="Regisse__ GmbH">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://regisse.de/">
@@ -20,12 +20,12 @@
   <meta property="og:url" content="https://regisse.de/">
   <meta property="og:site_name" content="Regisse__">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Regisse__ #Business Solutions — Solutions digitales pour l'Afrique">
-  <meta property="og:description" content="Ingénierie allemande au service de vos projets en Afrique — des plateformes SaaS sécurisées, mobile-first et livrées en quelques semaines.">
+  <meta property="og:title" content="Regisse__ — Développement SaaS mobile : applications iOS &amp; Android pour l'Afrique">
+  <meta property="og:description" content="Votre SaaS mobile, de l'idée aux stores : apps iOS et Android, back-end cloud, paiement mobile et mode hors-ligne — par une équipe d'ingénierie allemande.">
   <meta property="og:image" content="https://regisse.de/icons/Icon-512.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Regisse__ #Business Solutions — Solutions digitales pour l'Afrique">
-  <meta name="twitter:description" content="Ingénierie allemande au service de vos projets en Afrique — des plateformes SaaS sécurisées, mobile-first et livrées en quelques semaines.">
+  <meta name="twitter:title" content="Regisse__ — Développement SaaS mobile : applications iOS &amp; Android pour l'Afrique">
+  <meta name="twitter:description" content="Votre SaaS mobile, de l'idée aux stores : apps iOS et Android, back-end cloud, paiement mobile et mode hors-ligne — par une équipe d'ingénierie allemande.">
   <meta name="twitter:image" content="https://regisse.de/icons/Icon-512.png">
 
   <!-- Icons & PWA -->
@@ -76,7 +76,21 @@
       transition: opacity .3s ease;
     }
     #splash.hidden { opacity: 0; pointer-events: none; }
-    #splash svg { width: 72px; height: 72px; }
+    #splash svg { width: clamp(44px, 13vw, 64px); height: clamp(44px, 13vw, 64px); flex: none; }
+    /* Logo: the R, then the brand text typed out of it behind an amber
+       caret. The inline script sets --w to the text's width so the row keeps
+       its final size (the R doesn't shift while the text grows). */
+    #splash .logo { display: flex; align-items: center; gap: .5em;
+      font: 700 clamp(15px, 4.6vw, 26px)/1 "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1E293B; }
+    #splash .type { display: inline-flex; align-items: flex-end; width: calc(var(--w, 0px) + .6em); }
+    #splash .text { display: inline-block; overflow: hidden; white-space: nowrap;
+      max-width: 0; padding-bottom: .12em; animation: type 1.2s steps(28, end) .95s forwards; }
+    #splash .caret { display: inline-block; flex: none; width: .55em; height: .2em; margin: 0 0 .16em 2px;
+      border-radius: 1em; background: #F77F00; animation: blink 1.1s linear 2.15s infinite; }
+    /* Flag colors: Mobile orange, Business in the text color, Technologies green. */
+    #splash .or { color: #F77F00; } #splash .gr { color: #009E60; }
+    @keyframes type { to { max-width: var(--w, 20em); } }
     /* The R writes itself, then the amber "__" blinks like a text cursor
        for as long as loading takes. pathLength="1" on the R keeps the dash
        maths independent of its real length; the gap (2) is longer than the
@@ -86,7 +100,8 @@
       stroke-dasharray: 1 2; stroke-dashoffset: 1.02;
       animation: draw .8s cubic-bezier(.65, 0, .35, 1) .15s forwards;
     }
-    #splash .cursor { opacity: 0; animation: blink 1.1s linear .95s infinite; }
+    #splash .cursor { opacity: 0; animation: show .1s .95s forwards; }
+    @keyframes show { to { opacity: 1; } }
     @keyframes draw { to { stroke-dashoffset: 0; } }
     @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
     #splash h1 {
@@ -101,6 +116,13 @@
     @media (prefers-reduced-motion: reduce) {
       #splash .r { animation: none; stroke-dashoffset: 0; }
       #splash .cursor { animation: none; opacity: 1; }
+      #splash .text { animation: none; max-width: none; }
+      #splash .caret { animation: none; }
+    }
+    /* Links for crawlers and screen readers; the app draws the visible menu. */
+    #static-links {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap;
     }
   </style>
 
@@ -111,34 +133,32 @@
     "name": "Regisse__",
     "url": "https://regisse.de",
     "logo": "https://regisse.de/icons/Icon-512.png",
-    "description": "Ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX et applications mobile-first.",
+    "description": "Développement de SaaS mobiles : applications iOS et Android, back-end cloud multi-tenant, abonnements et paiement mobile, pour l'Afrique et l'Europe.",
+    "knowsAbout": ["Développement SaaS mobile", "Application mobile iOS", "Application mobile Android", "Flutter", "Mobile Money", "Applications hors-ligne", "Multi-tenant SaaS"],
+    "areaServed": ["Afrique de l'Ouest", "Europe"],
     "address": { "@type": "PostalAddress", "addressLocality": "Berlin", "addressCountry": "DE" },
-    "contactPoint": { "@type": "ContactPoint", "email": "ptck2e@duck.com", "contactType": "sales" },
-    "sameAs": ["https://www.youtube.com/@regisse"]
+    "contactPoint": { "@type": "ContactPoint", "email": "ptck2e@duck.com", "contactType": "sales" }
   }
   </script>
 </head>
 <body>
   <div id="splash" role="status" aria-live="polite">
-    <!-- Brand mark, same as assets/images/logo.svg, inlined to animate it
+    <!-- Brand mark (flag of Côte d'Ivoire), same as assets/images/logo.svg, inlined to animate it
          with no extra request. -->
+    <div class="logo" aria-label="Mobile Business Technologies">
     <svg viewBox="0 0 40 40" aria-hidden="true">
-      <defs>
-        <linearGradient id="splash-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#1E96FF"/>
-          <stop offset="1" stop-color="#0B5FD0"/>
-        </linearGradient>
-      </defs>
-      <rect width="40" height="40" rx="10" fill="url(#splash-bg)"/>
+      <defs><clipPath id="splash-flag"><rect x="0" y="0" width="40" height="40" rx="10"/></clipPath></defs>
+      <g clip-path="url(#splash-flag)"><rect x="0" y="0" width="13.43" height="40" fill="#F77F00"/><rect x="13.33" y="0" width="13.43" height="40" fill="#FFFFFF"/><rect x="26.67" y="0" width="13.33" height="40" fill="#009E60"/></g>
       <path class="r" pathLength="1" d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29"
-            fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect class="cursor" x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/>
+            fill="none" stroke="#0D1B2A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect class="cursor" x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#0D1B2A"/>
     </svg>
+    <span class="type" aria-hidden="true"><span class="text"><span class="or">Mobile</span> Business <span class="gr">Technologies</span></span><span class="caret"></span></span>
+    </div>
     <!-- Real text while the app loads: visitors read the pitch right away,
          and crawlers (which can't see Flutter's canvas) index it. -->
-    <h1>L'excellence technique allemande au service de vos projets en Afrique</h1>
-    <p class="tagline">Applications mobiles, plateformes SaaS et design sur mesure — livrés en quelques semaines.</p>
-    <span>Regisse__ #Business Solutions</span>
+    <h1>Votre SaaS mobile, de l'idée aux stores</h1>
+    <p class="tagline">Applications iOS et Android, back-end cloud et paiement mobile — un MVP publié en quelques semaines.</p>
     <!-- Shown if loading takes long (slow mobile networks): visitors can
          still reach us instead of leaving. -->
     <p id="slow">
@@ -148,8 +168,17 @@
     </p>
   </div>
   <noscript>Ce site nécessite JavaScript. — This website requires JavaScript.</noscript>
+  <!-- Plain links to the static pages, so crawlers find them from the home
+       page (the Flutter menu draws on a canvas they can't follow). -->
+  <nav id="static-links" aria-label="Pages">
+    <a href="/developpement-saas-mobile/">Développement SaaS mobile — MVP dès 250 000 FCFA</a>
+    <a href="/blog/">Blog</a>
+  </nav>
 
   <script>
+    // Width of the typed brand text, for the splash typing animation.
+    var brand = document.querySelector('#splash .text');
+    document.querySelector('#splash .logo').style.setProperty('--w', brand.scrollWidth + 'px');
     var slowTimer = setTimeout(function () {
       document.getElementById('slow').classList.add('shown');
     }, 8000);

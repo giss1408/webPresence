@@ -68,5 +68,4 @@ class AppConfig {
   static const String companyName = 'Regisse__ GmbH';
   static const String companyEmail = 'ptck2e@duck.com';
   static const String companyWebsite = 'https://regisse.de';
-  static const String youtubeChannel = 'https://www.youtube.com/@regisse';
 }

@@ -176,6 +176,8 @@ List<Widget> blocks = [
   const Reveal(child: BlockWrapper(OfflineSyncDemo())),
   // ── How we work ──────────────────────────────────────────────────────────────
   BlockWrapper(const ProcessSteps(), key: HomeSections.process),
+  // ── MVP offer and starting price ─────────────────────────────────────────────
+  Reveal(child: BlockWrapper(const PricingOffer(), key: HomeSections.pricing)),
   // ── Client testimonials ───────────────────────────────────────────────────────
   const BlockWrapper(Testimonials()),
   // ── Contact CTA ───────────────────────────────────────────────────────────────

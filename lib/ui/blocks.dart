@@ -7,7 +7,6 @@ import 'package:flutter_website/ui/section_nav.dart';
 import 'package:flutter_website/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class WebsiteMenuBar extends StatelessWidget {
   const WebsiteMenuBar({super.key, this.onMenuPressed});
@@ -40,6 +39,21 @@ class WebsiteMenuBar extends StatelessWidget {
         localeProvider.tr('menu.demo'),
         Icons.phone_iphone,
         () => scrollToSection(context, HomeSections.demo)
+      ),
+      (
+        localeProvider.tr('menu.pricing'),
+        Icons.sell_outlined,
+        () => scrollToSection(context, HomeSections.pricing)
+      ),
+      (
+        localeProvider.tr('menu.saas_mobile'),
+        Icons.phone_iphone,
+        () => openUrl('/developpement-saas-mobile/', sameTab: true)
+      ),
+      (
+        localeProvider.tr('menu.blog'),
+        Icons.article_outlined,
+        () => openUrl('/blog/', sameTab: true)
       ),
       (
         localeProvider.tr('menu.portfolio'),
@@ -144,9 +158,9 @@ class WebsiteMenuBar extends StatelessWidget {
     final navLinkColor = palette.textSecondary;
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isCompact = constraints.maxWidth < 720;
         final isVeryCompact = constraints.maxWidth < 560;
         final showBrandText = constraints.maxWidth >= 680;
+        final showNavLinks = constraints.maxWidth >= 900;
 
         return Container(
           height: 66,
@@ -187,39 +201,7 @@ class WebsiteMenuBar extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("assets/images/logo.svg",
-                                  height: 36, width: 36, fit: BoxFit.contain),
-                              if (showBrandText) ...[
-                                const SizedBox(width: 10),
-                                RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "Regisse",
-                                        style:
-                                            headlineSecondaryTextStyle.copyWith(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w700,
-                                                color: palette.textPrimary),
-                                      ),
-                                      TextSpan(
-                                        text: "__",
-                                        style:
-                                            headlineSecondaryTextStyle.copyWith(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w700,
-                                                color: palette.accent),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
+                          child: AnimatedLogo(showText: showBrandText),
                         ),
                       ),
                     ),
@@ -227,15 +209,19 @@ class WebsiteMenuBar extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              if (!isCompact)
-                IconButton(
-                  onPressed: () => openUrl('https://www.youtube.com/@regisse'),
-                  tooltip: 'YouTube',
-                  icon: ImageIcon(
-                      const AssetImage("assets/images/icon_youtube_64x.webp"),
-                      color: navLinkColor,
-                      size: 24),
+              if (showNavLinks) ...[
+                _HeaderLink(
+                  label: localeProvider.tr('menu.saas_mobile'),
+                  url: '/developpement-saas-mobile/',
+                  color: navLinkColor,
                 ),
+                _HeaderLink(
+                  label: localeProvider.tr('menu.blog'),
+                  url: '/blog/',
+                  color: navLinkColor,
+                ),
+                const SizedBox(width: 8),
+              ],
               IconButton(
                 onPressed: () => context
                     .read<ThemeProvider>()
@@ -263,6 +249,30 @@ class WebsiteMenuBar extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// A header text link to one of the static pages served next to the app.
+class _HeaderLink extends StatelessWidget {
+  final String label;
+  final String url;
+  final Color color;
+
+  const _HeaderLink(
+      {required this.label, required this.url, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () => openUrl(url, sameTab: true),
+      style: TextButton.styleFrom(
+        foregroundColor: context.palette.accent,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      ),
+      child: Text(label,
+          style: bodyTextStyle.copyWith(
+              fontSize: 15, fontWeight: FontWeight.w600, color: color)),
     );
   }
 }
@@ -483,6 +493,28 @@ class GetStarted extends StatelessWidget {
                 ],
               ),
 
+              // ── Links to the static pages (offer details, blog) ───────────
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 24,
+                  runSpacing: 8,
+                  children: [
+                    _InlineLink(
+                      icon: Icons.phone_iphone,
+                      label: localeProvider.tr('gs.link_saas'),
+                      url: '/developpement-saas-mobile/',
+                    ),
+                    _InlineLink(
+                      icon: Icons.article_outlined,
+                      label: localeProvider.tr('gs.link_blog'),
+                      url: '/blog/',
+                    ),
+                  ],
+                ),
+              ),
+
               // ── Social proof footnote ─────────────────────────────────────
               Padding(
                 padding: const EdgeInsets.only(top: 32),
@@ -499,6 +531,34 @@ class GetStarted extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// A text link with an icon and an arrow, opening one of the static pages
+/// served next to the app (in the same tab).
+class _InlineLink extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String url;
+
+  const _InlineLink({
+    required this.icon,
+    required this.label,
+    required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return TextButton.icon(
+      onPressed: () => openUrl(url, sameTab: true),
+      icon: Icon(icon, size: 18, color: palette.accent),
+      label: Text('$label →',
+          style: bodyTextStyle.copyWith(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: palette.accent)),
     );
   }
 }
@@ -1361,6 +1421,155 @@ class _StepCard extends StatelessWidget {
   }
 }
 
+// ─── Pricing (MVP offer) ──────────────────────────────────────────────────────
+class PricingOffer extends StatelessWidget {
+  const PricingOffer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final localeProvider = context.watch<LocaleProvider>();
+    final isDesktop = context.isDesktop;
+
+    final offer = Column(
+      crossAxisAlignment:
+          isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        Text(localeProvider.tr('pricing.offer'),
+            style: headlineSecondaryTextStyle.copyWith(fontSize: 20),
+            textAlign: isDesktop ? TextAlign.start : TextAlign.center),
+        const SizedBox(height: 16),
+        Text(localeProvider.tr('pricing.from'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 14, color: palette.textSecondary)),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(localeProvider.tr('pricing.price'),
+              style: headlineTextStyle.copyWith(
+                  fontSize: 44,
+                  color: palette.accent,
+                  fontWeight: FontWeight.bold)),
+        ),
+        Text(localeProvider.tr('pricing.price_note'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 13, color: palette.textSecondary),
+            textAlign: isDesktop ? TextAlign.start : TextAlign.center),
+        const SizedBox(height: 28),
+        FilledButton.icon(
+          onPressed: () => WhatsAppService.openWhatsApp(
+            message: localeProvider.tr('wa.mvp'),
+          ),
+          style: FilledButton.styleFrom(
+            backgroundColor: primary,
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 28),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4))),
+          ),
+          icon: const Icon(Icons.chat_bubble_outline,
+              color: Colors.white, size: 18),
+          label: Text(localeProvider.tr('pricing.cta'),
+              style: buttonTextStyle.copyWith(fontSize: 16)),
+        ),
+      ],
+    );
+
+    final included = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(localeProvider.tr('pricing.included'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 12,
+                color: palette.accent,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.bold)),
+        const SizedBox(height: 16),
+        for (var i = 1; i <= 5; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.check_circle, size: 18, color: palette.accent),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(localeProvider.tr('pricing.item$i'),
+                      style: bodyTextStyle.copyWith(fontSize: 15, height: 1.5)),
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 8),
+        Text(localeProvider.tr('pricing.options'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 13, height: 1.6, color: palette.textSecondary)),
+      ],
+    );
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: palette.border)),
+      margin: blockMargin,
+      padding: EdgeInsets.symmetric(
+          horizontal: isDesktop ? 80 : 24, vertical: isDesktop ? 72 : 48),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            decoration: BoxDecoration(
+              color: palette.accentSoft,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(localeProvider.tr('pricing.badge'),
+                style: bodyTextStyle.copyWith(
+                    fontSize: 11,
+                    color: palette.accent,
+                    letterSpacing: 1.4,
+                    fontWeight: FontWeight.bold)),
+          ),
+          const SizedBox(height: 18),
+          Text(
+            localeProvider.tr('pricing.title'),
+            style: headlineTextStyle.copyWith(fontSize: 32),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            localeProvider.tr('pricing.subtitle'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 16, color: palette.textSecondary, height: 1.7),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 48),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 960),
+            padding: EdgeInsets.all(isDesktop ? 40 : 24),
+            decoration: BoxDecoration(
+              color: palette.surfaceMuted,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: palette.accent, width: 1.5),
+            ),
+            child: isDesktop
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: offer),
+                      const SizedBox(width: 48),
+                      Expanded(child: included),
+                    ],
+                  )
+                : Column(
+                    children: [offer, const SizedBox(height: 36), included],
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 class Testimonials extends StatelessWidget {
   const Testimonials({super.key});
@@ -1400,7 +1609,14 @@ class Testimonials extends StatelessWidget {
             style: headlineTextStyle.copyWith(fontSize: 32),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 56),
+          const SizedBox(height: 12),
+          Text(
+            localeProvider.tr('testi.subtitle'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 16, color: palette.textSecondary, height: 1.7),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 48),
           ResponsiveRowColumn(
             layout: isDesktop
                 ? ResponsiveRowColumnType.ROW
@@ -1409,53 +1625,60 @@ class Testimonials extends StatelessWidget {
             rowSpacing: 24,
             columnSpacing: 24,
             children: [
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                rowFit: FlexFit.tight,
-                child: Reveal(
-                    delay: const Duration(milliseconds: 0),
-                    child: _TestimonialCard(
-                      quote: localeProvider.tr('testi.quote1'),
-                      name: "Amara D.",
-                      role: localeProvider
-                          .tr('testi.role1_company')
-                          .split(' • ')[0],
-                      company: "FinnoTech GmbH",
-                      avatarColor: const Color(0xFF1565C0),
-                      initials: "AD",
-                    )),
+              for (final (i, icon) in [
+                Icons.forum_outlined,
+                Icons.tune,
+                Icons.workspace_premium_outlined,
+              ].indexed)
+                ResponsiveRowColumnItem(
+                  rowFlex: 1,
+                  rowFit: FlexFit.tight,
+                  child: Reveal(
+                      delay: Duration(milliseconds: 120 * i),
+                      child: _PerkCard(
+                        icon: icon,
+                        title: localeProvider.tr('testi.perk${i + 1}_title'),
+                        description:
+                            localeProvider.tr('testi.perk${i + 1}_desc'),
+                      )),
+                ),
+            ],
+          ),
+          const SizedBox(height: 40),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 16,
+            runSpacing: 12,
+            children: [
+              FilledButton.icon(
+                onPressed: () => WhatsAppService.openWhatsApp(
+                  message: localeProvider.tr('wa.first_client'),
+                ),
+                style: FilledButton.styleFrom(
+                  backgroundColor: primary,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 28),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                ),
+                icon: const Icon(Icons.flag_outlined,
+                    color: Colors.white, size: 18),
+                label: Text(localeProvider.tr('testi.cta'),
+                    style: buttonTextStyle.copyWith(fontSize: 16)),
               ),
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                rowFit: FlexFit.tight,
-                child: Reveal(
-                    delay: const Duration(milliseconds: 120),
-                    child: _TestimonialCard(
-                      quote: localeProvider.tr('testi.quote2'),
-                      name: "Isabelle M.",
-                      role: localeProvider
-                          .tr('testi.role2_company')
-                          .split(' • ')[0],
-                      company: "Tourisma SA",
-                      avatarColor: const Color(0xFF00897B),
-                      initials: "IM",
-                    )),
-              ),
-              ResponsiveRowColumnItem(
-                rowFlex: 1,
-                rowFit: FlexFit.tight,
-                child: Reveal(
-                    delay: const Duration(milliseconds: 240),
-                    child: _TestimonialCard(
-                      quote: localeProvider.tr('testi.quote3'),
-                      name: "Kofi A.",
-                      role: localeProvider
-                          .tr('testi.role3_company')
-                          .split(' • ')[0],
-                      company: "LogiSoft Africa",
-                      avatarColor: const Color(0xFFE65100),
-                      initials: "KA",
-                    )),
+              OutlinedButton.icon(
+                onPressed: () => scrollToSection(context, HomeSections.demo),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: palette.accent, width: 1.5),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                ),
+                icon: Icon(Icons.phone_iphone, color: palette.accent, size: 18),
+                label: Text(localeProvider.tr('testi.cta_secondary'),
+                    style: buttonTextStyle.copyWith(
+                        fontSize: 16, color: palette.accent)),
               ),
             ],
           ),
@@ -1465,21 +1688,17 @@ class Testimonials extends StatelessWidget {
   }
 }
 
-class _TestimonialCard extends StatelessWidget {
-  final String quote;
-  final String name;
-  final String role;
-  final String company;
-  final Color avatarColor;
-  final String initials;
+/// What a first client gets, shown in place of testimonials while there are
+/// none yet.
+class _PerkCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String description;
 
-  const _TestimonialCard({
-    required this.quote,
-    required this.name,
-    required this.role,
-    required this.company,
-    required this.avatarColor,
-    required this.initials,
+  const _PerkCard({
+    required this.icon,
+    required this.title,
+    required this.description,
   });
 
   @override
@@ -1495,51 +1714,19 @@ class _TestimonialCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: List.generate(
-              5,
-              (_) => const Padding(
-                padding: EdgeInsets.only(right: 3),
-                child: Icon(Icons.star, color: Color(0xFFF59E0B), size: 16),
-              ),
-            ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: palette.accentSoft,
+                borderRadius: BorderRadius.circular(12)),
+            child: Icon(icon, color: palette.accent, size: 22),
           ),
-          const SizedBox(height: 14),
-          Text("\u201C",
-              style: headlineTextStyle.copyWith(
-                  fontSize: 48, color: palette.accent, height: 0.8)),
-          const SizedBox(height: 10),
-          Text(quote,
+          const SizedBox(height: 16),
+          Text(title, style: headlineSecondaryTextStyle.copyWith(fontSize: 17)),
+          const SizedBox(height: 8),
+          Text(description,
               style: bodyTextStyle.copyWith(
-                  fontSize: 14, height: 1.75, color: palette.textSecondary)),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: avatarColor,
-                child: Text(initials,
-                    style: bodyTextStyle.copyWith(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(name,
-                        style: bodyTextStyle.copyWith(
-                            fontWeight: FontWeight.bold, fontSize: 14)),
-                    Text("$role \u00b7 $company",
-                        style: bodyTextStyle.copyWith(
-                            fontSize: 12, color: palette.textMuted)),
-                  ],
-                ),
-              ),
-            ],
-          ),
+                  fontSize: 14, height: 1.7, color: palette.textSecondary)),
         ],
       ),
     );
@@ -1816,38 +2003,12 @@ class Footer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/images/logo.svg",
-                          height: 36,
-                          width: 36,
-                          fit: BoxFit.contain,
-                        ),
-                        const SizedBox(width: 10),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Regisse",
-                                style: headlineSecondaryTextStyle.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white),
-                              ),
-                              TextSpan(
-                                text: "__",
-                                style: headlineSecondaryTextStyle.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: palette.accent),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    // Scales down on the narrowest phones instead of overflowing.
+                    const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child:
+                          AnimatedLogo(fontSize: 18, textColor: Colors.white),
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -1857,30 +2018,6 @@ class Footer extends StatelessWidget {
                         color: Colors.white.withOpacity(0.55),
                         height: 1.5,
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    // Social icons row
-                    Row(
-                      children: [
-                        Tooltip(
-                          message: localeProvider.tr('footer.youtube'),
-                          child: InkWell(
-                            onTap: () {
-                              openUrl("https://www.youtube.com/@regisse");
-                            },
-                            borderRadius: BorderRadius.circular(6),
-                            child: Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Image.asset(
-                                "assets/images/icon_youtube_64x.webp",
-                                height: 24,
-                                width: 24,
-                                color: Colors.white.withOpacity(0.6),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -1906,6 +2043,15 @@ class Footer extends StatelessWidget {
                           label: localeProvider.tr('footer.link_services'),
                           onTap: () =>
                               scrollToSection(context, HomeSections.expertise)),
+                      const SizedBox(height: 10),
+                      _FooterLink(
+                          label: localeProvider.tr('footer.link_saas_mobile'),
+                          onTap: () => openUrl('/developpement-saas-mobile/',
+                              sameTab: true)),
+                      const SizedBox(height: 10),
+                      _FooterLink(
+                          label: localeProvider.tr('menu.blog'),
+                          onTap: () => openUrl('/blog/', sameTab: true)),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_cgu'),

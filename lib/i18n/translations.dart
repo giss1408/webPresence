@@ -5,10 +5,11 @@ class Translations {
     // ── Global / Shared ──────────────────────────────────────────────
     'app.title': {
       'fr':
-          'Regisse__ #Business Solutions — SaaS, Design & Développement Sur Mesure',
-      'en': 'Regisse__ #Business Solutions — SaaS, Design & Custom Development',
+          'Regisse__ #Business Solutions — Développement SaaS mobile (iOS, Android, Web)',
+      'en':
+          'Regisse__ #Business Solutions — Mobile SaaS Development (iOS, Android, Web)',
       'de':
-          'Regisse__ #Business Solutions — SaaS, Design & maßgeschneiderte Entwicklung',
+          'Regisse__ #Business Solutions — Mobile-SaaS-Entwicklung (iOS, Android, Web)',
     },
     'menu.home': {'fr': 'Accueil', 'en': 'Home', 'de': 'Startseite'},
     'menu.services': {'fr': 'Services', 'en': 'Services', 'de': 'Leistungen'},
@@ -18,6 +19,11 @@ class Translations {
       'de': 'Referenzen'
     },
     'menu.demo': {'fr': 'Démo live', 'en': 'Live demo', 'de': 'Live-Demo'},
+    'menu.saas_mobile': {
+      'fr': 'SaaS mobile',
+      'en': 'Mobile SaaS',
+      'de': 'Mobile SaaS'
+    },
     'menu.blog': {'fr': 'Blog', 'en': 'Blog', 'de': 'Blog'},
     'menu.contact': {'fr': 'Contact', 'en': 'Contact', 'de': 'Kontakt'},
     'menu.title': {'fr': 'Menu', 'en': 'Menu', 'de': 'Menü'},
@@ -29,87 +35,87 @@ class Translations {
 
     // ── GetStarted ──────────────────────────────────────────────────
     'gs.badge': {
-      'fr': 'Ingénierie allemande  •  Projets en Afrique',
-      'en': 'German engineering  •  Projects in Africa',
-      'de': 'Deutsche Ingenieurskunst  •  Projekte in Afrika'
+      'fr': 'SaaS mobile  •  iOS · Android · Web',
+      'en': 'Mobile SaaS  •  iOS · Android · Web',
+      'de': 'Mobile SaaS  •  iOS · Android · Web',
     },
     'gs.headline': {
-      'fr':
-          'L\'excellence technique allemande\nau service de vos projets en Afrique',
-      'en': 'German engineering excellence\nfor your projects in Africa',
-      'de': 'Deutsche Ingenieurskunst\nfür Ihre Projekte in Afrika'
+      'fr': 'Votre SaaS mobile,\nde l\'idée aux stores',
+      'en': 'Your mobile SaaS,\nfrom idea to the app stores',
+      'de': 'Ihr Mobile SaaS,\nvon der Idee in die App Stores',
     },
     'gs.subheadline': {
       'fr':
-          'De la conception au déploiement en quelques semaines — des plateformes SaaS sécurisées, scalables et taillées pour accélérer votre croissance.',
+          'Nous concevons, développons et opérons votre produit SaaS mobile : l\'app iOS et Android, le back-end cloud, les abonnements et le paiement mobile — avec la rigueur de l\'ingénierie allemande.',
       'en':
-          'From concept to deployment in weeks — secure, scalable SaaS platforms built to accelerate your growth.',
+          'We design, build and run your mobile SaaS product: the iOS and Android app, the cloud backend, subscriptions and mobile money — with German engineering rigor.',
       'de':
-          'Vom Konzept bis zur Bereitstellung in Wochen — sichere, skalierbare SaaS-Plattformen, die Ihr Wachstum beschleunigen.'
+          'Wir entwerfen, entwickeln und betreiben Ihr Mobile-SaaS-Produkt: die iOS- und Android-App, das Cloud-Backend, Abonnements und Mobile Payment — mit deutscher Ingenieursgründlichkeit.',
     },
     'gs.pillar1_stat': {'fr': '4 semaines', 'en': '4 weeks', 'de': '4 Wochen'},
     'gs.pillar1_label': {
-      'fr': 'Du brief à la mise en production',
-      'en': 'From brief to production',
-      'de': 'Vom Briefing zur Produktion'
+      'fr': 'Pour un MVP publié sur les stores',
+      'en': 'To an MVP live in the stores',
+      'de': 'Bis zum MVP in den Stores',
     },
     'gs.pillar2_stat': {
-      'fr': '100 % RGPD',
-      'en': '100 % GDPR',
-      'de': '100 % DSGVO'
+      'fr': '1 code',
+      'en': '1 codebase',
+      'de': '1 Codebasis',
     },
     'gs.pillar2_label': {
-      'fr': 'Sécurité & conformité garanties',
-      'en': 'Security & compliance guaranteed',
-      'de': 'Sicherheit & Compliance garantiert'
+      'fr': 'iOS, Android et web',
+      'en': 'iOS, Android and web',
+      'de': 'iOS, Android und Web',
     },
     'gs.pillar3_stat': {
-      'fr': 'ROI dès J+30',
-      'en': 'ROI from D+30',
-      'de': 'ROI ab Tag 30'
+      'fr': 'Hors-ligne',
+      'en': 'Offline-first',
+      'de': 'Offline-first',
     },
     'gs.pillar3_label': {
-      'fr': 'Résultats mesurables dès le 1er mois',
-      'en': 'Measurable results from month one',
-      'de': 'Messbare Ergebnisse ab dem ersten Monat'
+      'fr': 'Fonctionne même sans réseau',
+      'en': 'Works even without a network',
+      'de': 'Funktioniert auch ohne Netz',
     },
     'gs.body_intro': {
-      'fr': 'Regisse__ #Business Solutions est une ',
-      'en': 'Regisse__ #Business Solutions is a ',
-      'de': 'Regisse__ #Business Solutions ist ein '
+      'fr': 'Vous avez l\'idée, nous livrons ',
+      'en': 'You bring the idea, we deliver ',
+      'de': 'Sie haben die Idee, wir liefern ',
     },
     'gs.body_highlight': {
-      'fr': 'société tech franco-allemande',
-      'en': 'Franco-German tech company',
-      'de': 'deutsch-französisches Technologieunternehmen'
+      'fr': 'l\'application que vos clients garderont sur leur téléphone',
+      'en': 'the app your customers keep on their phone',
+      'de': 'die App, die Ihre Kunden auf dem Handy behalten',
     },
     'gs.body_mid': {
-      'fr': ' spécialisée dans le développement de plateformes ',
-      'en': ' specializing in developing ',
-      'de': ' spezialisiert auf die Entwicklung von '
+      'fr': '. Notre équipe franco-allemande construit ',
+      'en': '. Our Franco-German team builds ',
+      'de': '. Unser deutsch-französisches Team baut ',
     },
     'gs.body_highlight2': {
-      'fr': 'SaaS sur mesure',
-      'en': 'custom SaaS platforms',
-      'de': 'maßgeschneiderten SaaS-Plattformen'
+      'fr': 'votre SaaS mobile de A à Z',
+      'en': 'your mobile SaaS end to end',
+      'de': 'Ihr Mobile SaaS von A bis Z',
     },
     'gs.body_mid2': {
       'fr':
-          '. Nous combinons ingénierie de pointe, design intuitif et compréhension métier pour vous livrer des produits ',
+          ' — app iOS et Android, back-end cloud, Mobile Money, mode hors-ligne — et le rend ',
       'en':
-          '. We combine cutting-edge engineering, intuitive design and business understanding to deliver products that are ',
+          ' — iOS and Android app, cloud backend, mobile money, offline mode — and makes it ',
       'de':
-          '. Wir kombinieren modernste Technik, intuitives Design und Geschäftsverständnis, um Produkte zu liefern, die '
+          ' — iOS- und Android-App, Cloud-Backend, Mobile Money, Offline-Modus — und macht es ',
     },
     'gs.body_highlight3': {
-      'fr': 'simples, sécurisés et rapidement déployés',
-      'en': 'simple, secure and quickly deployed',
-      'de': 'einfach, sicher und schnell einsatzbereit'
+      'fr': 'rapide, sécurisé et prêt à vendre',
+      'en': 'fast, secure and ready to sell',
+      'de': 'schnell, sicher und verkaufsbereit',
     },
     'gs.body_end': {
-      'fr': ' — quel que soit votre secteur d\'activité.',
-      'en': ' — whatever your industry.',
-      'de': ' — unabhängig von Ihrer Branche.'
+      'fr':
+          '. Vous vous concentrez sur vos clients, nous nous occupons de la technique.',
+      'en': '. You focus on your customers; we handle the tech.',
+      'de': '. Sie kümmern sich um Ihre Kunden, wir um die Technik.',
     },
     'gs.cta_primary': {
       'fr': 'Démarrer mon projet',
@@ -120,6 +126,16 @@ class Translations {
       'fr': 'Voir nos réalisations',
       'en': 'View our portfolio',
       'de': 'Unsere Referenzen ansehen'
+    },
+    'gs.link_saas': {
+      'fr': 'Découvrir notre offre SaaS mobile',
+      'en': 'Explore our mobile SaaS service',
+      'de': 'Unser Mobile-SaaS-Angebot entdecken',
+    },
+    'gs.link_blog': {
+      'fr': 'Lire nos conseils sur le blog',
+      'en': 'Read our tips on the blog',
+      'de': 'Tipps in unserem Blog lesen',
     },
     'gs.footnote': {
       'fr':
@@ -132,26 +148,34 @@ class Translations {
 
     // ── Hero carousel ────────────────────────────────────────────────
     'carousel.s1_a': {
-      'fr': 'L\'Afrique se ',
-      'en': 'Africa goes ',
-      'de': 'Afrika wird '
+      'fr': 'Votre SaaS, ',
+      'en': 'Your SaaS, ',
+      'de': 'Ihr SaaS, ',
     },
-    'carousel.s1_b': {'fr': 'digitalise', 'en': 'digital', 'de': 'digital'},
-    'carousel.s2_a': {'fr': 'Créez,', 'en': 'Create,', 'de': 'Gestalten,'},
+    'carousel.s1_b': {
+      'fr': 'dans chaque poche',
+      'en': 'in every pocket',
+      'de': 'in jeder Tasche',
+    },
+    'carousel.s2_a': {
+      'fr': 'Un seul code,',
+      'en': 'One codebase,',
+      'de': 'Eine Codebasis,',
+    },
     'carousel.s2_b': {
-      'fr': ' Inspirez, Transformez',
-      'en': ' Inspire, Transform',
-      'de': ' Inspirieren, Verändern'
+      'fr': ' iOS · Android · Web',
+      'en': ' iOS · Android · Web',
+      'de': ' iOS · Android · Web',
     },
     'carousel.s3_a': {
-      'fr': 'Design moderne,',
-      'en': 'Modern design,',
-      'de': 'Modernes Design,'
+      'fr': 'Hors-ligne,',
+      'en': 'Offline-first,',
+      'de': 'Offline-first,',
     },
     'carousel.s3_b': {
-      'fr': ' impact durable',
-      'en': ' lasting impact',
-      'de': ' nachhaltige Wirkung'
+      'fr': ' Mobile Money intégré',
+      'en': ' mobile money built in',
+      'de': ' Mobile Money integriert',
     },
     'carousel.s4_a': {'fr': 'Toujours, ', 'en': 'Always, ', 'de': 'Immer, '},
     'carousel.s4_b': {'fr': 'partout, ', 'en': 'anywhere, ', 'de': 'überall, '},
@@ -180,17 +204,17 @@ class Translations {
       'de': 'UNSERE EXPERTISE'
     },
     'features.title': {
-      'fr': 'Tout ce dont votre business digital a besoin',
-      'en': 'Everything your digital business needs',
-      'de': 'Alles, was Ihr digitales Business braucht'
+      'fr': 'Tout pour lancer et faire grandir votre SaaS mobile',
+      'en': 'Everything to launch and grow your mobile SaaS',
+      'de': 'Alles, um Ihr Mobile SaaS zu starten und auszubauen',
     },
     'features.subtitle': {
       'fr':
-          'Trois piliers — vitesse, design et sur-mesure — pour transformer votre vision en produit opérationnel.',
+          'L\'app, le cloud et le modèle économique — conçus ensemble, livrés par une seule équipe.',
       'en':
-          'Three pillars — speed, design and customisation — to turn your vision into an operational product.',
+          'The app, the cloud and the business model — designed together, delivered by one team.',
       'de':
-          'Drei Säulen — Geschwindigkeit, Design und Maßarbeit — um Ihre Vision in ein betriebsbereites Produkt zu verwandeln.'
+          'App, Cloud und Geschäftsmodell — gemeinsam konzipiert, von einem Team geliefert.',
     },
     'features.card1_tag': {
       'fr': 'Delivery',
@@ -198,59 +222,63 @@ class Translations {
       'de': 'Lieferung'
     },
     'features.card1_title': {
-      'fr': 'Déploiement Rapide',
-      'en': 'Fast Deployment',
-      'de': 'Schnelle Bereitstellung'
+      'fr': 'Du MVP aux stores en quelques semaines',
+      'en': 'From MVP to the stores in weeks',
+      'de': 'Vom MVP in die Stores in Wochen',
     },
     'features.card1_desc': {
       'fr':
-          'De l\'idée à la mise en production en quelques semaines. Nos cycles agiles courts vous permettent de valider, itérer et lancer avant vos concurrents — sans rogner sur la qualité ni la sécurité.',
+          'Sprints courts, démo à chaque itération et publication gérée sur l\'App Store et Google Play. Vous testez votre marché vite, puis vous itérez avec de vrais utilisateurs.',
       'en':
-          'From idea to production in weeks. Our short agile cycles let you validate, iterate and launch ahead of competitors — without compromising quality or security.',
+          'Short sprints, a demo at every iteration and publishing handled on the App Store and Google Play. Test your market fast, then iterate with real users.',
       'de':
-          'Von der Idee zur Produktion in wenigen Wochen. Unsere kurzen agilen Zyklen ermöglichen es Ihnen, zu validieren, zu iterieren und vor der Konkurrenz zu starten — ohne Kompromisse bei Qualität oder Sicherheit.'
+          'Kurze Sprints, eine Demo bei jeder Iteration und die Veröffentlichung im App Store und bei Google Play übernehmen wir. Testen Sie Ihren Markt schnell und iterieren Sie mit echten Nutzern.',
     },
     'features.card1_link': {
       'fr': 'Notre méthode →',
       'en': 'Our method →',
       'de': 'Unsere Methode →'
     },
-    'features.card2_tag': {'fr': 'Design', 'en': 'Design', 'de': 'Design'},
+    'features.card2_tag': {
+      'fr': 'Mobile',
+      'en': 'Mobile',
+      'de': 'Mobile',
+    },
     'features.card2_title': {
-      'fr': 'UI Expressive & Flexible',
-      'en': 'Expressive & Flexible UI',
-      'de': 'Ausdrucksstarkes & flexibles UI'
+      'fr': 'Apps natives iOS & Android',
+      'en': 'Native iOS & Android apps',
+      'de': 'Native iOS- & Android-Apps',
     },
     'features.card2_desc': {
       'fr':
-          'Chaque interface est pensée pour l\'utilisateur final. Nous combinons Material Design, animations fluides et identité visuelle personnalisée pour offrir une expérience mémorable sur tous les supports.',
+          'Une seule base de code Flutter, un rendu natif sur chaque plateforme : animations fluides, mode sombre, multilingue, notifications push et fonctionnement hors-ligne dès la première version.',
       'en':
-          'Every interface is designed for the end user. We combine Material Design, smooth animations and custom visual identity for a memorable experience across all devices.',
+          'One Flutter codebase, a native feel on every platform: smooth animations, dark mode, multiple languages, push notifications and offline mode from the first release.',
       'de':
-          'Jede Oberfläche ist für den Endbenutzer konzipiert. Wir kombinieren Material Design, flüssige Animationen und eine individuelle visuelle Identität für ein unvergessliches Erlebnis auf allen Geräten.'
+          'Eine Flutter-Codebasis, natives Gefühl auf jeder Plattform: flüssige Animationen, Dunkelmodus, Mehrsprachigkeit, Push-Benachrichtigungen und Offline-Modus ab der ersten Version.',
     },
     'features.card2_link': {
-      'fr': 'Voir nos maquettes →',
-      'en': 'View our designs →',
-      'de': 'Unsere Entwürfe ansehen →'
+      'fr': 'Essayer la démo live →',
+      'en': 'Try the live demo →',
+      'de': 'Live-Demo ausprobieren →',
     },
     'features.card3_tag': {
-      'fr': 'Sur-mesure',
-      'en': 'Custom',
-      'de': 'Maßgeschneidert'
+      'fr': 'SaaS & Cloud',
+      'en': 'SaaS & Cloud',
+      'de': 'SaaS & Cloud',
     },
     'features.card3_title': {
-      'fr': 'Solutions Adaptées à Votre Marché',
-      'en': 'Solutions Adapted to Your Market',
-      'de': 'Auf Ihren Markt zugeschnittene Lösungen'
+      'fr': 'Un back-end SaaS prêt à vendre',
+      'en': 'A SaaS backend ready to sell',
+      'de': 'Ein verkaufsfertiges SaaS-Backend',
     },
     'features.card3_desc': {
       'fr':
-          'Pas de template générique — chaque solution est construite autour de vos processus métier, de votre secteur et de vos objectifs de croissance.',
+          'Multi-clients (multi-tenant), rôles et permissions, abonnements, paiement par Orange Money, Wave ou carte, tableau de bord d\'administration et analytics — hébergés de façon sécurisée et conforme au RGPD.',
       'en':
-          'No generic templates — every solution is built around your business processes, industry and growth objectives.',
+          'Multi-tenant, roles and permissions, subscriptions, payments via Orange Money, Wave or card, admin dashboard and analytics — hosted securely and GDPR-compliant.',
       'de':
-          'Keine generischen Vorlagen — jede Lösung wird um Ihre Geschäftsprozesse, Ihre Branche und Ihre Wachstumsziele herum aufgebaut.'
+          'Mandantenfähig, Rollen und Berechtigungen, Abonnements, Zahlung per Orange Money, Wave oder Karte, Admin-Dashboard und Analytics — sicher und DSGVO-konform gehostet.',
     },
     'features.card3_link': {
       'fr': 'Nos secteurs →',
@@ -258,9 +286,9 @@ class Translations {
       'de': 'Unsere Branchen →'
     },
     'features.cta': {
-      'fr': 'Découvrir tous nos services',
-      'en': 'Discover all our services',
-      'de': 'Alle unsere Leistungen entdecken'
+      'fr': 'Découvrir notre offre SaaS mobile',
+      'en': 'Discover our mobile SaaS service',
+      'de': 'Unser Mobile-SaaS-Angebot entdecken',
     },
 
     // ── DigitalSolutionsAfrica ──────────────────────────────────────
@@ -270,9 +298,9 @@ class Translations {
       'de': 'DIGITALES AFRIKA'
     },
     'dsa.title': {
-      'fr': 'Solutions digitales pour l\'Afrique',
-      'en': 'Digital Solutions for Africa',
-      'de': 'Digitale Lösungen für Afrika'
+      'fr': 'SaaS mobiles pour l\'Afrique',
+      'en': 'Mobile SaaS for Africa',
+      'de': 'Mobile SaaS für Afrika',
     },
     'dsa.subtitle': {
       'fr':
@@ -316,37 +344,37 @@ class Translations {
       'de': 'Multi-Vendor-Katalog'
     },
     'dsa.card2_category': {
-      'fr': 'Éducation',
-      'en': 'Education',
-      'de': 'Bildung'
+      'fr': 'Agriculture',
+      'en': 'Agriculture',
+      'de': 'Landwirtschaft',
     },
     'dsa.card2_title': {
-      'fr': 'EdTech pour l\'apprentissage à distance',
-      'en': 'EdTech for Remote Learning',
-      'de': 'EdTech für Fernunterricht'
+      'fr': 'AgriTech pour coopératives et filières',
+      'en': 'AgriTech for cooperatives and value chains',
+      'de': 'AgriTech für Kooperativen und Wertschöpfungsketten',
     },
     'dsa.card2_desc': {
       'fr':
-          'Plateformes d\'apprentissage accessibles sur mobile, avec contenu vidéo léger, quiz interactifs et suivi des progrès.',
+          'Apps de collecte terrain, suivi des producteurs et des récoltes, prix du marché et paiement des planteurs par mobile money — cacao, anacarde, coton, vivrier.',
       'en':
-          'Mobile-accessible learning platforms with lightweight video, interactive quizzes and progress tracking.',
+          'Field data collection apps, farmer and harvest tracking, market prices and mobile money payouts to growers — cocoa, cashew, cotton, food crops.',
       'de':
-          'Mobile zugängliche Lernplattformen mit leichtem Video, interaktiven Quizzen und Fortschrittsverfolgung.'
+          'Apps zur Felddatenerfassung, Erzeuger- und Erntetracking, Marktpreise und Auszahlung an Bauern per Mobile Money — Kakao, Cashew, Baumwolle, Grundnahrungsmittel.',
     },
     'dsa.card2_feat1': {
-      'fr': 'Contenu hors-ligne',
-      'en': 'Offline content',
-      'de': 'Offline-Inhalte'
+      'fr': 'Collecte hors-ligne',
+      'en': 'Offline data collection',
+      'de': 'Offline-Datenerfassung',
     },
     'dsa.card2_feat2': {
-      'fr': 'Classes virtuelles',
-      'en': 'Virtual classrooms',
-      'de': 'Virtuelle Klassenzimmer'
+      'fr': 'Géolocalisation des parcelles',
+      'en': 'Plot geolocation',
+      'de': 'Parzellen-Geolokalisierung',
     },
     'dsa.card2_feat3': {
-      'fr': 'Certification numérique',
-      'en': 'Digital certification',
-      'de': 'Digitale Zertifizierung'
+      'fr': 'Paiement des producteurs',
+      'en': 'Farmer payouts',
+      'de': 'Auszahlung an Erzeuger',
     },
     'dsa.card3_category': {
       'fr': 'Santé',
@@ -394,17 +422,17 @@ class Translations {
       'de': 'BEREIT ZUM START?'
     },
     'install.headline': {
-      'fr': 'Démarrons votre projet ensemble',
-      'en': 'Let\'s start your project together',
-      'de': 'Starten wir Ihr Projekt gemeinsam'
+      'fr': 'Lançons votre SaaS mobile',
+      'en': 'Let\'s launch your mobile SaaS',
+      'de': 'Starten wir Ihr Mobile SaaS',
     },
     'install.subheadline': {
       'fr':
-          'Un échange de 30 minutes suffit pour poser les bases de votre prochaine solution digitale. Sans engagement.',
+          '30 minutes pour cadrer votre MVP : fonctionnalités, plateformes, paiement, budget et calendrier. Sans engagement.',
       'en':
-          'A 30-minute conversation is enough to lay the groundwork for your next digital solution. No commitment.',
+          '30 minutes to scope your MVP: features, platforms, payments, budget and timeline. No commitment.',
       'de':
-          'Ein 30-minütiges Gespräch reicht aus, um die Grundlagen für Ihre nächste digitale Lösung zu legen. Unverbindlich.'
+          '30 Minuten, um Ihr MVP abzustecken: Funktionen, Plattformen, Zahlung, Budget und Zeitplan. Unverbindlich.',
     },
     'install.cta_primary': {
       'fr': 'Prendre rendez-vous',
@@ -446,27 +474,27 @@ class Translations {
 
     // ── ServicesShowcase ─────────────────────────────────────────────
     'ss.panel1_tag': {
-      'fr': 'SAAS & CLOUD',
-      'en': 'SAAS & CLOUD',
-      'de': 'SAAS & CLOUD'
+      'fr': 'SAAS MOBILE',
+      'en': 'MOBILE SAAS',
+      'de': 'MOBILE SAAS',
     },
     'ss.panel1_title': {
-      'fr': 'Plateformes SaaS\nsur Mesure',
-      'en': 'Custom SaaS\nPlatforms',
-      'de': 'Maßgeschneiderte\nSaaS-Plattformen'
+      'fr': 'SaaS mobile,\nde l\'app au cloud',
+      'en': 'Mobile SaaS,\nfrom app to cloud',
+      'de': 'Mobile SaaS,\nvon der App bis zur Cloud',
     },
     'ss.panel1_desc': {
       'fr':
-          'Nous concevons et développons des plateformes SaaS robustes adaptées à vos processus métier. De l\'authentification multi-tenant aux tableaux de bord analytiques, chaque fonctionnalité est taillée pour votre secteur et vos utilisateurs.',
+          'Nous construisons tout le produit : l\'app mobile de vos clients, le back-end multi-tenant, l\'espace d\'administration et les tableaux de bord. Authentification, abonnements, notifications push, synchronisation hors-ligne — chaque brique est pensée pour vos utilisateurs et votre modèle économique.',
       'en':
-          'We design and develop robust SaaS platforms adapted to your business processes. From multi-tenant authentication to analytics dashboards, every feature is tailored to your industry and users.',
+          'We build the whole product: your customers\' mobile app, the multi-tenant backend, the admin area and the dashboards. Authentication, subscriptions, push notifications, offline sync — every building block is designed for your users and your business model.',
       'de':
-          'Wir entwickeln robuste SaaS-Plattformen, die an Ihre Geschäftsprozesse angepasst sind. Von der Multi-Tenant-Authentifizierung bis zu Analyse-Dashboards — jede Funktion ist auf Ihre Branche und Benutzer zugeschnitten.'
+          'Wir bauen das ganze Produkt: die mobile App Ihrer Kunden, das mandantenfähige Backend, den Admin-Bereich und die Dashboards. Authentifizierung, Abonnements, Push-Benachrichtigungen, Offline-Sync — jeder Baustein ist auf Ihre Nutzer und Ihr Geschäftsmodell ausgelegt.',
     },
     'ss.panel1_link': {
-      'fr': 'Voir nos solutions SaaS',
-      'en': 'View our SaaS solutions',
-      'de': 'Unsere SaaS-Lösungen ansehen'
+      'fr': 'Voir nos SaaS mobiles',
+      'en': 'See our mobile SaaS products',
+      'de': 'Unsere Mobile-SaaS-Produkte ansehen',
     },
     'ss.panel2_tag': {
       'fr': 'DESIGN & UX',
@@ -522,9 +550,9 @@ class Translations {
       'de': 'UNSERE METHODE'
     },
     'ps.title': {
-      'fr': 'De l\'idée au produit en 4 étapes',
-      'en': 'From idea to product in 4 steps',
-      'de': 'Von der Idee zum Produkt in 4 Schritten'
+      'fr': 'De l\'idée à l\'app publiée en 4 étapes',
+      'en': 'From idea to published app in 4 steps',
+      'de': 'Von der Idee zur veröffentlichten App in 4 Schritten',
     },
     'ps.subtitle': {
       'fr':
@@ -554,11 +582,11 @@ class Translations {
     },
     'ps.step2_desc': {
       'fr':
-          'Maquettes interactives et architecture cloud validées ensemble avant d\'écrire la première ligne de code.',
+          'Maquettes mobiles interactives et architecture cloud validées ensemble avant d\'écrire la première ligne de code.',
       'en':
-          'Interactive mockups and cloud architecture validated together before writing the first line of code.',
+          'Interactive mobile mockups and cloud architecture validated together before writing the first line of code.',
       'de':
-          'Interaktive Mockups und Cloud-Architektur werden gemeinsam validiert, bevor die erste Codezeile geschrieben wird.'
+          'Interaktive mobile Mockups und Cloud-Architektur werden gemeinsam validiert, bevor die erste Codezeile geschrieben wird.',
     },
     'ps.step3_title': {
       'fr': 'Développement Agile',
@@ -574,75 +602,101 @@ class Translations {
           'Zweiwöchige Sprints mit Demo bei jeder Iteration. Sie validieren, wir machen weiter — keine Überraschungen bei der Lieferung.'
     },
     'ps.step4_title': {
-      'fr': 'Déploiement & Support',
-      'en': 'Deployment & Support',
-      'de': 'Bereitstellung & Support'
+      'fr': 'Stores & Support',
+      'en': 'App Stores & Support',
+      'de': 'App Stores & Support',
     },
     'ps.step4_desc': {
       'fr':
-          'Mise en production sécurisée, monitoring continu et accompagnement post-lancement pour que votre produit performe dès J+1.',
+          'Publication sur l\'App Store et Google Play, monitoring continu, mises à jour régulières et accompagnement pour faire grandir votre base d\'utilisateurs.',
       'en':
-          'Secure production deployment, continuous monitoring and post-launch support so your product performs from day one.',
+          'Publishing on the App Store and Google Play, continuous monitoring, regular updates and support to grow your user base.',
       'de':
-          'Sichere Produktionsbereitstellung, kontinuierliches Monitoring und Post-Launch-Support, damit Ihr Produkt ab Tag 1 funktioniert.'
+          'Veröffentlichung im App Store und bei Google Play, kontinuierliches Monitoring, regelmäßige Updates und Begleitung beim Wachstum Ihrer Nutzerbasis.',
     },
 
     // ── Testimonials ─────────────────────────────────────────────────
     'testi.badge': {
-      'fr': 'CE QU\'ILS EN DISENT',
-      'en': 'WHAT THEY SAY',
-      'de': 'WAS SIE SAGEN'
+      'fr': 'NOS PREMIERS CLIENTS',
+      'en': 'OUR FIRST CLIENTS',
+      'de': 'UNSERE ERSTEN KUNDEN',
     },
     'testi.title': {
-      'fr': 'La confiance de nos clients,\nnotre meilleure référence',
-      'en': 'Our clients\' trust,\nour best reference',
-      'de': 'Das Vertrauen unserer Kunden,\nunsere beste Referenz'
+      'fr': 'Nous démarrons.\nSoyez le premier à nous mettre au défi.',
+      'en': 'We\'re just starting.\nBe the first to challenge us.',
+      'de': 'Wir fangen gerade an.\nFordern Sie uns als Erster heraus.',
     },
-    'testi.quote1': {
+    'testi.subtitle': {
       'fr':
-          'Regisse__ a transformé notre vision en un produit concret en moins de 6 semaines. L\'équipe allie rigueur technique et compréhension métier.',
+          'Pas encore d\'avis clients à afficher : à vous d\'écrire le premier. En attendant, nos propres apps — Akwaba Ivoire, Djassa, Immoizi — tournent déjà, et vous pouvez les essayer en direct.',
       'en':
-          'Regisse__ turned our vision into a concrete product in less than 6 weeks. The team combines technical rigor with business understanding.',
+          'No client reviews to show yet: yours could be the first. Meanwhile, our own apps — Akwaba Ivoire, Djassa, Immoizi — are already running, and you can try them live.',
       'de':
-          'Regisse__ hat unsere Vision in weniger als 6 Wochen in ein konkretes Produkt verwandelt. Das Team verbindet technische Genauigkeit mit Geschäftsverständnis.'
+          'Noch keine Kundenstimmen: Ihre könnte die erste sein. Unsere eigenen Apps — Akwaba Ivoire, Djassa, Immoizi — laufen bereits, und Sie können sie live ausprobieren.',
     },
-    'testi.role1_company': {
-      'fr': 'CEO • FinnoTech GmbH',
-      'en': 'CEO • FinnoTech GmbH',
-      'de': 'CEO • FinnoTech GmbH'
+    'testi.perk1_title': {
+      'fr': 'Toute notre attention',
+      'en': 'Our full attention',
+      'de': 'Unsere volle Aufmerksamkeit',
     },
-    'testi.quote2': {
+    'testi.perk1_desc': {
       'fr':
-          'Notre plateforme de réservation était vieillissante. Regisse__ l\'a entièrement repensée. Résultat : +34 % de conversions dès le premier mois.',
+          'Vous échangez directement avec les développeurs qui construisent votre app, sans intermédiaire.',
       'en':
-          'Our booking platform was outdated. Regisse__ completely redesigned it. Result: +34 % conversions from the first month.',
+          'You talk directly to the developers building your app, with no middleman.',
       'de':
-          'Unsere Buchungsplattform war veraltet. Regisse__ hat sie komplett neu gestaltet. Ergebnis: +34 % Conversions ab dem ersten Monat.'
+          'Sie sprechen direkt mit den Entwicklern Ihrer App, ohne Zwischenstelle.',
     },
-    'testi.role2_company': {
-      'fr': 'Directrice Digitale • Tourisma SA',
-      'en': 'Digital Director • Tourisma SA',
-      'de': 'Digitaldirektorin • Tourisma SA'
+    'testi.perk2_title': {
+      'fr': 'Votre avis compte vraiment',
+      'en': 'Your feedback really counts',
+      'de': 'Ihr Feedback zählt wirklich',
     },
-    'testi.quote3': {
+    'testi.perk2_desc': {
       'fr':
-          'Ce qui m\'a convaincu, c\'est leur approche structurée : atelier de cadrage sérieux, maquettes validées avant tout développement, et livraisons ponctuelles.',
+          'Vos retours façonnent nos offres et notre façon de travailler. Vous ne serez pas un client parmi d\'autres.',
       'en':
-          'What convinced me was their structured approach: thorough discovery workshop, validated mockups before development, and on-time deliveries.',
+          'Your feedback shapes our offers and the way we work. You won\'t be just another client.',
       'de':
-          'Was mich überzeugt hat, war ihr strukturierter Ansatz: gründlicher Discovery-Workshop, validierte Mockups vor der Entwicklung und pünktliche Lieferungen.'
+          'Ihr Feedback prägt unsere Angebote und Arbeitsweise. Sie sind nicht irgendein Kunde.',
     },
-    'testi.role3_company': {
-      'fr': 'CTO • LogiSoft Africa',
-      'en': 'CTO • LogiSoft Africa',
-      'de': 'CTO • LogiSoft Africa'
+    'testi.perk3_title': {
+      'fr': 'Une vitrine pour votre projet',
+      'en': 'A showcase for your project',
+      'de': 'Ein Schaufenster für Ihr Projekt',
+    },
+    'testi.perk3_desc': {
+      'fr':
+          'Avec votre accord, votre app figure parmi nos premières références, sur notre site et notre blog.',
+      'en':
+          'With your consent, your app becomes one of our first references, on our website and blog.',
+      'de':
+          'Mit Ihrer Zustimmung wird Ihre App eine unserer ersten Referenzen, auf unserer Website und im Blog.',
+    },
+    'testi.cta': {
+      'fr': 'Devenir notre premier client',
+      'en': 'Become our first client',
+      'de': 'Unser erster Kunde werden',
+    },
+    'testi.cta_secondary': {
+      'fr': 'Essayer nos apps',
+      'en': 'Try our apps',
+      'de': 'Unsere Apps ausprobieren',
+    },
+    'wa.first_client': {
+      'fr':
+          'Bonjour, je veux bien être l\'un de vos premiers clients ! Voici mon projet :',
+      'en':
+          'Hello, I\'d like to be one of your first clients! Here is my project:',
+      'de':
+          'Hallo, ich möchte einer Ihrer ersten Kunden sein! Hier ist mein Projekt:',
     },
 
     // ── Footer ───────────────────────────────────────────────────────
     'footer.tagline': {
-      'fr': 'Transformez vos idées en solutions digitales.',
-      'en': 'Turn your ideas into digital solutions.',
-      'de': 'Verwandeln Sie Ihre Ideen in digitale Lösungen.'
+      'fr': 'Votre SaaS mobile, conçu pour grandir.',
+      'en': 'Your mobile SaaS, built to grow.',
+      'de': 'Ihr Mobile SaaS, gebaut zum Wachsen.',
     },
     'footer.links_title': {
       'fr': 'LIENS UTILES',
@@ -724,6 +778,107 @@ class Translations {
           'Hallo, ich möchte eine digitale Lösung für meinen Markt in Afrika besprechen.'
     },
 
+    // ── Pricing (MVP offer), SEO page and blog links ────────────────
+    'menu.pricing': {
+      'fr': 'Tarifs',
+      'en': 'Pricing',
+      'de': 'Preise',
+    },
+    'footer.link_saas_mobile': {
+      'fr': 'Développement SaaS mobile',
+      'en': 'Mobile SaaS development',
+      'de': 'Mobile-SaaS-Entwicklung',
+    },
+    'pricing.badge': {
+      'fr': 'TARIF',
+      'en': 'PRICING',
+      'de': 'PREISE',
+    },
+    'pricing.title': {
+      'fr': 'Testez votre idée avec un MVP mobile',
+      'en': 'Test your idea with a mobile MVP',
+      'de': 'Testen Sie Ihre Idee mit einem mobilen MVP',
+    },
+    'pricing.subtitle': {
+      'fr':
+          'Un prototype fonctionnel de votre SaaS mobile, entre les mains de vos premiers utilisateurs — avant d\'investir dans la version complète.',
+      'en':
+          'A working prototype of your mobile SaaS in the hands of your first users — before you invest in the full version.',
+      'de':
+          'Ein funktionsfähiger Prototyp Ihres Mobile SaaS in den Händen Ihrer ersten Nutzer — bevor Sie in die Vollversion investieren.',
+    },
+    'pricing.offer': {
+      'fr': 'MVP (prototype) SaaS mobile',
+      'en': 'Mobile SaaS MVP (prototype)',
+      'de': 'Mobile-SaaS-MVP (Prototyp)',
+    },
+    'pricing.from': {
+      'fr': 'à partir de',
+      'en': 'from',
+      'de': 'ab',
+    },
+    'pricing.price': {
+      'fr': '250 000 FCFA',
+      'en': '250,000 FCFA',
+      'de': '250.000 FCFA',
+    },
+    'pricing.price_note': {
+      'fr': 'Prix indicatif HT · devis précis après l\'appel de cadrage',
+      'en': '≈ 381 € excl. VAT · exact quote after the scoping call',
+      'de': '≈ 381 € zzgl. MwSt. · genaues Angebot nach dem Erstgespräch',
+    },
+    'pricing.cta': {
+      'fr': 'Demander mon MVP',
+      'en': 'Request my MVP',
+      'de': 'Mein MVP anfragen',
+    },
+    'pricing.included': {
+      'fr': 'INCLUS',
+      'en': 'INCLUDED',
+      'de': 'INKLUSIVE',
+    },
+    'pricing.item1': {
+      'fr': 'Atelier de cadrage et parcours utilisateur',
+      'en': 'Scoping workshop and user journey',
+      'de': 'Workshop zur Planung und User Journey',
+    },
+    'pricing.item2': {
+      'fr': 'Jusqu\'à 5 écrans clés, à vos couleurs',
+      'en': 'Up to 5 key screens in your brand colors',
+      'de': 'Bis zu 5 Kernbildschirme in Ihren Markenfarben',
+    },
+    'pricing.item3': {
+      'fr': 'App Android et iOS (une seule base de code Flutter)',
+      'en': 'Android and iOS app (one Flutter codebase)',
+      'de': 'Android- und iOS-App (eine Flutter-Codebasis)',
+    },
+    'pricing.item4': {
+      'fr': 'Connexion utilisateur et back-end cloud de base',
+      'en': 'User login and a basic cloud backend',
+      'de': 'Benutzer-Login und ein einfaches Cloud-Backend',
+    },
+    'pricing.item5': {
+      'fr': 'Version de test installable + 1 cycle de retours',
+      'en': 'Installable test version + 1 round of feedback',
+      'de': 'Installierbare Testversion + 1 Feedbackrunde',
+    },
+    'pricing.options': {
+      'fr':
+          'En option : paiement Mobile Money, multi-tenant, abonnements, mode hors-ligne, publication sur l\'App Store et Google Play.',
+      'en':
+          'Options: mobile money payments, multi-tenancy, subscriptions, offline mode, App Store and Google Play publishing.',
+      'de':
+          'Optional: Mobile-Money-Zahlung, Mandantenfähigkeit, Abonnements, Offline-Modus, Veröffentlichung im App Store und bei Google Play.',
+    },
+    'wa.mvp': {
+      'fr':
+          'Bonjour, je suis intéressé(e) par votre offre MVP SaaS mobile à partir de 250 000 FCFA. Voici mon idée :',
+      'en':
+          'Hello, I\'m interested in your mobile SaaS MVP offer from 250,000 FCFA. Here is my idea:',
+      'de':
+          'Hallo, ich interessiere mich für Ihr Mobile-SaaS-MVP-Angebot ab 250.000 FCFA. Hier ist meine Idee:',
+    },
+
     // ── Language switcher ────────────────────────────────────────────
     'lang.fr': {'fr': 'Français', 'en': 'French', 'de': 'Französisch'},
     'lang.en': {'fr': 'Anglais', 'en': 'English', 'de': 'Englisch'},
@@ -742,11 +897,6 @@ class Translations {
     },
 
     // ── Footer extras ───────────────────────────────────────────────
-    'footer.youtube': {
-      'fr': 'Notre chaîne YouTube',
-      'en': 'Our YouTube channel',
-      'de': 'Unser YouTube-Kanal',
-    },
 
     // ── Language switcher ───────────────────────────────────────────
     'lang.tooltip': {

@@ -8,6 +8,7 @@ class HomeSections {
   static final services = GlobalKey(debugLabel: 'services');
   static final demo = GlobalKey(debugLabel: 'demo');
   static final process = GlobalKey(debugLabel: 'process');
+  static final pricing = GlobalKey(debugLabel: 'pricing');
   static final contact = GlobalKey(debugLabel: 'contact');
 }
 
