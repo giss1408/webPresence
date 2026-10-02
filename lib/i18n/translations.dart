@@ -451,25 +451,37 @@ class Translations {
     },
 
     // ── StatsRow ─────────────────────────────────────────────────────
-    'stats.projects': {
-      'fr': 'Projets livrés',
-      'en': 'Projects delivered',
-      'de': 'Gelieferte Projekte'
+
+    // ── StatsRow (only claims made elsewhere on the site) ─────────
+    'stats.apps': {
+      'fr': 'Apps à essayer en direct',
+      'en': 'Apps to try live',
+      'de': 'Apps live zum Ausprobieren',
     },
-    'stats.countries': {
-      'fr': 'Pays couverts',
-      'en': 'Countries covered',
-      'de': 'Abgedeckte Länder'
+    'stats.platforms': {
+      'fr': 'Plateformes, un seul code',
+      'en': 'Platforms, one codebase',
+      'de': 'Plattformen, eine Codebasis',
     },
-    'stats.satisfaction': {
-      'fr': 'Satisfaction client',
-      'en': 'Client satisfaction',
-      'de': 'Kundenzufriedenheit'
+    'stats.mvp_value': {
+      'fr': '4 sem.',
+      'en': '4 wks',
+      'de': '4 Wo.',
     },
-    'stats.time_to_market': {
-      'fr': 'Time to market',
-      'en': 'Time to market',
-      'de': 'Time to Market'
+    'stats.mvp': {
+      'fr': 'Pour un MVP sur les stores',
+      'en': 'To an MVP in the stores',
+      'de': 'Bis zum MVP in den Stores',
+    },
+    'stats.response_value': {
+      'fr': '24 h',
+      'en': '24 h',
+      'de': '24 Std.',
+    },
+    'stats.response': {
+      'fr': 'Pour vous répondre',
+      'en': 'To get back to you',
+      'de': 'Bis zur Antwort',
     },
 
     // ── ServicesShowcase ─────────────────────────────────────────────
@@ -885,16 +897,6 @@ class Translations {
     'lang.de': {'fr': 'Allemand', 'en': 'German', 'de': 'Deutsch'},
 
     // ── StatsRow values ─────────────────────────────────────────────
-    'stats.satisfaction_value': {
-      'fr': '98 %',
-      'en': '98%',
-      'de': '98 %',
-    },
-    'stats.ttm_value': {
-      'fr': '<4 sem.',
-      'en': '<4 wks',
-      'de': '<4 Wo.',
-    },
 
     // ── Footer extras ───────────────────────────────────────────────
 

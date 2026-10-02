@@ -1015,20 +1015,27 @@ class StatsRow extends StatelessWidget {
         rowMainAxisAlignment: MainAxisAlignment.spaceAround,
         columnSpacing: 32,
         children: [
+          // Only claims the site makes elsewhere: the three live demo apps,
+          // iOS / Android / web from one codebase, the MVP delay of the
+          // intro and the response time of the contact section.
           ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: _StatItem(
-                  value: '50+', label: localeProvider.tr('stats.projects'))),
+                  value: '3', label: localeProvider.tr('stats.apps'))),
           ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: _StatItem(
-                  value: '4', label: localeProvider.tr('stats.countries'))),
+                  value: '3', label: localeProvider.tr('stats.platforms'))),
           ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: _StatItem(
-                  value: localeProvider.tr('stats.satisfaction_value'),
-                  label: localeProvider.tr('stats.satisfaction'))),
+                  value: localeProvider.tr('stats.mvp_value'),
+                  label: localeProvider.tr('stats.mvp'))),
           ResponsiveRowColumnItem(
+              rowFlex: 1,
               child: _StatItem(
-                  value: localeProvider.tr('stats.ttm_value'),
-                  label: localeProvider.tr('stats.time_to_market'))),
+                  value: localeProvider.tr('stats.response_value'),
+                  label: localeProvider.tr('stats.response'))),
         ],
       ),
     );
