@@ -23,12 +23,7 @@ flutter pub get
 # visitor's device, so repeat visits open almost instantly, even on a poor
 # connection. After a deploy, returning visitors get the new version on
 # their next visit (flutter_service_worker.js is served with no-cache).
-# --web-renderer auto: phones get the HTML renderer and skip the 1.5 MB
-# CanvasKit download (half the data on mobile networks); desktops keep
-# CanvasKit. Newer Flutter versions drop the HTML renderer: when upgrading
-# FLUTTER_VERSION, check `flutter build web -h` and re-measure.
 flutter build web --release \
-  --web-renderer auto \
   --pwa-strategy=offline-first \
   --dart-define=APP_ENV="${APP_ENV:-production}"
 ./patch-service-worker.sh

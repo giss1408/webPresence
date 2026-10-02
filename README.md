@@ -34,10 +34,7 @@ keep warm, free tier friendly), described in `render.yaml`:
 3. Add your domain under **Settings → Custom Domains** (e.g. `regisse.de`).
 
 `render-build.sh` installs the pinned Flutter SDK and runs
-`flutter build web --release --pwa-strategy=offline-first --web-renderer auto`
-into `build/web`. `auto` gives phones Flutter's HTML renderer, which skips
-the 1.5 MB CanvasKit download (half the data on a first visit); desktops keep
-CanvasKit.
+`flutter build web --release --pwa-strategy=offline-first` into `build/web`.
 The service worker caches the site on visitors' devices: repeat visits open
 almost instantly, and after a deploy returning visitors see the new version
 on their next visit. `web/flutter_bootstrap.js` starts the app without
@@ -45,7 +42,7 @@ waiting for the service worker and installs it after the first frame, and
 `patch-service-worker.sh` (run after the build) makes its install revalidate
 instead of re-downloading, so a first visit fetches `main.dart.js` only once.
 Build locally the same way before testing offline behaviour:
-`flutter build web --release --pwa-strategy=offline-first --web-renderer auto && ./patch-service-worker.sh`.
+`flutter build web --release --pwa-strategy=offline-first && ./patch-service-worker.sh`.
 `render.yaml` also sets the security headers (CSP, frame, referrer and
 permissions policies) and the cache rules: the app entry points
 (`index.html`, `main.dart.js`, …) are revalidated on every visit because
