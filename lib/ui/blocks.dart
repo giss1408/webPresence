@@ -381,8 +381,10 @@ class GetStarted extends StatelessWidget {
               // ── Body description ──────────────────────────────────────────
               Padding(
                 padding: const EdgeInsets.only(bottom: 40),
-                child: RichText(
-                  text: TextSpan(
+                // Text.rich (not RichText) so the text inherits the theme
+                // color: RichText defaults to black, unreadable in dark mode.
+                child: Text.rich(
+                  TextSpan(
                     style: bodyTextStyle.copyWith(fontSize: 16, height: 1.8),
                     children: [
                       TextSpan(text: localeProvider.tr('gs.body_intro')),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_website/main.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/providers/theme_provider.dart';
+import 'package:flutter_website/ui/showcase/phone_frame.dart';
 import 'package:provider/provider.dart';
 
 /// Loads the real fonts so text measures like in the browser (the default
@@ -40,6 +42,38 @@ Widget _app({required bool dark, String locale = 'fr'}) {
   );
 }
 
+/// Texts whose effective color is black (or none, which paints black) in
+/// dark mode, e.g. a RichText that doesn't inherit the theme text color.
+List<String> _blackTexts(WidgetTester tester) {
+  final found = <String>[];
+  void walk(InlineSpan span, Color? inherited) {
+    final color = span.style?.color ?? inherited;
+    if (span is TextSpan) {
+      final text = span.text?.trim() ?? '';
+      if (text.isNotEmpty &&
+          (color == null || color.computeLuminance() < 0.02)) {
+        found.add(text);
+      }
+      for (final child in span.children ?? const <InlineSpan>[]) {
+        walk(child, color);
+      }
+    }
+  }
+
+  for (final element in find.byType(RichText).evaluate()) {
+    // Dark text on a light surface on purpose: the simulated phone screens
+    // and the selected half of the iOS / Android switch (bright cyan).
+    var onLightSurface = false;
+    element.visitAncestorElements((e) {
+      onLightSurface = e.widget is PhoneFrame || e.widget is SegmentedButton;
+      return !onLightSurface;
+    });
+    if (onLightSurface) continue;
+    walk((element.renderObject as RenderParagraph).text, null);
+  }
+  return found;
+}
+
 void main() {
   setUpAll(_loadFonts);
 
@@ -73,11 +107,14 @@ void main() {
 
           // Scroll through the whole page so every section is painted.
           final scrollable = find.byType(Scrollable).first;
+          final black = <String>{};
           for (var i = 0; i < 40; i++) {
+            if (dark) black.addAll(_blackTexts(tester));
             await tester.drag(scrollable, const Offset(0, -600));
             await tester.pump(const Duration(milliseconds: 50));
           }
           expect(tester.takeException(), isNull);
+          expect(black, isEmpty, reason: 'Texts painted black in dark mode');
 
           await tester.pumpWidget(const SizedBox());
         });
