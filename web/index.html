@@ -87,9 +87,7 @@
     #splash .text { display: inline-block; overflow: hidden; white-space: nowrap;
       max-width: 0; padding-bottom: .12em; animation: type 1.2s steps(28, end) .95s forwards; }
     #splash .caret { display: inline-block; flex: none; width: .55em; height: .2em; margin: 0 0 .16em 2px;
-      border-radius: 1em; background: #F77F00; animation: blink 1.1s linear 2.15s infinite; }
-    /* Flag colors: Mobile orange, Business in the text color, Technologies green. */
-    #splash .or { color: #F77F00; } #splash .gr { color: #009E60; }
+      border-radius: 1em; background: #FFB020; animation: blink 1.1s linear 2.15s infinite; }
     @keyframes type { to { max-width: var(--w, 20em); } }
     /* The R writes itself, then the amber "__" blinks like a text cursor
        for as long as loading takes. pathLength="1" on the R keeps the dash
@@ -143,17 +141,22 @@
 </head>
 <body>
   <div id="splash" role="status" aria-live="polite">
-    <!-- Brand mark (flag of Côte d'Ivoire), same as assets/images/logo.svg, inlined to animate it
+    <!-- Brand mark, same as assets/images/logo.svg, inlined to animate it
          with no extra request. -->
     <div class="logo" aria-label="Mobile Business Technologies">
     <svg viewBox="0 0 40 40" aria-hidden="true">
-      <defs><clipPath id="splash-flag"><rect x="0" y="0" width="40" height="40" rx="10"/></clipPath></defs>
-      <g clip-path="url(#splash-flag)"><rect x="0" y="0" width="13.43" height="40" fill="#F77F00"/><rect x="13.33" y="0" width="13.43" height="40" fill="#FFFFFF"/><rect x="26.67" y="0" width="13.33" height="40" fill="#009E60"/></g>
+      <defs>
+        <linearGradient id="splash-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1E96FF"/>
+          <stop offset="1" stop-color="#0B5FD0"/>
+        </linearGradient>
+      </defs>
+      <rect width="40" height="40" rx="10" fill="url(#splash-bg)"/>
       <path class="r" pathLength="1" d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29"
-            fill="none" stroke="#0D1B2A" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect class="cursor" x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#0D1B2A"/>
+            fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect class="cursor" x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/>
     </svg>
-    <span class="type" aria-hidden="true"><span class="text"><span class="or">Mobile</span> Business <span class="gr">Technologies</span></span><span class="caret"></span></span>
+    <span class="type" aria-hidden="true"><span class="text">Mobile Business Technologies</span><span class="caret"></span></span>
     </div>
     <!-- Real text while the app loads: visitors read the pitch right away,
          and crawlers (which can't see Flutter's canvas) index it. -->

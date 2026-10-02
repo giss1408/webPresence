@@ -7,10 +7,8 @@ import 'package:flutter_website/components/typography.dart';
 /// Brand text that runs out of the R mark.
 const brandText = 'Mobile Business Technologies';
 
-/// Flag of Côte d'Ivoire, as in the mark: the first word is orange, the
-/// last green, the middle one keeps the text color (the flag's white band).
-const _orange = Color(0xFFF77F00);
-const _green = Color(0xFF009E60);
+/// Amber, like the cursor of the mark.
+const _amber = Color(0xFFFFB020);
 
 /// The R mark followed by [brandText], typed out from the R behind an amber
 /// cursor that then blinks and stays.
@@ -109,19 +107,8 @@ class _AnimatedLogoState extends State<AnimatedLogo>
                         clipper: _RevealClipper(typed, cursorWidth),
                         child: Padding(
                           padding: EdgeInsets.only(right: cursorWidth + 2),
-                          child: Text.rich(
-                            TextSpan(children: [
-                              for (final (i, word)
-                                  in brandText.split(' ').indexed)
-                                TextSpan(
-                                  text: i == 0 ? word : ' $word',
-                                  style: i == 0
-                                      ? const TextStyle(color: _orange)
-                                      : i == 2
-                                          ? const TextStyle(color: _green)
-                                          : null,
-                                ),
-                            ]),
+                          child: Text(
+                            brandText,
                             maxLines: 1,
                             softWrap: false,
                             style: headlineSecondaryTextStyle.copyWith(
@@ -141,7 +128,7 @@ class _AnimatedLogoState extends State<AnimatedLogo>
                               width: cursorWidth,
                               height: widget.fontSize * 0.2,
                               decoration: BoxDecoration(
-                                color: _orange,
+                                color: _amber,
                                 borderRadius:
                                     BorderRadius.circular(widget.fontSize),
                               ),

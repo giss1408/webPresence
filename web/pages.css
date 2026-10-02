@@ -53,9 +53,6 @@ img { max-width: 100%; height: auto; }
 .bar .wrap { display: flex; align-items: center; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; }
 .brand svg { width: 32px; height: 32px; flex: none; }
-/* Brand text in the flag colors, like the logo. */
-.brand .or { color: #F77F00; }
-.brand .gr { color: #009E60; }
 .bar nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; }
 .bar nav a { color: var(--muted); text-decoration: none; }
 .bar nav a:hover, .bar nav a[aria-current] { color: var(--accent); }
