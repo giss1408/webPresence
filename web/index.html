@@ -51,10 +51,26 @@
        fonts in pubspec.yaml and the first carousel slide. -->
   <link rel="preload" as="fetch" crossorigin href="assets/FontManifest.json">
   <link rel="preload" as="fetch" crossorigin href="assets/AssetManifest.bin.json">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_regular.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/product_sans_bold.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_regular.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_bold.ttf">
+  <!-- Fonts: built with --web-renderer auto, phones get the HTML renderer,
+       which loads fonts as web fonts (as="font"), and desktops CanvasKit,
+       which fetch()es them (as="fetch"). A preload of the wrong type is not
+       reused and the font downloads twice. Same phone test as Flutter's. -->
+  <script>
+    (function () {
+      var p = navigator.platform || '';
+      var phone = /Android|iPhone|iPad|iPod/.test(navigator.userAgent) ||
+          (p.indexOf('Mac') === 0 && navigator.maxTouchPoints > 2);
+      ['product_sans_regular', 'product_sans_bold', 'roboto_regular', 'roboto_bold'].forEach(function (font) {
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = phone ? 'font' : 'fetch';
+        if (phone) link.type = 'font/ttf';
+        link.crossOrigin = 'anonymous';
+        link.href = 'assets/assets/fonts/' + font + '.ttf';
+        document.head.appendChild(link);
+      });
+    })();
+  </script>
   <!-- First screen's images, at low priority so they don't slow the above. -->
   <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/logo.svg">
   <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/packages/country_flags/res/si/ci.si">

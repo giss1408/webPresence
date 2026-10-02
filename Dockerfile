@@ -12,7 +12,9 @@ COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
 COPY . .
+# --web-renderer auto: see render-build.sh.
 RUN flutter build web --release --pwa-strategy=offline-first \
+    --web-renderer auto \
     && ./patch-service-worker.sh
 
 # ─── Stage 2: Serve ───────────────────────────────────────────────────────────
