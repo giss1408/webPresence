@@ -12,7 +12,7 @@ export 'modern_spacing.dart';
 export 'modern_shadows.dart';
 
 // New feature components
-export 'floating_whatsapp_button.dart';
+export 'contact_chooser.dart';
 export 'motion.dart';
 export 'language_switcher_menu.dart';
 export 'animated_logo.dart';

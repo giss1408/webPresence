@@ -122,6 +122,29 @@ void main() {
     }
   }
 
+  testWidgets('request buttons ask: WhatsApp or e-mail', (tester) async {
+    tester.view.physicalSize = const Size(1280, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(_app(dark: false));
+    await tester.pump(const Duration(seconds: 1));
+
+    final button = find.text('Démarrer mon projet').first;
+    // Mid-screen: at the top it would sit under the app bar.
+    Scrollable.ensureVisible(tester.element(button), alignment: 0.5);
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.tap(button);
+    await tester.pump(const Duration(seconds: 1));
+
+    expect(
+        find.text('Comment souhaitez-vous nous contacter ?'), findsOneWidget);
+    expect(find.text('WhatsApp'), findsOneWidget);
+    expect(find.text('E-mail'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+
+    await tester.pumpWidget(const SizedBox());
+  });
+
   const routes = [
     '/portfolio',
   ];

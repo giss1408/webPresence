@@ -65,7 +65,7 @@ class AppConfig {
       };
 
   /// Business info
-  static const String companyName = 'Regisse__ GmbH';
+  static const String companyName = 'Regisse - Mobile Business Technologies';
   static const String companyEmail = 'ptck2e@duck.com';
   static const String companyWebsite = 'https://regisse.de';
 }

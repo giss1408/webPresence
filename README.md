@@ -1,4 +1,4 @@
-# Regisse__ #Business Solutions — website
+# Regisse - Mobile Business Technologies — website
 
 Company website (Flutter web): digital solutions for projects in Africa.
 French / English / German, light and dark mode.

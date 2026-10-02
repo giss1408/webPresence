@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
-import 'package:flutter_website/services/whatsapp_service.dart';
 import 'package:flutter_website/providers/theme_provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/ui/section_nav.dart';
@@ -122,9 +121,7 @@ class WebsiteMenuBar extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       Navigator.pop(ctx);
-                      WhatsAppService.openWhatsApp(
-                        message: localeProvider.tr('wa.project'),
-                      );
+                      showContactChooser(context, messageKey: 'wa.project');
                     },
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all<Color>(primary),
@@ -423,9 +420,8 @@ class GetStarted extends StatelessWidget {
                 runSpacing: 12,
                 children: [
                   TextButton(
-                    onPressed: () => WhatsAppService.openWhatsApp(
-                      message: localeProvider.tr('wa.project'),
-                    ),
+                    onPressed: () =>
+                        showContactChooser(context, messageKey: 'wa.project'),
                     style: ButtonStyle(
                         backgroundColor:
                             WidgetStateProperty.all<Color>(primary),
@@ -898,9 +894,8 @@ class InstallFlutter extends StatelessWidget {
                 runSpacing: 12,
                 children: [
                   TextButton(
-                    onPressed: () => WhatsAppService.openWhatsApp(
-                      message: localeProvider.tr('wa.appointment'),
-                    ),
+                    onPressed: () => showContactChooser(context,
+                        messageKey: 'wa.appointment'),
                     style: ButtonStyle(
                         backgroundColor:
                             WidgetStateProperty.all<Color>(primary),
@@ -1465,9 +1460,7 @@ class PricingOffer extends StatelessWidget {
             textAlign: isDesktop ? TextAlign.start : TextAlign.center),
         const SizedBox(height: 28),
         FilledButton.icon(
-          onPressed: () => WhatsAppService.openWhatsApp(
-            message: localeProvider.tr('wa.mvp'),
-          ),
+          onPressed: () => showContactChooser(context, messageKey: 'wa.mvp'),
           style: FilledButton.styleFrom(
             backgroundColor: primary,
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 28),
@@ -1660,9 +1653,8 @@ class Testimonials extends StatelessWidget {
             runSpacing: 12,
             children: [
               FilledButton.icon(
-                onPressed: () => WhatsAppService.openWhatsApp(
-                  message: localeProvider.tr('wa.first_client'),
-                ),
+                onPressed: () =>
+                    showContactChooser(context, messageKey: 'wa.first_client'),
                 style: FilledButton.styleFrom(
                   backgroundColor: primary,
                   padding:
@@ -1855,9 +1847,8 @@ class DigitalSolutionsAfrica extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 FilledButton.icon(
-                  onPressed: () => WhatsAppService.openWhatsApp(
-                    message: localeProvider.tr('wa.africa'),
-                  ),
+                  onPressed: () =>
+                      showContactChooser(context, messageKey: 'wa.africa'),
                   style: FilledButton.styleFrom(
                     backgroundColor: primary,
                     padding: const EdgeInsets.symmetric(

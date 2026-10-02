@@ -4,12 +4,9 @@ class Translations {
   static const Map<String, Map<String, String>> _data = {
     // ── Global / Shared ──────────────────────────────────────────────
     'app.title': {
-      'fr':
-          'Regisse__ #Business Solutions — Développement SaaS mobile (iOS, Android, Web)',
-      'en':
-          'Regisse__ #Business Solutions — Mobile SaaS Development (iOS, Android, Web)',
-      'de':
-          'Regisse__ #Business Solutions — Mobile-SaaS-Entwicklung (iOS, Android, Web)',
+      'fr': 'Regisse - Mobile Business Technologies',
+      'en': 'Regisse - Mobile Business Technologies',
+      'de': 'Regisse - Mobile Business Technologies',
     },
     'menu.home': {'fr': 'Accueil', 'en': 'Home', 'de': 'Startseite'},
     'menu.services': {'fr': 'Services', 'en': 'Services', 'de': 'Leistungen'},
@@ -190,11 +187,6 @@ class Translations {
       'fr': 'Mode clair',
       'en': 'Light mode',
       'de': 'Heller Modus'
-    },
-    'back_to_top': {
-      'fr': 'Retour en haut',
-      'en': 'Back to top',
-      'de': 'Nach oben'
     },
 
     // ── Features ─────────────────────────────────────────────────────
@@ -747,16 +739,43 @@ class Translations {
       'de': 'Berlin · Paris · Remote'
     },
     'footer.copyright': {
-      'fr': 'Regisse__ GmbH. Tous droits réservés.',
-      'en': 'Regisse__ GmbH. All rights reserved.',
-      'de': 'Regisse__ GmbH. Alle Rechte vorbehalten.'
+      'fr': 'Regisse - Mobile Business Technologies. Tous droits réservés.',
+      'en': 'Regisse - Mobile Business Technologies. All rights reserved.',
+      'de': 'Regisse - Mobile Business Technologies. Alle Rechte vorbehalten.'
     },
 
     // ── WhatsApp button ──────────────────────────────────────────────
-    'whatsapp.chat': {
-      'fr': 'Discuter sur WhatsApp',
-      'en': 'Chat with us on WhatsApp',
-      'de': 'Chat auf WhatsApp'
+
+    // ── Contact chooser (WhatsApp or e-mail) ─────────────────────────
+    'contact.title': {
+      'fr': 'Comment souhaitez-vous nous contacter ?',
+      'en': 'How would you like to reach us?',
+      'de': 'Wie möchten Sie uns kontaktieren?',
+    },
+    'contact.subtitle': {
+      'fr': 'Votre message est déjà rédigé : il ne reste qu\'à l\'envoyer.',
+      'en': 'Your message is already written: just send it.',
+      'de': 'Ihre Nachricht ist schon geschrieben: einfach absenden.',
+    },
+    'contact.whatsapp': {
+      'fr': 'WhatsApp',
+      'en': 'WhatsApp',
+      'de': 'WhatsApp',
+    },
+    'contact.whatsapp_hint': {
+      'fr': 'Réponse rapide, directement sur votre téléphone',
+      'en': 'Quick reply, right on your phone',
+      'de': 'Schnelle Antwort, direkt auf Ihrem Handy',
+    },
+    'contact.email': {
+      'fr': 'E-mail',
+      'en': 'E-mail',
+      'de': 'E-Mail',
+    },
+    'contact.mail_subject': {
+      'fr': 'Demande de projet — Regisse',
+      'en': 'Project request — Regisse',
+      'de': 'Projektanfrage — Regisse',
     },
 
     // ── WhatsApp service messages ────────────────────────────────────
@@ -772,19 +791,19 @@ class Translations {
     },
     'wa.project': {
       'fr':
-          'Bonjour, j\'aimerais discuter de mon projet digital avec Regisse__. Pouvez-vous m\'aider?',
+          'Bonjour, j\'aimerais discuter de mon projet digital avec Regisse. Pouvez-vous m\'aider?',
       'en':
-          'Hello, I\'d like to discuss my digital project with Regisse__. Can you help me?',
+          'Hello, I\'d like to discuss my digital project with Regisse. Can you help me?',
       'de':
-          'Hallo, ich möchte mein digitales Projekt mit Regisse__ besprechen. Können Sie mir helfen?'
+          'Hallo, ich möchte mein digitales Projekt mit Regisse besprechen. Können Sie mir helfen?'
     },
     'wa.appointment': {
       'fr':
-          'Bonjour, j\'aimerais prendre rendez-vous avec Regisse__ pour discuter de mon projet digital.',
+          'Bonjour, j\'aimerais prendre rendez-vous avec Regisse pour discuter de mon projet digital.',
       'en':
-          'Hello, I\'d like to book an appointment with Regisse__ to discuss my digital project.',
+          'Hello, I\'d like to book an appointment with Regisse to discuss my digital project.',
       'de':
-          'Hallo, ich möchte einen Termin mit Regisse__ vereinbaren, um mein digitales Projekt zu besprechen.'
+          'Hallo, ich möchte einen Termin mit Regisse vereinbaren, um mein digitales Projekt zu besprechen.'
     },
     'wa.africa': {
       'fr':

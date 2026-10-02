@@ -8,7 +8,6 @@ import 'package:flutter_website/providers/theme_provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/services/analytics_service.dart';
 import 'package:flutter_website/services/error_handler.dart';
-import 'package:flutter_website/components/floating_whatsapp_button.dart';
 import 'package:flutter_website/ui/block_wrapper.dart';
 import 'package:flutter_website/ui/carousel/carousel.dart';
 import 'package:flutter_website/ui/blocks.dart';
@@ -84,14 +83,10 @@ class _HomePage extends StatefulWidget {
 
 class _HomePageState extends State<_HomePage> {
   final ScrollController _scrollController = ScrollController();
-  final ValueNotifier<bool> _showBackToTop = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      _showBackToTop.value = _scrollController.offset > 600;
-    });
 
     // Track page view
     AnalyticsService().trackPageView('home');
@@ -100,16 +95,7 @@ class _HomePageState extends State<_HomePage> {
   @override
   void dispose() {
     _scrollController.dispose();
-    _showBackToTop.dispose();
     super.dispose();
-  }
-
-  void _scrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
   }
 
   @override
@@ -124,33 +110,14 @@ class _HomePageState extends State<_HomePage> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          // A Column (not a lazy ListView) so every section is laid out and
-          // the menu / in-page links can scroll to it.
-          DefaultTextStyle.merge(
-            // Sections leave body text uncolored so it follows the theme.
-            style: TextStyle(color: context.palette.textPrimary),
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(children: blocks),
-            ),
-          ),
-          const FloatingWhatsAppButton(
-            templateKey: 'general',
-          ),
-        ],
-      ),
-      floatingActionButton: ValueListenableBuilder<bool>(
-        valueListenable: _showBackToTop,
-        builder: (context, show, _) => AnimatedScale(
-          scale: show ? 1 : 0,
-          duration: const Duration(milliseconds: 200),
-          child: FloatingActionButton.small(
-            onPressed: _scrollToTop,
-            tooltip: context.read<LocaleProvider>().tr('back_to_top'),
-            child: const Icon(Icons.arrow_upward),
-          ),
+      // A Column (not a lazy ListView) so every section is laid out and
+      // the menu / in-page links can scroll to it.
+      body: DefaultTextStyle.merge(
+        // Sections leave body text uncolored so it follows the theme.
+        style: TextStyle(color: context.palette.textPrimary),
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(children: blocks),
         ),
       ),
     );
