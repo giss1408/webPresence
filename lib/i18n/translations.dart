@@ -632,11 +632,11 @@ class Translations {
     },
     'testi.subtitle': {
       'fr':
-          'Pas encore d\'avis clients à afficher : à vous d\'écrire le premier. En attendant, nos propres apps — Akwaba Ivoire, Djassa, Immoizi — tournent déjà, et vous pouvez les essayer en direct.',
+          'Pas encore d\'avis clients à afficher : à vous d\'écrire le premier. En attendant, nos propres apps — Akwaba Ivoire, Hossouko, Immoizi — tournent déjà, et vous pouvez les essayer en direct.',
       'en':
-          'No client reviews to show yet: yours could be the first. Meanwhile, our own apps — Akwaba Ivoire, Djassa, Immoizi — are already running, and you can try them live.',
+          'No client reviews to show yet: yours could be the first. Meanwhile, our own apps — Akwaba Ivoire, Hossouko, Immoizi — are already running, and you can try them live.',
       'de':
-          'Noch keine Kundenstimmen: Ihre könnte die erste sein. Unsere eigenen Apps — Akwaba Ivoire, Djassa, Immoizi — laufen bereits, und Sie können sie live ausprobieren.',
+          'Noch keine Kundenstimmen: Ihre könnte die erste sein. Unsere eigenen Apps — Akwaba Ivoire, Hossouko, Immoizi — laufen bereits, und Sie können sie live ausprobieren.',
     },
     'testi.perk1_title': {
       'fr': 'Toute notre attention',
@@ -960,17 +960,17 @@ class Translations {
       'de':
           'Reise-App: Reiseziele, Buchungen mit Stripe-Zahlung, lokale Guides über WhatsApp und verifizierte Bewertungen, dazu eine App zur Katalogverwaltung.',
     },
-    'portfolio.djassa_title': {
-      'fr': 'Djassa',
-      'en': 'Djassa',
-      'de': 'Djassa',
+    'portfolio.hossouko_title': {
+      'fr': 'Hossouko',
+      'en': 'Hossouko',
+      'de': 'Hossouko',
     },
-    'portfolio.djassa_subtitle': {
+    'portfolio.hossouko_subtitle': {
       'fr': 'Inclusion financière des commerçants',
       'en': 'Financial inclusion for merchants',
       'de': 'Finanzielle Inklusion für Händler',
     },
-    'portfolio.djassa_desc': {
+    'portfolio.hossouko_desc': {
       'fr':
           'App de caisse pour petits commerçants : chaque vente enregistrée, même sans réseau, devient un historique d’activité. Pensée pour les vieux téléphones Android et le faible débit.',
       'en':
@@ -1429,11 +1429,11 @@ class Translations {
     },
     'sync.body': {
       'fr':
-          'En Afrique, la connexion est souvent intermittente. Nos apps continuent de fonctionner sans réseau, puis se synchronisent toutes seules — comme Djassa, notre app de caisse pour commerçants.',
+          'En Afrique, la connexion est souvent intermittente. Nos apps continuent de fonctionner sans réseau, puis se synchronisent toutes seules — comme Hossouko, notre app de caisse pour commerçants.',
       'en':
-          'Across Africa, connectivity is often patchy. Our apps keep working without a network, then sync on their own — like Djassa, our sales app for merchants.',
+          'Across Africa, connectivity is often patchy. Our apps keep working without a network, then sync on their own — like Hossouko, our sales app for merchants.',
       'de':
-          'In Afrika ist die Verbindung oft unterbrochen. Unsere Apps arbeiten ohne Netz weiter und synchronisieren sich dann selbst — wie Djassa, unsere Kassen-App für Händler.',
+          'In Afrika ist die Verbindung oft unterbrochen. Unsere Apps arbeiten ohne Netz weiter und synchronisieren sich dann selbst — wie Hossouko, unsere Kassen-App für Händler.',
     },
     'sync.phase1': {
       'fr': 'Chaque vente est d\'abord enregistrée sur le téléphone',
@@ -1502,13 +1502,13 @@ class Translations {
       'de': 'Zucker 1 kg',
     },
 
-    // ── Live demo: Djassa for customers ─────────────────────────────
-    'portfolio.djassa_user_subtitle': {
+    // ── Live demo: Hossouko for customers ─────────────────────────────
+    'portfolio.hossouko_user_subtitle': {
       'fr': 'Maquis, pharmacies de garde et paiement',
       'en': 'Maquis, on-duty pharmacies and payments',
       'de': 'Maquis, Notdienst-Apotheken und Zahlungen',
     },
-    'portfolio.djassa_user_desc': {
+    'portfolio.hossouko_user_desc': {
       'fr':
           'App grand public : trouver un maquis ou la pharmacie de garde la plus proche, payer en scannant le QR code du commerçant avec son mobile money et cumuler des points fidélité.',
       'en':
@@ -1586,10 +1586,10 @@ class Translations {
       'en': 'Maquis near you',
       'de': 'Maquis in der Nähe',
     },
-    'demo.dju.djassa_pay': {
-      'fr': 'Paiement Djassa',
-      'en': 'Djassa Pay',
-      'de': 'Djassa Pay',
+    'demo.dju.hossouko_pay': {
+      'fr': 'Paiement Hossouko',
+      'en': 'Hossouko Pay',
+      'de': 'Hossouko Pay',
     },
     'demo.dju.pharmacies': {
       'fr': 'Pharmacies de garde',

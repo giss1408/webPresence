@@ -68,7 +68,7 @@ the image tag in `Dockerfile` together.
 | `lib/ui/blocks.dart` | Home page sections, header, footer |
 | `lib/ui/carousel/` | Hero carousel |
 | `lib/ui/section_nav.dart` | Menu / in-page scrolling anchors |
-| `lib/ui/showcase/` | Live phone demo (scripted Akwaba / Djassa / Immoizi flows, iOS ⇄ Android), offline-sync animation, screen-recording player |
+| `lib/ui/showcase/` | Live phone demo (scripted Akwaba / Hossouko / Immoizi flows, iOS ⇄ Android), offline-sync animation, screen-recording player |
 | `lib/components/motion.dart` | Scroll animations: `Reveal` (fade/slide in), `CountUp` (stats), `OnScreen` (pauses loops off screen) |
 | `lib/components/app_palette.dart` | Light / dark colors and breakpoints (`context.palette`, `context.isMobile`) |
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |

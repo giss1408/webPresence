@@ -4,7 +4,7 @@ import 'package:flutter_website/ui/showcase/demo_kit.dart';
 import 'package:provider/provider.dart';
 
 /// The products shown in the live phone demo.
-enum DemoApp { akwaba, djassa, djassaUser, immoizi }
+enum DemoApp { akwaba, hossouko, hossoukoUser, immoizi }
 
 /// One step of a demo script: the screen shown, what the caption under the
 /// phone says, and (optionally) the target the scripted finger taps at the
@@ -44,7 +44,7 @@ class DemoAppSpec {
   final String name;
 
   /// Translation key of a suffix telling apart two apps of one product
-  /// ("Djassa · Customers").
+  /// ("Hossouko · Customers").
   final String? tag;
   final Color seed;
   final IconData icon;
@@ -76,8 +76,8 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
       _ => const _AkwabaConfirmed(),
     },
   ),
-  DemoApp.djassa: DemoAppSpec(
-    name: 'Djassa',
+  DemoApp.hossouko: DemoAppSpec(
+    name: 'Hossouko',
     tag: 'demo.dj.tag',
     seed: const Color(0xFFD1571E),
     icon: Icons.storefront,
@@ -89,14 +89,14 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
           screen: 'home', caption: 'demo.dj.step4', notice: 'demo.dj.notice'),
     ],
     build: (step) => switch (step) {
-      0 => const _DjassaHome(stage: _SaleStage.offline),
-      1 => const _DjassaNewSale(),
-      2 => const _DjassaHome(stage: _SaleStage.saved),
-      _ => const _DjassaHome(stage: _SaleStage.synced),
+      0 => const _HossoukoHome(stage: _SaleStage.offline),
+      1 => const _HossoukoNewSale(),
+      2 => const _HossoukoHome(stage: _SaleStage.saved),
+      _ => const _HossoukoHome(stage: _SaleStage.synced),
     },
   ),
-  DemoApp.djassaUser: DemoAppSpec(
-    name: 'Djassa',
+  DemoApp.hossoukoUser: DemoAppSpec(
+    name: 'Hossouko',
     tag: 'demo.dju.tag',
     seed: const Color(0xFFC94A22),
     icon: Icons.local_pharmacy,
@@ -116,11 +116,11 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
           notice: 'demo.dju.notice'),
     ],
     build: (step) => switch (step) {
-      0 => const _DjassaUserHome(target: 'dju.duty'),
+      0 => const _HossoukoUserHome(target: 'dju.duty'),
       1 => const _OnDutyPharmacies(),
-      2 => const _DjassaUserHome(target: 'dju.maquis'),
+      2 => const _HossoukoUserHome(target: 'dju.maquis'),
       3 => const _MaquisVenue(),
-      _ => const _DjassaUserPaid(),
+      _ => const _HossoukoUserPaid(),
     },
   ),
   DemoApp.immoizi: DemoAppSpec(
@@ -816,12 +816,12 @@ class _AkwabaConfirmed extends StatelessWidget {
   }
 }
 
-// ─── Djassa (merchant sales, offline-first) ───────────────────────────────────
+// ─── Hossouko (merchant sales, offline-first) ───────────────────────────────────
 
 enum _SaleStage { offline, saved, synced }
 
-class _DjassaHome extends StatelessWidget {
-  const _DjassaHome({required this.stage});
+class _HossoukoHome extends StatelessWidget {
+  const _HossoukoHome({required this.stage});
 
   final _SaleStage stage;
 
@@ -1071,8 +1071,8 @@ class _SaleRow extends StatelessWidget {
   }
 }
 
-class _DjassaNewSale extends StatelessWidget {
-  const _DjassaNewSale();
+class _HossoukoNewSale extends StatelessWidget {
+  const _HossoukoNewSale();
 
   @override
   Widget build(BuildContext context) {
@@ -1485,12 +1485,12 @@ class _ImmoUnits extends StatelessWidget {
   }
 }
 
-// ─── Djassa for customers (maquis, on-duty pharmacies, pay) ──────────────────
+// ─── Hossouko for customers (maquis, on-duty pharmacies, pay) ──────────────────
 
-/// Pharmacy cross colour of the Djassa apps; distinct from the brand.
+/// Pharmacy cross colour of the Hossouko apps; distinct from the brand.
 const _pharmacy = Color(0xFF12855A);
 
-/// Djassa's gradient header: orange on most screens, green for pharmacies.
+/// Hossouko's gradient header: orange on most screens, green for pharmacies.
 class _GradientHeader extends StatelessWidget {
   const _GradientHeader({required this.colors, required this.child});
 
@@ -1515,9 +1515,9 @@ class _GradientHeader extends StatelessWidget {
   }
 }
 
-/// Djassa's tab bar: four tabs around a raised "Pay" scan button.
-class _DjassaTabBar extends StatelessWidget {
-  const _DjassaTabBar();
+/// Hossouko's tab bar: four tabs around a raised "Pay" scan button.
+class _HossoukoTabBar extends StatelessWidget {
+  const _HossoukoTabBar();
 
   @override
   Widget build(BuildContext context) {
@@ -1596,8 +1596,8 @@ class _DjassaTabBar extends StatelessWidget {
   }
 }
 
-class _DjassaUserHome extends StatelessWidget {
-  const _DjassaUserHome({required this.target});
+class _HossoukoUserHome extends StatelessWidget {
+  const _HossoukoUserHome({required this.target});
 
   /// Which shortcut the script taps next: the on-duty tile or a maquis.
   final String target;
@@ -1665,7 +1665,7 @@ class _DjassaUserHome extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12, color: scheme.onSurfaceVariant)),
                   const SizedBox(height: 4),
-                  _Badge(context.tr('demo.dju.djassa_pay'), scheme.primary,
+                  _Badge(context.tr('demo.dju.hossouko_pay'), scheme.primary,
                       icon: Icons.qr_code_2),
                 ],
               ),
@@ -1788,7 +1788,7 @@ class _DjassaUserHome extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        const _DjassaTabBar(),
+        const _HossoukoTabBar(),
       ],
     );
   }
@@ -2103,7 +2103,7 @@ class _MaquisVenue extends StatelessWidget {
                 children: [
                   _Badge('Maquis', scheme.primary, icon: Icons.restaurant),
                   const SizedBox(width: 6),
-                  _Badge(context.tr('demo.dju.djassa_pay'), _pharmacy,
+                  _Badge(context.tr('demo.dju.hossouko_pay'), _pharmacy,
                       icon: Icons.qr_code_2),
                 ],
               ),
@@ -2197,8 +2197,8 @@ class _MaquisVenue extends StatelessWidget {
   }
 }
 
-class _DjassaUserPaid extends StatelessWidget {
-  const _DjassaUserPaid();
+class _HossoukoUserPaid extends StatelessWidget {
+  const _HossoukoUserPaid();
 
   @override
   Widget build(BuildContext context) {
@@ -2275,7 +2275,7 @@ class _DjassaUserPaid extends StatelessWidget {
 }
 
 /// Stand-in for a venue photo: the brand gradient with scattered dish
-/// icons, like the Djassa app's venue banners.
+/// icons, like the Hossouko app's venue banners.
 class _FoodTile extends StatelessWidget {
   const _FoodTile({
     required this.icon,
