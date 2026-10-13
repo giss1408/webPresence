@@ -41,9 +41,9 @@ class AppConfig {
   static String get apiBaseUrl {
     switch (_currentEnvironment) {
       case Environment.production:
-        return 'https://regisse.de/api';
+        return 'https://regisse.com/api';
       case Environment.staging:
-        return 'https://staging.regisse.de/api';
+        return 'https://staging.regisse.com/api';
       case Environment.development:
         return 'http://localhost:8080';
     }
@@ -67,5 +67,5 @@ class AppConfig {
   /// Business info
   static const String companyName = 'Regisse - Mobile Business Technologies';
   static const String companyEmail = 'info@regisse.com';
-  static const String companyWebsite = 'https://regisse.de';
+  static const String companyWebsite = 'https://regisse.com';
 }

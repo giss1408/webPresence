@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Add each new blog post here (and to /blog/index.html). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://regisse.de/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/developpement-saas-mobile/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/due-diligence-technique/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://regisse.de/due-diligence-technique/exemple-rapport/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://regisse.de/en/tech-due-diligence/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://regisse.de/en/tech-due-diligence/sample-report/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://regisse.de/blog/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/blog/cout-application-mobile-afrique/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/blog/securiser-paiements-mobile-money/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/blog/integrer-mobile-money-application/</loc><lastmod>2026-10-02</lastmod></url>
-  <url><loc>https://regisse.de/blog/application-mobile-hors-ligne/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/developpement-saas-mobile/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/due-diligence-technique/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://regisse.com/due-diligence-technique/exemple-rapport/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://regisse.com/en/tech-due-diligence/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://regisse.com/en/tech-due-diligence/sample-report/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://regisse.com/blog/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/blog/cout-application-mobile-afrique/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/blog/securiser-paiements-mobile-money/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/blog/integrer-mobile-money-application/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://regisse.com/blog/application-mobile-hors-ligne/</loc><lastmod>2026-10-02</lastmod></url>
 </urlset>
