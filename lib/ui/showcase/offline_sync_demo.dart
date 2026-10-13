@@ -254,7 +254,7 @@ class _Scene extends StatelessWidget {
 
           final phone = _Panel(
             icon: Icons.phone_android,
-            title: '${tr('sync.phone')} · Hossouko',
+            title: '${tr('sync.phone')} · Fidelia',
             child: Column(
               children: [
                 for (final s in recorded.reversed)
