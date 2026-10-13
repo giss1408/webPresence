@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sample technical due diligence report (fictional startup) | Regisse - Mobile Business Technologies</title>
+  <meta name="description" content="A complete sample of a technical and security due diligence report on a fictional merchant-payments startup: summary, conditions before disbursement, detailed findings and fix plan.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://regisse.de/en/tech-due-diligence/sample-report/">
+  <link rel="alternate" hreflang="en" href="https://regisse.de/en/tech-due-diligence/sample-report/">
+  <link rel="alternate" hreflang="fr" href="https://regisse.de/due-diligence-technique/exemple-rapport/">
+  <meta name="theme-color" content="#0B5FD0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+  <link rel="stylesheet" href="/pages.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>
+        Mobile Business Technologies
+      </a>
+      <nav>
+        <a href="/en/tech-due-diligence/">Investors</a>
+        <a href="/due-diligence-technique/exemple-rapport/" hreflang="fr" lang="fr" title="Version française">FR</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap report">
+    <p class="notice"><strong>Sample.</strong> Startup Alpha is a fictional company. The findings show the format and level of detail of a real report; they describe no existing company. <span class="no-print">To save it as a PDF, use "Print", then "Save as PDF".</span></p>
+
+    <h1>Technical and security due diligence: Startup Alpha</h1>
+    <p class="meta">Merchant payments by QR and mobile money · Dakar and Abidjan · €600,000 seed round · review carried out 2–13 November 2026 · report for the investment committee of [Fund]</p>
+
+    <h2>1. Summary</h2>
+    <p><strong>Opinion: invest, with 3 conditions.</strong> The product works and the architecture will carry the volume planned for 24 months. Two flaws, however, could cost real money or customer data before the team grows: they must be fixed before disbursement.</p>
+    <table>
+      <thead><tr><th>Level</th><th>Finding</th><th>Section</th></tr></thead>
+      <tbody>
+        <tr><td><span class="level crit">Critical</span></td><td>Mobile-money payment notifications are not verified: a fake payment can be recorded as real.</td><td>5.1</td></tr>
+        <tr><td><span class="level crit">Critical</span></td><td>No backup has ever been restored in a test; the last full backup is 41 days old.</td><td>4.2</td></tr>
+        <tr><td><span class="level warn">To fix</span></td><td>API keys (payment aggregator, SMS provider) are present in the code repository's history.</td><td>5.2</td></tr>
+        <tr><td><span class="level warn">To fix</span></td><td>Only one developer knows and can access the production system.</td><td>7.1</td></tr>
+        <tr><td><span class="level warn">To fix</span></td><td>No filing has been made with ARTCI or Senegal's CDP, although the app processes phone numbers and purchase histories.</td><td>6.1</td></tr>
+        <tr><td><span class="level good">Sound</span></td><td>Simple architecture (one API, one PostgreSQL database, one task queue), suited to 50,000 active merchants.</td><td>3</td></tr>
+        <tr><td><span class="level good">Sound</span></td><td>The merchant app's offline mode is well designed: no duplicate sales in our tests.</td><td>3</td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. Conditions before disbursement</h2>
+    <ol>
+      <li><strong>Verify the signature of every payment notification</strong> and reject unsigned ones (estimated effort: 2 days).</li>
+      <li><strong>Restore a full backup in a test environment</strong>, time the recovery, and automate a daily backup (3 days).</li>
+      <li><strong>Revoke and replace every exposed key</strong>, then move them to a secrets vault (1 day).</li>
+    </ol>
+    <p>We can check these three points in half a day, on evidence, before signing.</p>
+
+    <h2>3. Architecture and room to grow</h2>
+    <p>One API (Python), a managed PostgreSQL database, a task queue for notifications, and two Flutter apps (merchant and customer), all hosted with a cloud provider in Europe. The heaviest queries (daily reports) use suitable indexes; at 10 times today's volume, only the report calculation will need to move to a background task.</p>
+
+    <h2>4. Infrastructure and operations</h2>
+    <h3>4.1 Deployment</h3>
+    <p>Automatic deployment from the main branch, with automated tests on every change (58% coverage). No staging environment: changes go straight to production.</p>
+    <h3>4.2 Backups <span class="level crit">Critical</span></h3>
+    <p>The provider's automatic backups are on, but they are kept for 7 days and no restore has been tested. The last manual full backup dates from 3 October. An accidental deletion discovered after a week would be irreversible today.</p>
+    <h3>4.3 Costs</h3>
+    <p>About €410 a month for 3,200 active merchants. The fastest-growing cost is SMS (61% of the total): worth watching in the business plan.</p>
+
+    <h2>5. Security</h2>
+    <h3>5.1 Payment notifications <span class="level crit">Critical</span></h3>
+    <p>The endpoint that receives payment confirmations from the operator does not check the request's signature. Anyone who knows the address can send a fake confirmation, which the app records as a received payment and rewards with loyalty points. We found this by reading the code, without exploiting it.</p>
+    <h3>5.2 Secrets <span class="level warn">To fix</span></h3>
+    <p>Three keys appear in the repository's history (payment aggregator, SMS, file storage). They were removed from the current code but are still valid.</p>
+    <h3>5.3 Access</h3>
+    <p>Named cloud accounts, but two of the three have no two-factor authentication. The app's admin account is shared between the founder and the developer.</p>
+    <h3>5.4 Dependencies</h3>
+    <p>Four libraries have known vulnerabilities, one of them high severity (handling of uploaded files). A simple update, with no code change expected.</p>
+
+    <h2>6. Data protection</h2>
+    <h3>6.1 Filings <span class="level warn">To fix</span></h3>
+    <p>The app processes phone numbers, purchase histories and the approximate location of merchants in Côte d'Ivoire and Senegal. No prior filing has been made with ARTCI (Law 2013-450) or the CDP (Law 2008-12). Hosting in Europe is a transfer of data out of the country, which may need authorisation. To be confirmed by local legal counsel.</p>
+    <h3>6.2 Consent</h3>
+    <p>Customers' consent to the loyalty programme is collected and time-stamped, and can be withdrawn in the app. A strength to keep.</p>
+
+    <h2>7. Team and ownership</h2>
+    <h3>7.1 Key person <span class="level warn">To fix</span></h3>
+    <p>One employed developer wrote 87% of the code and alone holds production access. There is no operations documentation. We recommend a second, emergency access held by the founder, and a written recovery procedure.</p>
+    <h3>7.2 Ownership</h3>
+    <p>The code repository, cloud accounts and app-store accounts belong to the company. The domain name is registered in the founder's personal name: it should be transferred.</p>
+    <h3>7.3 Licences</h3>
+    <p>No licence incompatible with closed commercial use was found.</p>
+
+    <h2>8. Fix plan</h2>
+    <table>
+      <thead><tr><th>Fix</th><th>When</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td>Verify the signature of payment notifications</td><td>Before disbursement</td><td>2 days</td></tr>
+        <tr><td>Test a restore; daily backups kept 30 days</td><td>Before disbursement</td><td>3 days</td></tr>
+        <tr><td>Revoke and replace exposed keys</td><td>Before disbursement</td><td>1 day</td></tr>
+        <tr><td>Two-factor authentication on every cloud account</td><td>Within 30 days</td><td>½ day</td></tr>
+        <tr><td>Update the 4 vulnerable dependencies</td><td>Within 30 days</td><td>1 day</td></tr>
+        <tr><td>ARTCI and CDP filings; opinion on the data transfer</td><td>Within 90 days</td><td>Legal counsel</td></tr>
+        <tr><td>Emergency access and written recovery procedure</td><td>Within 90 days</td><td>2 days</td></tr>
+        <tr><td>Staging environment</td><td>Within 6 months</td><td>3 days</td></tr>
+      </tbody>
+    </table>
+
+    <h2>9. Scope and limits</h2>
+    <p>Read-only access to the code repository, cloud console and admin interface, 2–13 November 2026; a 90-minute interview with the founder and the developer. Non-intrusive security tests only: no penetration test, no customer data viewed. This report describes the system as it stood on those dates; it is not legal advice.</p>
+
+    <p class="no-print"><a class="btn" href="mailto:info@regisse.com?subject=Technical%20due%20diligence">Request a review</a></p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Regisse - Mobile Business Technologies</span>
+      <a href="/en/tech-due-diligence/">Technical due diligence</a>
+      <a href="/confidentialite/" hreflang="fr">Privacy (French)</a>
+      <a href="/mentions-legales/" hreflang="fr">Legal notice (French)</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -139,6 +139,8 @@ List<Widget> blocks = [
   BlockWrapper(const Features(), key: HomeSections.expertise),
   // ── Service detail panels (image + text) ─────────────────────────────────────
   ServicesShowcase(key: HomeSections.services),
+  // ── For investors: link to the technical due-diligence page ─────────────────
+  const BlockWrapper(InvestorBand()),
   // ── Offline-first sync animation ─────────────────────────────────────────────
   const Reveal(child: BlockWrapper(OfflineSyncDemo())),
   // ── How we work ──────────────────────────────────────────────────────────────

@@ -114,3 +114,85 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .legal ul { padding-left: 22px; }
 .legal li { margin: 6px 0; }
 mark.todo { background: #FFF3C4; color: #7A4B00; padding: 0 4px; border-radius: 3px; }
+
+/* ── Investor pages: technical & security due diligence ─────────────────────
+   The hero shows an excerpt of a report's first page. It stays a light
+   "sheet" in dark mode too, because it stands for a printed document. */
+.dd .wrap, .dd.wrap { max-width: 1040px; }
+.dd-hero { display: grid; gap: 40px; align-items: start; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); }
+.dd-hero .lead { max-width: 34em; }
+@media (max-width: 860px) { .dd-hero { grid-template-columns: 1fr; gap: 28px; } }
+
+.sheet {
+  --ink: #1c2733; --ink-soft: #55616d; --rule: #e3e7ec; --paper: #ffffff;
+  --crit: #b42318; --warn: #b54708; --good: #067647;
+  position: relative; margin-top: 8px;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid #cfd6de; border-radius: 6px;
+  padding: 22px 22px 18px; font-size: 14px; line-height: 1.5;
+  box-shadow: 8px 8px 0 -1px var(--surface), 8px 8px 0 0 var(--border);
+}
+.sheet .tag {
+  position: absolute; top: -11px; right: 16px;
+  background: var(--highlight); color: #3a2600;
+  font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 3px;
+}
+.sheet .doc { display: flex; justify-content: space-between; gap: 12px; color: var(--ink-soft); font-size: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.sheet h2 { font-size: 17px; margin: 12px 0 10px; color: var(--ink); scroll-margin-top: 0; }
+.findings { list-style: none; margin: 0; padding: 0; }
+.findings li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.findings li:last-child { border-bottom: 0; }
+.sheet .doc span:last-child { white-space: nowrap; }
+@media (max-width: 520px) {
+  .sheet { padding: 18px 16px 14px; box-shadow: none; }
+  .findings li { grid-template-columns: 1fr; gap: 2px; }
+}
+.level { font-size: 12px; font-weight: 700; display: flex; align-items: baseline; gap: 6px; }
+.level::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; transform: translateY(-1px); }
+.level.crit { color: var(--crit); } .level.warn { color: var(--warn); } .level.good { color: var(--good); }
+.verdict { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--warn); background: #fff8ed; color: var(--ink); }
+.verdict strong { color: var(--warn); }
+
+.checks-list { display: grid; gap: 8px 40px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 20px 0; }
+.checks-list h3 { margin: 0 0 6px; font-size: 18px; }
+.checks-list ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 16px; }
+.checks-list li { margin: 4px 0; }
+
+.steps { list-style: none; counter-reset: step; padding: 0; margin: 20px 0; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 18px 56px; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 0;
+  width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--accent);
+  color: var(--accent); font-weight: 700; display: grid; place-items: center;
+}
+.steps li:not(:last-child)::after { content: ""; position: absolute; left: 19px; top: 42px; bottom: 4px; width: 1.5px; background: var(--border); }
+.steps strong { display: block; }
+.steps span { color: var(--muted); font-size: 16px; }
+
+.split { display: grid; gap: 24px 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.prices { margin: 0; }
+.prices div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.prices dt { margin: 0; } .prices dd { margin: 0; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; }
+.rules li { margin: 8px 0; }
+.who { display: flex; gap: 20px; align-items: flex-start; }
+.who .initials { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 22px; }
+
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* Sample report: a document meant to be read on screen or printed to PDF. */
+.report { max-width: 760px; }
+.report table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 12px 0 20px; }
+.report th, .report td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.report th { font-size: 14px; color: var(--muted); }
+.report .level { white-space: nowrap; }
+.report .crit { color: #b42318; } .report .warn { color: #b54708; } .report .good { color: #067647; }
+@media (prefers-color-scheme: dark) { .report .crit { color: #fda29b; } .report .warn { color: #fec84b; } .report .good { color: #75e0a7; } }
+.report .notice { border: 1px dashed var(--border); padding: 10px 14px; border-radius: 6px; font-size: 14px; color: var(--muted); }
+@media print {
+  .bar, footer, .no-print { display: none; }
+  body { font-size: 11pt; line-height: 1.5; color: #000; background: #fff; }
+  main { padding: 0; }
+  .report h2 { break-after: avoid; margin-top: 24pt; }
+  .report table, .report .sheet { break-inside: avoid; }
+  a { color: #000; text-decoration: none; }
+}

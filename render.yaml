@@ -65,6 +65,12 @@ services:
       - path: /blog/*
         name: Cache-Control
         value: no-cache
+      - path: /due-diligence-technique/*
+        name: Cache-Control
+        value: no-cache
+      - path: /en/*
+        name: Cache-Control
+        value: no-cache
       - path: /pages.css
         name: Cache-Control
         value: no-cache

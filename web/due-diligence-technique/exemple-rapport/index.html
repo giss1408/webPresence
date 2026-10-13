@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exemple de rapport de due diligence technique (startup fictive) | Regisse - Mobile Business Technologies</title>
+  <meta name="description" content="Exemple complet de rapport de due diligence technique et sécurité, sur une startup fictive de paiement marchand : synthèse, conditions avant décaissement, constats détaillés et plan de corrections.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://regisse.de/due-diligence-technique/exemple-rapport/">
+  <link rel="alternate" hreflang="fr" href="https://regisse.de/due-diligence-technique/exemple-rapport/">
+  <link rel="alternate" hreflang="en" href="https://regisse.de/en/tech-due-diligence/sample-report/">
+  <meta name="theme-color" content="#0B5FD0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+  <link rel="stylesheet" href="/pages.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>
+        Mobile Business Technologies
+      </a>
+      <nav>
+        <a href="/due-diligence-technique/">Investisseurs</a>
+        <a href="/en/tech-due-diligence/sample-report/" hreflang="en" lang="en" title="English version">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap report">
+    <p class="notice"><strong>Exemple.</strong> Startup Alpha est une entreprise fictive. Les constats illustrent le format et le niveau de détail d'un rapport réel&nbsp;; ils ne décrivent aucune entreprise existante. <span class="no-print">Pour l'enregistrer en PDF, utilisez «&nbsp;Imprimer&nbsp;» puis «&nbsp;Enregistrer au format PDF&nbsp;».</span></p>
+
+    <h1>Due diligence technique et sécurité&nbsp;: Startup Alpha</h1>
+    <p class="meta">Paiement marchand par QR et Mobile Money · Dakar et Abidjan · tour d'amorçage de 600 000 € · revue menée du 2 au 13 novembre 2026 · rapport pour le comité d'investissement de [Fonds]</p>
+
+    <h2>1. Synthèse</h2>
+    <p><strong>Avis&nbsp;: investir sous 3 conditions.</strong> Le produit fonctionne et l'architecture tiendra le volume visé à 24 mois. Deux failles peuvent toutefois coûter de l'argent réel ou des données clients avant que l'équipe ne grandisse&nbsp;: elles doivent être corrigées avant le décaissement.</p>
+    <table>
+      <thead><tr><th>Niveau</th><th>Constat</th><th>Section</th></tr></thead>
+      <tbody>
+        <tr><td><span class="level crit">Critique</span></td><td>Les notifications de paiement Mobile Money ne sont pas vérifiées&nbsp;: un faux paiement peut être enregistré comme réel.</td><td>5.1</td></tr>
+        <tr><td><span class="level crit">Critique</span></td><td>Aucune restauration de sauvegarde n'a jamais été testée&nbsp;; la dernière sauvegarde complète date de 41 jours.</td><td>4.2</td></tr>
+        <tr><td><span class="level warn">À corriger</span></td><td>Des clés d'API (agrégateur de paiement, envoi de SMS) sont présentes dans l'historique du dépôt de code.</td><td>5.2</td></tr>
+        <tr><td><span class="level warn">À corriger</span></td><td>Un seul développeur connaît et accède à la production.</td><td>7.1</td></tr>
+        <tr><td><span class="level warn">À corriger</span></td><td>Aucune formalité n'a été faite auprès de l'ARTCI ni de la CDP, alors que l'application traite des numéros de téléphone et des historiques d'achat.</td><td>6.1</td></tr>
+        <tr><td><span class="level good">Solide</span></td><td>Architecture simple (une API, une base PostgreSQL, une file de tâches), adaptée à 50 000 commerçants actifs.</td><td>3</td></tr>
+        <tr><td><span class="level good">Solide</span></td><td>Le mode hors-ligne de l'application marchande est bien conçu&nbsp;: pas de doublon de vente constaté lors de nos tests.</td><td>3</td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. Conditions avant le décaissement</h2>
+    <ol>
+      <li><strong>Vérifier la signature de chaque notification de paiement</strong> et refuser celles qui ne sont pas signées (effort estimé&nbsp;: 2 jours).</li>
+      <li><strong>Restaurer une sauvegarde complète dans un environnement de test</strong>, chronométrer la reprise et automatiser une sauvegarde quotidienne (3 jours).</li>
+      <li><strong>Révoquer et remplacer toutes les clés exposées</strong>, puis les déplacer dans un coffre de secrets (1 jour).</li>
+    </ol>
+    <p>Nous pouvons vérifier ces trois points en une demi-journée, sur preuves, avant la signature.</p>
+
+    <h2>3. Architecture et capacité à grandir</h2>
+    <p>Une API (Python), une base PostgreSQL gérée, une file de tâches pour les notifications, deux applications Flutter (marchand et client). Le tout est hébergé chez un fournisseur cloud en Europe. Les requêtes les plus lourdes (rapports quotidiens) passent par des index adaptés&nbsp;; à 10 fois le volume actuel, seul le calcul des rapports demandera d'être déplacé dans une tâche de fond.</p>
+
+    <h2>4. Infrastructure et exploitation</h2>
+    <h3>4.1 Déploiement</h3>
+    <p>Déploiement automatique depuis la branche principale, tests automatisés exécutés à chaque modification (couverture de 58 %). Pas d'environnement de préproduction&nbsp;: les changements arrivent directement en production.</p>
+    <h3>4.2 Sauvegardes <span class="level crit">Critique</span></h3>
+    <p>Les sauvegardes automatiques du fournisseur sont activées, mais la conservation est de 7 jours et aucune restauration n'a été testée. Une sauvegarde manuelle complète date du 3 octobre. Une suppression accidentelle découverte après une semaine serait aujourd'hui irréversible.</p>
+    <h3>4.3 Coûts</h3>
+    <p>Environ 410 € par mois pour 3 200 commerçants actifs. Le poste qui croîtra le plus vite est l'envoi de SMS (61 % du coût)&nbsp;: à surveiller dans le plan d'affaires.</p>
+
+    <h2>5. Sécurité</h2>
+    <h3>5.1 Notifications de paiement <span class="level crit">Critique</span></h3>
+    <p>Le point d'entrée qui reçoit les confirmations de paiement de l'opérateur ne vérifie pas la signature de la requête. Toute personne connaissant l'adresse peut envoyer une fausse confirmation, que l'application enregistre comme un paiement reçu et sur laquelle elle crédite des points de fidélité. Nous l'avons constaté en lisant le code, sans l'exploiter.</p>
+    <h3>5.2 Secrets <span class="level warn">À corriger</span></h3>
+    <p>Trois clés apparaissent dans l'historique du dépôt (agrégateur de paiement, SMS, stockage de fichiers). Elles ont été retirées du code actuel mais restent valides.</p>
+    <h3>5.3 Accès</h3>
+    <p>Comptes nominatifs sur le cloud, mais sans double authentification pour deux des trois comptes. Le compte administrateur de l'application est partagé entre le fondateur et le développeur.</p>
+    <h3>5.4 Dépendances</h3>
+    <p>Quatre bibliothèques ont des vulnérabilités connues, dont une de gravité élevée (traitement des fichiers envoyés). Mise à jour simple, sans changement de code attendu.</p>
+
+    <h2>6. Protection des données</h2>
+    <h3>6.1 Formalités <span class="level warn">À corriger</span></h3>
+    <p>L'application traite des numéros de téléphone, des historiques d'achat et une géolocalisation approximative de commerçants en Côte d'Ivoire et au Sénégal. Aucune formalité préalable n'a été accomplie auprès de l'ARTCI (loi n° 2013-450) ni de la CDP (loi n° 2008-12). L'hébergement en Europe constitue un transfert de données hors du pays, qui peut nécessiter une autorisation. À faire confirmer par un conseil juridique local.</p>
+    <h3>6.2 Consentement</h3>
+    <p>Le consentement des clients au programme de fidélité est recueilli et horodaté&nbsp;; il peut être retiré depuis l'application. Bon point à conserver.</p>
+
+    <h2>7. Équipe et propriété</h2>
+    <h3>7.1 Personne clé <span class="level warn">À corriger</span></h3>
+    <p>Un développeur salarié a écrit 87 % du code et détient seul les accès de production. Pas de documentation d'exploitation. Nous recommandons un second accès d'urgence, détenu par le fondateur, et une procédure écrite de reprise.</p>
+    <h3>7.2 Propriété</h3>
+    <p>Le dépôt de code, les comptes cloud et les comptes des stores appartiennent à la société. Le nom de domaine est enregistré au nom personnel du fondateur&nbsp;: à transférer.</p>
+    <h3>7.3 Licences</h3>
+    <p>Aucune licence incompatible avec un usage commercial fermé n'a été trouvée.</p>
+
+    <h2>8. Plan de corrections</h2>
+    <table>
+      <thead><tr><th>Correction</th><th>Quand</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td>Vérifier la signature des notifications de paiement</td><td>Avant décaissement</td><td>2 jours</td></tr>
+        <tr><td>Tester une restauration, sauvegarde quotidienne de 30 jours</td><td>Avant décaissement</td><td>3 jours</td></tr>
+        <tr><td>Révoquer et remplacer les clés exposées</td><td>Avant décaissement</td><td>1 jour</td></tr>
+        <tr><td>Double authentification sur tous les comptes cloud</td><td>Sous 30 jours</td><td>½ jour</td></tr>
+        <tr><td>Mettre à jour les 4 dépendances vulnérables</td><td>Sous 30 jours</td><td>1 jour</td></tr>
+        <tr><td>Formalités ARTCI et CDP, avis sur le transfert de données</td><td>Sous 90 jours</td><td>Conseil juridique</td></tr>
+        <tr><td>Accès d'urgence et procédure de reprise écrite</td><td>Sous 90 jours</td><td>2 jours</td></tr>
+        <tr><td>Environnement de préproduction</td><td>Sous 6 mois</td><td>3 jours</td></tr>
+      </tbody>
+    </table>
+
+    <h2>9. Périmètre et limites</h2>
+    <p>Accès en lecture seule au dépôt de code, à la console cloud et à l'interface d'administration, du 2 au 13 novembre 2026&nbsp;; entretien de 90 minutes avec le fondateur et le développeur. Tests de sécurité non intrusifs uniquement&nbsp;: aucun test d'intrusion, aucune donnée client consultée. Ce rapport décrit l'état du système à ces dates&nbsp;; il n'est pas un avis juridique.</p>
+
+    <p class="no-print"><a class="btn" href="mailto:info@regisse.com?subject=Due%20diligence%20technique">Demander une revue</a></p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Regisse - Mobile Business Technologies</span>
+      <a href="/due-diligence-technique/">Due diligence technique</a>
+      <a href="/confidentialite/">Confidentialité</a>
+      <a href="/mentions-legales/">Mentions légales</a>
+    </div>
+  </footer>
+</body>
+</html>

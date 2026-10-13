@@ -50,6 +50,11 @@ class WebsiteMenuBar extends StatelessWidget {
         () => openUrl('/developpement-saas-mobile/', sameTab: true)
       ),
       (
+        localeProvider.tr('menu.investors'),
+        Icons.fact_check_outlined,
+        () => openUrl(investorPageUrl(localeProvider.locale), sameTab: true)
+      ),
+      (
         localeProvider.tr('menu.blog'),
         Icons.article_outlined,
         () => openUrl('/blog/', sameTab: true)
@@ -213,6 +218,11 @@ class WebsiteMenuBar extends StatelessWidget {
                   color: navLinkColor,
                 ),
                 _HeaderLink(
+                  label: localeProvider.tr('menu.investors'),
+                  url: investorPageUrl(localeProvider.locale),
+                  color: navLinkColor,
+                ),
+                _HeaderLink(
                   label: localeProvider.tr('menu.blog'),
                   url: '/blog/',
                   color: navLinkColor,
@@ -246,6 +256,69 @@ class WebsiteMenuBar extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// The investor page (technical due diligence) for the current language:
+/// French has its own page; English and German share the English one.
+String investorPageUrl(String locale) =>
+    locale == 'fr' ? '/due-diligence-technique/' : '/en/tech-due-diligence/';
+
+/// A narrow band for investors, pointing to the static due-diligence page.
+/// Kept small on purpose: the home page speaks to founders.
+class InvestorBand extends StatelessWidget {
+  const InvestorBand({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final localeProvider = context.watch<LocaleProvider>();
+    final isMobile = context.isMobile;
+
+    final text = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(localeProvider.tr('investor.title'),
+            style: headlineSecondaryTextStyle.copyWith(
+                fontSize: isMobile ? 20 : 22, color: palette.textPrimary)),
+        const SizedBox(height: 6),
+        Text(localeProvider.tr('investor.body'),
+            style: bodyTextStyle.copyWith(
+                fontSize: 16, height: 1.6, color: palette.textSecondary)),
+      ],
+    );
+    final button = OutlinedButton(
+      onPressed: () =>
+          openUrl(investorPageUrl(localeProvider.locale), sameTab: true),
+      style: OutlinedButton.styleFrom(
+        foregroundColor: palette.accent,
+        side: BorderSide(color: palette.accent, width: 1.5),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      ),
+      child: Text(localeProvider.tr('investor.cta'),
+          style: buttonTextStyle.copyWith(color: palette.accent)),
+    );
+
+    return Container(
+      width: double.infinity,
+      margin: blockMargin,
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 20 : 32, vertical: isMobile ? 24 : 28),
+      decoration: BoxDecoration(
+        color: palette.surfaceMuted,
+        border: Border(left: BorderSide(color: palette.accent, width: 3)),
+      ),
+      child: isMobile
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [text, const SizedBox(height: 16), button])
+          : Row(children: [
+              Expanded(child: text),
+              const SizedBox(width: 32),
+              button,
+            ]),
     );
   }
 }
@@ -2047,6 +2120,12 @@ class Footer extends StatelessWidget {
                       _FooterLink(
                           label: localeProvider.tr('footer.link_saas_mobile'),
                           onTap: () => openUrl('/developpement-saas-mobile/',
+                              sameTab: true)),
+                      const SizedBox(height: 10),
+                      _FooterLink(
+                          label: localeProvider.tr('footer.link_due_diligence'),
+                          onTap: () => openUrl(
+                              investorPageUrl(localeProvider.locale),
                               sameTab: true)),
                       const SizedBox(height: 10),
                       _FooterLink(

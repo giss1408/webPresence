@@ -22,6 +22,11 @@ class Translations {
       'de': 'Mobile SaaS'
     },
     'menu.blog': {'fr': 'Blog', 'en': 'Blog', 'de': 'Blog'},
+    'menu.investors': {
+      'fr': 'Investisseurs',
+      'en': 'Investors',
+      'de': 'Investoren'
+    },
     'menu.contact': {'fr': 'Contact', 'en': 'Contact', 'de': 'Kontakt'},
     'menu.title': {'fr': 'Menu', 'en': 'Menu', 'de': 'Menü'},
     'menu.start_project': {
@@ -731,6 +736,31 @@ class Translations {
       'fr': 'Mentions légales',
       'en': 'Legal notice',
       'de': 'Impressum',
+    },
+    'footer.link_due_diligence': {
+      'fr': 'Due diligence technique',
+      'en': 'Technical due diligence',
+      'de': 'Technische Due Diligence'
+    },
+
+    // ── Investor band (links to the due-diligence page) ─────────────
+    'investor.title': {
+      'fr': 'Vous investissez dans une startup africaine ?',
+      'en': 'Investing in an African startup?',
+      'de': 'Sie investieren in ein afrikanisches Startup?'
+    },
+    'investor.body': {
+      'fr':
+          'Nous revoyons sa technologie et sa sécurité avant que vous signiez : rapport en 10 jours ouvrés, en français ou en anglais.',
+      'en':
+          'We review its technology and security before you sign: a report in 10 working days, in English or French.',
+      'de':
+          'Wir prüfen Technik und Sicherheit, bevor Sie unterschreiben: Bericht in 10 Arbeitstagen, auf Englisch oder Französisch.'
+    },
+    'investor.cta': {
+      'fr': 'Voir la due diligence technique',
+      'en': 'See technical due diligence',
+      'de': 'Zur technischen Due Diligence'
     },
     'footer.contact_title': {'fr': 'CONTACT', 'en': 'CONTACT', 'de': 'KONTAKT'},
     'footer.contact_location': {
