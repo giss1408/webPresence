@@ -744,18 +744,78 @@ class Translations {
     },
 
     // ── Investor band (links to the due-diligence page) ─────────────
-    'investor.title': {
-      'fr': 'Vous investissez dans une startup africaine ?',
-      'en': 'Investing in an African startup?',
-      'de': 'Sie investieren in ein afrikanisches Startup?'
+    // ── The two lines of work (right under the hero) ───────────────
+    'exp.build_audience': {
+      'fr': 'Pour les fondateurs et les PME',
+      'en': 'For founders and SMEs',
+      'de': 'Für Gründer und KMU'
     },
-    'investor.body': {
+    'exp.build_title': {
+      'fr': 'Nous construisons votre SaaS mobile',
+      'en': 'We build your mobile SaaS',
+      'de': 'Wir entwickeln Ihr Mobile SaaS'
+    },
+    'exp.build_desc': {
       'fr':
-          'Nous revoyons sa technologie et sa sécurité avant que vous signiez : rapport en 10 jours ouvrés, en français ou en anglais.',
+          'L\'app iOS et Android, le back-end cloud, les abonnements et le paiement Mobile Money, même sans réseau.',
       'en':
-          'We review its technology and security before you sign: a report in 10 working days, in English or French.',
+          'The iOS and Android app, the cloud backend, subscriptions and mobile-money payments, even without a network.',
       'de':
-          'Wir prüfen Technik und Sicherheit, bevor Sie unterschreiben: Bericht in 10 Arbeitstagen, auf Englisch oder Französisch.'
+          'Die iOS- und Android-App, das Cloud-Backend, Abonnements und Mobile-Money-Zahlungen, auch ohne Netz.'
+    },
+    'exp.build_point1': {
+      'fr': 'Un MVP publié sur les stores en 4 semaines',
+      'en': 'An MVP live in the app stores in 4 weeks',
+      'de': 'Ein MVP in 4 Wochen in den Stores'
+    },
+    'exp.build_point2': {
+      'fr': 'Une seule base de code pour iOS, Android et le web',
+      'en': 'One codebase for iOS, Android and the web',
+      'de': 'Eine Codebasis für iOS, Android und Web'
+    },
+    'exp.build_point3': {
+      'fr': 'À partir de 250 000 FCFA',
+      'en': 'From XOF 250,000',
+      'de': 'Ab 250.000 FCFA'
+    },
+    'exp.build_cta': {
+      'fr': 'Voir l\'offre MVP',
+      'en': 'See the MVP offer',
+      'de': 'Zum MVP-Angebot'
+    },
+    'exp.review_audience': {
+      'fr': 'Pour les investisseurs',
+      'en': 'For investors',
+      'de': 'Für Investoren'
+    },
+    'exp.review_title': {
+      'fr':
+          'Nous auditons la technologie d\'une startup avant votre investissement',
+      'en': 'We review a startup\'s technology before you invest',
+      'de': 'Wir prüfen die Technik eines Startups, bevor Sie investieren'
+    },
+    'exp.review_desc': {
+      'fr':
+          'Code, infrastructure, sécurité et protection des données (ARTCI, RGPD), en toute indépendance.',
+      'en':
+          'Code, infrastructure, security and data protection (ARTCI, GDPR), reviewed independently.',
+      'de':
+          'Code, Infrastruktur, Sicherheit und Datenschutz (ARTCI, DSGVO), unabhängig geprüft.'
+    },
+    'exp.review_point1': {
+      'fr': 'Un rapport en 10 jours ouvrés, avec une synthèse d\'une page',
+      'en': 'A report in 10 working days, with a one-page summary',
+      'de': 'Ein Bericht in 10 Arbeitstagen, mit einseitiger Zusammenfassung'
+    },
+    'exp.review_point2': {
+      'fr': 'En français ou en anglais',
+      'en': 'In English or French',
+      'de': 'Auf Englisch oder Französisch'
+    },
+    'exp.review_point3': {
+      'fr': 'À partir de 2 500 €',
+      'en': 'From €2,500',
+      'de': 'Ab 2.500 €'
     },
     'investor.cta': {
       'fr': 'Voir la due diligence technique',

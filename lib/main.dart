@@ -127,6 +127,8 @@ class _HomePageState extends State<_HomePage> {
 List<Widget> blocks = [
   // ── Hero ────────────────────────────────────────────────────────────────────
   RepaintBoundary(key: HomeSections.top, child: const Carousel()),
+  // ── The two lines of work: build (founders) and review (investors) ─────────
+  BlockWrapper(const ExpertiseDomains(), key: HomeSections.domains),
   // ── Value proposition ────────────────────────────────────────────────────────
   const Reveal(child: BlockWrapper(GetStarted())),
   // ── Live app demo in a phone (iOS / Android) ─────────────────────────────────
@@ -139,8 +141,6 @@ List<Widget> blocks = [
   BlockWrapper(const Features(), key: HomeSections.expertise),
   // ── Service detail panels (image + text) ─────────────────────────────────────
   ServicesShowcase(key: HomeSections.services),
-  // ── For investors: link to the technical due-diligence page ─────────────────
-  const BlockWrapper(InvestorBand()),
   // ── Offline-first sync animation ─────────────────────────────────────────────
   const Reveal(child: BlockWrapper(OfflineSyncDemo())),
   // ── How we work ──────────────────────────────────────────────────────────────

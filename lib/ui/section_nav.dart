@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 /// Anchors for the home page sections, used by the menu and in-page links.
 class HomeSections {
   static final top = GlobalKey(debugLabel: 'top');
+  static final domains = GlobalKey(debugLabel: 'domains');
   static final africa = GlobalKey(debugLabel: 'africa');
   static final expertise = GlobalKey(debugLabel: 'expertise');
   static final services = GlobalKey(debugLabel: 'services');
