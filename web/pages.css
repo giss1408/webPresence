@@ -175,7 +175,6 @@ mark.todo { background: #FFF3C4; color: #7A4B00; padding: 0 4px; border-radius: 
 .prices dt { margin: 0; } .prices dd { margin: 0; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; }
 .rules li { margin: 8px 0; }
 .who { display: flex; gap: 20px; align-items: flex-start; }
-.who .initials { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 22px; }
 
 a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 

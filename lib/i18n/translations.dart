@@ -182,6 +182,68 @@ class Translations {
     'carousel.s4_a': {'fr': 'Toujours, ', 'en': 'Always, ', 'de': 'Immer, '},
     'carousel.s4_b': {'fr': 'partout, ', 'en': 'anywhere, ', 'de': 'überall, '},
     'carousel.s4_c': {'fr': 'mobile', 'en': 'mobile', 'de': 'mobil'},
+    'carousel.dd_a': {
+      'fr': 'Avant d\'investir, ',
+      'en': 'Before you invest, ',
+      'de': 'Vor dem Investment: ',
+    },
+    'carousel.dd_b': {
+      'fr': 'auditez la tech',
+      'en': 'audit the tech',
+      'de': 'Tech-Audit',
+    },
+    'carousel.dd_sample': {
+      'fr': 'Exemple · Startup Alpha (fictive)',
+      'en': 'Sample · Startup Alpha (fictional)',
+      'de': 'Beispiel · Startup Alpha (fiktiv)',
+    },
+    'carousel.dd_report': {
+      'fr': 'Due diligence technique',
+      'en': 'Technical due diligence',
+      'de': 'Technische Due Diligence',
+    },
+    'carousel.dd_title': {
+      'fr': 'Synthèse pour le comité',
+      'en': 'Summary for the committee',
+      'de': 'Zusammenfassung fürs Komitee',
+    },
+    'carousel.dd_crit': {'fr': 'Critique', 'en': 'Critical', 'de': 'Kritisch'},
+    'carousel.dd_warn': {
+      'fr': 'À corriger',
+      'en': 'To fix',
+      'de': 'Zu beheben'
+    },
+    'carousel.dd_good': {'fr': 'Solide', 'en': 'Sound', 'de': 'Solide'},
+    'carousel.dd_f1': {
+      'fr': 'Paiements Mobile Money non vérifiés',
+      'en': 'Mobile-money payments not verified',
+      'de': 'Mobile-Money-Zahlungen ungeprüft',
+    },
+    'carousel.dd_f2': {
+      'fr': 'Sauvegardes jamais restaurées',
+      'en': 'Backups never restored',
+      'de': 'Backups nie wiederhergestellt',
+    },
+    'carousel.dd_f3': {
+      'fr': 'Clés d\'API dans l\'historique du code',
+      'en': 'API keys in the code history',
+      'de': 'API-Schlüssel in der Code-Historie',
+    },
+    'carousel.dd_f4': {
+      'fr': 'Architecture adaptée à 24 mois',
+      'en': 'Architecture fit for 24 months',
+      'de': 'Architektur trägt 24 Monate',
+    },
+    'carousel.dd_delivery': {
+      'fr': 'Rapport en 10 jours ouvrés',
+      'en': 'Report in 10 working days',
+      'de': 'Bericht in 10 Arbeitstagen',
+    },
+    'carousel.dd_verdict': {
+      'fr': 'Avis\u00a0: investir sous 3 conditions',
+      'en': 'Opinion: invest, with 3 conditions',
+      'de': 'Empfehlung: investieren, mit 3 Auflagen',
+    },
     'carousel.slide': {'fr': 'Diapositive', 'en': 'Slide', 'de': 'Folie'},
     'carousel.previous': {'fr': 'Précédent', 'en': 'Previous', 'de': 'Zurück'},
     'carousel.next': {'fr': 'Suivant', 'en': 'Next', 'de': 'Weiter'},
