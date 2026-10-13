@@ -31,7 +31,7 @@ keep warm, free tier friendly), described in `render.yaml`:
    If it is not the repository root, add `rootDir: <path>` to the service in
    `render.yaml`.
 2. In Render: **New → Blueprint**, pick the repository, apply.
-3. Add your domain under **Settings → Custom Domains** (e.g. `regisse.de`).
+3. Add your domain under **Settings → Custom Domains** (e.g. `regisse.com`).
 
 `render-build.sh` installs the pinned Flutter SDK and runs
 `flutter build web --release --pwa-strategy=offline-first --no-web-resources-cdn`
@@ -68,7 +68,7 @@ the image tag in `Dockerfile` together.
 | `lib/ui/blocks.dart` | Home page sections, header, footer |
 | `lib/ui/carousel/` | Hero carousel |
 | `lib/ui/section_nav.dart` | Menu / in-page scrolling anchors |
-| `lib/ui/showcase/` | Live phone demo (scripted Akwaba / Hossouko / Immoizi flows, iOS ⇄ Android), offline-sync animation, screen-recording player |
+| `lib/ui/showcase/` | Live phone demo (scripted Akwaba / Fidelia / Immoizi flows, iOS ⇄ Android), offline-sync animation, screen-recording player |
 | `lib/components/motion.dart` | Scroll animations: `Reveal` (fade/slide in), `CountUp` (stats), `OnScreen` (pauses loops off screen) |
 | `lib/components/app_palette.dart` | Light / dark colors and breakpoints (`context.palette`, `context.isMobile`) |
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |

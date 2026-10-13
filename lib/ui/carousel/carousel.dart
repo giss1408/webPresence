@@ -8,15 +8,21 @@ import 'package:provider/provider.dart';
 
 import 'animation_slide_up_down_fade.dart';
 
-/// An image layer of a slide, placed on the 1200×640 design canvas.
-/// [entry] and [exit] are positions on the slide's timeline.
+/// A layer of a slide, placed on the 1200×640 design canvas: an image
+/// [asset], or a [widget] drawn in code. [entry] and [exit] are positions
+/// on the slide's timeline.
 class _Layer {
-  final String asset;
+  final String? asset;
+  final Widget? widget;
   final Rect rect;
   final int entry;
   final int exit;
 
-  const _Layer(this.asset, this.rect, this.entry, this.exit);
+  const _Layer(String this.asset, this.rect, this.entry, this.exit)
+      : widget = null;
+
+  const _Layer.widget(Widget this.widget, this.rect, this.entry, this.exit)
+      : asset = null;
 }
 
 /// A run of slide text with its own style; [key] is a translation key.
@@ -81,6 +87,22 @@ const List<_Slide> _slides = [
           Rect.fromLTWH(222, 60, 760, 480), 14, 231),
       _Layer('assets/images/slide_1-layer_2_Test.webp',
           Rect.fromLTWH(374, 148, 596, 368), 26, 238),
+    ],
+  ),
+  // Second line of work: technical due diligence for investors.
+  _Slide(
+    timeline: 200,
+    textEntry: 34,
+    textExit: 159,
+    text: [
+      _Span('carousel.dd_a', carouselWhiteTextStyle),
+      _Span('carousel.dd_b', carouselOrangeTextStyle),
+    ],
+    layers: [
+      _Layer.widget(_ReportScreen(), Rect.fromLTWH(458, 54, 283, 531), 0, 164),
+      _Layer.widget(_FindingCard(_Level.crit, 'carousel.dd_f2'),
+          Rect.fromLTWH(140, 400, 300, 100), 14, 172),
+      _Layer.widget(_DeliveryCard(), Rect.fromLTWH(770, 130, 290, 96), 24, 178),
     ],
   ),
   _Slide(
@@ -182,7 +204,9 @@ class _CarouselState extends State<Carousel>
     // Decode every slide image up front so layers never pop in late.
     for (final slide in _slides) {
       for (final layer in slide.layers) {
-        precacheImage(AssetImage(layer.asset), context);
+        if (layer.asset != null) {
+          precacheImage(AssetImage(layer.asset!), context);
+        }
       }
     }
     precacheImage(const AssetImage(_deviceFrame), context);
@@ -275,7 +299,9 @@ class _CarouselState extends State<Carousel>
                   ? _pulledIn(slide.layers[i].rect)
                   : slide.layers[i].rect,
               child: _animated(
-                  i, Image.asset(slide.layers[i].asset, fit: BoxFit.fill)),
+                  i,
+                  slide.layers[i].widget ??
+                      Image.asset(slide.layers[i].asset!, fit: BoxFit.fill)),
             ),
           Positioned.fromRect(
             rect: _deviceFrameRect,
@@ -509,6 +535,190 @@ class _ControlButton extends StatelessWidget {
       color: Colors.white.withOpacity(0.8),
       hoverColor: Colors.white.withOpacity(0.1),
       iconSize: 22,
+    );
+  }
+}
+
+// ── Due diligence slide ─────────────────────────────────────────────
+// Drawn in code rather than as images so the sample report is translated.
+// Dark surfaces keep the white slide text readable on top of them.
+
+const _ddSurface = Color(0xFF13203A);
+const _ddBorder = Color(0x33FFFFFF);
+const _ddMuted = Color(0xB3FFFFFF);
+
+enum _Level {
+  crit('carousel.dd_crit', Color(0xFFFF6B6B)),
+  warn('carousel.dd_warn', Color(0xFFFFB020)),
+  good('carousel.dd_good', Color(0xFF3DDC84));
+
+  final String key;
+  final Color color;
+
+  const _Level(this.key, this.color);
+}
+
+class _LevelChip extends StatelessWidget {
+  final _Level level;
+
+  const _LevelChip(this.level);
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: level.color.withOpacity(0.18),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        tr(level.key),
+        style: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: level.color,
+        ),
+      ),
+    );
+  }
+}
+
+/// The phone screen: page 1 of a sample report.
+class _ReportScreen extends StatelessWidget {
+  const _ReportScreen();
+
+  static const _findings = [
+    (_Level.crit, 'carousel.dd_f1'),
+    (_Level.crit, 'carousel.dd_f2'),
+    (_Level.warn, 'carousel.dd_f3'),
+    (_Level.good, 'carousel.dd_f4'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    const body = TextStyle(
+        fontFamily: fontFamily, fontSize: 14, color: Colors.white, height: 1.3);
+    // Dimmed: it is the backdrop, the slide headline sits on top of it.
+    return Container(
+      foregroundDecoration: BoxDecoration(
+        color: _ddSurface.withOpacity(0.45),
+        borderRadius: BorderRadius.circular(28),
+      ),
+      padding: const EdgeInsets.fromLTRB(22, 64, 22, 22),
+      decoration: BoxDecoration(
+        color: _ddSurface,
+        borderRadius: BorderRadius.circular(28),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(tr('carousel.dd_sample'),
+              style: body.copyWith(fontSize: 12, color: _ddMuted)),
+          const SizedBox(height: 6),
+          Text(tr('carousel.dd_title'),
+              style: body.copyWith(fontSize: 19, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 18),
+          for (final (level, key) in _findings) ...[
+            _LevelChip(level),
+            const SizedBox(height: 6),
+            Text(tr(key), style: body),
+            const SizedBox(height: 16),
+          ],
+          const Spacer(),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _ddBorder),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(tr('carousel.dd_verdict'),
+                style: body.copyWith(fontWeight: FontWeight.w700)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FloatingCard extends StatelessWidget {
+  final Color accent;
+  final Widget child;
+
+  const _FloatingCard({required this.accent, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _ddSurface,
+        borderRadius: BorderRadius.circular(10),
+        border: Border(left: BorderSide(color: accent, width: 4)),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x66000000), blurRadius: 24, offset: Offset(0, 8)),
+        ],
+      ),
+      child: child,
+    );
+  }
+}
+
+/// One finding pulled out of the report.
+class _FindingCard extends StatelessWidget {
+  final _Level level;
+  final String textKey;
+
+  const _FindingCard(this.level, this.textKey);
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return _FloatingCard(
+      accent: level.color,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _LevelChip(level),
+          const SizedBox(height: 8),
+          Text(tr(textKey),
+              style: const TextStyle(
+                  fontFamily: fontFamily, fontSize: 17, color: Colors.white)),
+        ],
+      ),
+    );
+  }
+}
+
+/// What the investor gets, and how fast.
+class _DeliveryCard extends StatelessWidget {
+  const _DeliveryCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return _FloatingCard(
+      accent: const Color(0xFF008AFE),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(tr('carousel.dd_report'),
+              style: const TextStyle(
+                  fontFamily: fontFamily, fontSize: 12, color: _ddMuted)),
+          const SizedBox(height: 6),
+          Text(tr('carousel.dd_delivery'),
+              style: const TextStyle(
+                  fontFamily: fontFamily,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)),
+        ],
+      ),
     );
   }
 }

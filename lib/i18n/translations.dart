@@ -22,6 +22,11 @@ class Translations {
       'de': 'Mobile SaaS'
     },
     'menu.blog': {'fr': 'Blog', 'en': 'Blog', 'de': 'Blog'},
+    'menu.investors': {
+      'fr': 'Investisseurs',
+      'en': 'Investors',
+      'de': 'Investoren'
+    },
     'menu.contact': {'fr': 'Contact', 'en': 'Contact', 'de': 'Kontakt'},
     'menu.title': {'fr': 'Menu', 'en': 'Menu', 'de': 'Menü'},
     'menu.start_project': {
@@ -177,6 +182,68 @@ class Translations {
     'carousel.s4_a': {'fr': 'Toujours, ', 'en': 'Always, ', 'de': 'Immer, '},
     'carousel.s4_b': {'fr': 'partout, ', 'en': 'anywhere, ', 'de': 'überall, '},
     'carousel.s4_c': {'fr': 'mobile', 'en': 'mobile', 'de': 'mobil'},
+    'carousel.dd_a': {
+      'fr': 'Avant d\'investir, ',
+      'en': 'Before you invest, ',
+      'de': 'Vor dem Investment: ',
+    },
+    'carousel.dd_b': {
+      'fr': 'auditez la tech',
+      'en': 'audit the tech',
+      'de': 'Tech-Audit',
+    },
+    'carousel.dd_sample': {
+      'fr': 'Exemple · Startup Alpha (fictive)',
+      'en': 'Sample · Startup Alpha (fictional)',
+      'de': 'Beispiel · Startup Alpha (fiktiv)',
+    },
+    'carousel.dd_report': {
+      'fr': 'Due diligence technique',
+      'en': 'Technical due diligence',
+      'de': 'Technische Due Diligence',
+    },
+    'carousel.dd_title': {
+      'fr': 'Synthèse pour le comité',
+      'en': 'Summary for the committee',
+      'de': 'Zusammenfassung fürs Komitee',
+    },
+    'carousel.dd_crit': {'fr': 'Critique', 'en': 'Critical', 'de': 'Kritisch'},
+    'carousel.dd_warn': {
+      'fr': 'À corriger',
+      'en': 'To fix',
+      'de': 'Zu beheben'
+    },
+    'carousel.dd_good': {'fr': 'Solide', 'en': 'Sound', 'de': 'Solide'},
+    'carousel.dd_f1': {
+      'fr': 'Paiements Mobile Money non vérifiés',
+      'en': 'Mobile-money payments not verified',
+      'de': 'Mobile-Money-Zahlungen ungeprüft',
+    },
+    'carousel.dd_f2': {
+      'fr': 'Sauvegardes jamais restaurées',
+      'en': 'Backups never restored',
+      'de': 'Backups nie wiederhergestellt',
+    },
+    'carousel.dd_f3': {
+      'fr': 'Clés d\'API dans l\'historique du code',
+      'en': 'API keys in the code history',
+      'de': 'API-Schlüssel in der Code-Historie',
+    },
+    'carousel.dd_f4': {
+      'fr': 'Architecture adaptée à 24 mois',
+      'en': 'Architecture fit for 24 months',
+      'de': 'Architektur trägt 24 Monate',
+    },
+    'carousel.dd_delivery': {
+      'fr': 'Rapport en 10 jours ouvrés',
+      'en': 'Report in 10 working days',
+      'de': 'Bericht in 10 Arbeitstagen',
+    },
+    'carousel.dd_verdict': {
+      'fr': 'Avis\u00a0: investir sous 3 conditions',
+      'en': 'Opinion: invest, with 3 conditions',
+      'de': 'Empfehlung: investieren, mit 3 Auflagen',
+    },
     'carousel.slide': {'fr': 'Diapositive', 'en': 'Slide', 'de': 'Folie'},
     'carousel.previous': {'fr': 'Précédent', 'en': 'Previous', 'de': 'Zurück'},
     'carousel.next': {'fr': 'Suivant', 'en': 'Next', 'de': 'Weiter'},
@@ -535,11 +602,11 @@ class Translations {
     },
     'ss.panel3_desc': {
       'fr':
-          'Présents à Berlin, Paris et en Afrique de l\'Ouest, nous aidons nos clients à lancer des produits adaptés à des marchés multiculturels.',
+          'Basés à Bonn et actifs en Afrique de l\'Ouest, nous aidons nos clients à lancer des produits adaptés à des marchés multiculturels.',
       'en':
-          'Based in Berlin, Paris and West Africa, we help our clients launch products adapted to multicultural markets.',
+          'Based in Bonn and working across West Africa, we help our clients launch products adapted to multicultural markets.',
       'de':
-          'Mit Standorten in Berlin, Paris und Westafrika helfen wir unseren Kunden, Produkte für multikulturelle Märkte zu launchten.'
+          'Von Bonn aus und in ganz Westafrika helfen wir unseren Kunden, Produkte für multikulturelle Märkte zu launchen.'
     },
     'ss.panel3_link': {
       'fr': 'Découvrir nos marchés',
@@ -632,11 +699,11 @@ class Translations {
     },
     'testi.subtitle': {
       'fr':
-          'Pas encore d\'avis clients à afficher : à vous d\'écrire le premier. En attendant, nos propres apps — Akwaba Ivoire, Hossouko, Immoizi — tournent déjà, et vous pouvez les essayer en direct.',
+          'Pas encore d\'avis clients à afficher : à vous d\'écrire le premier. En attendant, nos propres apps — Akwaba Ivoire, Fidelia, Immoizi — tournent déjà, et vous pouvez les essayer en direct.',
       'en':
-          'No client reviews to show yet: yours could be the first. Meanwhile, our own apps — Akwaba Ivoire, Hossouko, Immoizi — are already running, and you can try them live.',
+          'No client reviews to show yet: yours could be the first. Meanwhile, our own apps — Akwaba Ivoire, Fidelia, Immoizi — are already running, and you can try them live.',
       'de':
-          'Noch keine Kundenstimmen: Ihre könnte die erste sein. Unsere eigenen Apps — Akwaba Ivoire, Hossouko, Immoizi — laufen bereits, und Sie können sie live ausprobieren.',
+          'Noch keine Kundenstimmen: Ihre könnte die erste sein. Unsere eigenen Apps — Akwaba Ivoire, Fidelia, Immoizi — laufen bereits, und Sie können sie live ausprobieren.',
     },
     'testi.perk1_title': {
       'fr': 'Toute notre attention',
@@ -732,11 +799,96 @@ class Translations {
       'en': 'Legal notice',
       'de': 'Impressum',
     },
+    'footer.link_due_diligence': {
+      'fr': 'Due diligence technique',
+      'en': 'Technical due diligence',
+      'de': 'Technische Due Diligence'
+    },
+
+    // ── Investor band (links to the due-diligence page) ─────────────
+    // ── The two lines of work (right under the hero) ───────────────
+    'exp.build_audience': {
+      'fr': 'Pour les fondateurs et les PME',
+      'en': 'For founders and SMEs',
+      'de': 'Für Gründer und KMU'
+    },
+    'exp.build_title': {
+      'fr': 'Nous construisons votre SaaS mobile',
+      'en': 'We build your mobile SaaS',
+      'de': 'Wir entwickeln Ihr Mobile SaaS'
+    },
+    'exp.build_desc': {
+      'fr':
+          'L\'app iOS et Android, le back-end cloud, les abonnements et le paiement Mobile Money, même sans réseau.',
+      'en':
+          'The iOS and Android app, the cloud backend, subscriptions and mobile-money payments, even without a network.',
+      'de':
+          'Die iOS- und Android-App, das Cloud-Backend, Abonnements und Mobile-Money-Zahlungen, auch ohne Netz.'
+    },
+    'exp.build_point1': {
+      'fr': 'Un MVP publié sur les stores en 4 semaines',
+      'en': 'An MVP live in the app stores in 4 weeks',
+      'de': 'Ein MVP in 4 Wochen in den Stores'
+    },
+    'exp.build_point2': {
+      'fr': 'Une seule base de code pour iOS, Android et le web',
+      'en': 'One codebase for iOS, Android and the web',
+      'de': 'Eine Codebasis für iOS, Android und Web'
+    },
+    'exp.build_point3': {
+      'fr': 'À partir de 250 000 FCFA',
+      'en': 'From XOF 250,000',
+      'de': 'Ab 250.000 FCFA'
+    },
+    'exp.build_cta': {
+      'fr': 'Voir l\'offre MVP',
+      'en': 'See the MVP offer',
+      'de': 'Zum MVP-Angebot'
+    },
+    'exp.review_audience': {
+      'fr': 'Pour les investisseurs',
+      'en': 'For investors',
+      'de': 'Für Investoren'
+    },
+    'exp.review_title': {
+      'fr':
+          'Nous auditons la technologie d\'une startup avant votre investissement',
+      'en': 'We review a startup\'s technology before you invest',
+      'de': 'Wir prüfen die Technik eines Startups, bevor Sie investieren'
+    },
+    'exp.review_desc': {
+      'fr':
+          'Code, infrastructure, sécurité et protection des données (ARTCI, RGPD), en toute indépendance.',
+      'en':
+          'Code, infrastructure, security and data protection (ARTCI, GDPR), reviewed independently.',
+      'de':
+          'Code, Infrastruktur, Sicherheit und Datenschutz (ARTCI, DSGVO), unabhängig geprüft.'
+    },
+    'exp.review_point1': {
+      'fr': 'Un rapport en 10 jours ouvrés, avec une synthèse d\'une page',
+      'en': 'A report in 10 working days, with a one-page summary',
+      'de': 'Ein Bericht in 10 Arbeitstagen, mit einseitiger Zusammenfassung'
+    },
+    'exp.review_point2': {
+      'fr': 'En français ou en anglais',
+      'en': 'In English or French',
+      'de': 'Auf Englisch oder Französisch'
+    },
+    'exp.review_point3': {
+      'fr': 'À partir de 2 500 €',
+      'en': 'From €2,500',
+      'de': 'Ab 2.500 €'
+    },
+    'investor.cta': {
+      'fr': 'Voir la due diligence technique',
+      'en': 'See technical due diligence',
+      'de': 'Zur technischen Due Diligence'
+    },
     'footer.contact_title': {'fr': 'CONTACT', 'en': 'CONTACT', 'de': 'KONTAKT'},
     'footer.contact_location': {
-      'fr': 'Berlin · Paris · Télétravail',
-      'en': 'Berlin · Paris · Remote',
-      'de': 'Berlin · Paris · Remote'
+      'fr': 'Bonn · Télétravail',
+      'en': 'Bonn · Remote',
+      'de': 'Bonn · Remote'
     },
     'footer.copyright': {
       'fr': 'Regisse - Mobile Business Technologies. Tous droits réservés.',
@@ -960,17 +1112,17 @@ class Translations {
       'de':
           'Reise-App: Reiseziele, Buchungen mit Stripe-Zahlung, lokale Guides über WhatsApp und verifizierte Bewertungen, dazu eine App zur Katalogverwaltung.',
     },
-    'portfolio.hossouko_title': {
-      'fr': 'Hossouko',
-      'en': 'Hossouko',
-      'de': 'Hossouko',
+    'portfolio.fidelia_title': {
+      'fr': 'Fidelia',
+      'en': 'Fidelia',
+      'de': 'Fidelia',
     },
-    'portfolio.hossouko_subtitle': {
+    'portfolio.fidelia_subtitle': {
       'fr': 'Inclusion financière des commerçants',
       'en': 'Financial inclusion for merchants',
       'de': 'Finanzielle Inklusion für Händler',
     },
-    'portfolio.hossouko_desc': {
+    'portfolio.fidelia_desc': {
       'fr':
           'App de caisse pour petits commerçants : chaque vente enregistrée, même sans réseau, devient un historique d’activité. Pensée pour les vieux téléphones Android et le faible débit.',
       'en':
@@ -1429,11 +1581,11 @@ class Translations {
     },
     'sync.body': {
       'fr':
-          'En Afrique, la connexion est souvent intermittente. Nos apps continuent de fonctionner sans réseau, puis se synchronisent toutes seules — comme Hossouko, notre app de caisse pour commerçants.',
+          'En Afrique, la connexion est souvent intermittente. Nos apps continuent de fonctionner sans réseau, puis se synchronisent toutes seules — comme Fidelia, notre app de caisse pour commerçants.',
       'en':
-          'Across Africa, connectivity is often patchy. Our apps keep working without a network, then sync on their own — like Hossouko, our sales app for merchants.',
+          'Across Africa, connectivity is often patchy. Our apps keep working without a network, then sync on their own — like Fidelia, our sales app for merchants.',
       'de':
-          'In Afrika ist die Verbindung oft unterbrochen. Unsere Apps arbeiten ohne Netz weiter und synchronisieren sich dann selbst — wie Hossouko, unsere Kassen-App für Händler.',
+          'In Afrika ist die Verbindung oft unterbrochen. Unsere Apps arbeiten ohne Netz weiter und synchronisieren sich dann selbst — wie Fidelia, unsere Kassen-App für Händler.',
     },
     'sync.phase1': {
       'fr': 'Chaque vente est d\'abord enregistrée sur le téléphone',
@@ -1502,13 +1654,13 @@ class Translations {
       'de': 'Zucker 1 kg',
     },
 
-    // ── Live demo: Hossouko for customers ─────────────────────────────
-    'portfolio.hossouko_user_subtitle': {
+    // ── Live demo: Fidelia for customers ─────────────────────────────
+    'portfolio.fidelia_user_subtitle': {
       'fr': 'Maquis, pharmacies de garde et paiement',
       'en': 'Maquis, on-duty pharmacies and payments',
       'de': 'Maquis, Notdienst-Apotheken und Zahlungen',
     },
-    'portfolio.hossouko_user_desc': {
+    'portfolio.fidelia_user_desc': {
       'fr':
           'App grand public : trouver un maquis ou la pharmacie de garde la plus proche, payer en scannant le QR code du commerçant avec son mobile money et cumuler des points fidélité.',
       'en':
@@ -1586,10 +1738,10 @@ class Translations {
       'en': 'Maquis near you',
       'de': 'Maquis in der Nähe',
     },
-    'demo.dju.hossouko_pay': {
-      'fr': 'Paiement Hossouko',
-      'en': 'Hossouko Pay',
-      'de': 'Hossouko Pay',
+    'demo.dju.fidelia_pay': {
+      'fr': 'Paiement Fidelia',
+      'en': 'Fidelia Pay',
+      'de': 'Fidelia Pay',
     },
     'demo.dju.pharmacies': {
       'fr': 'Pharmacies de garde',

@@ -27,7 +27,7 @@ class WebsiteMenuBar extends StatelessWidget {
       (
         localeProvider.tr('menu.services'),
         Icons.business_center,
-        () => scrollToSection(context, HomeSections.expertise)
+        () => scrollToSection(context, HomeSections.domains)
       ),
       (
         localeProvider.tr('dsa.title'),
@@ -48,6 +48,11 @@ class WebsiteMenuBar extends StatelessWidget {
         localeProvider.tr('menu.saas_mobile'),
         Icons.phone_iphone,
         () => openUrl('/developpement-saas-mobile/', sameTab: true)
+      ),
+      (
+        localeProvider.tr('menu.investors'),
+        Icons.fact_check_outlined,
+        () => openUrl(investorPageUrl(localeProvider.locale), sameTab: true)
       ),
       (
         localeProvider.tr('menu.blog'),
@@ -213,6 +218,11 @@ class WebsiteMenuBar extends StatelessWidget {
                   color: navLinkColor,
                 ),
                 _HeaderLink(
+                  label: localeProvider.tr('menu.investors'),
+                  url: investorPageUrl(localeProvider.locale),
+                  color: navLinkColor,
+                ),
+                _HeaderLink(
                   label: localeProvider.tr('menu.blog'),
                   url: '/blog/',
                   color: navLinkColor,
@@ -246,6 +256,187 @@ class WebsiteMenuBar extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// The investor page (technical due diligence) for the current language:
+/// French has its own page; English and German share the English one.
+String investorPageUrl(String locale) =>
+    locale == 'fr' ? '/due-diligence-technique/' : '/en/tech-due-diligence/';
+
+/// The two lines of work, side by side and with equal weight, right under
+/// the hero: building mobile SaaS for founders, and technical due diligence
+/// for investors. One frame split by a rule, so they read as one business.
+class ExpertiseDomains extends StatelessWidget {
+  const ExpertiseDomains({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final localeProvider = context.watch<LocaleProvider>();
+    final isMobile = context.isMobile;
+
+    final buildSide = _Domain(
+      icon: Icons.phone_iphone,
+      audience: localeProvider.tr('exp.build_audience'),
+      title: localeProvider.tr('exp.build_title'),
+      description: localeProvider.tr('exp.build_desc'),
+      points: [
+        for (var i = 1; i <= 3; i++) localeProvider.tr('exp.build_point$i'),
+      ],
+      cta: localeProvider.tr('exp.build_cta'),
+      onTap: () => scrollToSection(context, HomeSections.pricing),
+      filled: true,
+    );
+    final reviewSide = _Domain(
+      icon: Icons.fact_check_outlined,
+      audience: localeProvider.tr('exp.review_audience'),
+      title: localeProvider.tr('exp.review_title'),
+      description: localeProvider.tr('exp.review_desc'),
+      points: [
+        for (var i = 1; i <= 3; i++) localeProvider.tr('exp.review_point$i'),
+      ],
+      cta: localeProvider.tr('investor.cta'),
+      onTap: () =>
+          openUrl(investorPageUrl(localeProvider.locale), sameTab: true),
+      filled: false,
+    );
+    final rule = isMobile
+        ? Divider(height: 1, thickness: 1, color: palette.border)
+        : VerticalDivider(width: 1, thickness: 1, color: palette.border);
+
+    return Container(
+      width: double.infinity,
+      margin: blockMargin.copyWith(top: 48),
+      decoration: BoxDecoration(
+        color: palette.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: palette.border),
+      ),
+      child: isMobile
+          ? Column(children: [buildSide, rule, reviewSide])
+          : IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: buildSide),
+                  rule,
+                  Expanded(child: reviewSide),
+                ],
+              ),
+            ),
+    );
+  }
+}
+
+class _Domain extends StatelessWidget {
+  final IconData icon;
+  final String audience;
+  final String title;
+  final String description;
+  final List<String> points;
+  final String cta;
+  final VoidCallback onTap;
+  final bool filled;
+
+  const _Domain({
+    required this.icon,
+    required this.audience,
+    required this.title,
+    required this.description,
+    required this.points,
+    required this.cta,
+    required this.onTap,
+    required this.filled,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final isMobile = context.isMobile;
+    final buttonShape =
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(4));
+    const buttonPadding = EdgeInsets.symmetric(horizontal: 28, vertical: 20);
+
+    return Padding(
+      padding: EdgeInsets.all(isMobile ? 24 : 36),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [
+            Icon(icon, size: 20, color: palette.accent),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(audience,
+                  style: bodyTextStyle.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: palette.accent)),
+            ),
+          ]),
+          const SizedBox(height: 12),
+          Text(title,
+              style: headlineSecondaryTextStyle.copyWith(
+                  fontSize: isMobile ? 22 : 26,
+                  height: 1.25,
+                  color: palette.textPrimary)),
+          const SizedBox(height: 10),
+          Text(description,
+              style: bodyTextStyle.copyWith(
+                  fontSize: 16, height: 1.6, color: palette.textSecondary)),
+          const SizedBox(height: 16),
+          for (final point in points)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 3),
+                    child: Icon(Icons.check, size: 18, color: palette.accent),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(point,
+                        style: bodyTextStyle.copyWith(
+                            fontSize: 16, color: palette.textPrimary)),
+                  ),
+                ],
+              ),
+            ),
+          SizedBox(height: isMobile ? 12 : 20),
+          if (!isMobile) const Spacer(),
+          filled
+              ? ElevatedButton(
+                  onPressed: onTap,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: palette.accent,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    padding: buttonPadding,
+                    minimumSize: const Size(0, 56),
+                    shape: buttonShape,
+                  ),
+                  child: Text(cta,
+                      style: buttonTextStyle.copyWith(
+                          fontSize: 17, color: Colors.white)),
+                )
+              : OutlinedButton(
+                  onPressed: onTap,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: palette.accent,
+                    side: BorderSide(color: palette.accent, width: 1.5),
+                    padding: buttonPadding,
+                    minimumSize: const Size(0, 56),
+                    shape: buttonShape,
+                  ),
+                  child: Text(cta,
+                      style: buttonTextStyle.copyWith(
+                          fontSize: 17, color: palette.accent)),
+                ),
+        ],
+      ),
     );
   }
 }
@@ -2042,11 +2233,17 @@ class Footer extends StatelessWidget {
                       _FooterLink(
                           label: localeProvider.tr('footer.link_services'),
                           onTap: () =>
-                              scrollToSection(context, HomeSections.expertise)),
+                              scrollToSection(context, HomeSections.domains)),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_saas_mobile'),
                           onTap: () => openUrl('/developpement-saas-mobile/',
+                              sameTab: true)),
+                      const SizedBox(height: 10),
+                      _FooterLink(
+                          label: localeProvider.tr('footer.link_due_diligence'),
+                          onTap: () => openUrl(
+                              investorPageUrl(localeProvider.locale),
                               sameTab: true)),
                       const SizedBox(height: 10),
                       _FooterLink(
@@ -2101,10 +2298,10 @@ class Footer extends StatelessWidget {
                       const SizedBox(height: 8),
                       InkWell(
                         onTap: () {
-                          openUrl("mailto:ptck2e@duck.com");
+                          openUrl("mailto:info@regisse.com");
                         },
                         child: Text(
-                          "ptck2e@duck.com",
+                          "info@regisse.com",
                           style: bodyTextStyle.copyWith(
                             fontSize: 13,
                             color: palette.accent,

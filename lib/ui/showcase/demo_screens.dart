@@ -4,7 +4,7 @@ import 'package:flutter_website/ui/showcase/demo_kit.dart';
 import 'package:provider/provider.dart';
 
 /// The products shown in the live phone demo.
-enum DemoApp { akwaba, hossouko, hossoukoUser, immoizi }
+enum DemoApp { akwaba, fidelia, fideliaUser, immoizi }
 
 /// One step of a demo script: the screen shown, what the caption under the
 /// phone says, and (optionally) the target the scripted finger taps at the
@@ -44,7 +44,7 @@ class DemoAppSpec {
   final String name;
 
   /// Translation key of a suffix telling apart two apps of one product
-  /// ("Hossouko · Customers").
+  /// ("Fidelia · Customers").
   final String? tag;
   final Color seed;
   final IconData icon;
@@ -76,8 +76,8 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
       _ => const _AkwabaConfirmed(),
     },
   ),
-  DemoApp.hossouko: DemoAppSpec(
-    name: 'Hossouko',
+  DemoApp.fidelia: DemoAppSpec(
+    name: 'Fidelia',
     tag: 'demo.dj.tag',
     seed: const Color(0xFFD1571E),
     icon: Icons.storefront,
@@ -89,14 +89,14 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
           screen: 'home', caption: 'demo.dj.step4', notice: 'demo.dj.notice'),
     ],
     build: (step) => switch (step) {
-      0 => const _HossoukoHome(stage: _SaleStage.offline),
-      1 => const _HossoukoNewSale(),
-      2 => const _HossoukoHome(stage: _SaleStage.saved),
-      _ => const _HossoukoHome(stage: _SaleStage.synced),
+      0 => const _FideliaHome(stage: _SaleStage.offline),
+      1 => const _FideliaNewSale(),
+      2 => const _FideliaHome(stage: _SaleStage.saved),
+      _ => const _FideliaHome(stage: _SaleStage.synced),
     },
   ),
-  DemoApp.hossoukoUser: DemoAppSpec(
-    name: 'Hossouko',
+  DemoApp.fideliaUser: DemoAppSpec(
+    name: 'Fidelia',
     tag: 'demo.dju.tag',
     seed: const Color(0xFFC94A22),
     icon: Icons.local_pharmacy,
@@ -116,11 +116,11 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
           notice: 'demo.dju.notice'),
     ],
     build: (step) => switch (step) {
-      0 => const _HossoukoUserHome(target: 'dju.duty'),
+      0 => const _FideliaUserHome(target: 'dju.duty'),
       1 => const _OnDutyPharmacies(),
-      2 => const _HossoukoUserHome(target: 'dju.maquis'),
+      2 => const _FideliaUserHome(target: 'dju.maquis'),
       3 => const _MaquisVenue(),
-      _ => const _HossoukoUserPaid(),
+      _ => const _FideliaUserPaid(),
     },
   ),
   DemoApp.immoizi: DemoAppSpec(
@@ -816,12 +816,12 @@ class _AkwabaConfirmed extends StatelessWidget {
   }
 }
 
-// ─── Hossouko (merchant sales, offline-first) ───────────────────────────────────
+// ─── Fidelia (merchant sales, offline-first) ───────────────────────────────────
 
 enum _SaleStage { offline, saved, synced }
 
-class _HossoukoHome extends StatelessWidget {
-  const _HossoukoHome({required this.stage});
+class _FideliaHome extends StatelessWidget {
+  const _FideliaHome({required this.stage});
 
   final _SaleStage stage;
 
@@ -1071,8 +1071,8 @@ class _SaleRow extends StatelessWidget {
   }
 }
 
-class _HossoukoNewSale extends StatelessWidget {
-  const _HossoukoNewSale();
+class _FideliaNewSale extends StatelessWidget {
+  const _FideliaNewSale();
 
   @override
   Widget build(BuildContext context) {
@@ -1485,12 +1485,12 @@ class _ImmoUnits extends StatelessWidget {
   }
 }
 
-// ─── Hossouko for customers (maquis, on-duty pharmacies, pay) ──────────────────
+// ─── Fidelia for customers (maquis, on-duty pharmacies, pay) ──────────────────
 
-/// Pharmacy cross colour of the Hossouko apps; distinct from the brand.
+/// Pharmacy cross colour of the Fidelia apps; distinct from the brand.
 const _pharmacy = Color(0xFF12855A);
 
-/// Hossouko's gradient header: orange on most screens, green for pharmacies.
+/// Fidelia's gradient header: orange on most screens, green for pharmacies.
 class _GradientHeader extends StatelessWidget {
   const _GradientHeader({required this.colors, required this.child});
 
@@ -1515,9 +1515,9 @@ class _GradientHeader extends StatelessWidget {
   }
 }
 
-/// Hossouko's tab bar: four tabs around a raised "Pay" scan button.
-class _HossoukoTabBar extends StatelessWidget {
-  const _HossoukoTabBar();
+/// Fidelia's tab bar: four tabs around a raised "Pay" scan button.
+class _FideliaTabBar extends StatelessWidget {
+  const _FideliaTabBar();
 
   @override
   Widget build(BuildContext context) {
@@ -1596,8 +1596,8 @@ class _HossoukoTabBar extends StatelessWidget {
   }
 }
 
-class _HossoukoUserHome extends StatelessWidget {
-  const _HossoukoUserHome({required this.target});
+class _FideliaUserHome extends StatelessWidget {
+  const _FideliaUserHome({required this.target});
 
   /// Which shortcut the script taps next: the on-duty tile or a maquis.
   final String target;
@@ -1665,7 +1665,7 @@ class _HossoukoUserHome extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12, color: scheme.onSurfaceVariant)),
                   const SizedBox(height: 4),
-                  _Badge(context.tr('demo.dju.hossouko_pay'), scheme.primary,
+                  _Badge(context.tr('demo.dju.fidelia_pay'), scheme.primary,
                       icon: Icons.qr_code_2),
                 ],
               ),
@@ -1788,7 +1788,7 @@ class _HossoukoUserHome extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        const _HossoukoTabBar(),
+        const _FideliaTabBar(),
       ],
     );
   }
@@ -2103,7 +2103,7 @@ class _MaquisVenue extends StatelessWidget {
                 children: [
                   _Badge('Maquis', scheme.primary, icon: Icons.restaurant),
                   const SizedBox(width: 6),
-                  _Badge(context.tr('demo.dju.hossouko_pay'), _pharmacy,
+                  _Badge(context.tr('demo.dju.fidelia_pay'), _pharmacy,
                       icon: Icons.qr_code_2),
                 ],
               ),
@@ -2197,8 +2197,8 @@ class _MaquisVenue extends StatelessWidget {
   }
 }
 
-class _HossoukoUserPaid extends StatelessWidget {
-  const _HossoukoUserPaid();
+class _FideliaUserPaid extends StatelessWidget {
+  const _FideliaUserPaid();
 
   @override
   Widget build(BuildContext context) {
@@ -2275,7 +2275,7 @@ class _HossoukoUserPaid extends StatelessWidget {
 }
 
 /// Stand-in for a venue photo: the brand gradient with scattered dish
-/// icons, like the Hossouko app's venue banners.
+/// icons, like the Fidelia app's venue banners.
 class _FoodTile extends StatelessWidget {
   const _FoodTile({
     required this.icon,
