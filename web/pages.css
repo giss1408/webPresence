@@ -114,10 +114,22 @@ summary { cursor: pointer; font-weight: 700; }
 }
 .archive-year:first-of-type { margin-top: 24px; }
 
-/* Blog post: table of contents built from the post's own <h2>s. */
+/* Blog post: table of contents built from the post's own <h2>s, as a
+   sticky left sidebar next to the article on wide screens. On narrow
+   screens the grid collapses to one column and the TOC sits above the
+   article instead (post-article.wrap widens to fit both). */
+.post-article.wrap { max-width: 1120px; }
+.post-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; align-items: start; }
+@media (max-width: 760px) {
+  .post-layout { grid-template-columns: 1fr; gap: 0; }
+}
 .toc {
+  position: sticky; top: 88px;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 12px; padding: 16px 20px; margin: 24px 0 32px;
+}
+@media (max-width: 760px) {
+  .toc { position: static; }
 }
 .toc p { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
 .toc ol { margin: 0; padding-left: 20px; }

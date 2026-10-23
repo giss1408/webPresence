@@ -284,6 +284,83 @@ class WebsiteMenuBar extends StatelessWidget {
 String investorPageUrl(String locale) =>
     locale == 'fr' ? '/due-diligence-technique/' : '/en/tech-due-diligence/';
 
+/// One post title in the blog news banner, linking to its static page.
+/// The blog itself has no English/German pages, so every language links
+/// to the French post — same as the header's "Blog" link.
+class _BlogPostLink {
+  const _BlogPostLink(this.titleKey, this.path);
+  final String titleKey;
+  final String path;
+}
+
+const _blogNewsPosts = [
+  _BlogPostLink('blognews.post1_title', '/blog/securiser-paiements-mobile-money/'),
+  _BlogPostLink('blognews.post2_title', '/blog/integrer-mobile-money-application/'),
+  _BlogPostLink('blognews.post3_title', '/blog/application-mobile-hors-ligne/'),
+  _BlogPostLink('blognews.post4_title', '/blog/cout-application-mobile-afrique/'),
+];
+
+/// Slim strip right under the hero carousel: "Read our Blog:" followed by
+/// the current post titles, each a link to its static page. Keeps the
+/// blog visible to every visitor, not just those who open the menu.
+class BlogNewsBanner extends StatelessWidget {
+  const BlogNewsBanner({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final localeProvider = context.watch<LocaleProvider>();
+    final isMobile = context.isMobile;
+
+    return Container(
+      width: double.infinity,
+      color: palette.accentSoft,
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 20 : 40,
+        vertical: isMobile ? 14 : 12,
+      ),
+      child: MaxWidthBox(
+        maxWidth: 1200,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 10,
+          runSpacing: 8,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.campaign_outlined, size: 16, color: palette.accent),
+                const SizedBox(width: 6),
+                Text(
+                  localeProvider.tr('blognews.label'),
+                  style: bodyTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: palette.accent,
+                  ),
+                ),
+              ],
+            ),
+            for (final post in _blogNewsPosts)
+              InkWell(
+                onTap: () => openUrl(post.path),
+                child: Text(
+                  localeProvider.tr(post.titleKey),
+                  style: bodyTextStyle.copyWith(
+                    fontSize: 14,
+                    color: palette.textPrimary,
+                    decoration: TextDecoration.underline,
+                    decorationColor: palette.border,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// The two lines of work, side by side and with equal weight, right under
 /// the hero: building mobile SaaS for founders, and technical due diligence
 /// for investors. One frame split by a rule, so they read as one business.
@@ -2467,14 +2544,6 @@ class Footer extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(
-                        localeProvider.tr('footer.contact_location'),
-                        style: bodyTextStyle.copyWith(
-                          fontSize: 13,
-                          color: Colors.white.withOpacity(0.65),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
                       InkWell(
                         onTap: () {
                           openUrl("mailto:${AppConfig.companyEmail}");

@@ -91,9 +91,9 @@ class Translations {
       'de': 'die App, die Ihre Kunden auf dem Handy behalten',
     },
     'gs.body_mid': {
-      'fr': '. Notre équipe franco-allemande construit ',
-      'en': '. Our Franco-German team builds ',
-      'de': '. Unser deutsch-französisches Team baut ',
+      'fr': '. Notre équipe ivoiro-allemande construit ',
+      'en': '. Our Ivorian-German team builds ',
+      'de': '. Unser ivorisch-deutsches Team baut ',
     },
     'gs.body_highlight2': {
       'fr': 'votre SaaS mobile de A à Z',
@@ -273,6 +273,58 @@ class Translations {
       'fr': 'Du code au déploiement, le même jour',
       'en': 'From code to deployed, same day',
       'de': 'Vom Code zum Deployment, am selben Tag',
+    },
+    'carousel.s6_a': {
+      'fr': 'La digitalisation est incontournable. ',
+      'en': 'Digitalization is unavoidable. ',
+      'de': 'Digitalisierung ist unausweichlich. ',
+    },
+    'carousel.s6_b': {
+      'fr': 'Passez à l\'action dès aujourd\'hui',
+      'en': 'Take action today',
+      'de': 'Handeln Sie noch heute',
+    },
+    'carousel.s6_point1': {
+      'fr': 'Vos concurrents numérisent déjà leurs opérations',
+      'en': 'Your competitors are already going digital',
+      'de': 'Ihre Wettbewerber digitalisieren bereits',
+    },
+    'carousel.s6_point2': {
+      'fr': 'Chaque mois d\'attente coûte des clients et des revenus',
+      'en': 'Every month you wait costs customers and revenue',
+      'de': 'Jeder Monat Wartezeit kostet Kunden und Umsatz',
+    },
+    'carousel.s6_cta': {
+      'fr': 'Démarrer mon projet',
+      'en': 'Start my project',
+      'de': 'Mein Projekt starten',
+    },
+
+    // ── Blog news banner (home page, right under the hero carousel) ─────
+    'blognews.label': {
+      'fr': 'Lisez notre blog :',
+      'en': 'Read our Blog:',
+      'de': 'Lesen Sie unseren Blog:',
+    },
+    'blognews.post1_title': {
+      'fr': 'Sécuriser les paiements Mobile Money dans votre application',
+      'en': 'Securing Mobile Money payments in your application',
+      'de': 'Mobile-Money-Zahlungen in Ihrer App absichern',
+    },
+    'blognews.post2_title': {
+      'fr': 'Intégrer Orange Money, Wave et MTN MoMo dans votre application',
+      'en': 'Integrating Orange Money, Wave and MTN MoMo in your application',
+      'de': 'Orange Money, Wave und MTN MoMo in Ihre App integrieren',
+    },
+    'blognews.post3_title': {
+      'fr': 'Application mobile hors-ligne : pourquoi et comment la concevoir',
+      'en': 'Offline mobile apps: why and how to design one',
+      'de': 'Offline-fähige mobile Apps: warum und wie',
+    },
+    'blognews.post4_title': {
+      'fr': 'Combien coûte une application mobile en Afrique de l\'Ouest ?',
+      'en': 'How much does a mobile app cost in West Africa?',
+      'de': 'Was kostet eine mobile App in Westafrika?',
     },
     'carousel.slide': {'fr': 'Diapositive', 'en': 'Slide', 'de': 'Folie'},
     'carousel.previous': {'fr': 'Précédent', 'en': 'Previous', 'de': 'Zurück'},
@@ -756,11 +808,11 @@ class Translations {
     },
     'ss.panel3_desc': {
       'fr':
-          'Basés à Bonn et actifs en Afrique de l\'Ouest, nous aidons nos clients à lancer des produits adaptés à des marchés multiculturels.',
+          'Basés en Côte d\'Ivoire — Abidjan Cocody — et actifs en Afrique de l\'Ouest, nous aidons nos clients à lancer des produits adaptés à des marchés multiculturels.',
       'en':
-          'Based in Bonn and working across West Africa, we help our clients launch products adapted to multicultural markets.',
+          'Based in Ivory Coast — Abidjan Cocody — and working across West Africa, we help our clients launch products adapted to multicultural markets.',
       'de':
-          'Von Bonn aus und in ganz Westafrika helfen wir unseren Kunden, Produkte für multikulturelle Märkte zu launchen.'
+          'Mit Sitz in der Elfenbeinküste — Abidjan Cocody — und in ganz Westafrika helfen wir unseren Kunden, Produkte für multikulturelle Märkte zu launchen.'
     },
     'ss.panel3_link': {
       'fr': 'Découvrir nos marchés',
@@ -1044,11 +1096,6 @@ class Translations {
       'de': 'Zur technischen Due Diligence'
     },
     'footer.contact_title': {'fr': 'CONTACT', 'en': 'CONTACT', 'de': 'KONTAKT'},
-    'footer.contact_location': {
-      'fr': 'Bonn · Télétravail',
-      'en': 'Bonn · Remote',
-      'de': 'Bonn · Remote'
-    },
     'footer.copyright': {
       'fr': 'Regisse - Mobile Business Technologies. Tous droits réservés.',
       'en': 'Regisse - Mobile Business Technologies. All rights reserved.',

@@ -178,6 +178,20 @@ const List<_Slide> _slides = [
           _PitchCodeCard(), Rect.fromLTWH(30, 330, 300, 260), 20, 178),
     ],
   ),
+  // Sixth slide: a closing call to action, no screenshot — a single
+  // centred card stating the urgency and a direct CTA.
+  _Slide(
+    timeline: 200,
+    textEntry: 20,
+    textExit: 180,
+    text: [
+      _Span('carousel.s6_a', carouselWhiteTextStyle),
+      _Span('carousel.s6_b', carouselBlueTextStyle),
+    ],
+    layers: [
+      _Layer.widget(_ActionCard(), Rect.fromLTWH(360, 400, 480, 180), 20, 178),
+    ],
+  ),
 ];
 
 /// Home page hero: an auto-playing layered carousel with dot navigation,
@@ -958,6 +972,63 @@ class _PitchCodeCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: Colors.white)),
       ],
+    );
+  }
+}
+
+/// Closing call-to-action card: two points on why waiting costs money, and
+/// a direct CTA — blue to match [carouselBlueTextStyle], styled like
+/// [_PitchScreen] but freestanding (no phone frame; this slide is a
+/// statement, not a product shot).
+class _ActionCard extends StatelessWidget {
+  const _ActionCard();
+
+  static const _points = ['carousel.s6_point1', 'carousel.s6_point2'];
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    const body = TextStyle(
+        fontFamily: fontFamily, fontSize: 14, color: Colors.white, height: 1.3);
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: _ddSurface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFF008AFE), width: 2),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x33008AFE), blurRadius: 32, offset: Offset(0, 10)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final key in _points) ...[
+            _PitchPoint(key),
+            const SizedBox(height: 14),
+          ],
+          const SizedBox(height: 6),
+          GestureDetector(
+            onTap: () => scrollToSection(context, HomeSections.contact),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF008AFE),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(tr('carousel.s6_cta'),
+                    style: body.copyWith(fontWeight: FontWeight.w700)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

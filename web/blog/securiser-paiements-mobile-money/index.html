@@ -49,24 +49,25 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap post-article">
     <article>
       <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="2026-10-02">2 octobre 2026</time> · 8 min de lecture</p>
       <h1>Sécuriser les paiements Mobile Money dans votre application</h1>
-      <nav class="toc" aria-label="Sommaire">
-        <p>Dans cet article</p>
-        <ol>
-          <li><a href="#1-le-serveur-dcide-jamais-le-tlphone">1. Le serveur décide, jamais le téléphone</a></li>
-          <li><a href="#2-vrifier-chaque-notification-de-paiement">2. Vérifier chaque notification de paiement</a></li>
-          <li><a href="#3-les-cls-secrtes-restent-sur-le-serveur">3. Les clés secrètes restent sur le serveur</a></li>
-          <li><a href="#4-un-paiement-ne-compte-quune-fois">4. Un paiement ne compte qu'une fois</a></li>
-          <li><a href="#5-le-montant-est-fix-par-le-serveur">5. Le montant est fixé par le serveur</a></li>
-          <li><a href="#6-le-code-secret-du-client-reste-chez-loprateur">6. Le code secret du client reste chez l'opérateur</a></li>
-          <li><a href="#7-tout-tracer-tout-rapprocher">7. Tout tracer, tout rapprocher</a></li>
-          <li><a href="#8-protger-les-donnes-des-clients">8. Protéger les données des clients</a></li>
-          <li><a href="#la-checklist--garder">La checklist à garder</a></li>
-        </ol>
-      </nav>
+      <div class="post-layout">        <nav class="toc" aria-label="Sommaire">
+          <p>Dans cet article</p>
+          <ol>
+            <li><a href="#1-le-serveur-dcide-jamais-le-tlphone">1. Le serveur décide, jamais le téléphone</a></li>
+            <li><a href="#2-vrifier-chaque-notification-de-paiement">2. Vérifier chaque notification de paiement</a></li>
+            <li><a href="#3-les-cls-secrtes-restent-sur-le-serveur">3. Les clés secrètes restent sur le serveur</a></li>
+            <li><a href="#4-un-paiement-ne-compte-quune-fois">4. Un paiement ne compte qu'une fois</a></li>
+            <li><a href="#5-le-montant-est-fix-par-le-serveur">5. Le montant est fixé par le serveur</a></li>
+            <li><a href="#6-le-code-secret-du-client-reste-chez-loprateur">6. Le code secret du client reste chez l'opérateur</a></li>
+            <li><a href="#7-tout-tracer-tout-rapprocher">7. Tout tracer, tout rapprocher</a></li>
+            <li><a href="#8-protger-les-donnes-des-clients">8. Protéger les données des clients</a></li>
+            <li><a href="#la-checklist--garder">La checklist à garder</a></li>
+          </ol>
+        </nav>
+        <div>
 <p>Un client montre un SMS « Paiement reçu »… qui n'a jamais été envoyé par l'opérateur. Un paiement est compté deux fois après une coupure réseau. Une clé d'API retrouvée dans l'application permet de déclencher des transactions. Ces incidents sont évitables : voici les règles que nous appliquons sur chaque projet.</p>
 <h2 id="1-le-serveur-dcide-jamais-le-tlphone">1. Le serveur décide, jamais le téléphone</h2>
 <p>Une application mobile peut être modifiée, et un message peut être falsifié. La seule source de vérité est la confirmation que <strong>votre serveur</strong> reçoit de l'opérateur ou de l'agrégateur, puis vérifie. Tant que le serveur n'a pas validé, la commande reste « en attente » : on ne livre pas, on ne débloque pas l'abonnement.</p>
@@ -109,6 +110,8 @@
 </ul>
 <p>Ces règles sont intégrées par défaut dans les applications que nous livrons, y compris notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>. Pour la mise en place pas à pas, lisez aussi <a href="/blog/integrer-mobile-money-application/">comment intégrer Orange Money, Wave et MTN MoMo</a>.</p>
 
+      </div>
+      </div>
 
       <div class="actions">
         <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20s%C3%A9curiser%20les%20paiements%20Mobile%20Money%20de%20mon%20application.">Parler de mon projet par WhatsApp</a>

@@ -201,12 +201,18 @@ String _renderPostPage(Post p) {
   final toc = p.toc.isEmpty
       ? ''
       : '''
-      <nav class="toc" aria-label="Sommaire">
-        <p>Dans cet article</p>
-        <ol>
-          ${p.toc.map((e) => '<li><a href="#${e.id}">${e.text}</a></li>').join('\n          ')}
-        </ol>
-      </nav>''';
+        <nav class="toc" aria-label="Sommaire">
+          <p>Dans cet article</p>
+          <ol>
+            ${p.toc.map((e) => '<li><a href="#${e.id}">${e.text}</a></li>').join('\n            ')}
+          </ol>
+        </nav>''';
+  // Without headings there is nothing to put in the sidebar column, so the
+  // body simply takes the full width instead of leaving an empty gap.
+  final layoutOpen = p.toc.isEmpty
+      ? ''
+      : '<div class="post-layout">$toc\n        <div>';
+  final layoutClose = p.toc.isEmpty ? '' : '</div>\n      </div>';
 
   return '''<!DOCTYPE html>
 <html lang="fr">
@@ -246,12 +252,13 @@ String _renderPostPage(Post p) {
 <body>
 $_navHtml
 
-  <main class="wrap">
+  <main class="wrap post-article">
     <article>
       <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="${p.dateIso}">${p.dateFr}</time> · ${p.readingMinutes} min de lecture</p>
       <h1>${p.title}</h1>
-$toc
+      $layoutOpen
 ${p.bodyHtml}
+      $layoutClose
 
       <div class="actions">
         <a class="btn" href="${_waUrl(p.whatsappText)}">Parler de mon projet par WhatsApp</a>

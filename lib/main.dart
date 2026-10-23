@@ -127,6 +127,8 @@ class _HomePageState extends State<_HomePage> {
 List<Widget> blocks = [
   // ── Hero ────────────────────────────────────────────────────────────────────
   RepaintBoundary(key: HomeSections.top, child: const Carousel()),
+  // ── Blog news banner (post titles, linked) ──────────────────────────────────
+  const BlogNewsBanner(),
   // ── The two lines of work: build (founders) and review (investors) ─────────
   BlockWrapper(const ExpertiseDomains(), key: HomeSections.domains),
   // ── Government digitalization (full-bleed photo band) ───────────────────────
