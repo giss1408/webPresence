@@ -175,7 +175,7 @@ const List<_Slide> _slides = [
       _Layer.widget(
           _PitchHighlight(), Rect.fromLTWH(790, 20, 260, 140), 14, 172),
       _Layer.widget(
-          _PitchCodeCard(), Rect.fromLTWH(90, 260, 300, 220), 20, 178),
+          _PitchCodeCard(), Rect.fromLTWH(70, 230, 320, 260), 20, 178),
     ],
   ),
 ];
@@ -885,36 +885,79 @@ const _codeGreen = Color(0xFF50FA7B);
 const _codeBlue = Color(0xFF80D4FF);
 const _codeText = Color(0xFFE0E0E0);
 
+/// Traffic-light window dots, the way a terminal or editor title bar has.
+class _WindowDots extends StatelessWidget {
+  const _WindowDots();
+
+  static const _colors = [Color(0xFFFF5F56), Color(0xFFFFBD2E), Color(0xFF27C93F)];
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        for (final color in _colors)
+          Padding(
+            padding: const EdgeInsets.only(right: 6),
+            child: Container(
+              width: 9,
+              height: 9,
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
 /// Small card to the left of the phone: a Flutter snippet and the shell
-/// commands behind it — the engineering, not just the pitch.
+/// commands behind it, in a terminal-style window, with a caption that
+/// states the payoff — the engineering, not just the pitch.
 class _PitchCodeCard extends StatelessWidget {
   const _PitchCodeCard();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF0D1321),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0x33008AFE)),
-        boxShadow: const [
-          BoxShadow(
-              color: Color(0x66000000), blurRadius: 24, offset: Offset(0, 8)),
-        ],
-      ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _CodeLine('// ', 'sale.dart', tokenColor: _codeText),
-          _CodeLine('final ', 'sale = await', tokenColor: _codeBlue),
-          _CodeLine('  ', 'db.sales.sync();', tokenColor: _codeText),
-          SizedBox(height: 10),
-          _CodeLine('\$ ', 'flutter build apk'),
-          _CodeLine('\$ ', 'fly deploy --now'),
-        ],
-      ),
+    final tr = context.watch<LocaleProvider>().tr;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF0D1321),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: const Color(0x33008AFE)),
+            boxShadow: const [
+              BoxShadow(
+                  color: Color(0x66000000),
+                  blurRadius: 24,
+                  offset: Offset(0, 8)),
+            ],
+          ),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _WindowDots(),
+              SizedBox(height: 12),
+              _CodeLine('// ', 'sale.dart', tokenColor: _codeText),
+              _CodeLine('final ', 'sale = await', tokenColor: _codeBlue),
+              _CodeLine('  ', 'db.sales.sync();', tokenColor: _codeText),
+              SizedBox(height: 10),
+              _CodeLine('\$ ', 'flutter build apk'),
+              _CodeLine('\$ ', 'fly deploy --now'),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(tr('carousel.s5_code_caption'),
+            style: const TextStyle(
+                fontFamily: fontFamily,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: Colors.white)),
+      ],
     );
   }
 }

@@ -269,6 +269,11 @@ class Translations {
       'en': 'Reply within 24 hours',
       'de': 'Antwort innerhalb von 24 Stunden',
     },
+    'carousel.s5_code_caption': {
+      'fr': 'Du code au déploiement, le même jour',
+      'en': 'From code to deployed, same day',
+      'de': 'Vom Code zum Deployment, am selben Tag',
+    },
     'carousel.slide': {'fr': 'Diapositive', 'en': 'Slide', 'de': 'Folie'},
     'carousel.previous': {'fr': 'Précédent', 'en': 'Previous', 'de': 'Zurück'},
     'carousel.next': {'fr': 'Suivant', 'en': 'Next', 'de': 'Weiter'},
