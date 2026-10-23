@@ -23,10 +23,13 @@ flutter pub get
 # visitor's device, so repeat visits open almost instantly, even on a poor
 # connection. After a deploy, returning visitors get the new version on
 # their next visit (flutter_service_worker.js is served with no-cache).
-# --no-web-resources-cdn: CanvasKit is served from this site, not from
-# Google's CDN (www.gstatic.com), so visitors' browsers never contact Google.
+# --web-renderer=html: this site is Frankfurt-hosted but most visitors are
+# on African mobile networks, often 3G/4G. CanvasKit adds a 3-6 MB WASM
+# download on first visit (canvaskit.wasm + its Chromium variant); the HTML
+# renderer skips it entirely. The app uses no CanvasKit-only features
+# (no shaders, no BackdropFilter), so visuals are unaffected.
 flutter build web --release \
-  --no-web-resources-cdn \
+  --web-renderer=html \
   --pwa-strategy=offline-first \
   --dart-define=APP_ENV="${APP_ENV:-production}"
 ./patch-service-worker.sh

@@ -74,6 +74,9 @@ services:
       - path: /pages.css
         name: Cache-Control
         value: no-cache
+      - path: /pages.js
+        name: Cache-Control
+        value: no-cache
       - path: /assets/*
         name: Cache-Control
         value: public, max-age=3600, stale-while-revalidate=86400
