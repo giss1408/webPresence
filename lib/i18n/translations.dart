@@ -769,6 +769,11 @@ class Translations {
       'en': 'Your mobile SaaS, built to grow.',
       'de': 'Ihr Mobile SaaS, gebaut zum Wachsen.',
     },
+    'brand.byline': {
+      'fr': 'Filiale du groupe Milikey-Energy',
+      'en': 'A daughter company of Milikey-Energy',
+      'de': 'Eine Tochtergesellschaft der Milikey-Energy-Gruppe',
+    },
     'footer.links_title': {
       'fr': 'LIENS UTILES',
       'en': 'USEFUL LINKS',

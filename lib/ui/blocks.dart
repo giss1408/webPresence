@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
+import 'package:flutter_website/config/environment.dart';
 import 'package:flutter_website/providers/theme_provider.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
 import 'package:flutter_website/ui/section_nav.dart';
@@ -165,7 +166,7 @@ class WebsiteMenuBar extends StatelessWidget {
         final showNavLinks = constraints.maxWidth >= 900;
 
         return Container(
-          height: 66,
+          height: 72,
           decoration: BoxDecoration(color: palette.header, boxShadow: [
             BoxShadow(
               color: Color(context.isDark ? 0x66000000 : 0x1A000000),
@@ -203,7 +204,25 @@ class WebsiteMenuBar extends StatelessWidget {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           alignment: Alignment.centerLeft,
-                          child: AnimatedLogo(showText: showBrandText),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AnimatedLogo(showText: showBrandText),
+                              if (showBrandText)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2),
+                                  child: Text(
+                                    localeProvider.tr('brand.byline'),
+                                    style: bodyTextStyle.copyWith(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                      color: navLinkColor,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -2201,6 +2220,15 @@ class Footer extends StatelessWidget {
                       child:
                           AnimatedLogo(fontSize: 18, textColor: Colors.white),
                     ),
+                    const SizedBox(height: 6),
+                    Text(
+                      localeProvider.tr('brand.byline'),
+                      style: bodyTextStyle.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withOpacity(0.6),
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     Text(
                       localeProvider.tr('footer.tagline'),
@@ -2298,10 +2326,10 @@ class Footer extends StatelessWidget {
                       const SizedBox(height: 8),
                       InkWell(
                         onTap: () {
-                          openUrl("mailto:info@regisse.com");
+                          openUrl("mailto:${AppConfig.companyEmail}");
                         },
                         child: Text(
-                          "info@regisse.com",
+                          AppConfig.companyEmail,
                           style: bodyTextStyle.copyWith(
                             fontSize: 13,
                             color: palette.accent,

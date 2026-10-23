@@ -363,7 +363,7 @@ class _CarouselState extends State<Carousel>
                 ? width * _mobileViewport.height / _mobileViewport.width
                 : math.min(
                     width * _canvasHeight / _canvasWidth,
-                    (screenHeight - 66) * 0.72,
+                    (screenHeight - 72) * 0.72,
                   );
             final slide = AnimatedSwitcher(
               duration: const Duration(milliseconds: 400),

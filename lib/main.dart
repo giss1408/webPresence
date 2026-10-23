@@ -103,7 +103,7 @@ class _HomePageState extends State<_HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 66),
+        preferredSize: const Size(double.infinity, 72),
         child: Builder(
           builder: (scaffoldCtx) => WebsiteMenuBar(
             onMenuPressed: () => WebsiteMenuBar.showMenu(scaffoldCtx),
