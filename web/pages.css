@@ -13,7 +13,7 @@
   --cta: #1e96ff;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0b1420;
     --surface: #122030;
     --text: #e8eef5;
@@ -23,6 +23,34 @@
     --accent-soft: #15304d;
   }
 }
+/* Manual override via the header toggle (see pages.js), independent of
+   the OS setting either way. */
+:root[data-theme="dark"] {
+  --bg: #0b1420;
+  --surface: #122030;
+  --text: #e8eef5;
+  --muted: #a3b3c2;
+  --border: #22344a;
+  --accent: #5bb2ff;
+  --accent-soft: #15304d;
+}
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f5f8fc;
+  --text: #0d1b2a;
+  --muted: #4a5a6a;
+  --border: #dde5ee;
+  --accent: #0b5fd0;
+  --accent-soft: #e6f0fd;
+}
+
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: transparent; color: var(--text); cursor: pointer;
+  font-size: 18px; line-height: 1;
+}
+.theme-toggle:hover { background: var(--surface); }
 @font-face {
   font-family: "Brand Sans";
   src: url("/assets/assets/fonts/brand_sans_regular.ttf") format("truetype");

@@ -18,3 +18,41 @@ document.addEventListener('click', (event) => {
     window.location.href = '/';
   }, 300);
 });
+
+// Light/dark toggle: applies a data-theme attribute that overrides the OS
+// setting either way (see pages.css), and remembers the choice per visitor.
+// Matching the main app's icon convention: the button shows the mode you'd
+// switch *to*, not the current one (a moon in light mode, a sun in dark).
+(() => {
+  const STORAGE_KEY = 'theme';
+
+  const prefersDark = () =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const currentTheme = () =>
+    document.documentElement.getAttribute('data-theme') ||
+    (prefersDark() ? 'dark' : 'light');
+
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    const button = document.querySelector('.theme-toggle');
+    if (button) {
+      const isDark = theme === 'dark';
+      button.textContent = isDark ? '☀️' : '🌙';
+      button.setAttribute(
+        'aria-label',
+        isDark ? 'Activer le mode clair' : 'Activer le mode sombre'
+      );
+    }
+  };
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  applyTheme(saved || currentTheme());
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.theme-toggle')) return;
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(STORAGE_KEY, next);
+    applyTheme(next);
+  });
+})();
