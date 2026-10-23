@@ -248,16 +248,32 @@ class WebsiteMenuBar extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
               ],
-              IconButton(
-                onPressed: () => context
-                    .read<ThemeProvider>()
-                    .toggleTheme(Theme.of(context).brightness),
-                tooltip: localeProvider
+              // Same button as the blog's static pages (web/pages.css
+              // .theme-toggle): it shows the mode you'd switch to.
+              Tooltip(
+                message: localeProvider
                     .tr(context.isDark ? 'theme.light' : 'theme.dark'),
-                icon: Icon(
-                  context.isDark ? Icons.light_mode : Icons.dark_mode,
-                  color: navLinkColor,
-                  size: 24,
+                child: SizedBox(
+                  width: 36,
+                  height: 36,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    shape: const CircleBorder(),
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      hoverColor: context.palette.surfaceMuted,
+                      onTap: () => context
+                          .read<ThemeProvider>()
+                          .toggleTheme(Theme.of(context).brightness),
+                      child: Center(
+                        child: Text(
+                          context.isDark ? '☀️' : '🌙',
+                          style: const TextStyle(fontSize: 18, height: 1),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               // Language Switcher
@@ -370,12 +386,20 @@ class _BlogNewsBannerState extends State<BlogNewsBanner>
             localeProvider.tr(post.titleKey),
             style: bodyTextStyle.copyWith(
               fontSize: 14,
-              color: palette.textPrimary,
-              decoration: TextDecoration.underline,
-              decorationColor: palette.border,
+              fontWeight: FontWeight.w600,
+              color: palette.ticker,
             ),
           ),
         );
+
+    // A visible break between titles, so they don't run together.
+    final separator = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Text(
+        '◆',
+        style: bodyTextStyle.copyWith(fontSize: 10, color: palette.accent),
+      ),
+    );
 
     // One copy of the content, measured, then duplicated so the ticker
     // loops seamlessly: once the first copy has scrolled fully past, the
@@ -384,10 +408,10 @@ class _BlogNewsBannerState extends State<BlogNewsBanner>
       mainAxisSize: MainAxisSize.min,
       children: [
         label,
-        const SizedBox(width: 28),
+        const SizedBox(width: 20),
         for (final post in _blogNewsPosts) ...[
           titleLink(post),
-          const SizedBox(width: 28),
+          separator,
         ],
       ],
     );
@@ -408,10 +432,9 @@ class _BlogNewsBannerState extends State<BlogNewsBanner>
             mainAxisSize: MainAxisSize.min,
             children: [
               MeasureSize(
-                onChange: (size) => _contentWidth = size.width + 28,
+                onChange: (size) => _contentWidth = size.width,
                 child: content,
               ),
-              const SizedBox(width: 28),
               content,
             ],
           ),

@@ -31,6 +31,10 @@ class AppPalette extends ThemeExtension<AppPalette> {
   /// Brand color used for text/icons on [accentSoft] or [surface].
   final Color accent;
 
+  /// Running text of the blog news ticker, on [accentSoft]: a deep brand
+  /// blue in light mode (about 7:1 on accentSoft), a pale blue in dark mode.
+  final Color ticker;
+
   /// Large faded numerals (process step numbers).
   final Color numeral;
 
@@ -44,6 +48,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     required this.border,
     required this.accentSoft,
     required this.accent,
+    required this.ticker,
     required this.numeral,
   });
 
@@ -57,6 +62,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     border: Color(0xFFE5E7EB),
     accentSoft: Color(0xFFEFF8FF),
     accent: Color(0xFF1389FD),
+    ticker: Color(0xFF0A4FA8),
     numeral: Color(0xFFD6EBFF),
   );
 
@@ -70,6 +76,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     border: Color(0xFF334155),
     accentSoft: Color(0xFF16325A),
     accent: Color(0xFF5CB0FF),
+    ticker: Color(0xFFD6EBFF),
     numeral: Color(0xFF28446B),
   );
 
@@ -84,6 +91,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     Color? border,
     Color? accentSoft,
     Color? accent,
+    Color? ticker,
     Color? numeral,
   }) =>
       AppPalette(
@@ -96,6 +104,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
         border: border ?? this.border,
         accentSoft: accentSoft ?? this.accentSoft,
         accent: accent ?? this.accent,
+        ticker: ticker ?? this.ticker,
         numeral: numeral ?? this.numeral,
       );
 
@@ -112,6 +121,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
       border: Color.lerp(border, other.border, t)!,
       accentSoft: Color.lerp(accentSoft, other.accentSoft, t)!,
       accent: Color.lerp(accent, other.accent, t)!,
+      ticker: Color.lerp(ticker, other.ticker, t)!,
       numeral: Color.lerp(numeral, other.numeral, t)!,
     );
   }
