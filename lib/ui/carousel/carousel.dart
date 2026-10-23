@@ -160,7 +160,8 @@ const List<_Slide> _slides = [
   ),
   // Fifth slide: a direct challenge to try the product. The phone screen
   // is filled like the due-diligence slide's report screen, with a small
-  // highlight card lifted up and to the right of it.
+  // highlight card lifted up and to the right of it, and a code snippet
+  // card to its left — the engineering behind the pitch.
   _Slide(
     timeline: 200,
     textEntry: 20,
@@ -173,6 +174,8 @@ const List<_Slide> _slides = [
       _Layer.widget(_PitchScreen(), Rect.fromLTWH(458, 54, 283, 531), 0, 164),
       _Layer.widget(
           _PitchHighlight(), Rect.fromLTWH(790, 20, 260, 140), 14, 172),
+      _Layer.widget(
+          _PitchCodeCard(), Rect.fromLTWH(90, 260, 300, 220), 20, 178),
     ],
   ),
 ];
@@ -792,9 +795,6 @@ class _PitchScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(tr('carousel.s5_screen_title'),
-              style: body.copyWith(fontSize: 19, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 24),
           for (final key in _points) ...[
             _PitchPoint(key),
             const SizedBox(height: 16),
@@ -845,6 +845,74 @@ class _PitchHighlight extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Colors.white)),
+        ],
+      ),
+    );
+  }
+}
+
+/// One line of the code card: a dimmed prompt/comment token, then the
+/// command or code in the terminal's accent colour.
+class _CodeLine extends StatelessWidget {
+  final String token;
+  final String rest;
+  final Color tokenColor;
+
+  const _CodeLine(this.token, this.rest, {this.tokenColor = _codeGreen});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+              fontFamily: 'monospace', fontSize: 12.5, height: 1.4),
+          children: [
+            TextSpan(
+                text: token,
+                style: TextStyle(
+                    color: tokenColor, fontWeight: FontWeight.w700)),
+            TextSpan(text: rest, style: const TextStyle(color: _codeText)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+const _codeGreen = Color(0xFF50FA7B);
+const _codeBlue = Color(0xFF80D4FF);
+const _codeText = Color(0xFFE0E0E0);
+
+/// Small card to the left of the phone: a Flutter snippet and the shell
+/// commands behind it — the engineering, not just the pitch.
+class _PitchCodeCard extends StatelessWidget {
+  const _PitchCodeCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D1321),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0x33008AFE)),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x66000000), blurRadius: 24, offset: Offset(0, 8)),
+        ],
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _CodeLine('// ', 'sale.dart', tokenColor: _codeText),
+          _CodeLine('final ', 'sale = await', tokenColor: _codeBlue),
+          _CodeLine('  ', 'db.sales.sync();', tokenColor: _codeText),
+          SizedBox(height: 10),
+          _CodeLine('\$ ', 'flutter build apk'),
+          _CodeLine('\$ ', 'fly deploy --now'),
         ],
       ),
     );
