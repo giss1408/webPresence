@@ -301,16 +301,96 @@ const _blogNewsPosts = [
 ];
 
 /// Slim strip right under the hero carousel: "Read our Blog:" followed by
-/// the current post titles, each a link to its static page. Keeps the
-/// blog visible to every visitor, not just those who open the menu.
-class BlogNewsBanner extends StatelessWidget {
+/// the current post titles, scrolling continuously right to left like a
+/// news ticker, each title a link to its static page. Keeps the blog
+/// visible to every visitor, not just those who open the menu.
+class BlogNewsBanner extends StatefulWidget {
   const BlogNewsBanner({super.key});
+
+  @override
+  State<BlogNewsBanner> createState() => _BlogNewsBannerState();
+}
+
+class _BlogNewsBannerState extends State<BlogNewsBanner>
+    with SingleTickerProviderStateMixin {
+  // Pixels per second: slow enough to read, never fully stops.
+  static const _speed = 40.0;
+
+  late final AnimationController _controller;
+  final _scrollController = ScrollController();
+  double _contentWidth = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: const Duration(days: 1))
+      ..addListener(_tick)
+      ..forward();
+  }
+
+  void _tick() {
+    if (!_scrollController.hasClients || _contentWidth == 0) return;
+    final elapsed = _controller.lastElapsedDuration?.inMilliseconds ?? 0;
+    final offset = (elapsed / 1000) * _speed % _contentWidth;
+    _scrollController.jumpTo(offset);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     final localeProvider = context.watch<LocaleProvider>();
     final isMobile = context.isMobile;
+
+    final label = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.campaign_outlined, size: 16, color: palette.accent),
+        const SizedBox(width: 6),
+        Text(
+          localeProvider.tr('blognews.label'),
+          style: bodyTextStyle.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: palette.accent,
+          ),
+        ),
+      ],
+    );
+
+    Widget titleLink(_BlogPostLink post) => InkWell(
+          onTap: () => openUrl(post.path),
+          child: Text(
+            localeProvider.tr(post.titleKey),
+            style: bodyTextStyle.copyWith(
+              fontSize: 14,
+              color: palette.textPrimary,
+              decoration: TextDecoration.underline,
+              decorationColor: palette.border,
+            ),
+          ),
+        );
+
+    // One copy of the content, measured, then duplicated so the ticker
+    // loops seamlessly: once the first copy has scrolled fully past, the
+    // second is in exactly the position the first started in.
+    final content = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        label,
+        const SizedBox(width: 28),
+        for (final post in _blogNewsPosts) ...[
+          titleLink(post),
+          const SizedBox(width: 28),
+        ],
+      ],
+    );
 
     return Container(
       width: double.infinity,
@@ -319,45 +399,57 @@ class BlogNewsBanner extends StatelessWidget {
         horizontal: isMobile ? 20 : 40,
         vertical: isMobile ? 14 : 12,
       ),
-      child: MaxWidthBox(
-        maxWidth: 1200,
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 10,
-          runSpacing: 8,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.campaign_outlined, size: 16, color: palette.accent),
-                const SizedBox(width: 6),
-                Text(
-                  localeProvider.tr('blognews.label'),
-                  style: bodyTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: palette.accent,
-                  ),
-                ),
-              ],
-            ),
-            for (final post in _blogNewsPosts)
-              InkWell(
-                onTap: () => openUrl(post.path),
-                child: Text(
-                  localeProvider.tr(post.titleKey),
-                  style: bodyTextStyle.copyWith(
-                    fontSize: 14,
-                    color: palette.textPrimary,
-                    decoration: TextDecoration.underline,
-                    decorationColor: palette.border,
-                  ),
-                ),
+      child: ClipRect(
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MeasureSize(
+                onChange: (size) => _contentWidth = size.width + 28,
+                child: content,
               ),
-          ],
+              const SizedBox(width: 28),
+              content,
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+/// Reports [child]'s laid-out size without affecting layout, via a
+/// post-frame callback (reading the render box directly, so the laid-out
+/// size is available a frame after this first builds).
+class MeasureSize extends StatefulWidget {
+  const MeasureSize({super.key, required this.onChange, required this.child});
+
+  final ValueChanged<Size> onChange;
+  final Widget child;
+
+  @override
+  State<MeasureSize> createState() => _MeasureSizeState();
+}
+
+class _MeasureSizeState extends State<MeasureSize> {
+  Size? _reported;
+
+  void _checkSize() {
+    final box = context.findRenderObject() as RenderBox?;
+    final size = box?.size;
+    if (size != null && size != _reported) {
+      _reported = size;
+      widget.onChange(size);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkSize());
+    return widget.child;
   }
 }
 
