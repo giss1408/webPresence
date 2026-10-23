@@ -129,6 +129,8 @@ List<Widget> blocks = [
   RepaintBoundary(key: HomeSections.top, child: const Carousel()),
   // ── The two lines of work: build (founders) and review (investors) ─────────
   BlockWrapper(const ExpertiseDomains(), key: HomeSections.domains),
+  // ── Government digitalization (full-bleed photo band) ───────────────────────
+  const GovernmentDigitalization(),
   // ── Value proposition ────────────────────────────────────────────────────────
   const Reveal(child: BlockWrapper(GetStarted())),
   // ── Live app demo in a phone (iOS / Android) ─────────────────────────────────

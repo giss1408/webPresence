@@ -48,17 +48,17 @@ class WebsiteMenuBar extends StatelessWidget {
       (
         localeProvider.tr('menu.saas_mobile'),
         Icons.phone_iphone,
-        () => openUrl('/developpement-saas-mobile/', sameTab: true)
+        () => openUrl('/developpement-saas-mobile/')
       ),
       (
         localeProvider.tr('menu.investors'),
         Icons.fact_check_outlined,
-        () => openUrl(investorPageUrl(localeProvider.locale), sameTab: true)
+        () => openUrl(investorPageUrl(localeProvider.locale))
       ),
       (
         localeProvider.tr('menu.blog'),
         Icons.article_outlined,
-        () => openUrl('/blog/', sameTab: true)
+        () => openUrl('/blog/')
       ),
       (
         localeProvider.tr('menu.portfolio'),
@@ -317,8 +317,7 @@ class ExpertiseDomains extends StatelessWidget {
         for (var i = 1; i <= 3; i++) localeProvider.tr('exp.review_point$i'),
       ],
       cta: localeProvider.tr('investor.cta'),
-      onTap: () =>
-          openUrl(investorPageUrl(localeProvider.locale), sameTab: true),
+      onTap: () => openUrl(investorPageUrl(localeProvider.locale)),
       filled: false,
     );
     final rule = isMobile
@@ -472,7 +471,10 @@ class _HeaderLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => openUrl(url, sameTab: true),
+      // These are static pages outside the Flutter app, not in-app routes:
+      // open in a new tab so the app never reloads, and "going back" is
+      // just closing that tab instead of a full navigation round-trip.
+      onPressed: () => openUrl(url),
       style: TextButton.styleFrom(
         foregroundColor: context.palette.accent,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -760,7 +762,8 @@ class _InlineLink extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return TextButton.icon(
-      onPressed: () => openUrl(url, sameTab: true),
+      // Static pages outside the Flutter app: new tab, no app reload.
+      onPressed: () => openUrl(url),
       icon: Icon(icon, size: 18, color: palette.accent),
       label: Text('$label →',
           style: bodyTextStyle.copyWith(
@@ -2080,22 +2083,171 @@ class DigitalSolutionsAfrica extends StatelessWidget {
   }
 }
 
+/// For government administrations: digitalization projects already live
+/// (land registry lookup, tax/utility payments) and more in the pipeline.
+/// Same dark, full-bleed treatment as [DigitalSolutionsAfrica], with an
+/// institutional blue accent instead of the orange used there.
+class GovernmentDigitalization extends StatelessWidget {
+  const GovernmentDigitalization({super.key});
+
+  static const _accent = Color(0xFF3B82F6);
+
+  @override
+  Widget build(BuildContext context) {
+    final localeProvider = context.watch<LocaleProvider>();
+    final isMobile = context.isMobile;
+
+    Widget card(int n) => _DSACard(
+          category: localeProvider.tr('gov.card${n}_category'),
+          title: localeProvider.tr('gov.card${n}_title'),
+          description: localeProvider.tr('gov.card${n}_desc'),
+          features: [
+            for (var f = 1; f <= 3; f++)
+              localeProvider.tr('gov.card${n}_feat$f'),
+          ],
+          accent: _accent,
+        );
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 48),
+      decoration: const BoxDecoration(
+        color: backgroundDark,
+        image: DecorationImage(
+          image: AssetImage('assets/images/blackWoman_layer_4_1280.webp'),
+          fit: BoxFit.cover,
+          alignment: Alignment(0, 0.2),
+        ),
+      ),
+      child: DecoratedBox(
+        // Lighter than DigitalSolutionsAfrica's overlay so the photo reads
+        // through, not just a dark tint with a faint image underneath.
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0x990F172A), Color(0x660F172A), Color(0xB30F172A)],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: isMobile ? 20 : 40, vertical: isMobile ? 56 : 88),
+          child: MaxWidthBox(
+            maxWidth: 1200,
+            child: Column(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white.withOpacity(0.25)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.account_balance, size: 14, color: _accent),
+                      const SizedBox(width: 6),
+                      Text(
+                        localeProvider.tr('gov.badge'),
+                        style: bodyTextStyle.copyWith(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: _accent,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  localeProvider.tr('gov.title'),
+                  style: headlineTextStyle.copyWith(
+                    fontSize: isMobile ? 28 : 40,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 14),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 620),
+                  child: Text(
+                    localeProvider.tr('gov.subtitle'),
+                    style: bodyTextStyle.copyWith(
+                      fontSize: isMobile ? 16 : 18,
+                      color: Colors.white.withOpacity(0.78),
+                      height: 1.6,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: isMobile ? 36 : 56),
+                ResponsiveRowColumn(
+                  layout: isMobile
+                      ? ResponsiveRowColumnType.COLUMN
+                      : ResponsiveRowColumnType.ROW,
+                  rowCrossAxisAlignment: CrossAxisAlignment.start,
+                  rowSpacing: 20,
+                  columnSpacing: 16,
+                  children: [
+                    for (var n = 1; n <= 3; n++)
+                      ResponsiveRowColumnItem(
+                        rowFlex: 1,
+                        rowFit: FlexFit.tight,
+                        child: card(n),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 40),
+                FilledButton.icon(
+                  onPressed: () =>
+                      showContactChooser(context, messageKey: 'wa.government'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: _accent,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 18, horizontal: 28),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  icon: const Icon(Icons.chat_bubble_outline,
+                      size: 18, color: Colors.white),
+                  label: Text(localeProvider.tr('gov.cta'),
+                      style: buttonTextStyle.copyWith(fontSize: 16)),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _DSACard extends StatelessWidget {
   final String category;
   final String title;
   final String description;
   final List<String> features;
 
+  /// Defaults to the theme's accent; pass a fixed color to keep the card's
+  /// tag/check-mark color consistent regardless of light/dark mode (e.g.
+  /// the blue used throughout [GovernmentDigitalization]).
+  final Color? accent;
+
   const _DSACard({
     required this.category,
     required this.title,
     required this.description,
     required this.features,
+    this.accent,
   });
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final accentColor = accent ?? palette.accent;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(28),
@@ -2118,7 +2270,7 @@ class _DSACard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: palette.accent.withOpacity(0.1),
+              color: accentColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
@@ -2126,7 +2278,7 @@ class _DSACard extends StatelessWidget {
               style: bodyTextStyle.copyWith(
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
-                color: palette.accent,
+                color: accentColor,
                 letterSpacing: 0.8,
               ),
             ),
@@ -2160,7 +2312,7 @@ class _DSACard extends StatelessWidget {
                   EdgeInsets.only(bottom: index < features.length - 1 ? 10 : 0),
               child: Row(
                 children: [
-                  Icon(Icons.check_circle, size: 16, color: palette.accent),
+                  Icon(Icons.check_circle, size: 16, color: accentColor),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -2265,18 +2417,17 @@ class Footer extends StatelessWidget {
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_saas_mobile'),
-                          onTap: () => openUrl('/developpement-saas-mobile/',
-                              sameTab: true)),
+                          onTap: () =>
+                              openUrl('/developpement-saas-mobile/')),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_due_diligence'),
-                          onTap: () => openUrl(
-                              investorPageUrl(localeProvider.locale),
-                              sameTab: true)),
+                          onTap: () =>
+                              openUrl(investorPageUrl(localeProvider.locale))),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('menu.blog'),
-                          onTap: () => openUrl('/blog/', sameTab: true)),
+                          onTap: () => openUrl('/blog/')),
                       const SizedBox(height: 10),
                       _FooterLink(
                           label: localeProvider.tr('footer.link_cgu'),

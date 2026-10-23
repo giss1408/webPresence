@@ -504,6 +504,130 @@ class Translations {
       'de': 'Über Ihr Projekt sprechen'
     },
 
+    // ── Government digitalization ────────────────────────────────────
+    'gov.badge': {
+      'fr': 'SECTEUR PUBLIC',
+      'en': 'PUBLIC SECTOR',
+      'de': 'ÖFFENTLICHER SEKTOR',
+    },
+    'gov.title': {
+      'fr': 'Un partenaire technique pour votre politique de digitalisation',
+      'en': 'A technical partner for your digitalization policy',
+      'de': 'Ein technischer Partner für Ihre Digitalisierungspolitik',
+    },
+    'gov.subtitle': {
+      'fr':
+          'Des services numériques fiables pour les citoyens et les administrations — conçus pour un faible débit et un volume national.',
+      'en':
+          'Reliable digital services for citizens and administrations — built for low bandwidth and national scale.',
+      'de':
+          'Zuverlässige digitale Dienste für Bürger und Verwaltungen — ausgelegt für geringe Bandbreite und nationalen Maßstab.',
+    },
+    'gov.card1_category': {
+      'fr': 'Foncier',
+      'en': 'Land Registry',
+      'de': 'Grundbuch',
+    },
+    'gov.card1_title': {
+      'fr': 'Vérification du statut d\'une parcelle',
+      'en': 'Plot status verification',
+      'de': 'Überprüfung des Parzellenstatus',
+    },
+    'gov.card1_desc': {
+      'fr':
+          'Les citoyens vérifient en ligne le statut administratif d\'une parcelle — approuvée, litigieuse, occupée — avant tout achat.',
+      'en':
+          'Citizens check a plot\'s administrative status online — approved, disputed, occupied — before buying.',
+      'de':
+          'Bürger prüfen online den Verwaltungsstatus einer Parzelle — genehmigt, strittig, besetzt — vor dem Kauf.',
+    },
+    'gov.card1_feat1': {
+      'fr': 'Recherche par référence ou par carte',
+      'en': 'Search by reference or on a map',
+      'de': 'Suche per Aktenzeichen oder Karte',
+    },
+    'gov.card1_feat2': {
+      'fr': 'Statut certifié par l\'administration',
+      'en': 'Status certified by the administration',
+      'de': 'Von der Behörde zertifizierter Status',
+    },
+    'gov.card1_feat3': {
+      'fr': 'Réduit la fraude immobilière',
+      'en': 'Cuts down on land fraud',
+      'de': 'Verringert Immobilienbetrug',
+    },
+    'gov.card2_category': {
+      'fr': 'Finances publiques',
+      'en': 'Public Finance',
+      'de': 'Öffentliche Finanzen',
+    },
+    'gov.card2_title': {
+      'fr': 'Paiement des impôts et factures',
+      'en': 'Tax and utility payments',
+      'de': 'Steuer- und Rechnungszahlungen',
+    },
+    'gov.card2_desc': {
+      'fr':
+          'Impôts, eau, électricité : des solutions de paiement mobile déjà opérationnelles, sans file ni guichet.',
+      'en':
+          'Taxes, water, electricity: mobile payment solutions already live, no queue or counter needed.',
+      'de':
+          'Steuern, Wasser, Strom: mobile Zahlungslösungen bereits im Einsatz, ohne Warteschlange oder Schalter.',
+    },
+    'gov.card2_feat1': {
+      'fr': 'Déjà en production',
+      'en': 'Already in production',
+      'de': 'Bereits im Produktivbetrieb',
+    },
+    'gov.card2_feat2': {
+      'fr': 'Orange Money, MTN, Wave',
+      'en': 'Orange Money, MTN, Wave',
+      'de': 'Orange Money, MTN, Wave',
+    },
+    'gov.card2_feat3': {
+      'fr': 'Reçu numérique instantané',
+      'en': 'Instant digital receipt',
+      'de': 'Sofortige digitale Quittung',
+    },
+    'gov.card3_category': {
+      'fr': 'À venir',
+      'en': 'Coming Soon',
+      'de': 'Demnächst',
+    },
+    'gov.card3_title': {
+      'fr': 'D\'autres chantiers en préparation',
+      'en': 'More projects in the pipeline',
+      'de': 'Weitere Projekte in Vorbereitung',
+    },
+    'gov.card3_desc': {
+      'fr':
+          'État civil, santé, éducation : nous développons avec les administrations une feuille de route adaptée à leurs priorités.',
+      'en':
+          'Civil registry, health, education: we build a roadmap with administrations, matched to their priorities.',
+      'de':
+          'Personenstand, Gesundheit, Bildung: Wir entwickeln mit Verwaltungen eine Roadmap, abgestimmt auf ihre Prioritäten.',
+    },
+    'gov.card3_feat1': {
+      'fr': 'État civil numérique',
+      'en': 'Digital civil registry',
+      'de': 'Digitales Personenstandsregister',
+    },
+    'gov.card3_feat2': {
+      'fr': 'Dossiers de santé partagés',
+      'en': 'Shared health records',
+      'de': 'Gemeinsame Gesundheitsakten',
+    },
+    'gov.card3_feat3': {
+      'fr': 'Inscriptions scolaires en ligne',
+      'en': 'Online school enrollment',
+      'de': 'Online-Schulanmeldung',
+    },
+    'gov.cta': {
+      'fr': 'Parler à notre équipe secteur public',
+      'en': 'Talk to our public-sector team',
+      'de': 'Mit unserem Public-Sector-Team sprechen',
+    },
+
     // ── InstallFlutter (Contact CTA) ─────────────────────────────────
     'install.badge': {
       'fr': 'PRÊT À DÉCOLLER ?',
@@ -999,6 +1123,14 @@ class Translations {
           'Hello, I\'d like to discuss a digital solution for my market in Africa.',
       'de':
           'Hallo, ich möchte eine digitale Lösung für meinen Markt in Afrika besprechen.'
+    },
+    'wa.government': {
+      'fr':
+          'Bonjour, je représente une administration et je souhaite discuter d\'un projet de digitalisation.',
+      'en':
+          'Hello, I represent a government administration and would like to discuss a digitalization project.',
+      'de':
+          'Hallo, ich vertrete eine Behörde und möchte ein Digitalisierungsprojekt besprechen.'
     },
 
     // ── Pricing (MVP offer), SEO page and blog links ────────────────
