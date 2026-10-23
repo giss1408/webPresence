@@ -171,7 +171,7 @@ const List<_Slide> _slides = [
       _Span('carousel.s5_b', carouselBlueTextStyle),
     ],
     layers: [
-      _Layer.widget(_PitchCard(), Rect.fromLTWH(700, 80, 400, 320), 0, 200),
+      _Layer.widget(_PitchCard(), Rect.fromLTWH(740, 40, 400, 320), 0, 200),
     ],
   ),
 ];
