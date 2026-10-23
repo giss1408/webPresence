@@ -1469,6 +1469,51 @@ class Translations {
       'en': '4 sales synced to your account.',
       'de': '4 Verkäufe mit Ihrem Konto synchronisiert.',
     },
+    'demo.dj.step5': {
+      'fr': 'Le client venu avec un bon plan, compté',
+      'en': 'The customer who came with a deal, counted',
+      'de': 'Der Kunde, der mit einem Angebot kam, gezählt',
+    },
+    'demo.dj.deals_title': {
+      'fr': 'Mes bons plans',
+      'en': 'My deals',
+      'de': 'Meine Angebote',
+    },
+    'demo.dj.week_count': {
+      'fr': 'Cette semaine',
+      'en': 'This week',
+      'de': 'Diese Woche',
+    },
+    'demo.dj.week_count_value': {
+      'fr': '%d clients venus avec un bon plan',
+      'en': '%d customers came with a deal',
+      'de': '%d Kunden kamen mit einem Angebot',
+    },
+    'demo.dj.active_deal': {
+      'fr': 'Bon plan actif',
+      'en': 'Active deal',
+      'de': 'Aktives Angebot',
+    },
+    'demo.dj.deal_name': {
+      'fr': '-20% sur les tissus wax',
+      'en': '-20% off wax fabrics',
+      'de': '-20% auf Wax-Stoffe',
+    },
+    'demo.dj.deal_sent': {
+      'fr': 'Alerte envoyée aux clients du quartier',
+      'en': 'Alert sent to customers in the neighbourhood',
+      'de': 'Benachrichtigung an Kunden im Viertel gesendet',
+    },
+    'demo.dj.client_venu': {
+      'fr': 'Aminata K. — venue avec ce bon plan',
+      'en': 'Aminata K. — came with this deal',
+      'de': 'Aminata K. — kam mit diesem Angebot',
+    },
+    'demo.dj.new_client': {
+      'fr': 'Nouvelle',
+      'en': 'New',
+      'de': 'Neu',
+    },
     'demo.im.step1': {
       'fr': 'Le tableau de bord du propriétaire',
       'en': 'The landlord\'s dashboard',
@@ -1702,6 +1747,31 @@ class Translations {
       'fr': 'Des points fidélité à chaque paiement',
       'en': 'Loyalty points with every payment',
       'de': 'Treuepunkte bei jeder Zahlung',
+    },
+    'demo.dju.step6': {
+      'fr': 'Alerte dès qu\'un bon plan proche sort',
+      'en': 'Alerted the moment a nearby deal drops',
+      'de': 'Benachrichtigung, sobald ein Angebot in der Nähe erscheint',
+    },
+    'demo.dju.deal_notice': {
+      'fr': 'Chez Tantie Awa a publié un bon plan.',
+      'en': 'Chez Tantie Awa posted a deal.',
+      'de': 'Chez Tantie Awa hat ein Angebot veröffentlicht.',
+    },
+    'demo.dju.alerts_on': {
+      'fr': 'Alertes activées',
+      'en': 'Alerts on',
+      'de': 'Benachrichtigungen aktiviert',
+    },
+    'demo.dju.alerts_sub': {
+      'fr': 'Un bon plan dans votre commune ou chez vos favoris',
+      'en': 'A deal in your commune, or from your favourites',
+      'de': 'Ein Angebot in Ihrer Gemeinde oder von Ihren Favoriten',
+    },
+    'demo.dju.nearby_deals': {
+      'fr': 'Bons plans à proximité',
+      'en': 'Nearby deals',
+      'de': 'Angebote in der Nähe',
     },
     'demo.dju.hello': {
       'fr': 'Bonsoir Koffi',

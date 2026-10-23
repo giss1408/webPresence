@@ -87,12 +87,14 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
       DemoStep(screen: 'home', caption: 'demo.dj.step3'),
       DemoStep(
           screen: 'home', caption: 'demo.dj.step4', notice: 'demo.dj.notice'),
+      DemoStep(screen: 'client', caption: 'demo.dj.step5'),
     ],
     build: (step) => switch (step) {
       0 => const _FideliaHome(stage: _SaleStage.offline),
       1 => const _FideliaNewSale(),
       2 => const _FideliaHome(stage: _SaleStage.saved),
-      _ => const _FideliaHome(stage: _SaleStage.synced),
+      3 => const _FideliaHome(stage: _SaleStage.synced),
+      _ => const _FideliaClientVenu(),
     },
   ),
   DemoApp.fideliaUser: DemoAppSpec(
@@ -114,13 +116,19 @@ final Map<DemoApp, DemoAppSpec> demoApps = {
           caption: 'demo.dju.step5',
           tap: 'dju.done',
           notice: 'demo.dju.notice'),
+      DemoStep(
+          screen: 'alerts',
+          caption: 'demo.dju.step6',
+          tap: 'dju.bell',
+          notice: 'demo.dju.deal_notice'),
     ],
     build: (step) => switch (step) {
       0 => const _FideliaUserHome(target: 'dju.duty'),
       1 => const _OnDutyPharmacies(),
       2 => const _FideliaUserHome(target: 'dju.maquis'),
       3 => const _MaquisVenue(),
-      _ => const _FideliaUserPaid(),
+      4 => const _FideliaUserPaid(),
+      _ => const _FideliaDealAlerts(),
     },
   ),
   DemoApp.immoizi: DemoAppSpec(
@@ -1214,6 +1222,104 @@ class _FideliaNewSale extends StatelessWidget {
   }
 }
 
+/// "Client venu": the deal says a customer came in with it, and whether
+/// they are new, with this week's running count at the top.
+class _FideliaClientVenu extends StatelessWidget {
+  const _FideliaClientVenu();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(title: context.tr('demo.dj.deals_title'), large: true),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: scheme.secondaryContainer,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.groups_2_outlined, color: scheme.onSecondaryContainer),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.tr('demo.dj.week_count'),
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: scheme.onSecondaryContainer
+                                  .withOpacity(0.85))),
+                      const SizedBox(height: 2),
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(end: 7),
+                        duration: const Duration(milliseconds: 600),
+                        builder: (context, value, _) => Text(
+                            context.tr('demo.dj.week_count_value').replaceAll(
+                                '%d', value.round().toString()),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: scheme.onSecondaryContainer)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 4),
+          child: _Label(context.tr('demo.dj.active_deal')),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: DemoCard(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(context.tr('demo.dj.deal_name'),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: scheme.onSurface)),
+                const SizedBox(height: 6),
+                _Badge(context.tr('demo.dj.deal_sent'), _ivoryGreen,
+                    icon: Icons.campaign_outlined),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 14,
+                      backgroundColor: scheme.primaryContainer,
+                      child: Icon(Icons.person_outline,
+                          size: 15, color: scheme.onPrimaryContainer),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(context.tr('demo.dj.client_venu'),
+                          style: TextStyle(
+                              fontSize: 13, color: scheme.onSurface)),
+                    ),
+                    _Badge(context.tr('demo.dj.new_client'), scheme.primary),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 // ─── Immoizi (property management) ────────────────────────────────────────────
 
 enum _RentStage { late, reminded, paid }
@@ -2270,6 +2376,102 @@ class _FideliaUserPaid extends StatelessWidget {
           DemoButton(label: context.tr('demo.dju.done'), target: 'dju.done'),
         ],
       ),
+    );
+  }
+}
+
+/// "Alertes bons plans": the bell on the Bons plans tab, turned on to get
+/// notified when a nearby or favourite shop publishes a deal.
+class _FideliaDealAlerts extends StatelessWidget {
+  const _FideliaDealAlerts();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.scheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DemoAppBar(
+          title: context.tr('demo.dju.deals'),
+          large: true,
+          trailing: DemoTarget(
+            id: 'dju.bell',
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.elasticOut,
+              builder: (context, t, child) => Transform.rotate(
+                angle: 0.3 * (1 - t) * (t < 0.5 ? 1 : -1),
+                child: child,
+              ),
+              child: Icon(Icons.notifications_active_rounded,
+                  color: scheme.primary),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: DemoCard(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
+                Icon(Icons.notifications_active_rounded,
+                    color: scheme.primary),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.tr('demo.dju.alerts_on'),
+                          style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurface)),
+                      const SizedBox(height: 2),
+                      Text(context.tr('demo.dju.alerts_sub'),
+                          style: TextStyle(
+                              fontSize: 11.5, color: scheme.onSurfaceVariant)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
+          child: _Label(context.tr('demo.dju.nearby_deals')),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: DemoCard(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                _FoodTile(icon: Icons.ramen_dining_rounded, color: scheme.primary, size: 54),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Chez Tantie Awa',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurface)),
+                      const SizedBox(height: 4),
+                      _Badge(context.tr('demo.dj.deal_name'), _ivoryGreen,
+                          icon: Icons.local_offer_outlined),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
