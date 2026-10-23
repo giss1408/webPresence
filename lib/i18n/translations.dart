@@ -188,9 +188,9 @@ class Translations {
       'de': 'Vor dem Investment: ',
     },
     'carousel.dd_b': {
-      'fr': 'auditez la tech',
-      'en': 'audit the tech',
-      'de': 'Tech-Audit',
+      'fr': 'auditez la technologie',
+      'en': 'audit the technology',
+      'de': 'Technologie-Audit',
     },
     'carousel.dd_sample': {
       'fr': 'Exemple · Startup Alpha (fictive)',
@@ -235,7 +235,7 @@ class Translations {
       'de': 'Architektur trägt 24 Monate',
     },
     'carousel.dd_delivery': {
-      'fr': 'Rapport en 10 jours ouvrés',
+      'fr': 'Rapport en 10 jours ouvrables',
       'en': 'Report in 10 working days',
       'de': 'Bericht in 10 Arbeitstagen',
     },
@@ -243,6 +243,31 @@ class Translations {
       'fr': 'Avis\u00a0: investir sous 3 conditions',
       'en': 'Opinion: invest, with 3 conditions',
       'de': 'Empfehlung: investieren, mit 3 Auflagen',
+    },
+    'carousel.s5_a': {
+      'fr': 'Testez-nous, ',
+      'en': 'Put us to the test, ',
+      'de': 'Testen Sie uns, ',
+    },
+    'carousel.s5_b': {
+      'fr': 'nous allons vous surprendre !',
+      'en': 'we\'re going to surprise you!',
+      'de': 'wir werden Sie überraschen!',
+    },
+    'carousel.s5_cta': {
+      'fr': 'Demander une démo',
+      'en': 'Ask for a demo',
+      'de': 'Demo anfragen',
+    },
+    'carousel.s5_point1': {
+      'fr': 'Une démo sur votre cas, pas une présentation générique',
+      'en': 'A demo built around your case, not a generic deck',
+      'de': 'Eine Demo zu Ihrem Fall, keine Standardpräsentation',
+    },
+    'carousel.s5_point2': {
+      'fr': 'Réponse en moins de 24h',
+      'en': 'Reply within 24 hours',
+      'de': 'Antwort innerhalb von 24 Stunden',
     },
     'carousel.slide': {'fr': 'Diapositive', 'en': 'Slide', 'de': 'Folie'},
     'carousel.previous': {'fr': 'Précédent', 'en': 'Previous', 'de': 'Zurück'},
@@ -870,7 +895,7 @@ class Translations {
           'Code, Infrastruktur, Sicherheit und Datenschutz (ARTCI, DSGVO), unabhängig geprüft.'
     },
     'exp.review_point1': {
-      'fr': 'Un rapport en 10 jours ouvrés, avec une synthèse d\'une page',
+      'fr': 'Un rapport en 10 jours ouvrables, avec une synthèse d\'une page',
       'en': 'A report in 10 working days, with a one-page summary',
       'de': 'Ein Bericht in 10 Arbeitstagen, mit einseitiger Zusammenfassung'
     },
@@ -1625,9 +1650,9 @@ class Translations {
       'de': 'OFFLINE-FIRST',
     },
     'sync.title': {
-      'fr': 'Le réseau coupe. Votre app, non.',
-      'en': 'The network drops. Your app doesn\'t.',
-      'de': 'Das Netz fällt aus. Ihre App nicht.',
+      'fr': 'Le réseau n\'est pas fiable ? Votre app, si, même sans réseau continu.',
+      'en': 'The network isn\'t reliable? Your app is, even without a steady connection.',
+      'de': 'Das Netz ist nicht zuverlässig? Ihre App schon, auch ohne durchgehende Verbindung.',
     },
     'sync.body': {
       'fr':

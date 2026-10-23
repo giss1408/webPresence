@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/providers/locale_provider.dart';
+import 'package:flutter_website/ui/section_nav.dart';
 import 'package:provider/provider.dart';
 
 import 'animation_slide_up_down_fade.dart';
@@ -155,6 +156,21 @@ const List<_Slide> _slides = [
           Rect.fromLTWH(202, 108, 735, 428), 14, 176),
       _Layer('assets/images/slide_4-layer_2_Test.webp',
           Rect.fromLTWH(187, 80, 901, 474), 25, 171),
+    ],
+  ),
+  // Fifth slide: a direct challenge to try the product, no screenshot —
+  // just the pitch card, centred.
+  _Slide(
+    timeline: 200,
+    textEntry: 20,
+    textExit: 180,
+    text: [
+      _Span('carousel.s5_a', carouselWhiteTextStyle),
+      _Span('carousel.s5_b', carouselBlueTextStyle),
+    ],
+    layers: [
+      _Layer.widget(
+          _PitchCard(), Rect.fromLTWH(700, 160, 400, 320), 0, 200),
     ],
   ),
 ];
@@ -717,6 +733,87 @@ class _DeliveryCard extends StatelessWidget {
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                   color: Colors.white)),
+        ],
+      ),
+    );
+  }
+}
+
+/// A short point in the "put us to the test" pitch card, with a check mark
+/// in the same blue as the card's accent.
+class _PitchPoint extends StatelessWidget {
+  final String textKey;
+
+  const _PitchPoint(this.textKey);
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Icon(Icons.check_circle, size: 18, color: Color(0xFF008AFE)),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(tr(textKey),
+              style: const TextStyle(
+                  fontFamily: fontFamily, fontSize: 14, color: Colors.white)),
+        ),
+      ],
+    );
+  }
+}
+
+/// The "put us to the test" pitch card: a direct challenge, two reasons why
+/// it's low-risk, and a CTA — blue to match [carouselBlueTextStyle].
+class _PitchCard extends StatelessWidget {
+  const _PitchCard();
+
+  static const _points = ['carousel.s5_point1', 'carousel.s5_point2'];
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return Container(
+      padding: const EdgeInsets.all(28),
+      decoration: BoxDecoration(
+        color: _ddSurface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFF008AFE), width: 2),
+        boxShadow: const [
+          BoxShadow(
+              color: Color(0x33008AFE), blurRadius: 32, offset: Offset(0, 10)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final key in _points) ...[
+            _PitchPoint(key),
+            const SizedBox(height: 14),
+          ],
+          const SizedBox(height: 6),
+          GestureDetector(
+            onTap: () => scrollToSection(context, HomeSections.contact),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF008AFE),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(tr('carousel.s5_cta'),
+                    style: const TextStyle(
+                        fontFamily: fontFamily,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white)),
+              ),
+            ),
+          ),
         ],
       ),
     );
