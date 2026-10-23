@@ -575,6 +575,14 @@ class Translations {
       'de':
           'Zuverlässige digitale Dienste für Bürger und Verwaltungen — ausgelegt für geringe Bandbreite und nationalen Maßstab.',
     },
+    'gov.tagline': {
+      'fr':
+          'Vous avez les données, nous les mettons en forme pour les usagers pour instaurer la confiance.',
+      'en':
+          'You have the data; we shape it for the people who use your services, to build trust.',
+      'de':
+          'Sie haben die Daten – wir bereiten sie für die Bürger auf, um Vertrauen zu schaffen.',
+    },
     'gov.card1_category': {
       'fr': 'Foncier',
       'en': 'Land Registry',

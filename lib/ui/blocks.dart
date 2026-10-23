@@ -2375,6 +2375,20 @@ class GovernmentDigitalization extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                const SizedBox(height: 12),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 620),
+                  child: Text(
+                    localeProvider.tr('gov.tagline'),
+                    style: bodyTextStyle.copyWith(
+                      fontSize: isMobile ? 16 : 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      height: 1.6,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 SizedBox(height: isMobile ? 36 : 56),
                 ResponsiveRowColumn(
                   layout: isMobile
