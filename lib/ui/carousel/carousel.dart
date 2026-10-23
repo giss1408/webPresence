@@ -158,10 +158,9 @@ const List<_Slide> _slides = [
           Rect.fromLTWH(187, 80, 901, 474), 25, 171),
     ],
   ),
-  // Fifth slide: a direct challenge to try the product, no screenshot —
-  // just the pitch card. Pulled up near the top of the canvas so roughly
-  // 3/4 of it sits above the headline's vertical centre; only the card's
-  // empty bottom margin falls under the headline.
+  // Fifth slide: a direct challenge to try the product. The phone screen
+  // is filled like the due-diligence slide's report screen, with a small
+  // highlight card lifted up and to the right of it.
   _Slide(
     timeline: 200,
     textEntry: 20,
@@ -171,7 +170,9 @@ const List<_Slide> _slides = [
       _Span('carousel.s5_b', carouselBlueTextStyle),
     ],
     layers: [
-      _Layer.widget(_PitchCard(), Rect.fromLTWH(740, 40, 400, 320), 0, 200),
+      _Layer.widget(_PitchScreen(), Rect.fromLTWH(458, 54, 283, 531), 0, 164),
+      _Layer.widget(
+          _PitchHighlight(), Rect.fromLTWH(790, 20, 260, 140), 14, 172),
     ],
   ),
 ];
@@ -740,8 +741,8 @@ class _DeliveryCard extends StatelessWidget {
   }
 }
 
-/// A short point in the "put us to the test" pitch card, with a check mark
-/// in the same blue as the card's accent.
+/// A short point in the "put us to the test" pitch screen, with a check
+/// mark in the same blue as the slide's accent.
 class _PitchPoint extends StatelessWidget {
   final String textKey;
 
@@ -765,56 +766,85 @@ class _PitchPoint extends StatelessWidget {
   }
 }
 
-/// The "put us to the test" pitch card: a direct challenge, two reasons why
-/// it's low-risk, and a CTA — blue to match [carouselBlueTextStyle].
-class _PitchCard extends StatelessWidget {
-  const _PitchCard();
+/// The phone screen for the "put us to the test" slide: fills the device
+/// frame like [_ReportScreen] does, with the pitch's two points and a CTA.
+class _PitchScreen extends StatelessWidget {
+  const _PitchScreen();
 
   static const _points = ['carousel.s5_point1', 'carousel.s5_point2'];
 
   @override
   Widget build(BuildContext context) {
     final tr = context.watch<LocaleProvider>().tr;
+    const body = TextStyle(
+        fontFamily: fontFamily, fontSize: 14, color: Colors.white, height: 1.3);
+    // Dimmed: it is the backdrop, the slide headline sits on top of it.
     return Container(
-      padding: const EdgeInsets.all(28),
+      foregroundDecoration: BoxDecoration(
+        color: _ddSurface.withOpacity(0.45),
+        borderRadius: BorderRadius.circular(28),
+      ),
+      padding: const EdgeInsets.fromLTRB(22, 64, 22, 22),
       decoration: BoxDecoration(
         color: _ddSurface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF008AFE), width: 2),
-        boxShadow: const [
-          BoxShadow(
-              color: Color(0x33008AFE), blurRadius: 32, offset: Offset(0, 10)),
-        ],
+        borderRadius: BorderRadius.circular(28),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
+          Text(tr('carousel.s5_screen_title'),
+              style: body.copyWith(fontSize: 19, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 24),
           for (final key in _points) ...[
             _PitchPoint(key),
-            const SizedBox(height: 14),
+            const SizedBox(height: 16),
           ],
-          const SizedBox(height: 6),
+          const Spacer(),
           GestureDetector(
             onTap: () => scrollToSection(context, HomeSections.contact),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: const Color(0xFF008AFE),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(tr('carousel.s5_cta'),
-                    style: const TextStyle(
-                        fontFamily: fontFamily,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white)),
+                    style: body.copyWith(fontWeight: FontWeight.w700)),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Small highlight card lifted above and to the right of the phone, echoing
+/// [_DeliveryCard]'s size and shape but in the slide's blue accent.
+class _PitchHighlight extends StatelessWidget {
+  const _PitchHighlight();
+
+  @override
+  Widget build(BuildContext context) {
+    final tr = context.watch<LocaleProvider>().tr;
+    return _FloatingCard(
+      accent: const Color(0xFF008AFE),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.bolt, size: 18, color: Color(0xFF008AFE)),
+          const SizedBox(height: 6),
+          Text(tr('carousel.s5_point2'),
+              style: const TextStyle(
+                  fontFamily: fontFamily,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)),
         ],
       ),
     );

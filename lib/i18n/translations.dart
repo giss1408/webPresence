@@ -259,6 +259,11 @@ class Translations {
       'en': 'Ask for a demo',
       'de': 'Demo anfragen',
     },
+    'carousel.s5_screen_title': {
+      'fr': 'Pourquoi essayer Fidelia',
+      'en': 'Why try Fidelia',
+      'de': 'Warum Fidelia testen',
+    },
     'carousel.s5_point1': {
       'fr': 'Une démo pour votre projet, pas une présentation générique',
       'en': 'A demo built for your project, not a generic deck',
