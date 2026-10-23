@@ -41,12 +41,18 @@ class _Slide {
   final int textExit;
   final int timeline;
 
+  /// Most slides lay the headline over the artwork; set this when a layer
+  /// (e.g. a solid card) must sit on top of the headline instead, so the
+  /// card isn't covered by text it overlaps.
+  final bool layersAboveText;
+
   const _Slide({
     required this.layers,
     required this.text,
     required this.textEntry,
     required this.textExit,
     required this.timeline,
+    this.layersAboveText = false,
   });
 
   /// Timeline position (0–1) at which every layer and the text are visible.
@@ -159,11 +165,13 @@ const List<_Slide> _slides = [
     ],
   ),
   // Fifth slide: a direct challenge to try the product, no screenshot —
-  // just the pitch card, centred.
+  // just the pitch card, centred. The card sits on top of the headline
+  // (layersAboveText) so it stays readable instead of being covered by it.
   _Slide(
     timeline: 200,
     textEntry: 20,
     textExit: 180,
+    layersAboveText: true,
     text: [
       _Span('carousel.s5_a', carouselWhiteTextStyle),
       _Span('carousel.s5_b', carouselBlueTextStyle),
@@ -304,49 +312,56 @@ class _CarouselState extends State<Carousel>
 
   Widget _buildSlide(String Function(String) tr, {required bool isMobile}) {
     final slide = _slide;
+
+    final layerWidgets = [
+      for (var i = 0; i < slide.layers.length; i++)
+        Positioned.fromRect(
+          rect: isMobile
+              ? _pulledIn(slide.layers[i].rect)
+              : slide.layers[i].rect,
+          child: _animated(
+              i,
+              slide.layers[i].widget ??
+                  Image.asset(slide.layers[i].asset!, fit: BoxFit.fill)),
+        ),
+      if (!slide.layersAboveText)
+        Positioned.fromRect(
+          rect: _deviceFrameRect,
+          child: Image.asset(_deviceFrame, fit: BoxFit.fill),
+        ),
+    ];
+
+    final textWidget = Positioned.fromRect(
+      rect: isMobile
+          ? _mobileViewport.deflate(24)
+          : const Rect.fromLTRB(24, 0, _canvasWidth - 24, _canvasHeight),
+      child: Center(
+        child: _animated(
+          slide.layers.length,
+          RichText(
+            textAlign: TextAlign.center,
+            textScaler: isMobile
+                ? const TextScaler.linear(_mobileTextScale)
+                : TextScaler.noScaling,
+            text: TextSpan(
+              style: const TextStyle(height: 1.1),
+              children: [
+                for (final span in slide.text)
+                  TextSpan(text: tr(span.key), style: span.style),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
     return SizedBox(
       width: _canvasWidth,
       height: _canvasHeight,
       child: Stack(
-        children: [
-          for (var i = 0; i < slide.layers.length; i++)
-            Positioned.fromRect(
-              rect: isMobile
-                  ? _pulledIn(slide.layers[i].rect)
-                  : slide.layers[i].rect,
-              child: _animated(
-                  i,
-                  slide.layers[i].widget ??
-                      Image.asset(slide.layers[i].asset!, fit: BoxFit.fill)),
-            ),
-          Positioned.fromRect(
-            rect: _deviceFrameRect,
-            child: Image.asset(_deviceFrame, fit: BoxFit.fill),
-          ),
-          Positioned.fromRect(
-            rect: isMobile
-                ? _mobileViewport.deflate(24)
-                : const Rect.fromLTRB(24, 0, _canvasWidth - 24, _canvasHeight),
-            child: Center(
-              child: _animated(
-                slide.layers.length,
-                RichText(
-                  textAlign: TextAlign.center,
-                  textScaler: isMobile
-                      ? const TextScaler.linear(_mobileTextScale)
-                      : TextScaler.noScaling,
-                  text: TextSpan(
-                    style: const TextStyle(height: 1.1),
-                    children: [
-                      for (final span in slide.text)
-                        TextSpan(text: tr(span.key), style: span.style),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        children: slide.layersAboveText
+            ? [textWidget, ...layerWidgets]
+            : [...layerWidgets, textWidget],
       ),
     );
   }
