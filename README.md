@@ -12,6 +12,41 @@ flutter run -d chrome
 
 Requires Flutter **3.24.2** (the version pinned in `render.yaml` and `Dockerfile`).
 
+## Blog
+
+The blog (`/blog/`) is static HTML generated from Markdown, so publishing a
+post never touches hand-written HTML, the post list, or the sitemap.
+
+To publish a new post:
+
+1. Add `blog-posts/<slug>.md` with front matter, e.g.:
+   ```
+   ---
+   title: Post title
+   description: Meta description and JSON-LD headline source.
+   ogDescription: Shorter description for social previews (optional).
+   excerpt: Shown on the blog index under the title (optional).
+   date: 2026-11-01
+   readingMinutes: 7
+   whatsappText: Pre-filled message for the post's WhatsApp CTA (optional).
+   secondaryLinkHref: /blog/            (optional)
+   secondaryLinkLabel: Tous les articles (optional)
+   ---
+   Markdown body. Raw HTML blocks (e.g. a custom `<div class="offer">`)
+   pass through untouched for the rare post that needs one.
+   ```
+2. Run `dart run tool/generate_blog.dart` — it writes
+   `web/blog/<slug>/index.html`, rebuilds `web/blog/index.html` (newest
+   first, grouped by year) with each post's table of contents generated
+   from its `##` headings, and updates the blog entries in
+   `web/sitemap.xml`.
+3. Commit `blog-posts/<slug>.md` and the regenerated files, and push —
+   Render auto-deploys. (`render-build.sh` also runs the generator before
+   every build, so a forgotten regeneration still ships correctly.)
+
+To edit a post, edit its `.md` file and re-run the generator; never hand-edit
+the generated `web/blog/**/index.html` files, they get overwritten.
+
 ## Check before pushing
 
 ```bash
@@ -73,7 +108,8 @@ the image tag in `Dockerfile` together.
 | `lib/components/app_palette.dart` | Light / dark colors and breakpoints (`context.palette`, `context.isMobile`) |
 | `lib/i18n/translations.dart` | All FR / EN / DE texts |
 | `lib/pages/` | Portfolio page |
-| `web/` | `index.html` (SEO, loading screen), icons, manifest |
+| `web/` | `index.html` (SEO, loading screen), icons, manifest, static pages (`blog/`, `developpement-saas-mobile/`, `due-diligence-technique/`, legal pages) |
+| `blog-posts/*.md` | Blog post source (see **Blog** above); `tool/generate_blog.dart` renders them into `web/blog/` |
 | `docs/logo/` | Logo concepts and the animated logo; `assets/images/logo.svg` is the source for all icons (`rsvg-convert` it into `web/icons/`) |
 | `lib/components/animated_logo.dart` | Animated logo (header, footer): the brand text (`brandText`) typed out of the R; the loading screen in `web/index.html` and `docs/logo/logo-animated*.svg` repeat the same animation |
 | `docs/archive/` | Older notes and reports kept for reference |

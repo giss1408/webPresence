@@ -53,54 +53,60 @@
     <article>
       <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="2026-10-02">2 octobre 2026</time> · 7 min de lecture</p>
       <h1>Intégrer Orange Money, Wave et MTN MoMo dans votre application</h1>
-      <p class="lead">En Afrique de l'Ouest, vos clients paient d'abord avec leur téléphone. Si votre application ou votre SaaS n'accepte que la carte bancaire, vous laissez de côté une grande partie de votre marché. Voici comment intégrer le Mobile Money proprement, de la première vente aux abonnements.</p>
+      <nav class="toc" aria-label="Sommaire">
+        <p>Dans cet article</p>
+        <ol>
+          <li><a href="#deux-faons-de-se-connecter">Deux façons de se connecter</a></li>
+          <li><a href="#le-parcours-de-paiement-tape-par-tape">Le parcours de paiement, étape par étape</a></li>
+          <li><a href="#les-abonnements-pour-un-saas">Les abonnements pour un SaaS</a></li>
+          <li><a href="#les-erreurs--viter">Les erreurs à éviter</a></li>
+          <li><a href="#combien-de-temps-pour-lintgrer-">Combien de temps pour l'intégrer ?</a></li>
+        </ol>
+      </nav>
+<p>En Afrique de l'Ouest, vos clients paient d'abord avec leur téléphone. Si votre application ou votre SaaS n'accepte que la carte bancaire, vous laissez de côté une grande partie de votre marché. Voici comment intégrer le Mobile Money proprement, de la première vente aux abonnements.</p>
+<h2 id="deux-faons-de-se-connecter">Deux façons de se connecter</h2>
+<h3 id="passer-par-un-agrgateur-de-paiement">Passer par un agrégateur de paiement</h3>
+<p>Un agrégateur (par exemple CinetPay, PayDunya ou FedaPay, selon les pays) vous donne une seule intégration pour plusieurs opérateurs : Orange Money, Wave, MTN Mobile Money, Moov Money, et souvent la carte bancaire. C'est la solution la plus rapide pour démarrer, en particulier si vous vendez dans plusieurs pays.</p>
+<ul>
+<li><strong>Avantages :</strong> une seule intégration, un seul tableau de bord, des démarches d'ouverture de compte simplifiées.</li>
+<li><strong>Inconvénients :</strong> une commission en plus de celle de l'opérateur, et une dépendance à un intermédiaire.</li>
+</ul>
+<h3 id="se-connecter-directement--loprateur">Se connecter directement à l'opérateur</h3>
+<p>Les opérateurs proposent leurs propres API marchandes. Les frais peuvent être plus bas, mais il faut un contrat et une intégration par opérateur et par pays, avec des délais de validation parfois longs. Cette voie devient intéressante quand vos volumes sont importants.</p>
+<p><strong>Notre conseil :</strong> commencez avec un agrégateur pour valider votre marché, et isolez le paiement dans un module de votre back-end. Le jour où une connexion directe devient rentable, vous changez de fournisseur sans toucher à l'application.</p>
+<h2 id="le-parcours-de-paiement-tape-par-tape">Le parcours de paiement, étape par étape</h2>
+<ol>
+<li>Le client choisit son moyen de paiement dans l'application (Orange Money, Wave…).</li>
+<li>L'application demande à <strong>votre serveur</strong> de créer la transaction ; le serveur l'enregistre avec le statut « en attente ».</li>
+<li>Le serveur appelle l'agrégateur ou l'opérateur, qui renvoie un lien de paiement ou déclenche une demande de validation sur le téléphone du client.</li>
+<li>Le client confirme avec son code secret, sur l'interface de l'opérateur — jamais dans votre application.</li>
+<li>L'opérateur prévient votre serveur du résultat (notification, ou « webhook ») ; le serveur vérifie et passe la transaction à « payée » ou « échouée ».</li>
+<li>L'application affiche le résultat et débloque la commande ou l'abonnement.</li>
+</ol>
+<p>Le point essentiel : <strong>c'est le serveur qui décide qu'un paiement est réussi</strong>, jamais l'application seule. Nous expliquons pourquoi dans <a href="/blog/securiser-paiements-mobile-money/">notre article sur la sécurité des paiements Mobile Money</a>.</p>
+<h2 id="les-abonnements-pour-un-saas">Les abonnements pour un SaaS</h2>
+<p>Contrairement à la carte bancaire, le Mobile Money ne permet généralement pas de prélever automatiquement le client chaque mois. Un SaaS doit donc prévoir :</p>
+<ul>
+<li>un <strong>rappel avant l'échéance</strong> (notification push, SMS ou WhatsApp) avec un lien de paiement en un clic ;</li>
+<li>une <strong>période de grâce</strong> de quelques jours avant de suspendre le compte ;</li>
+<li>des <strong>formules prépayées</strong> (trimestre, année) avec une remise, pour réduire le nombre de paiements ;</li>
+<li>un <strong>historique et des reçus</strong> téléchargeables, pour la comptabilité de vos clients professionnels.</li>
+</ul>
+<h2 id="les-erreurs--viter">Les erreurs à éviter</h2>
+<ul>
+<li><strong>Considérer un paiement comme réussi parce que l'application l'affiche :</strong> seule la confirmation reçue et vérifiée par le serveur compte.</li>
+<li><strong>Ignorer les paiements « en attente » :</strong> le client peut valider plusieurs minutes plus tard. Prévoyez une vérification périodique des transactions non résolues.</li>
+<li><strong>Oublier les remboursements :</strong> commande annulée, double paiement… le processus doit exister avant le premier incident.</li>
+<li><strong>Ne pas rapprocher les comptes :</strong> comparez régulièrement vos transactions avec le relevé de l'agrégateur ou de l'opérateur.</li>
+<li><strong>Négliger les frais :</strong> intégrez les commissions dans votre prix, ou décidez clairement qui les paie.</li>
+</ul>
+<h2 id="combien-de-temps-pour-lintgrer-">Combien de temps pour l'intégrer ?</h2>
+<p>Avec un agrégateur, l'intégration technique se compte en jours, mais l'ouverture du compte marchand et la validation par le fournisseur peuvent prendre plus longtemps : lancez ces démarches dès le début du projet. Le paiement Mobile Money est une option de notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>.</p>
 
-      <h2>Deux façons de se connecter</h2>
-      <h3>Passer par un agrégateur de paiement</h3>
-      <p>Un agrégateur (par exemple CinetPay, PayDunya ou FedaPay, selon les pays) vous donne une seule intégration pour plusieurs opérateurs : Orange Money, Wave, MTN Mobile Money, Moov Money, et souvent la carte bancaire. C'est la solution la plus rapide pour démarrer, en particulier si vous vendez dans plusieurs pays.</p>
-      <ul>
-        <li><strong>Avantages :</strong> une seule intégration, un seul tableau de bord, des démarches d'ouverture de compte simplifiées.</li>
-        <li><strong>Inconvénients :</strong> une commission en plus de celle de l'opérateur, et une dépendance à un intermédiaire.</li>
-      </ul>
-      <h3>Se connecter directement à l'opérateur</h3>
-      <p>Les opérateurs proposent leurs propres API marchandes. Les frais peuvent être plus bas, mais il faut un contrat et une intégration par opérateur et par pays, avec des délais de validation parfois longs. Cette voie devient intéressante quand vos volumes sont importants.</p>
-      <p><strong>Notre conseil :</strong> commencez avec un agrégateur pour valider votre marché, et isolez le paiement dans un module de votre back-end. Le jour où une connexion directe devient rentable, vous changez de fournisseur sans toucher à l'application.</p>
-
-      <h2>Le parcours de paiement, étape par étape</h2>
-      <ol>
-        <li>Le client choisit son moyen de paiement dans l'application (Orange Money, Wave…).</li>
-        <li>L'application demande à <strong>votre serveur</strong> de créer la transaction ; le serveur l'enregistre avec le statut « en attente ».</li>
-        <li>Le serveur appelle l'agrégateur ou l'opérateur, qui renvoie un lien de paiement ou déclenche une demande de validation sur le téléphone du client.</li>
-        <li>Le client confirme avec son code secret, sur l'interface de l'opérateur — jamais dans votre application.</li>
-        <li>L'opérateur prévient votre serveur du résultat (notification, ou « webhook ») ; le serveur vérifie et passe la transaction à « payée » ou « échouée ».</li>
-        <li>L'application affiche le résultat et débloque la commande ou l'abonnement.</li>
-      </ol>
-      <p>Le point essentiel : <strong>c'est le serveur qui décide qu'un paiement est réussi</strong>, jamais l'application seule. Nous expliquons pourquoi dans <a href="/blog/securiser-paiements-mobile-money/">notre article sur la sécurité des paiements Mobile Money</a>.</p>
-
-      <h2>Les abonnements pour un SaaS</h2>
-      <p>Contrairement à la carte bancaire, le Mobile Money ne permet généralement pas de prélever automatiquement le client chaque mois. Un SaaS doit donc prévoir :</p>
-      <ul>
-        <li>un <strong>rappel avant l'échéance</strong> (notification push, SMS ou WhatsApp) avec un lien de paiement en un clic ;</li>
-        <li>une <strong>période de grâce</strong> de quelques jours avant de suspendre le compte ;</li>
-        <li>des <strong>formules prépayées</strong> (trimestre, année) avec une remise, pour réduire le nombre de paiements ;</li>
-        <li>un <strong>historique et des reçus</strong> téléchargeables, pour la comptabilité de vos clients professionnels.</li>
-      </ul>
-
-      <h2>Les erreurs à éviter</h2>
-      <ul>
-        <li><strong>Considérer un paiement comme réussi parce que l'application l'affiche :</strong> seule la confirmation reçue et vérifiée par le serveur compte.</li>
-        <li><strong>Ignorer les paiements « en attente » :</strong> le client peut valider plusieurs minutes plus tard. Prévoyez une vérification périodique des transactions non résolues.</li>
-        <li><strong>Oublier les remboursements :</strong> commande annulée, double paiement… le processus doit exister avant le premier incident.</li>
-        <li><strong>Ne pas rapprocher les comptes :</strong> comparez régulièrement vos transactions avec le relevé de l'agrégateur ou de l'opérateur.</li>
-        <li><strong>Négliger les frais :</strong> intégrez les commissions dans votre prix, ou décidez clairement qui les paie.</li>
-      </ul>
-
-      <h2>Combien de temps pour l'intégrer ?</h2>
-      <p>Avec un agrégateur, l'intégration technique se compte en jours, mais l'ouverture du compte marchand et la validation par le fournisseur peuvent prendre plus longtemps : lancez ces démarches dès le début du projet. Le paiement Mobile Money est une option de notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>.</p>
 
       <div class="actions">
         <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20int%C3%A9grer%20le%20Mobile%20Money%20dans%20mon%20application.">Parler de mon projet par WhatsApp</a>
-        <a class="btn" href="mailto:info@regisse.com?subject=Demande%20de%20projet%20%E2%80%94%20Regisse&amp;body=Bonjour%2C%20j%27aimerais%20int%C3%A9grer%20le%20Mobile%20Money%20dans%20mon%20application.">Parler de mon projet par e-mail</a>
+        <a class="btn" href="mailto:mobile-business@regisse.com?subject=Demande%20de%20projet%20%E2%80%94%20Regisse&body=Bonjour%2C%20j'aimerais%20int%C3%A9grer%20le%20Mobile%20Money%20dans%20mon%20application.">Parler de mon projet par e-mail</a>
         <a class="btn ghost" href="/blog/">Tous les articles</a>
       </div>
     </article>

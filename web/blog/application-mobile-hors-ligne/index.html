@@ -53,50 +53,56 @@
     <article>
       <p class="meta"><a href="/blog/">← Blog</a> · <time datetime="2026-10-02">2 octobre 2026</time> · 7 min de lecture</p>
       <h1>Application mobile hors-ligne : pourquoi et comment la concevoir</h1>
-      <p class="lead">Un commerçant enregistre une vente, le réseau coupe, et l'application affiche une erreur. La vente est perdue, et la confiance avec. En Afrique de l'Ouest, le hors-ligne n'est pas un cas particulier : c'est une situation quotidienne qu'une bonne application doit gérer sans que l'utilisateur s'en rende compte.</p>
+      <nav class="toc" aria-label="Sommaire">
+        <p>Dans cet article</p>
+        <ol>
+          <li><a href="#pourquoi-le-hors-ligne-est-indispensable">Pourquoi le hors-ligne est indispensable</a></li>
+          <li><a href="#le-principe--le-tlphone-dabord-le-serveur-ensuite">Le principe : le téléphone d'abord, le serveur ensuite</a></li>
+          <li><a href="#les-points--concevoir-ds-le-dpart">Les points à concevoir dès le départ</a></li>
+          <li><a href="#ce-qui-ne-peut-pas-tre-hors-ligne">Ce qui ne peut pas être hors-ligne</a></li>
+          <li><a href="#un-exemple--fidelia">Un exemple : Fidelia</a></li>
+          <li><a href="#combien-cela-cote-t-il-en-plus-">Combien cela coûte-t-il en plus ?</a></li>
+        </ol>
+      </nav>
+<p>Un commerçant enregistre une vente, le réseau coupe, et l'application affiche une erreur. La vente est perdue, et la confiance avec. En Afrique de l'Ouest, le hors-ligne n'est pas un cas particulier : c'est une situation quotidienne qu'une bonne application doit gérer sans que l'utilisateur s'en rende compte.</p>
+<h2 id="pourquoi-le-hors-ligne-est-indispensable">Pourquoi le hors-ligne est indispensable</h2>
+<ul>
+<li><strong>Couverture inégale :</strong> zones rurales, marchés, entrepôts, sous-sols… le signal va et vient au cours de la journée.</li>
+<li><strong>Forfaits data limités :</strong> beaucoup d'utilisateurs coupent leurs données mobiles pour économiser leur forfait, et ne se connectent qu'en Wi-Fi ou à certains moments.</li>
+<li><strong>Travail de terrain :</strong> agents de collecte, livreurs, commerciaux, techniciens agricoles travaillent là où le réseau est le plus faible.</li>
+</ul>
+<p>Une application qui exige une connexion permanente perd ces utilisateurs. Une application qui fonctionne hors-ligne devient au contraire leur outil de travail de référence.</p>
+<h2 id="le-principe--le-tlphone-dabord-le-serveur-ensuite">Le principe : le téléphone d'abord, le serveur ensuite</h2>
+<p>Une application « offline-first » (hors-ligne d'abord) inverse la logique habituelle. Au lieu d'envoyer chaque action au serveur et d'attendre sa réponse, elle :</p>
+<ol>
+<li><strong>enregistre l'action immédiatement</strong> dans une base de données sur le téléphone ;</li>
+<li><strong>met à jour l'écran tout de suite</strong>, sans attendre le réseau ;</li>
+<li><strong>place l'action dans une file d'attente</strong> de synchronisation ;</li>
+<li><strong>envoie la file au serveur</strong> dès que la connexion revient, en arrière-plan.</li>
+</ol>
+<p>Pour l'utilisateur, l'application est simplement rapide et fiable, avec ou sans réseau.</p>
+<h2 id="les-points--concevoir-ds-le-dpart">Les points à concevoir dès le départ</h2>
+<h3 id="une-base-de-donnes-locale">Une base de données locale</h3>
+<p>Les données utiles au travail quotidien (catalogue, clients, dernières transactions) sont stockées sur le téléphone, par exemple avec SQLite. On ne télécharge que ce dont l'utilisateur a besoin, pour ménager le stockage et le forfait data.</p>
+<h3 id="des-identifiants-crs-sur-le-tlphone">Des identifiants créés sur le téléphone</h3>
+<p>Chaque enregistrement reçoit un identifiant unique généré sur l'appareil. Ainsi, si l'envoi est répété après une coupure, le serveur reconnaît l'enregistrement et ne crée pas de doublon : une vente envoyée deux fois reste une seule vente.</p>
+<h3 id="les-conflits">Les conflits</h3>
+<p>Que se passe-t-il si deux vendeurs modifient le même stock hors-ligne ? Il faut décider à l'avance de la règle : additionner les mouvements de stock plutôt qu'écraser la quantité, garder la modification la plus récente pour un nom de client, ou signaler le conflit à un responsable. Ces règles sont des choix métier, à valider avec vous pendant le cadrage.</p>
+<h3 id="un-tat-de-synchronisation-visible">Un état de synchronisation visible</h3>
+<p>L'utilisateur doit savoir où en sont ses données : « enregistré sur le téléphone », « en cours d'envoi », « synchronisé ». Un simple indicateur évite les doubles saisies et rassure.</p>
+<h3 id="une-synchronisation-conome">Une synchronisation économe</h3>
+<p>On n'envoie que les changements, compressés, et on peut réserver les gros fichiers (photos, documents) au Wi-Fi. L'utilisateur garde la maîtrise de sa consommation de données.</p>
+<h2 id="ce-qui-ne-peut-pas-tre-hors-ligne">Ce qui ne peut pas être hors-ligne</h2>
+<p>Certaines actions demandent le serveur au moment même : confirmer un paiement Mobile Money, vérifier un solde, réserver le dernier article en stock. L'application doit alors l'expliquer clairement (« paiement en attente de réseau ») au lieu d'échouer en silence. Pour les paiements, nous détaillons la bonne approche dans <a href="/blog/securiser-paiements-mobile-money/">notre article sur la sécurité des paiements Mobile Money</a>.</p>
+<h2 id="un-exemple--fidelia">Un exemple : Fidelia</h2>
+<p>Fidelia, notre application de caisse pour commerçants, enregistre les ventes même sans réseau. Le commerçant continue de servir ses clients ; dès que la connexion revient, les ventes partent vers le serveur et le tableau de bord se met à jour. Vous pouvez voir cette synchronisation en animation <a href="/">sur notre page d'accueil</a>.</p>
+<h2 id="combien-cela-cote-t-il-en-plus-">Combien cela coûte-t-il en plus ?</h2>
+<p>Prévu dès le départ, le mode hors-ligne demande surtout de bons choix d'architecture. Ajouté après coup, il oblige souvent à réécrire une grande partie de l'application. C'est pourquoi nous en parlons dès l'atelier de cadrage, et pourquoi il fait partie des options de notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>.</p>
 
-      <h2>Pourquoi le hors-ligne est indispensable</h2>
-      <ul>
-        <li><strong>Couverture inégale :</strong> zones rurales, marchés, entrepôts, sous-sols… le signal va et vient au cours de la journée.</li>
-        <li><strong>Forfaits data limités :</strong> beaucoup d'utilisateurs coupent leurs données mobiles pour économiser leur forfait, et ne se connectent qu'en Wi-Fi ou à certains moments.</li>
-        <li><strong>Travail de terrain :</strong> agents de collecte, livreurs, commerciaux, techniciens agricoles travaillent là où le réseau est le plus faible.</li>
-      </ul>
-      <p>Une application qui exige une connexion permanente perd ces utilisateurs. Une application qui fonctionne hors-ligne devient au contraire leur outil de travail de référence.</p>
-
-      <h2>Le principe : le téléphone d'abord, le serveur ensuite</h2>
-      <p>Une application « offline-first » (hors-ligne d'abord) inverse la logique habituelle. Au lieu d'envoyer chaque action au serveur et d'attendre sa réponse, elle :</p>
-      <ol>
-        <li><strong>enregistre l'action immédiatement</strong> dans une base de données sur le téléphone ;</li>
-        <li><strong>met à jour l'écran tout de suite</strong>, sans attendre le réseau ;</li>
-        <li><strong>place l'action dans une file d'attente</strong> de synchronisation ;</li>
-        <li><strong>envoie la file au serveur</strong> dès que la connexion revient, en arrière-plan.</li>
-      </ol>
-      <p>Pour l'utilisateur, l'application est simplement rapide et fiable, avec ou sans réseau.</p>
-
-      <h2>Les points à concevoir dès le départ</h2>
-      <h3>Une base de données locale</h3>
-      <p>Les données utiles au travail quotidien (catalogue, clients, dernières transactions) sont stockées sur le téléphone, par exemple avec SQLite. On ne télécharge que ce dont l'utilisateur a besoin, pour ménager le stockage et le forfait data.</p>
-      <h3>Des identifiants créés sur le téléphone</h3>
-      <p>Chaque enregistrement reçoit un identifiant unique généré sur l'appareil. Ainsi, si l'envoi est répété après une coupure, le serveur reconnaît l'enregistrement et ne crée pas de doublon : une vente envoyée deux fois reste une seule vente.</p>
-      <h3>Les conflits</h3>
-      <p>Que se passe-t-il si deux vendeurs modifient le même stock hors-ligne ? Il faut décider à l'avance de la règle : additionner les mouvements de stock plutôt qu'écraser la quantité, garder la modification la plus récente pour un nom de client, ou signaler le conflit à un responsable. Ces règles sont des choix métier, à valider avec vous pendant le cadrage.</p>
-      <h3>Un état de synchronisation visible</h3>
-      <p>L'utilisateur doit savoir où en sont ses données : « enregistré sur le téléphone », « en cours d'envoi », « synchronisé ». Un simple indicateur évite les doubles saisies et rassure.</p>
-      <h3>Une synchronisation économe</h3>
-      <p>On n'envoie que les changements, compressés, et on peut réserver les gros fichiers (photos, documents) au Wi-Fi. L'utilisateur garde la maîtrise de sa consommation de données.</p>
-
-      <h2>Ce qui ne peut pas être hors-ligne</h2>
-      <p>Certaines actions demandent le serveur au moment même : confirmer un paiement Mobile Money, vérifier un solde, réserver le dernier article en stock. L'application doit alors l'expliquer clairement (« paiement en attente de réseau ») au lieu d'échouer en silence. Pour les paiements, nous détaillons la bonne approche dans <a href="/blog/securiser-paiements-mobile-money/">notre article sur la sécurité des paiements Mobile Money</a>.</p>
-
-      <h2>Un exemple : Fidelia</h2>
-      <p>Fidelia, notre application de caisse pour commerçants, enregistre les ventes même sans réseau. Le commerçant continue de servir ses clients ; dès que la connexion revient, les ventes partent vers le serveur et le tableau de bord se met à jour. Vous pouvez voir cette synchronisation en animation <a href="/">sur notre page d'accueil</a>.</p>
-
-      <h2>Combien cela coûte-t-il en plus ?</h2>
-      <p>Prévu dès le départ, le mode hors-ligne demande surtout de bons choix d'architecture. Ajouté après coup, il oblige souvent à réécrire une grande partie de l'application. C'est pourquoi nous en parlons dès l'atelier de cadrage, et pourquoi il fait partie des options de notre <a href="/developpement-saas-mobile/">MVP SaaS mobile à partir de 250 000 FCFA</a>.</p>
 
       <div class="actions">
-        <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20une%20application%20qui%20fonctionne%20hors-ligne.">Parler de mon app par WhatsApp</a>
-        <a class="btn" href="mailto:info@regisse.com?subject=Demande%20de%20projet%20%E2%80%94%20Regisse&amp;body=Bonjour%2C%20j%27aimerais%20une%20application%20qui%20fonctionne%20hors-ligne.">Parler de mon app par e-mail</a>
+        <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20j'aimerais%20une%20application%20qui%20fonctionne%20hors-ligne.">Parler de mon projet par WhatsApp</a>
+        <a class="btn" href="mailto:mobile-business@regisse.com?subject=Demande%20de%20projet%20%E2%80%94%20Regisse&body=Bonjour%2C%20j'aimerais%20une%20application%20qui%20fonctionne%20hors-ligne.">Parler de mon projet par e-mail</a>
         <a class="btn ghost" href="/blog/">Tous les articles</a>
       </div>
     </article>

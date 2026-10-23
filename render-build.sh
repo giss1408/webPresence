@@ -19,6 +19,10 @@ flutter config --no-analytics --enable-web > /dev/null
 flutter --version
 flutter pub get
 
+# Regenerate web/blog/* and web/sitemap.xml from blog-posts/*.md, so a new
+# post only needs that one file — no hand-edited HTML, index or sitemap.
+dart run tool/generate_blog.dart
+
 # --pwa-strategy=offline-first: a service worker keeps the site on the
 # visitor's device, so repeat visits open almost instantly, even on a poor
 # connection. After a deploy, returning visitors get the new version on

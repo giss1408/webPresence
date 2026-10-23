@@ -107,6 +107,24 @@ summary { cursor: pointer; font-weight: 700; }
 .posts h2 a { color: var(--text); text-decoration: none; }
 .posts h2 a:hover { color: var(--accent); }
 
+/* Blog index: archive grouped by year, newest year first. */
+.archive-year {
+  margin: 40px 0 16px; font-size: 13px; font-weight: 700;
+  color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase;
+}
+.archive-year:first-of-type { margin-top: 24px; }
+
+/* Blog post: table of contents built from the post's own <h2>s. */
+.toc {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 20px; margin: 24px 0 32px;
+}
+.toc p { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.toc ol { margin: 0; padding-left: 20px; }
+.toc li { margin: 4px 0; font-size: 15px; }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
 footer { border-top: 1px solid var(--border); padding: 24px 0 40px; font-size: 14px; color: var(--muted); }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 
