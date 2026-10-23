@@ -577,7 +577,7 @@ class Translations {
     },
     'gov.tagline': {
       'fr':
-          'Vous avez les données, nous les mettons en forme pour les usagers pour instaurer la confiance.',
+          'Vous avez les données, nous les mettons en forme pour les usagers afin d'instaurer la confiance.',
       'en':
           'You have the data; we shape it for the people who use your services, to build trust.',
       'de':
