@@ -260,9 +260,9 @@ class Translations {
       'de': 'Demo anfragen',
     },
     'carousel.s5_point1': {
-      'fr': 'Une démo sur votre cas, pas une présentation générique',
-      'en': 'A demo built around your case, not a generic deck',
-      'de': 'Eine Demo zu Ihrem Fall, keine Standardpräsentation',
+      'fr': 'Une démo pour votre projet, pas une présentation générique',
+      'en': 'A demo built for your project, not a generic deck',
+      'de': 'Eine Demo zu Ihrem Projekt, keine Standardpräsentation',
     },
     'carousel.s5_point2': {
       'fr': 'Réponse en moins de 24h',

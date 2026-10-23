@@ -170,7 +170,7 @@ const List<_Slide> _slides = [
     ],
     layers: [
       _Layer.widget(
-          _PitchCard(), Rect.fromLTWH(700, 160, 400, 320), 0, 200),
+          _PitchCard(), Rect.fromLTWH(700, 290, 400, 320), 0, 200),
     ],
   ),
 ];
