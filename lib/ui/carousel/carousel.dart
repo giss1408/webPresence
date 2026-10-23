@@ -173,9 +173,9 @@ const List<_Slide> _slides = [
     layers: [
       _Layer.widget(_PitchScreen(), Rect.fromLTWH(458, 54, 283, 531), 0, 164),
       _Layer.widget(
-          _PitchHighlight(), Rect.fromLTWH(790, 20, 260, 140), 14, 172),
+          _PitchHighlight(), Rect.fromLTWH(790, 48, 260, 140), 14, 172),
       _Layer.widget(
-          _PitchCodeCard(), Rect.fromLTWH(70, 230, 320, 260), 20, 178),
+          _PitchCodeCard(), Rect.fromLTWH(50, 220, 340, 280), 20, 178),
     ],
   ),
 ];
@@ -867,7 +867,7 @@ class _CodeLine extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           style: const TextStyle(
-              fontFamily: 'monospace', fontSize: 12.5, height: 1.4),
+              fontFamily: 'monospace', fontSize: 14, height: 1.4),
           children: [
             TextSpan(
                 text: token,
@@ -954,7 +954,7 @@ class _PitchCodeCard extends StatelessWidget {
         Text(tr('carousel.s5_code_caption'),
             style: const TextStyle(
                 fontFamily: fontFamily,
-                fontSize: 13,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 color: Colors.white)),
       ],
