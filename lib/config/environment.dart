@@ -37,18 +37,6 @@ class AppConfig {
   /// Enable detailed logging only in development
   static bool get enableDetailedLogging => isDevelopment;
 
-  /// API base URL based on environment
-  static String get apiBaseUrl {
-    switch (_currentEnvironment) {
-      case Environment.production:
-        return 'https://regisse.com/api';
-      case Environment.staging:
-        return 'https://staging.regisse.com/api';
-      case Environment.development:
-        return 'http://localhost:8080';
-    }
-  }
-
   /// App version
   static const String appVersion = '2.1.0';
 
@@ -66,6 +54,6 @@ class AppConfig {
 
   /// Business info
   static const String companyName = 'Regisse - Mobile Business Technologies';
-  static const String companyEmail = 'mobile-business@regisse.com';
+  static const String companyEmail = 'info@milikey-energy.com';
   static const String companyWebsite = 'https://mobile-technologies.milikey-energy.com';
 }

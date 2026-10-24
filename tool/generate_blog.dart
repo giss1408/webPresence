@@ -32,7 +32,7 @@ const _siteUrl = 'https://mobile-technologies.milikey-energy.com';
 const _company = 'Regisse - Mobile Business Technologies';
 const _author = 'RMBT-Team';
 const _whatsappNumber = '4917634620220';
-const _email = 'mobile-business@regisse.com';
+const _email = 'info@milikey-energy.com';
 
 const _monthsFr = [
   'janvier', 'février', 'mars', 'avril', 'mai', 'juin',

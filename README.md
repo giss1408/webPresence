@@ -66,7 +66,7 @@ keep warm, free tier friendly), described in `render.yaml`:
    If it is not the repository root, add `rootDir: <path>` to the service in
    `render.yaml`.
 2. In Render: **New → Blueprint**, pick the repository, apply.
-3. Add your domain under **Settings → Custom Domains** (e.g. `regisse.com`).
+3. Add your domain under **Settings → Custom Domains** (e.g. `mobile-technologies.milikey-energy.com`).
 
 `render-build.sh` installs the pinned Flutter SDK and runs
 `flutter build web --release --pwa-strategy=offline-first --no-web-resources-cdn`
