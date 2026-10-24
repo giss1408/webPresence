@@ -67,5 +67,5 @@ class AppConfig {
   /// Business info
   static const String companyName = 'Regisse - Mobile Business Technologies';
   static const String companyEmail = 'mobile-business@regisse.com';
-  static const String companyWebsite = 'https://regisse.com';
+  static const String companyWebsite = 'https://mobile-technologies.milikey-energy.com';
 }

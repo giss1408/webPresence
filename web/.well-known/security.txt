@@ -2,5 +2,5 @@
 Contact: mailto:info@regisse.com
 Expires: 2027-10-01T00:00:00.000Z
 Preferred-Languages: fr, en, de
-Policy: https://regisse.com/securite/#signaler
-Canonical: https://regisse.com/.well-known/security.txt
+Policy: https://mobile-technologies.milikey-energy.com/securite/#signaler
+Canonical: https://mobile-technologies.milikey-energy.com/.well-known/security.txt

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://regisse.com/sitemap.xml
+Sitemap: https://mobile-technologies.milikey-energy.com/sitemap.xml

@@ -28,7 +28,7 @@
 import 'dart:io';
 import 'package:markdown/markdown.dart' as md;
 
-const _siteUrl = 'https://regisse.com';
+const _siteUrl = 'https://mobile-technologies.milikey-energy.com';
 const _company = 'Regisse - Mobile Business Technologies';
 const _author = 'RMBT-Team';
 const _whatsappNumber = '4917634620220';
