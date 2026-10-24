@@ -72,6 +72,10 @@ const _mobileTextScale = 0.7;
 const _entryDuration = Duration(milliseconds: 800);
 const _exitDuration = Duration(milliseconds: 500);
 
+/// The closing "La digitalisation est incontournable" slide is switched off:
+/// its headline overlapped the call-to-action card. Set to true to restore it.
+const _showClosingSlide = false;
+
 const List<_Slide> _slides = [
   _Slide(
     timeline: 252,
@@ -180,18 +184,20 @@ const List<_Slide> _slides = [
   ),
   // Sixth slide: a closing call to action, no screenshot — a single
   // centred card stating the urgency and a direct CTA.
-  _Slide(
-    timeline: 200,
-    textEntry: 20,
-    textExit: 180,
-    text: [
-      _Span('carousel.s6_a', carouselWhiteTextStyle),
-      _Span('carousel.s6_b', carouselBlueTextStyle),
-    ],
-    layers: [
-      _Layer.widget(_ActionCard(), Rect.fromLTWH(360, 400, 480, 180), 20, 178),
-    ],
-  ),
+  if (_showClosingSlide)
+    _Slide(
+      timeline: 200,
+      textEntry: 20,
+      textExit: 180,
+      text: [
+        _Span('carousel.s6_a', carouselWhiteTextStyle),
+        _Span('carousel.s6_b', carouselBlueTextStyle),
+      ],
+      layers: [
+        _Layer.widget(
+            _ActionCard(), Rect.fromLTWH(360, 400, 480, 180), 20, 178),
+      ],
+    ),
 ];
 
 /// Home page hero: an auto-playing layered carousel with dot navigation,
