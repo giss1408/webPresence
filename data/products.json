@@ -173,6 +173,20 @@
           "fr": "Application locataire : recherche et filtres par durée de location (données de test)",
           "en": "Tenant app: search and filters by rental duration (test data)"
         }
+      },
+      {
+        "src": "/img/products/immoizi-3.webp",
+        "alt": {
+          "fr": "Application gestionnaire : portefeuille de biens avec prix et statut (données de test)",
+          "en": "Manager app: property portfolio with prices and status (test data)"
+        }
+      },
+      {
+        "src": "/img/products/immoizi-4.webp",
+        "alt": {
+          "fr": "Application gestionnaire : biens loués et disponibles (données de test)",
+          "en": "Manager app: rented and available properties (test data)"
+        }
       }
     ]
   },
