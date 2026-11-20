@@ -1,4 +1,4 @@
-// Site checks for the static Regisse website.
+// Site checks for the static milikey Digital website.
 // Usage: dart run tool/check_site.dart   (exit 0 = all pass, 1 = failures)
 import 'dart:convert';
 import 'dart:io';
