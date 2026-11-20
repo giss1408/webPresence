@@ -9,6 +9,20 @@ services:
     buildCommand: ./render-build.sh
     staticPublishPath: build/web
     pullRequestPreviewsEnabled: false
+    routes:
+      # Retired offer: send old links home.
+      - type: redirect
+        source: /due-diligence-technique
+        destination: /
+      - type: redirect
+        source: /due-diligence-technique/*
+        destination: /
+      - type: redirect
+        source: /en/tech-due-diligence
+        destination: /en/
+      - type: redirect
+        source: /en/tech-due-diligence/*
+        destination: /en/
     envVars:
       - key: FLUTTER_VERSION
         value: 3.24.2

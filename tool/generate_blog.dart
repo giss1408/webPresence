@@ -176,7 +176,6 @@ const _navHtml = '''
       <nav>
         <a href="/">Accueil</a>
         <a href="/developpement-saas-mobile/">SaaS mobile</a>
-        <a href="/due-diligence-technique/">Investisseurs</a>
         <a href="/blog/" aria-current="page">Blog</a>
       </nav>
       <button class="theme-toggle" type="button" aria-label="Changer de thème">🌙</button>
@@ -189,7 +188,6 @@ const _footerHtml = '''
       <span>© $_company</span>
       <a href="/">Accueil</a>
       <a href="/developpement-saas-mobile/">Développement SaaS mobile</a>
-      <a href="/due-diligence-technique/">Due diligence technique</a>
       <a href="/blog/">Blog</a>
       <a href="/conditions/">Conditions</a>
       <a href="/confidentialite/">Confidentialité</a>
