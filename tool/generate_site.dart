@@ -22,6 +22,8 @@ class Product {
   String get accent => json['accent'] as String;
   String outcome(String l) => (json['outcome'] as Map)[l] as String;
   String problem(String l) => (json['problem'] as Map)[l] as String;
+  List<Map<String, dynamic>> get screens =>
+      List<Map<String, dynamic>>.from((json['screens'] as List?) ?? const []);
   List<String> features(String l) =>
       List<String>.from((json['features'] as Map)[l] as List);
 }
@@ -140,6 +142,24 @@ String inject(String src, String name, String content, String file) {
 String waLink(String text) =>
     'https://wa.me/$waNumber?text=${Uri.encodeComponent(text)}';
 
+String screensSection(Product p, String lang) {
+  if (p.screens.isEmpty) return '';
+  final fr = lang == 'fr';
+  final figs = p.screens.map((s) {
+    final alt = esc((s['alt'] as Map)[lang] as String);
+    return '          <figure class="shot reveal"><img src="${esc(s['src'] as String)}" alt="$alt" width="225" height="487" loading="lazy"><figcaption>$alt</figcaption></figure>';
+  }).join('\n');
+  return '''    <section class="shots-section">
+      <div class="wrap wide">
+        <h2 class="reveal">${fr ? 'Aperçu' : 'Preview'}</h2>
+        <div class="shots">
+$figs
+        </div>
+      </div>
+    </section>
+''';
+}
+
 String productPage(Product p, String lang) {
   final fr = lang == 'fr';
   final path = productPath(lang, p.slug);
@@ -204,7 +224,7 @@ ${header(lang, otherLangHref: otherPath)}
         </div>
       </div>
     </section>
-    <section>
+${screensSection(p, lang)}    <section>
       <div class="wrap">
         <h2 class="reveal">${fr ? 'Le problème résolu' : 'The problem it solves'}</h2>
         <p class="reveal">${esc(p.problem(lang))}</p>

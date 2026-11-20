@@ -27,7 +27,30 @@
         "Loyalty points and rewards for regular customers",
         "Runs on a basic Android phone and spares mobile data"
       ]
-    }
+    },
+    "screens": [
+      {
+        "src": "/img/products/fidelia-1.webp",
+        "alt": {
+          "fr": "Application commerçant : « Mes bons plans », où le commerçant publie ses offres",
+          "en": "Merchant app: “My deals”, where the merchant publishes offers"
+        }
+      },
+      {
+        "src": "/img/products/fidelia-2.webp",
+        "alt": {
+          "fr": "Application commerçant : tableau de bord (mode démo)",
+          "en": "Merchant app: dashboard (demo mode)"
+        }
+      },
+      {
+        "src": "/img/products/fidelia-3.webp",
+        "alt": {
+          "fr": "Application client : accueil, scanner, explorer, bons plans",
+          "en": "Customer app: home, scan, explore, deals"
+        }
+      }
+    ]
   },
   {
     "slug": "supermarche",
@@ -59,7 +82,23 @@
         "Mobile money payment instructions (Wave, Orange Money, MTN MoMo)",
         "Several retailers on one platform, with subscriptions and administration"
       ]
-    }
+    },
+    "screens": [
+      {
+        "src": "/img/products/supermarche-1.webp",
+        "alt": {
+          "fr": "Application Supermarché : prospectus et offres de la semaine",
+          "en": "Supermarket app: this week's flyer and offers"
+        }
+      },
+      {
+        "src": "/img/products/supermarche-2.webp",
+        "alt": {
+          "fr": "Application Supermarché : liste des magasins",
+          "en": "Supermarket app: store directory"
+        }
+      }
+    ]
   },
   {
     "slug": "akwaba-ivoire",
@@ -209,7 +248,23 @@
         "Fleet app for operators: vehicles, routes, trips and passenger lists",
         "Platform administration: operators, subscriptions and staff permissions"
       ]
-    }
+    },
+    "screens": [
+      {
+        "src": "/img/products/voya-1.webp",
+        "alt": {
+          "fr": "Application voyageur : départs disponibles et places restantes",
+          "en": "Rider app: available trips and seats left"
+        }
+      },
+      {
+        "src": "/img/products/voya-2.webp",
+        "alt": {
+          "fr": "Application voyageur : choix de la place",
+          "en": "Rider app: choosing a seat"
+        }
+      }
+    ]
   },
   {
     "slug": "docuciv",

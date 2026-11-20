@@ -139,6 +139,21 @@ void checkProductFields() {
       }
     }
   }
+  for (final raw in list) {
+    final p = raw as Map<String, dynamic>;
+    for (final sc in (p['screens'] as List? ?? const [])) {
+      final m = sc as Map<String, dynamic>;
+      final src = m['src'] as String? ?? '';
+      if (!File('web$src').existsSync()) {
+        fail('product-screens', '${p['slug']}: $src not found');
+      }
+      for (final l in langs) {
+        if (((m['alt'] as Map?)?[l] as String?)?.isNotEmpty != true) {
+          fail('product-screens', '${p['slug']}: $src alt.$l missing');
+        }
+      }
+    }
+  }
   const expected = {
     'fidelia', 'supermarche', 'akwaba-ivoire', 'immoizi', 'cabosse', 'petitgombo',
     'voya', 'docuciv'
