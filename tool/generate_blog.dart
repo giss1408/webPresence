@@ -167,34 +167,12 @@ String _mailUrl(String text) =>
     '&body=${Uri.encodeComponent(text)}';
 
 const _navHtml = '''
-  <header class="bar">
-    <div class="wrap">
-      <a class="brand" href="/">
-        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>
-        Mobile Business Technologies
-      </a>
-      <nav>
-        <a href="/">Accueil</a>
-        <a href="/developpement-saas-mobile/">SaaS mobile</a>
-        <a href="/blog/" aria-current="page">Blog</a>
-      </nav>
-      <button class="theme-toggle" type="button" aria-label="Changer de thème">🌙</button>
-    </div>
-  </header>''';
+  <!-- header:start -->
+  <!-- header:end -->''';
 
 const _footerHtml = '''
-  <footer>
-    <div class="wrap">
-      <span>© $_company</span>
-      <a href="/">Accueil</a>
-      <a href="/developpement-saas-mobile/">Développement SaaS mobile</a>
-      <a href="/blog/">Blog</a>
-      <a href="/conditions/">Conditions</a>
-      <a href="/confidentialite/">Confidentialité</a>
-      <a href="/securite/">Sécurité</a>
-      <a href="/mentions-legales/">Mentions légales</a>
-    </div>
-  </footer>''';
+  <!-- footer:start -->
+  <!-- footer:end -->''';
 
 String _renderPostPage(Post p) {
   final url = '$_siteUrl/blog/${p.slug}/';
@@ -231,8 +209,8 @@ String _renderPostPage(Post p) {
   <meta property="og:description" content="${_escapeAttr(p.ogDescription)}">
   <meta property="og:image" content="$_siteUrl/icons/Icon-512.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-  <link rel="stylesheet" href="/pages.css">
-  <script src="/pages.js" defer></script>
+  <link rel="stylesheet" href="/site.css">
+  <script src="/site.js"></script>
 
   <script type="application/ld+json">
   {
@@ -319,8 +297,8 @@ String _renderIndexPage(List<Post> posts) {
   <meta property="og:title" content="Blog $_company — SaaS mobile en Afrique">
   <meta property="og:image" content="$_siteUrl/icons/Icon-512.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
-  <link rel="stylesheet" href="/pages.css">
-  <script src="/pages.js" defer></script>
+  <link rel="stylesheet" href="/site.css">
+  <script src="/site.js"></script>
 </head>
 <body>
 $_navHtml

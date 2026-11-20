@@ -179,6 +179,18 @@ void checkJsGuard() {
   }
 }
 
+void checkSharedShell(List<File> files) {
+  for (final f in files) {
+    final s = f.readAsStringSync();
+    if (s.contains('pages.css') || s.contains('pages.js')) {
+      fail('shared-shell', '${rel(f)} still uses pages.css/pages.js');
+    }
+    if (!RegExp(r'href="(/en)?/#produits"').hasMatch(s)) {
+      fail('shared-shell', '${rel(f)} lacks the shared header');
+    }
+  }
+}
+
 void main() {
   final files = htmlFiles();
   checkNoInlineScript(files);
@@ -190,6 +202,7 @@ void main() {
   checkProductFields();
   checkHomeStructure();
   checkJsGuard();
+  checkSharedShell(files);
   if (failures.isEmpty) {
     print('All site checks passed (${files.length} html files).');
   } else {

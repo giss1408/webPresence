@@ -238,15 +238,26 @@ void writeFile(String path, String content) {
   }
 }
 
+/// Fills the shared header/footer in every page that carries the markers.
+void injectShell() {
+  for (final f in Directory('web').listSync(recursive: true).whereType<File>()) {
+    if (!f.path.endsWith('.html')) continue;
+    final s = f.readAsStringSync();
+    if (!s.contains('<!-- header:start -->')) continue;
+    final lang = f.path.startsWith('web/en/') ? 'en' : 'fr';
+    var out = inject(s, 'header', header(lang), f.path);
+    out = inject(out, 'footer', footer(lang), f.path);
+    writeFile(f.path, out);
+  }
+}
+
 Future<void> main() async {
   final ps = loadProducts();
   for (final lang in ['fr', 'en']) {
     final file = lang == 'fr' ? 'web/index.html' : 'web/en/index.html';
     var s = File(file).readAsStringSync();
-    s = inject(s, 'header', header(lang), file);
     s = inject(s, 'marquee', marquee(ps), file);
     s = inject(s, 'products', cards(ps, lang), file);
-    s = inject(s, 'footer', footer(lang), file);
     writeFile(file, s);
     for (final p in ps) {
       writeFile('web${productPath(lang, p.slug)}index.html', productPage(p, lang));
@@ -258,14 +269,13 @@ Future<void> main() async {
     '/en/',
     for (final l in ['fr', 'en']) for (final p in ps) productPath(l, p.slug),
   ];
-  final block = urls
-      .map((u) => '  <url><loc>$domain$u</loc></url>')
-      .join('\n');
+  final block = urls.map((u) => '  <url><loc>$domain$u</loc></url>').join('\n');
   writeFile(sm, inject(File(sm).readAsStringSync(), 'products', block, sm));
 
   final r = await Process.run('dart', ['run', 'tool/generate_blog.dart']);
   stdout.write(r.stdout);
   stderr.write(r.stderr);
   if (r.exitCode != 0) exit(r.exitCode);
+  injectShell();
   print('Site generated: ${ps.length} products.');
 }
