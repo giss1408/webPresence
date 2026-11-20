@@ -1,6 +1,6 @@
 name: regisse_site
 publish_to: none
-description: Build tools for the Regisse static website (blog and product page generators).
+description: Build tools for the milikey Digital static website (blog and product page generators).
 version: 3.0.0
 
 environment:

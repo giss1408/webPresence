@@ -1,6 +1,6 @@
-# Regisse: website
+# milikey Digital: website
 
-Static website for Regisse (ready-to-go solutions for African markets). French at `/`, English at `/en/`. No framework: HTML, CSS and a little vanilla JavaScript in `web/`.
+Static website for milikey Digital (ready-to-go solutions for African markets). French at `/`, English at `/en/`. No framework: HTML, CSS and a little vanilla JavaScript in `web/`.
 
 ## Layout
 

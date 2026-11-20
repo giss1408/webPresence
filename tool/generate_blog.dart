@@ -29,7 +29,7 @@ import 'dart:io';
 import 'package:markdown/markdown.dart' as md;
 
 const _siteUrl = 'https://mobile-technologies.milikey-energy.com';
-const _company = 'Regisse - Mobile Business Technologies';
+const _company = 'milikey Digital';
 const _author = 'RMBT-Team';
 const _whatsappNumber = '4917634620220';
 const _email = 'info@milikey-energy.com';
@@ -163,7 +163,7 @@ String _waUrl(String text) =>
     'https://wa.me/$_whatsappNumber?text=${Uri.encodeComponent(text)}';
 
 String _mailUrl(String text) =>
-    'mailto:$_email?subject=${Uri.encodeComponent('Demande de projet — Regisse')}'
+    'mailto:$_email?subject=${Uri.encodeComponent('Demande de projet — milikey Digital')}'
     '&body=${Uri.encodeComponent(text)}';
 
 const _navHtml = '''

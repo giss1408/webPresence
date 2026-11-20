@@ -62,7 +62,7 @@ String productPath(String lang, String slug) =>
     lang == 'fr' ? '/produits/$slug/' : '/en/products/$slug/';
 
 const brandSvg =
-    '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>';
+    '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10 29V11l10 11 10-11v18" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="15" y="32" width="10" height="3.2" rx="1.6" fill="#FFB020"/></svg>';
 
 String header(String lang, {String? otherLangHref}) {
   final fr = lang == 'fr';
@@ -72,7 +72,7 @@ String header(String lang, {String? otherLangHref}) {
     <div class="wrap wide">
       <a class="brand" href="$home">
         $brandSvg
-        Regisse
+        milikey Digital
       </a>
       <nav>
         <a href="${home}#produits">${fr ? 'Produits' : 'Products'}</a>
@@ -91,7 +91,7 @@ String footer(String lang) {
   final home = fr ? '/' : '/en/';
   return '''  <footer>
     <div class="wrap wide">
-      <span>© Regisse - Mobile Business Technologies</span>
+      <span>© milikey Digital</span>
       <a href="$home">${fr ? 'Accueil' : 'Home'}</a>
       <a href="/developpement-saas-mobile/">${fr ? 'Développement sur mesure' : 'Custom development (FR)'}</a>
       <a href="/blog/">Blog</a>
@@ -145,7 +145,7 @@ String productPage(Product p, String lang) {
   final path = productPath(lang, p.slug);
   final otherPath = productPath(fr ? 'en' : 'fr', p.slug);
   final title =
-      '${p.name} — ${fr ? 'solution prête à l\'emploi' : 'ready-to-go solution'} | Regisse';
+      '${p.name} — ${fr ? 'solution prête à l\'emploi' : 'ready-to-go solution'} | milikey Digital';
   final desc = p.outcome(lang);
   final wa = waLink(fr
       ? 'Bonjour, je suis intéressé(e) par ${p.name}.'

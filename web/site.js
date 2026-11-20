@@ -1,4 +1,4 @@
-// Regisse static site behaviour: theme toggle, scroll reveals, count-up
+// milikey Digital static site behaviour: theme toggle, scroll reveals, count-up
 // numbers, hero chat demo, timeline. Loaded synchronously in <head> so the
 // "js" class exists before first paint (CSS only hides .reveal under .js).
 (() => {
