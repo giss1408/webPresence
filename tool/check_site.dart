@@ -191,6 +191,21 @@ void checkSharedShell(List<File> files) {
   }
 }
 
+/// The old "MVP from 250 000 FCFA" offer is retired: no prices on the site.
+void checkNoPrices(List<File> files) {
+  final re = RegExp(r'250[\s\u00a0\u202f.]?000');
+  final targets = <File>[
+    ...files,
+    ...Directory('blog-posts').listSync().whereType<File>(),
+    File('data/products.json'),
+  ];
+  for (final f in targets) {
+    if (f.existsSync() && re.hasMatch(f.readAsStringSync())) {
+      fail('no-prices', rel(f));
+    }
+  }
+}
+
 void main() {
   final files = htmlFiles();
   checkNoInlineScript(files);
@@ -203,6 +218,7 @@ void main() {
   checkHomeStructure();
   checkJsGuard();
   checkSharedShell(files);
+  checkNoPrices(files);
   if (failures.isEmpty) {
     print('All site checks passed (${files.length} html files).');
   } else {

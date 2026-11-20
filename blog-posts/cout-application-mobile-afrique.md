@@ -1,11 +1,11 @@
 ---
 title: Combien coûte une application mobile en Afrique de l'Ouest ?
-description: Prix d'une application mobile en FCFA : ce qui fait varier le coût (écrans, back-end, Mobile Money, hors-ligne, stores), pourquoi commencer par un MVP, et notre offre dès 250 000 FCFA.
-ogDescription: Ce qui fait varier le prix d'une app, pourquoi commencer par un MVP, et ce que l'on obtient dès 250 000 FCFA.
-excerpt: Ce qui fait varier le coût (écrans, back-end, Mobile Money, hors-ligne, stores), pourquoi commencer par un MVP, et notre offre dès 250 000 FCFA.
+description: Prix d'une application mobile en FCFA : ce qui fait varier le coût (écrans, back-end, Mobile Money, hors-ligne, stores), pourquoi commencer par un MVP, et comment préparer votre demande.
+ogDescription: Ce qui fait varier le prix d'une app, pourquoi commencer par un MVP, et comment préparer votre demande.
+excerpt: Ce qui fait varier le coût (écrans, back-end, Mobile Money, hors-ligne, stores), pourquoi commencer par un MVP, et comment préparer votre demande.
 date: 2026-10-02
 readingMinutes: 6
-whatsappText: Bonjour, je suis intéressé(e) par votre offre MVP SaaS mobile à partir de 250 000 FCFA.
+whatsappText: Bonjour, je souhaite adapter l'un de vos produits ou lancer un développement sur mesure.
 secondaryLinkHref: /developpement-saas-mobile/
 secondaryLinkLabel: Découvrir notre offre SaaS mobile
 ---
@@ -44,21 +44,9 @@ Un MVP (*Minimum Viable Product*) est une première version qui ne contient que 
 
 Si la réponse est oui, on ajoute les fonctionnalités suivantes sur le même code. Si elle est non, vous avez appris l'essentiel sans avoir engagé tout votre budget.
 
-## Notre offre : MVP SaaS mobile dès 250 000 FCFA
+## Partir d'un produit prêt à l'emploi
 
-<div class="offer">
-  <div class="meta">à partir de</div>
-  <div class="price">250 000 FCFA</div>
-  <div class="meta">Prix indicatif HT · devis précis après l'appel de cadrage gratuit</div>
-  <ul class="checks">
-    <li>Atelier de cadrage et parcours utilisateur</li>
-    <li>Jusqu'à 5 écrans clés, à vos couleurs</li>
-    <li>App Android et iOS (une seule base de code Flutter)</li>
-    <li>Connexion utilisateur et back-end cloud de base</li>
-    <li>Version de test installable + 1 cycle de retours</li>
-  </ul>
-  <p class="meta">En option : Mobile Money, multi-tenant, abonnements, mode hors-ligne, publication sur les stores.</p>
-</div>
+Plutôt que de repartir d'une page blanche, vous pouvez adapter l'un de [nos produits prêts à l'emploi](/#produits) : le coût dépend alors surtout de ce que vous changez (marque, règles métier, langues, paiements). Si votre besoin est différent, nous [développons sur mesure](/developpement-saas-mobile/). Dans les deux cas, le devis est établi après un appel de cadrage gratuit.
 
 ## Comment préparer votre demande
 

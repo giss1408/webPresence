@@ -66,4 +66,4 @@ Numéros de téléphone, historiques d'achat et noms sont des données personnel
   <li>Données personnelles chiffrées et protégées</li>
 </ul>
 
-Ces règles sont intégrées par défaut dans les applications que nous livrons, y compris notre [MVP SaaS mobile à partir de 250 000 FCFA](/developpement-saas-mobile/). Pour la mise en place pas à pas, lisez aussi [comment intégrer Orange Money, Wave et MTN MoMo](/blog/integrer-mobile-money-application/).
+Ces règles sont intégrées par défaut dans les applications que nous livrons, y compris notre [développement sur mesure](/developpement-saas-mobile/). Pour la mise en place pas à pas, lisez aussi [comment intégrer Orange Money, Wave et MTN MoMo](/blog/integrer-mobile-money-application/).

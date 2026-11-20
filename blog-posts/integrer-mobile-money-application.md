@@ -55,4 +55,4 @@ Contrairement à la carte bancaire, le Mobile Money ne permet généralement pas
 
 ## Combien de temps pour l'intégrer ?
 
-Avec un agrégateur, l'intégration technique se compte en jours, mais l'ouverture du compte marchand et la validation par le fournisseur peuvent prendre plus longtemps : lancez ces démarches dès le début du projet. Le paiement Mobile Money est une option de notre [MVP SaaS mobile à partir de 250 000 FCFA](/developpement-saas-mobile/).
+Avec un agrégateur, l'intégration technique se compte en jours, mais l'ouverture du compte marchand et la validation par le fournisseur peuvent prendre plus longtemps : lancez ces démarches dès le début du projet. Le paiement Mobile Money est une option de notre [développement sur mesure](/developpement-saas-mobile/).

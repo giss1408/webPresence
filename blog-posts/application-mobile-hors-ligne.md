@@ -61,4 +61,4 @@ Fidelia, notre application de caisse pour commerçants, enregistre les ventes m�
 
 ## Combien cela coûte-t-il en plus ?
 
-Prévu dès le départ, le mode hors-ligne demande surtout de bons choix d'architecture. Ajouté après coup, il oblige souvent à réécrire une grande partie de l'application. C'est pourquoi nous en parlons dès l'atelier de cadrage, et pourquoi il fait partie des options de notre [MVP SaaS mobile à partir de 250 000 FCFA](/developpement-saas-mobile/).
+Prévu dès le départ, le mode hors-ligne demande surtout de bons choix d'architecture. Ajouté après coup, il oblige souvent à réécrire une grande partie de l'application. C'est pourquoi nous en parlons dès l'atelier de cadrage, et pourquoi il fait partie des options de notre [développement sur mesure](/developpement-saas-mobile/).
