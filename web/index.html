@@ -3,181 +3,185 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Base href for routing (replaced by `flutter build web --base-href`) -->
-  <base href="$FLUTTER_BASE_HREF">
-
-  <title>Regisse - Mobile Business Technologies</title>
-  <meta name="description" content="Regisse conçoit et développe votre SaaS mobile : application iOS et Android (Flutter), back-end cloud multi-tenant, abonnements, paiement Orange Money et Wave, mode hors-ligne. MVP sur les stores en quelques semaines, ingénierie allemande.">
-  <meta name="author" content="Regisse - Mobile Business Technologies">
+  <title>Regisse — Des solutions prêtes à l'emploi pour l'Afrique</title>
+  <meta name="description" content="Choisissez un produit prêt à l'emploi (Fidelia, Supermarché, Akwaba Ivoire, Immoizi, Cabosse, petitGombo), nous l'adaptons à votre activité et vous lancez en quelques semaines.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mobile-technologies.milikey-energy.com/">
-  <meta name="theme-color" content="#1389FD">
-  <meta name="color-scheme" content="light">
-
-  <!-- Open Graph / social sharing (absolute URLs are required by crawlers) -->
+  <link rel="alternate" hreflang="fr" href="https://mobile-technologies.milikey-energy.com/">
+  <link rel="alternate" hreflang="en" href="https://mobile-technologies.milikey-energy.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://mobile-technologies.milikey-energy.com/">
+  <meta name="theme-color" content="#0B5FD0">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mobile-technologies.milikey-energy.com/">
-  <meta property="og:site_name" content="Regisse - Mobile Business Technologies">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:title" content="Regisse - Mobile Business Technologies — Développement SaaS mobile : applications iOS &amp; Android pour l'Afrique">
-  <meta property="og:description" content="Votre SaaS mobile, de l'idée aux stores : apps iOS et Android, back-end cloud, paiement mobile et mode hors-ligne — par une équipe d'ingénierie allemande.">
+  <meta property="og:url" content="https://mobile-technologies.milikey-energy.com/">
+  <meta property="og:title" content="Regisse — Des solutions prêtes à l'emploi pour l'Afrique">
+  <meta property="og:description" content="Choisissez un produit prêt à l'emploi (Fidelia, Supermarché, Akwaba Ivoire, Immoizi, Cabosse, petitGombo), nous l'adaptons à votre activité et vous lancez en quelques semaines.">
   <meta property="og:image" content="https://mobile-technologies.milikey-energy.com/icons/Icon-512.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Regisse - Mobile Business Technologies — Développement SaaS mobile : applications iOS &amp; Android pour l'Afrique">
-  <meta name="twitter:description" content="Votre SaaS mobile, de l'idée aux stores : apps iOS et Android, back-end cloud, paiement mobile et mode hors-ligne — par une équipe d'ingénierie allemande.">
-  <meta name="twitter:image" content="https://mobile-technologies.milikey-energy.com/icons/Icon-512.png">
-
-  <!-- Icons & PWA -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Regisse">
-  <link rel="manifest" href="manifest.json">
-
-  <link rel="preload" as="script" href="flutter_bootstrap.js">
-  <!-- The app itself: start downloading now instead of after the bootstrap
-       script runs (one round trip less on high-latency mobile networks). -->
-  <link rel="preload" as="script" href="main.dart.js">
-  <!-- Flutter only asks for these once main.dart.js has downloaded and
-       started, one request after another. Fetch them now, in parallel; the
-       engine's fetch() reuses these responses. Keep in sync with the
-       fonts in pubspec.yaml and the first carousel slide. -->
-  <link rel="preload" as="fetch" crossorigin href="assets/FontManifest.json">
-  <link rel="preload" as="fetch" crossorigin href="assets/AssetManifest.bin.json">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/brand_sans_regular.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/brand_sans_bold.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_regular.ttf">
-  <link rel="preload" as="fetch" crossorigin href="assets/assets/fonts/roboto_bold.ttf">
-  <!-- First screen's images, at low priority so they don't slow the above. -->
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/logo.svg">
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/packages/country_flags/res/si/ci.si">
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/device_frame.webp">
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/abidjan-web.webp">
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/slide_1-layer_1_Test.webp">
-  <link rel="preload" as="fetch" crossorigin fetchpriority="low" href="assets/assets/images/slide_1-layer_2_Test.webp">
-
-  <!-- Branded loading screen, shown until Flutter paints its first frame.
-       Light, like the app's default theme. -->
-  <style>
-    :root { --bg: #F9FAFB; --fg: #64748B; }
-    html, body { margin: 0; height: 100%; background: var(--bg); }
-    #splash {
-      position: fixed; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 20px;
-      background: var(--bg); color: var(--fg);
-      font: 500 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      transition: opacity .3s ease;
-    }
-    #splash.hidden { opacity: 0; pointer-events: none; }
-    #splash svg { width: clamp(44px, 13vw, 64px); height: clamp(44px, 13vw, 64px); flex: none; }
-    /* Logo: the R, then the brand text typed out of it behind an amber
-       caret. The inline script sets --w to the text's width so the row keeps
-       its final size (the R doesn't shift while the text grows). */
-    #splash .logo { display: flex; align-items: center; gap: .5em;
-      font: 700 clamp(15px, 4.6vw, 26px)/1 "Brand Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #1E293B; }
-    #splash .type { display: inline-flex; align-items: flex-end; width: calc(var(--w, 0px) + .6em); }
-    #splash .text { display: inline-block; overflow: hidden; white-space: nowrap;
-      max-width: 0; padding-bottom: .12em; animation: type 1.2s steps(28, end) .95s forwards; }
-    #splash .caret { display: inline-block; flex: none; width: .55em; height: .2em; margin: 0 0 .16em 2px;
-      border-radius: 1em; background: #FFB020; animation: blink 1.1s linear 2.15s infinite; }
-    @keyframes type { to { max-width: var(--w, 20em); } }
-    /* The R writes itself, then the amber "__" blinks like a text cursor
-       for as long as loading takes. pathLength="1" on the R keeps the dash
-       maths independent of its real length; the gap (2) is longer than the
-       letter and the start offset (1.02) is past a dash end, so the round
-       line caps don't show as dots before the stroke reaches them. */
-    #splash .r {
-      stroke-dasharray: 1 2; stroke-dashoffset: 1.02;
-      animation: draw .8s cubic-bezier(.65, 0, .35, 1) .15s forwards;
-    }
-    #splash .cursor { opacity: 0; animation: show .1s .95s forwards; }
-    @keyframes show { to { opacity: 1; } }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-    @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-    #splash h1 {
-      margin: 0; max-width: 560px; padding: 0 16px; text-align: center;
-      color: #1E293B; font-size: clamp(20px, 5vw, 28px); line-height: 1.25;
-    }
-    #splash .tagline { margin: 0; max-width: 480px; padding: 0 16px; text-align: center; }
-    #slow { display: none; max-width: 300px; padding: 0 16px; text-align: center; font-size: 13px; }
-    #slow.shown { display: block; }
-    #slow a { color: #1389FD; }
-    /* Reduced motion: the finished logo, no drawing or blinking. */
-    @media (prefers-reduced-motion: reduce) {
-      #splash .r { animation: none; stroke-dashoffset: 0; }
-      #splash .cursor { animation: none; opacity: 1; }
-      #splash .text { animation: none; max-width: none; }
-      #splash .caret { animation: none; }
-    }
-    /* Links for crawlers and screen readers; the app draws the visible menu. */
-    #static-links {
-      position: absolute; width: 1px; height: 1px; overflow: hidden;
-      clip: rect(0 0 0 0); white-space: nowrap;
-    }
-  </style>
-
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preload" href="/fonts/brand_sans_regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/site.css">
+  <script src="/site.js"></script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Regisse - Mobile Business Technologies",
-    "url": "https://mobile-technologies.milikey-energy.com",
-    "logo": "https://mobile-technologies.milikey-energy.com/icons/Icon-512.png",
-    "description": "Développement de SaaS mobiles : applications iOS et Android, back-end cloud multi-tenant, abonnements et paiement mobile, pour l'Afrique et l'Europe.",
-    "knowsAbout": ["Développement SaaS mobile", "Application mobile iOS", "Application mobile Android", "Flutter", "Mobile Money", "Applications hors-ligne", "Multi-tenant SaaS"],
-    "areaServed": ["Afrique de l'Ouest", "Europe"],
-    "address": { "@type": "PostalAddress", "addressLocality": "Bonn", "addressCountry": "DE" },
-    "contactPoint": { "@type": "ContactPoint", "email": "info@milikey-energy.com", "contactType": "sales" }
-  }
+  {"@context":"https://schema.org","@type":"Organization","name":"Regisse - Mobile Business Technologies","url":"https://mobile-technologies.milikey-energy.com","logo":"https://mobile-technologies.milikey-energy.com/icons/Icon-512.png","email":"info@milikey-energy.com","areaServed":["Afrique de l'Ouest","West Africa"]}
   </script>
 </head>
 <body>
-  <div id="splash" role="status" aria-live="polite">
-    <!-- Brand mark, same as assets/images/logo.svg, inlined to animate it
-         with no extra request. -->
-    <div class="logo" aria-label="Mobile Business Technologies">
-    <svg viewBox="0 0 40 40" aria-hidden="true">
-      <defs>
-        <linearGradient id="splash-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#1E96FF"/>
-          <stop offset="1" stop-color="#0B5FD0"/>
-        </linearGradient>
-      </defs>
-      <rect width="40" height="40" rx="10" fill="url(#splash-bg)"/>
-      <path class="r" pathLength="1" d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29"
-            fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect class="cursor" x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/>
-    </svg>
-    <span class="type" aria-hidden="true"><span class="text">Mobile Business Technologies</span><span class="caret"></span></span>
+  <!-- header:start -->
+  <header class="bar">
+    <div class="wrap wide">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0B5FD0"/><path d="M10.5 29V11h7.25a5.25 5.25 0 0 1 0 10.5H10.5M16.75 21.5 22.5 29" fill="none" stroke="#fff" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="25.25" y="27.1" width="6.5" height="3.8" rx="1.9" fill="#FFB020"/></svg>
+        Regisse
+      </a>
+      <nav>
+        <a href="/#produits">Produits</a>
+        <a href="/#methode">Méthode</a>
+        <a href="/securite/">Sécurité</a>
+        <a href="/blog/">Blog</a>
+        <a class="lang" href="/en/" hreflang="en" lang="en">EN</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Changer de thème">🌙</button>
     </div>
-    <!-- Real text while the app loads: visitors read the pitch right away,
-         and crawlers (which can't see Flutter's canvas) index it. -->
-    <h1>Votre SaaS mobile, de l'idée aux stores</h1>
-    <p class="tagline">Applications iOS et Android, back-end cloud et paiement mobile — un MVP publié en quelques semaines.</p>
-    <!-- Shown if loading takes long (slow mobile networks): visitors can
-         still reach us instead of leaving. -->
-    <p id="slow">
-      Connexion lente : le site continue de charger…<br>
-      Slow connection — still loading…<br><br>
-      <a href="mailto:info@milikey-energy.com">info@milikey-energy.com</a>
-    </p>
-  </div>
-  <noscript>Ce site nécessite JavaScript. — This website requires JavaScript.</noscript>
-  <!-- Plain links to the static pages, so crawlers find them from the home
-       page (the Flutter menu draws on a canvas they can't follow). -->
-  <nav id="static-links" aria-label="Pages">
-    <a href="/developpement-saas-mobile/">Développement SaaS mobile — MVP dès 250 000 FCFA</a>
-    <a href="/due-diligence-technique/">Due diligence technique pour investisseurs</a>
-    <a href="/en/tech-due-diligence/" hreflang="en">Technical due diligence for investors</a>
-    <a href="/blog/">Blog</a>
-  </nav>
+  </header>
+  <!-- header:end -->
 
-  <script src="splash.js"></script>
-  <script src="flutter_bootstrap.js" async></script>
+  <main>
+    <section id="hero" class="hero">
+      <div class="wrap wide hero-grid">
+        <div>
+          <p class="eyebrow">Solutions prêtes à l'emploi</p>
+          <h1>Des produits <em>prêts à l'emploi</em> pour les marchés africains.</h1>
+          <p class="lead">Choisissez un produit, nous l'adaptons à votre activité, vous lancez en quelques semaines.</p>
+          <div class="actions">
+            <a class="btn" href="#produits">Voir les produits</a>
+            <a class="btn ghost" href="https://wa.me/4917634620220?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20produits.">Parler sur WhatsApp</a>
+          </div>
+        </div>
+        <div class="phone" role="img" aria-label="Exemple de conversation entre un fondateur et Regisse">
+          <div class="phone-head"><i></i>Regisse</div>
+          <div class="chat demo" data-demo>
+            <div class="bubble me">Je veux une app pour mon commerce.</div>
+            <div class="bubble">Fidelia encaisse même sans réseau. On l'adapte ?</div>
+            <div class="bubble me">Oui, avec mon logo et mes produits.</div>
+            <div class="bubble done">C'est parti. En ligne en quelques semaines ✓</div>
+            <div class="typing" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- marquee:start -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track"><span>Fidelia</span><span>Supermarché</span><span>Akwaba Ivoire</span><span>Immoizi</span><span>Cabosse</span><span>petitGombo</span><span>Fidelia</span><span>Supermarché</span><span>Akwaba Ivoire</span><span>Immoizi</span><span>Cabosse</span><span>petitGombo</span></div>
+    </div>
+    <!-- marquee:end -->
+
+    <section id="produits">
+      <div class="wrap wide">
+        <p class="eyebrow reveal">Catalogue</p>
+        <h2 class="section-title reveal">Six produits, disponibles maintenant</h2>
+        <p class="section-lead reveal">Chacun résout un problème précis. Nous reprenons la base, vous apportez votre marque et vos règles.</p>
+        <div class="products">
+          <!-- products:start -->
+          <a class="product reveal" data-delay="1" style="--c:#0b5fd0" href="/produits/fidelia/">
+            <span class="tag">Disponible</span>
+            <h3>Fidelia</h3>
+            <p>Encaissez et suivez vos ventes depuis un téléphone Android modeste, même sans réseau.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <a class="product reveal" data-delay="2" style="--c:#1e8e5a" href="/produits/supermarche/">
+            <span class="tag">Disponible</span>
+            <h3>Supermarché</h3>
+            <p>Une application pour que vos clients voient les promotions, préparent leurs courses et trouvent votre magasin.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <a class="product reveal" data-delay="3" style="--c:#e07a1f" href="/produits/akwaba-ivoire/">
+            <span class="tag">Disponible</span>
+            <h3>Akwaba Ivoire</h3>
+            <p>Une application de voyage pour présenter vos circuits et recevoir des réservations payées.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <a class="product reveal" data-delay="1" style="--c:#7a4bd1" href="/produits/immoizi/">
+            <span class="tag">Disponible</span>
+            <h3>Immoizi</h3>
+            <p>Mettez en relation propriétaires et locataires avec deux applications mobiles complémentaires.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <a class="product reveal" data-delay="2" style="--c:#8a5a2b" href="/produits/cabosse/">
+            <span class="tag">Disponible</span>
+            <h3>Cabosse</h3>
+            <p>Collecte, paiement et traçabilité pour les coopératives agricoles, du champ à l'acheteur.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <a class="product reveal" data-delay="3" style="--c:#d1306b" href="/produits/petitgombo/">
+            <span class="tag">Disponible</span>
+            <h3>petitGombo</h3>
+            <p>Une place de marché de petits boulots où la sécurité passe en premier.</p>
+            <span class="more">Voir le produit →</span>
+          </a>
+          <!-- products:end -->
+        </div>
+      </div>
+    </section>
+
+    <section id="methode" class="alt">
+      <div class="wrap wide">
+        <p class="eyebrow reveal">Méthode</p>
+        <h2 class="section-title reveal">De votre choix au lancement en quelques semaines</h2>
+        <ol class="timeline reveal">
+          <li><strong>Choisir</strong><span>Vous retenez le produit le plus proche de votre besoin.</span></li>
+          <li><strong>Adapter</strong><span>Marque, contenus, règles métier et langues.</span></li>
+          <li><strong>Lancer</strong><span>Publication sur les stores et mise en ligne.</span></li>
+          <li><strong>Accompagner</strong><span>Suivi, corrections et évolutions après le lancement.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="preuves">
+      <div class="wrap wide">
+        <div class="proof">
+          <div class="reveal"><b data-count="6">6</b><span>produits disponibles</span></div>
+          <div class="reveal" data-delay="1"><b data-count="3">3</b><span>plateformes : Android, iOS, web</span></div>
+          <div class="reveal" data-delay="2"><b data-count="4">4</b><span>étapes jusqu'au lancement</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="securite" class="alt">
+      <div class="wrap">
+        <p class="eyebrow reveal">Sécurité</p>
+        <h2 class="section-title reveal">Des pratiques décrites publiquement</h2>
+        <p class="section-lead reveal">Paiements, données et hors-ligne : nous expliquons comment nous protégeons vos utilisateurs.</p>
+        <a class="btn ghost reveal" href="/securite/">Lire la page sécurité</a>
+      </div>
+    </section>
+
+    <section id="contact" class="cta-band">
+      <div class="wrap">
+        <h2 class="section-title reveal">Parlons de votre projet</h2>
+        <p class="section-lead reveal" style="margin-inline:auto">Dites-nous votre activité, nous vous proposons le produit adapté.</p>
+        <div class="actions reveal">
+          <a class="btn" href="https://wa.me/4917634620220?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20produits.">WhatsApp</a>
+          <a class="btn ghost" href="mailto:info@milikey-energy.com?subject=Demande%20de%20projet%20%E2%80%94%20Regisse">info@milikey-energy.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer:start -->
+  <footer>
+    <div class="wrap wide">
+      <span>© Regisse - Mobile Business Technologies</span>
+      <a href="/">Accueil</a>
+      <a href="/developpement-saas-mobile/">Développement sur mesure</a>
+      <a href="/blog/">Blog</a>
+      <a href="/conditions/">Conditions</a>
+      <a href="/confidentialite/">Confidentialité</a>
+      <a href="/securite/">Sécurité</a>
+      <a href="/mentions-legales/">Mentions légales</a>
+    </div>
+  </footer>
+  <!-- footer:end -->
 </body>
 </html>

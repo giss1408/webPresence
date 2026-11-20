@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "fidelia",
+    "name": "Fidelia",
+    "accent": "#0b5fd0",
+    "image": "",
+    "outcome": {
+      "fr": "Encaissez et suivez vos ventes depuis un téléphone Android modeste, même sans réseau.",
+      "en": "Record and track sales from a basic Android phone, even with no signal."
+    },
+    "problem": {
+      "fr": "Les commerçants travaillent avec des téléphones anciens, des forfaits data prépayés et un réseau instable. Fidelia est conçue pour ces contraintes.",
+      "en": "Merchants work with old phones, prepaid data bundles and an unreliable network. Fidelia is built around those limits."
+    },
+    "features": {
+      "fr": ["Enregistrement d'une vente hors connexion, synchronisé dès que le réseau revient", "Fonctionne sur Android 5.0 et environ 1 Go de RAM", "Consommation de données réduite au strict nécessaire", "Application pour les commerçants, console d'administration et API"],
+      "en": ["Record a sale offline, synced as soon as a connection returns", "Runs on Android 5.0 and about 1 GB of RAM", "Data use kept to the minimum", "Merchant app, admin console and API"]
+    }
+  },
+  {
+    "slug": "supermarche",
+    "name": "Supermarché",
+    "accent": "#1e8e5a",
+    "image": "",
+    "outcome": {
+      "fr": "Une application pour que vos clients voient les promotions, préparent leurs courses et trouvent votre magasin.",
+      "en": "An app for your customers to see offers, plan their shopping and find your store."
+    },
+    "problem": {
+      "fr": "Les enseignes diffusent leurs promotions par prospectus papier ou sur les réseaux sociaux, sans lien direct avec le client.",
+      "en": "Retailers publish offers on paper flyers or social media, with no direct link to the customer."
+    },
+    "features": {
+      "fr": ["Prospectus et offres publiés par votre équipe", "Listes de courses pour les clients", "Liste des magasins avec leurs informations", "Carte client dans l'application", "Interface de gestion pour le personnel, API documentée"],
+      "en": ["Flyers and offers published by your team", "Shopping lists for customers", "Store directory with details", "Customer card in the app", "Staff management interface, documented API"]
+    }
+  },
+  {
+    "slug": "akwaba-ivoire",
+    "name": "Akwaba Ivoire",
+    "accent": "#e07a1f",
+    "image": "",
+    "outcome": {
+      "fr": "Une application de voyage pour présenter vos circuits et recevoir des réservations payées.",
+      "en": "A travel app to showcase your tours and take paid bookings."
+    },
+    "problem": {
+      "fr": "Les voyageurs étrangers veulent réserver et payer en ligne, avec des avis fiables et un guide local à portée de message.",
+      "en": "Foreign travellers want to book and pay online, with trustworthy reviews and a local guide a message away."
+    },
+    "features": {
+      "fr": ["Destinations et circuits avec photos et vidéos", "Réservation avec paiement Stripe", "Guides locaux joignables sur WhatsApp", "Avis vérifiés et informations pratiques", "Application de gestion du catalogue pour votre équipe"],
+      "en": ["Destinations and tours with photos and videos", "Booking with Stripe payment", "Local guides reachable on WhatsApp", "Verified reviews and practical information", "Catalogue manager app for your team"]
+    }
+  },
+  {
+    "slug": "immoizi",
+    "name": "Immoizi",
+    "accent": "#7a4bd1",
+    "image": "",
+    "outcome": {
+      "fr": "Mettez en relation propriétaires et locataires avec deux applications mobiles complémentaires.",
+      "en": "Connect landlords and tenants with two complementary mobile apps."
+    },
+    "problem": {
+      "fr": "Trouver et louer un logement passe encore par le bouche-à-oreille et des annonces dispersées.",
+      "en": "Finding and renting a home still relies on word of mouth and scattered listings."
+    },
+    "features": {
+      "fr": ["Application locataires : recherche de biens avec filtres", "Application gestionnaires : suivi des biens et des demandes", "Photos et vidéos des biens", "Demandes d'intérêt par messagerie intégrée", "Tableau de bord utilisable hors connexion"],
+      "en": ["Tenant app: property search with filters", "Manager app: properties and requests", "Photos and videos of each property", "Interest requests through built-in chat", "Dashboard usable offline"]
+    }
+  },
+  {
+    "slug": "cabosse",
+    "name": "Cabosse",
+    "accent": "#8a5a2b",
+    "image": "",
+    "outcome": {
+      "fr": "Collecte, paiement et traçabilité pour les coopératives agricoles, du champ à l'acheteur.",
+      "en": "Collection, payment and traceability for farming cooperatives, from field to buyer."
+    },
+    "problem": {
+      "fr": "Les coopératives pèsent, paient et suivent leurs lots sur papier, avec peu de visibilité pour les producteurs et les acheteurs.",
+      "en": "Cooperatives weigh, pay and track lots on paper, with little visibility for producers and buyers."
+    },
+    "features": {
+      "fr": ["Pesées enregistrées sur téléphone Android, même sans réseau", "Paiement des producteurs par mobile money", "Page de traçabilité par lot pour l'acheteur", "Consultation du solde par USSD", "Remontée des problèmes dans une boîte unique"],
+      "en": ["Weighings recorded on an Android phone, even offline", "Producer payments by mobile money", "Per-lot traceability page for buyers", "Balance check by USSD", "Problem reports collected in a single inbox"]
+    }
+  },
+  {
+    "slug": "petitgombo",
+    "name": "petitGombo",
+    "accent": "#d1306b",
+    "image": "",
+    "outcome": {
+      "fr": "Une place de marché de petits boulots où la sécurité passe en premier.",
+      "en": "A mini-job marketplace where safety comes first."
+    },
+    "problem": {
+      "fr": "Confier un petit travail à un inconnu, ou en accepter un, suppose de la confiance que les annonces classiques ne donnent pas.",
+      "en": "Hiring a stranger for a small job, or taking one, takes trust that classified ads do not give."
+    },
+    "features": {
+      "fr": ["Application pour les particuliers qui publient des petits travaux", "Application pour les prestataires", "Application et console pour le personnel de modération", "Analyse de menaces et contrôles documentés"],
+      "en": ["App for households posting small jobs", "App for the people doing them", "Staff app and console for moderation", "Documented threat model and controls"]
+    }
+  }
+]
