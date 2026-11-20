@@ -4,8 +4,8 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F9FAFB",
-  "theme_color": "#1389FD",
-  "description": "Ingénierie allemande au service de vos projets digitaux en Afrique : plateformes SaaS sur mesure, design UI/UX et applications mobile-first.",
+  "theme_color": "#0B5FD0",
+  "description": "Des solutions prêtes à l'emploi pour les marchés africains : choisissez un produit, nous l'adaptons, vous lancez en quelques semaines.",
   "prefer_related_applications": false,
   "categories": [
     "business",

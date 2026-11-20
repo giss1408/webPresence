@@ -1,37 +1,7 @@
-# Flutter build artefacts – rebuilt inside Docker anyway
-build/
-.dart_tool/
-
-# Flutter plugin/package metadata
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-
-# Platform targets not used for web builds
-android/
-ios/
-linux/
-macos/
-windows/
-
-# Tests (not needed in the image)
-test/
-
-# React/Node client (separate deliverable)
-client/
-client_BackUp/
-
-# Media / docs that are not Flutter assets
-resources/
-screenshots/
-devnotes.txt
-*.md
-
-# IDE
-.idea/
-.vscode/
-*.iml
-
-# Version control
 .git/
-.gitignore
+.dart_tool/
+.superpowers/
+data/
+docs/
+tool/
+assets/

@@ -1,54 +1,10 @@
-name: flutter_website
+name: regisse_site
 publish_to: none
-description: Regisse__ #Business Solutions company website (Flutter web).
-version: 2.1.0
+description: Build tools for the Regisse static website (blog and product page generators).
+version: 3.0.0
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
-  flutter: ">=3.24.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  country_flags: ^3.2.0
-  flutter_svg: ^2.0.10+1
-  logger: ^2.2.0
-  provider: ^6.1.0
-  responsive_framework: ^1.5.1
-  url_launcher: ^6.3.0
-  video_player: ^2.9.5
-
-dev_dependencies:
-  flutter_lints: ^4.0.0
-  flutter_test:
-    sdk: flutter
   markdown: ^7.3.0
-
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/images/
-    - assets/images/highlights/
-  fonts:
-    # Google Sans Flex (OFL, see assets/fonts/OFL-GoogleSansFlex.txt),
-    # instanced at 400 / 700 and subset to Latin. Named neutrally: its
-    # trademark terms don't allow implying an affiliation with Google.
-    - family: Brand Sans
-      fonts:
-        - asset: assets/fonts/brand_sans_regular.ttf
-        - asset: assets/fonts/brand_sans_bold.ttf
-          weight: 700
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/roboto_regular.ttf
-        - asset: assets/fonts/roboto_bold.ttf
-          weight: 700
-    # Few glyphs missing from the fonts above (→ ✓ ≈ and the narrow no-break
-    # space of French numbers), subset from Noto Sans Math (OFL, see
-    # assets/fonts/OFL-NotoSansMath.txt). Without it Flutter downloads
-    # fallback fonts from Google (fonts.gstatic.com).
-    - family: SiteSymbols
-      fonts:
-        - asset: assets/fonts/site_symbols.ttf

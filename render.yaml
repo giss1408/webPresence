@@ -1,13 +1,12 @@
 # Render Blueprint — https://render.com/docs/blueprint-spec
-# A static site served from Render's global CDN (no server to keep warm).
-# If this Flutter project is not the repository root, add
-# `rootDir: <path to this folder>` to the service below.
+# Static site from the committed `web/` folder, served from Render's CDN.
+# Regenerate pages locally with `dart run tool/generate_site.dart` before committing.
 services:
   - type: web
     name: regisse
     runtime: static
-    buildCommand: ./render-build.sh
-    staticPublishPath: build/web
+    buildCommand: echo "static site, nothing to build"
+    staticPublishPath: web
     pullRequestPreviewsEnabled: false
     routes:
       # Retired offer: send old links home.
@@ -23,16 +22,10 @@ services:
       - type: redirect
         source: /en/tech-due-diligence/*
         destination: /en/
-    envVars:
-      - key: FLUTTER_VERSION
-        value: 3.24.2
-      - key: APP_ENV
-        value: production
     headers:
-      # Security
       - path: /*
         name: Content-Security-Policy
-        value: "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+        value: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
@@ -45,64 +38,13 @@ services:
       - path: /*
         name: Permissions-Policy
         value: camera=(), microphone=(), geolocation=()
-      # Caching — Flutter's file names are not content-hashed, so the app
-      # entry points must be revalidated on every visit to pick up deploys.
-      # "/" serves index.html too; without this rule the CDN keeps it 5 min.
-      - path: /
+      # HTML, CSS and JS file names are not content-hashed: revalidate on every visit.
+      - path: /*
         name: Cache-Control
         value: no-cache
-      - path: /index.html
+      - path: /fonts/*
         name: Cache-Control
-        value: no-cache
-      - path: /flutter_bootstrap.js
-        name: Cache-Control
-        value: no-cache
-      - path: /splash.js
-        name: Cache-Control
-        value: no-cache
-      - path: /flutter.js
-        name: Cache-Control
-        value: no-cache
-      - path: /main.dart.js
-        name: Cache-Control
-        value: no-cache
-      - path: /flutter_service_worker.js
-        name: Cache-Control
-        value: no-cache
-      - path: /version.json
-        name: Cache-Control
-        value: no-cache
-      - path: /manifest.json
-        name: Cache-Control
-        value: no-cache
-      # Static pages (SEO landing page, blog): revalidate so edits show at once.
-      - path: /developpement-saas-mobile/*
-        name: Cache-Control
-        value: no-cache
-      - path: /blog/*
-        name: Cache-Control
-        value: no-cache
-      - path: /due-diligence-technique/*
-        name: Cache-Control
-        value: no-cache
-      - path: /en/*
-        name: Cache-Control
-        value: no-cache
-      - path: /pages.css
-        name: Cache-Control
-        value: no-cache
-      - path: /pages.js
-        name: Cache-Control
-        value: no-cache
-      - path: /assets/*
-        name: Cache-Control
-        value: public, max-age=3600, stale-while-revalidate=86400
-      - path: /canvaskit/*
-        name: Cache-Control
-        value: public, max-age=3600, stale-while-revalidate=86400
+        value: public, max-age=604800
       - path: /icons/*
         name: Cache-Control
         value: public, max-age=604800
-    # No catch-all rewrite: the app uses hash URLs (/#/portfolio), so only "/"
-    # needs index.html. Unknown paths get a real 404 (web/404.html) instead of
-    # the home page, which search engines treat as duplicate "soft 404" pages.
