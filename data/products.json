@@ -158,7 +158,23 @@
         "Interest requests through built-in chat",
         "Dashboard usable offline"
       ]
-    }
+    },
+    "screens": [
+      {
+        "src": "/img/products/immoizi-1.webp",
+        "alt": {
+          "fr": "Application locataire : biens disponibles avec photos, prix et caractéristiques (données de test)",
+          "en": "Tenant app: available properties with photos, prices and details (test data)"
+        }
+      },
+      {
+        "src": "/img/products/immoizi-2.webp",
+        "alt": {
+          "fr": "Application locataire : recherche et filtres par durée de location (données de test)",
+          "en": "Tenant app: search and filters by rental duration (test data)"
+        }
+      }
+    ]
   },
   {
     "slug": "cabosse",
