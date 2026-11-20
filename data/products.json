@@ -178,5 +178,69 @@
         "Documented threat model and controls"
       ]
     }
+  },
+  {
+    "slug": "voya",
+    "name": "Voya",
+    "accent": "#b7791f",
+    "image": "",
+    "outcome": {
+      "fr": "Une application de réservation de places pour les compagnies de transport, avec billets vérifiables sans connexion.",
+      "en": "A seat-booking app for transport operators, with boarding tickets that can be verified offline."
+    },
+    "problem": {
+      "fr": "Les compagnies de transport vendent encore leurs places au guichet ou par téléphone : pas de vision en temps réel des places libres, des doubles ventes et des billets faciles à falsifier.",
+      "en": "Transport operators still sell seats at the counter or by phone: no real-time view of free seats, double sales, and tickets that are easy to forge."
+    },
+    "features": {
+      "fr": [
+        "Application voyageur : réservez une place sans créer de compte",
+        "Places retenues quelques instants le temps de payer, pour éviter les doubles réservations",
+        "Paiement par mobile money ou carte, ou espèces à l'embarquement",
+        "Billet avec QR code signé, vérifiable hors connexion à la montée",
+        "Application de gestion pour les compagnies : véhicules, lignes, départs et liste des passagers",
+        "Administration de la plateforme : compagnies, abonnements et droits du personnel"
+      ],
+      "en": [
+        "Rider app: book a seat without creating an account",
+        "Seats held for a short time while paying, to prevent double bookings",
+        "Payment by mobile money or card, or cash on boarding",
+        "Boarding ticket with a signed QR code, verifiable offline",
+        "Fleet app for operators: vehicles, routes, trips and passenger lists",
+        "Platform administration: operators, subscriptions and staff permissions"
+      ]
+    }
+  },
+  {
+    "slug": "docuciv",
+    "name": "DocuCiv",
+    "accent": "#0f766e",
+    "image": "",
+    "outcome": {
+      "fr": "Une plateforme pour demander, traiter et suivre les documents administratifs en ligne, entre citoyens, administrations et entreprises.",
+      "en": "A platform to request, process and track administrative documents online, between citizens, administrations and businesses."
+    },
+    "problem": {
+      "fr": "Obtenir un acte ou un certificat suppose de se déplacer, de faire la queue et de ne rien savoir de l'avancement de sa demande.",
+      "en": "Getting a certificate means travelling, queueing and having no idea how your request is progressing."
+    },
+    "features": {
+      "fr": [
+        "Demande en ligne avec référence du document concerné",
+        "Envoi d'une pièce justificative depuis le téléphone, contrôlée à la réception",
+        "File de traitement pour les agents de l'administration émettrice",
+        "Suivi de la demande, étape par étape, avec notifications",
+        "Réclamations côté citoyen et côté administration",
+        "Application citoyen, portail administration et espace propriétaire de la plateforme"
+      ],
+      "en": [
+        "Online request with the reference of the document concerned",
+        "Supporting document sent from the phone and checked on receipt",
+        "Review queue for agents of the issuing administration",
+        "Step-by-step request tracking with notifications",
+        "Complaints from both the citizen and the administration",
+        "Citizen app, administration portal and platform owner back office"
+      ]
+    }
   }
 ]

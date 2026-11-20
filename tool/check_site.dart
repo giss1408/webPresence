@@ -140,9 +140,18 @@ void checkProductFields() {
     }
   }
   const expected = {
-    'fidelia', 'supermarche', 'akwaba-ivoire', 'immoizi', 'cabosse', 'petitgombo'
+    'fidelia', 'supermarche', 'akwaba-ivoire', 'immoizi', 'cabosse', 'petitgombo',
+    'voya', 'docuciv'
   };
   final slugs = list.map((e) => (e as Map)['slug']).toSet();
+  // The home pages show the product count in the proof numbers.
+  for (final p in ['web/index.html', 'web/en/index.html']) {
+    final h = File(p);
+    if (h.existsSync() &&
+        !h.readAsStringSync().contains('data-count="${list.length}"')) {
+      fail('product-fields', '$p proof number is not ${list.length}');
+    }
+  }
   if (!slugs.containsAll(expected)) {
     fail('product-fields', 'missing slugs: ${expected.difference(slugs)}');
   }

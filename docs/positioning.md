@@ -4,7 +4,7 @@
 
 **Primary audience:** a founder or business owner who wants an app built and would rather start from a working product than a blank page.
 
-**Products on offer:** Fidelia (merchant fintech), Supermarché (retail), Akwaba Ivoire (tourism), Immoizi (real estate), Cabosse (cocoa cooperatives), petitGombo (mini-jobs marketplace).
+**Products on offer:** Fidelia (merchant fintech), Supermarché (retail), Akwaba Ivoire (tourism), Immoizi (real estate), Cabosse (cocoa cooperatives), petitGombo (mini-jobs marketplace), Voya (transport seat booking), DocuCiv (administrative documents).
 
 **Method:** Choose, Adapt, Launch, Support.
 
